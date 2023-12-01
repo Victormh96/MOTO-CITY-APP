@@ -42,7 +42,7 @@ function getToken() {
 
             headers: {
 
-                Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjoidmljdG9yLmhlcm5hbmRleiIsInBhc3N3b3JkIjoiMTIzNDU2NzgiLCJjcmVhZG8iOiIyMDIzLTExLTIzVDAwOjAwOjAwLjAwMFoiLCJpYXQiOjE3MDEzODk3MTYsImV4cCI6MTcwMTM5MzMxNn0.AvNaeKpTv-vyzIqXOSk-EYw5a_ne0t1TzifXaWdijig`
+                Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjoidmljdG9yLmhlcm5hbmRleiIsInBhc3N3b3JkIjoiMTIzNDU2NzgiLCJjcmVhZG8iOiIyMDIzLTExLTIzVDAwOjAwOjAwLjAwMFoiLCJpYXQiOjE3MDE0NDIxNDUsImV4cCI6MTcwMTQ0NTc0NX0.L8Gwkr7fgupyZMZhqvDRXom1cWwWEeN5XobRxDDnR3s`
             }
         }
     }
