@@ -1,7 +1,7 @@
 import App from "./App.vue"
+import store from "./store"
 import router from "./router"
 import { createApp } from "vue"
-
 import Antd from "ant-design-vue"
 import VueTheMask from "vue-the-mask"
 
@@ -10,7 +10,10 @@ import "../public/css/main.css"
 
 const app = createApp(App)
 
-app.use(Antd)
+app.config.globalProperties.imagen = process.env.VUE_APP_URL_IMG
+
+app.use(store)
+    .use(Antd)
     .use(router)
     .use(VueTheMask)
     .mount("#app")

@@ -1,6 +1,6 @@
 const credicityRoutes = [
     {
-        path: '/',
+        path: '/go',
         name: 'Go',
         component: () => import("@/views/ViewGo.vue")
     },

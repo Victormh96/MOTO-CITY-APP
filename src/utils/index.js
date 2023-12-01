@@ -1,8 +1,26 @@
+import store from "../store"
+import router from "@/router"
 import { message } from "ant-design-vue"
 
 function getLetter(data) {
 
     return data.toUpperCase()
+}
+
+const getOpen = (err) => {
+
+    router.push("/go")
+
+    const key = "open"
+
+    message.success({
+
+        key,
+
+        duration: 3,
+
+        content: err + '.'
+    })
 }
 
 const getWarning = (err) => {
@@ -35,14 +53,14 @@ function getToken() {
 
         body: {
 
-            slpcode: 1 
+            slpcode: store.state.authentication?.cuenta?.slpcode 
         },
 
         config: {
 
             headers: {
 
-                Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjoidmljdG9yLmhlcm5hbmRleiIsInBhc3N3b3JkIjoiMTIzNDU2NzgiLCJjcmVhZG8iOiIyMDIzLTExLTIzVDAwOjAwOjAwLjAwMFoiLCJpYXQiOjE3MDE0NDIxNDUsImV4cCI6MTcwMTQ0NTc0NX0.L8Gwkr7fgupyZMZhqvDRXom1cWwWEeN5XobRxDDnR3s`
+                Authorization: store.state.authentication?.cuenta?.token
             }
         }
     }
@@ -50,4 +68,4 @@ function getToken() {
     return data
 }
 
-export { getLetter, getWarning, getError, getToken } 
+export { getLetter, getOpen, getWarning, getError, getToken } 
