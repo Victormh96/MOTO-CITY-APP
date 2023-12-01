@@ -29,26 +29,20 @@ const getError = (err) => {
     })
 }
 
-function getToken(record) {
+function getToken() {
 
     const data = {
 
         body: {
 
-            message: {
-
-                key: {
-
-                    record: record,
-
-                    responseType: 'blob'
-                }
-            }
+            slpcode: 1 
         },
 
         config: {
+
             headers: {
-                Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjoidmljdG9yLmhlcm5hbmRleiIsInBhc3N3b3JkIjoiMTIzNDU2NzgiLCJjcmVhZG8iOiIyMDIzLTExLTIzVDAwOjAwOjAwLjAwMFoiLCJpYXQiOjE3MDEwOTY1MDYsImV4cCI6MTcwMTA5NjU2Nn0.0VLjT5z7d6MG7MXnJDqVaGyN-EAckfPlKnAe8W_ex80`
+
+                Authorization: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjoidmljdG9yLmhlcm5hbmRleiIsInBhc3N3b3JkIjoiMTIzNDU2NzgiLCJjcmVhZG8iOiIyMDIzLTExLTIzVDAwOjAwOjAwLjAwMFoiLCJpYXQiOjE3MDEzODk3MTYsImV4cCI6MTcwMTM5MzMxNn0.AvNaeKpTv-vyzIqXOSk-EYw5a_ne0t1TzifXaWdijig`
             }
         }
     }

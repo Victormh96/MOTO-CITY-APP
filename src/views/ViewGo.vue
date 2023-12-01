@@ -8,38 +8,35 @@
         <!--Container-->
         <div class="container-fluid mt-3 mt-md-4">
 
-
             <!--Enlace-->
             <router-link :to="{ name: 'Form' }">
 
                 <!--Button-->
-                <a-button class="default mb-3">
-                    NUEVO DOCUMENTO
-                </a-button>
+                <a-button class="default mb-3">NUEVO DOCUMENTO</a-button>
             </router-link>
 
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourceEx" :columns="columnce" bordered
+            <a-table :pagination="pagination" :data-source="dataSourceMp" :columns="columnce" bordered
                 :scroll="{ x: 1400 }">
 
                 <!--Template-->
                 <template #bodyCell="{ column, record }">
 
                     <!--Template-->
-                    <template v-if="column.key === 'columna6'">
+                    <template v-if="column.key === 'dui'">
 
                         <!--Typography-->
                         <a-typography-paragraph :copyable="{ tooltip: false }">
-                            {{ record.columna6 }}
+                            {{ record.dui }}
                         </a-typography-paragraph>
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'columna18'">
+                    <template v-if="column.key === 'chasis'">
 
                         <!--Typography-->
                         <a-typography-paragraph :copyable="{ tooltip: false }">
-                            {{ record.columna18 }}
+                            {{ record.chasis }}
                         </a-typography-paragraph>
                     </template>
                 </template>
@@ -84,6 +81,7 @@ import {
 } from "vue"
 
 import {
+    getToken,
     getWarning
 } from "@/utils/index"
 
@@ -100,7 +98,7 @@ export default {
         return {
             loading: false,
 
-            dataSourceEx: [],
+            dataSourceMp: [],
 
             pagination: {
 
@@ -117,16 +115,11 @@ export default {
 
         try {
 
-            const excel = await axios.get(GetMutuoPrendarioApi,
-            
-            {
-  "headers": {
-    "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjoidmljdG9yLmhlcm5hbmRleiIsInBhc3N3b3JkIjoiMTIzNDU2NzgiLCJjcmVhZG8iOiIyMDIzLTExLTIzVDAwOjAwOjAwLjAwMFoiLCJpYXQiOjE3MDEzODMwNjMsImV4cCI6MTcwMTM4MzEyM30.uSVjy4XMZ29p-Ra1OxrTirNTgWssiqDyXNY064G0yH0"
-  }
-}
-)
+            const { body, config } = getToken()
 
-            this.dataSourceEx = excel?.data?.MutuoPrendario
+            const mutuoprendario = await axios.post(GetMutuoPrendarioApi, body, config)
+
+            this.dataSourceMp = mutuoprendario?.data
 
             this.loading = true
 
@@ -141,6 +134,7 @@ export default {
     },
 
     setup() {
+
         const focusearch = ref()
 
         const state = reactive({
@@ -154,9 +148,9 @@ export default {
 
             title: "NOMBRE",
 
-            dataIndex: "columna1",
+            dataIndex: "nombre",
 
-            key: "columna1",
+            key: "nombre",
 
             align: "center",
 
@@ -164,26 +158,22 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.columna1.toString().toLowerCase().includes(value.toLowerCase()),
+                record.nombre.toString().toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownVisibleChange: visible => {
 
                 if (visible) {
 
-                    setTimeout(() => {
-
-                        focusearch.value.focus()
-
-                    }, 100)
+                    setTimeout(() => { focusearch.value.focus() }, 100)
                 }
             }
         },
         {
             title: "DUI",
 
-            dataIndex: "columna6",
+            dataIndex: "dui",
 
-            key: "columna6",
+            key: "dui",
 
             align: "center",
 
@@ -191,26 +181,22 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.columna6.toString().toLowerCase().includes(value.toLowerCase()),
+                record.dui.toString().toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownVisibleChange: visible => {
 
                 if (visible) {
 
-                    setTimeout(() => {
-
-                        focusearch.value.focus()
-
-                    }, 100)
+                    setTimeout(() => { focusearch.value.focus() }, 100)
                 }
             }
         },
         {
             title: "DEPARTAMENTO",
 
-            dataIndex: "columna4",
+            dataIndex: "departamento",
 
-            key: "columna4",
+            key: "departamento",
 
             align: "center",
 
@@ -218,26 +204,22 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.columna4.toString().toLowerCase().includes(value.toLowerCase()),
+                record.departamento.toString().toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownVisibleChange: visible => {
 
                 if (visible) {
 
-                    setTimeout(() => {
-
-                        focusearch.value.focus()
-
-                    }, 100)
+                    setTimeout(() => { focusearch.value.focus() }, 100)
                 }
             }
         },
         {
             title: "MUNICIPIO",
 
-            dataIndex: "columna5",
+            dataIndex: "municipio",
 
-            key: "columna5",
+            key: "municipio",
 
             align: "center",
 
@@ -245,26 +227,22 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.MUNICIPIO.toString().toLowerCase().includes(value.toLowerCase()),
+                record.municipio.toString().toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownVisibleChange: visible => {
 
                 if (visible) {
 
-                    setTimeout(() => {
-
-                        focusearch.value.focus()
-
-                    }, 100)
+                    setTimeout(() => { focusearch.value.focus() }, 100)
                 }
             }
         },
         {
             title: "MOTO",
 
-            dataIndex: "columna14",
+            dataIndex: "modelo",
 
-            key: "columna14",
+            key: "modelo",
 
             align: "center",
 
@@ -272,26 +250,22 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.MOTO.toString().toLowerCase().includes(value.toLowerCase()),
+                record.modelo.toString().toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownVisibleChange: visible => {
 
                 if (visible) {
 
-                    setTimeout(() => {
-
-                        focusearch.value.focus()
-
-                    }, 100)
+                    setTimeout(() => { focusearch.value.focus() }, 100)
                 }
             }
         },
         {
             title: "NUMERO CHASIS",
 
-            dataIndex: "columna18",
+            dataIndex: "n_chasis",
 
-            key: "columna18",
+            key: "n_chasis",
 
             align: "center",
 
@@ -299,17 +273,13 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.columna18.toString().toLowerCase().includes(value.toLowerCase()),
+                record.n_chasis.toString().toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownVisibleChange: visible => {
 
                 if (visible) {
 
-                    setTimeout(() => {
-
-                        focusearch.value.focus()
-
-                    }, 100)
+                    setTimeout(() => { focusearch.value.focus() }, 100)
                 }
             }
         }]
@@ -332,6 +302,7 @@ export default {
     },
 
     methods: {
+
         doChangeScrollto() {
 
             window.scrollTo({
