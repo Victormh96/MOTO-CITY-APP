@@ -338,7 +338,7 @@ import {
 } from "@/utils/data"
 
 import {
-    getToken,
+    getCreate,
     getError,
     getLetter
 } from "@/utils/index"
@@ -354,7 +354,7 @@ import {
 const useForm = Form.useForm
 
 import axios from "axios"
-import router from "@/router"
+//import router from "@/router"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
 
@@ -671,9 +671,9 @@ export default {
 
             try {
 
-                const { record } = getToken(this.formstate)
+                const { body, config } = getCreate(this.formstate)
 
-                const response = await axios.post(PostMutuoPrendarioApi, record)
+                const response = await axios.post(PostMutuoPrendarioApi, body, config)
 
                 const blob = new Blob(
 
@@ -681,11 +681,11 @@ export default {
 
                     { type: 'application/pdf' })
 
-                saveAs(blob, `CV${this.formstate?.DUI}`)
+                saveAs(blob, `${this.formstate?.DUI}`)
 
-                this.doChangeFieldClear
+                //this.doChangeFieldClear
 
-                router.push('/')
+                //router.push('/')
 
             } catch (err) {
 

@@ -117,7 +117,7 @@ export default {
 
             const { body, config } = getToken()
 
-            const mutuoprendario = await axios.post(GetMutuoPrendarioApi, body, config)
+            const mutuoprendario = await axios.post(GetMutuoPrendarioApi, body, config) 
 
             this.dataSourceMp = mutuoprendario?.data
 
