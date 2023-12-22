@@ -7,6 +7,21 @@ function getLetter(data) {
     return data.toUpperCase()
 }
 
+const getClose = (err) => {
+
+    const key = 'updatable'
+
+    message.loading({ content: 'Cerrando sesión...', key })
+
+    setTimeout(() => {
+
+        router.push("/")
+
+        message.warning({ content: err + '.', key, duration: 3 })
+
+    }, 1500)
+}
+
 const getOpen = (err) => {
 
     router.push("/go")
@@ -86,7 +101,7 @@ function getCreate(record) {
 
             DUI: record?.DUI,
 
-            MONTO: record?.MONTO,
+            PRECIO: record?.PRECIO,
 
             PLAZO: record?.PLAZO,
 
@@ -114,12 +129,14 @@ function getCreate(record) {
 
             TIPO: record?.TIPO,
 
-            PLANTILLA: 1,
+            PLANTILLA: record?.PLANTILLA,
 
             USUARIO: store.state.authentication?.cuenta?.slpcode
         },
 
         config: {
+
+            responseType: 'blob',
 
             headers: {
 
@@ -131,4 +148,4 @@ function getCreate(record) {
     return data
 }
 
-export { getLetter, getOpen, getWarning, getError, getToken, getCreate } 
+export { getLetter, getClose, getOpen, getWarning, getError, getToken, getCreate } 

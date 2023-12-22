@@ -6,7 +6,7 @@
     <a-layout-content class="fade-out" v-if="(loading)">
 
         <!--Container-->
-        <div class="container mb-3 mb-xl-4 mt-2">
+        <div class="container mb-3">
 
             <!--Step-->
             <a-steps :current="current" :percent="doChangePorcentaje()">
@@ -29,6 +29,18 @@
                     <a-col :span="24">
 
                         <!--Group-->
+                        <a-form-item label="Plantilla:" v-bind="validateInfos.PLANTILLA">
+
+                            <!--Select-->
+                            <a-select v-model:value="formstate.PLANTILLA" show-search :options="dataSourcePl"
+                                :filter-option="filterOption" />
+                        </a-form-item>
+                    </a-col>
+
+                    <!--Col-->
+                    <a-col :span="24">
+
+                        <!--Group-->
                         <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
 
                             <!--Input-->
@@ -37,53 +49,7 @@
                     </a-col>
 
                     <!--Col-->
-                    <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
-
-                        <!--Group-->
-                        <a-form-item label="Edad:" v-bind="validateInfos.EDAD">
-
-                            <!--Input-->
-                            <a-input type="tel" v-model:value="formstate.EDAD" v-mask="'##'" :min="2" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
-
-                        <!--Group-->
-                        <a-form-item label="Dui:" v-bind="validateInfos.DUI">
-
-                            <!--Input-->
-                            <a-input type="tel" v-model:value="formstate.DUI" v-mask="'########-#'" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
-
-                        <!--Group-->
-                        <a-form-item label="Departamento:" v-bind="validateInfos.DEPARTAMENTO">
-
-                            <!--Select-->
-                            <a-select v-model:value="formstate.DEPARTAMENTO" show-search @change="doChangeMunicipio"
-                                :options="getDepartamento" :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
-
-                        <!--Group-->
-                        <a-form-item label="Municipio:" v-bind="validateInfos.MUNICIPIO">
-
-                            <!--Select-->
-                            <a-select v-model:value="formstate.MUNICIPIO" show-search :options="dataSourceMn"
-                                :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
+                    <a-col :span="24">
 
                         <!--Group-->
                         <a-form-item label="Profesion:" v-bind="validateInfos.PROFESION">
@@ -95,66 +61,57 @@
                     </a-col>
 
                     <!--Col-->
-                    <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
+                    <a-col :span="24">
 
                         <!--Group-->
-                        <a-form-item label="Monto:" v-bind="validateInfos.MONTO">
+                        <a-form-item label="Dui:" v-bind="validateInfos.DUI">
 
                             <!--Input-->
-                            <a-input-number type="tel" v-model:value="formstate.MONTO" :min="1" />
+                            <a-input type="tel" v-model:value="formstate.DUI" v-mask="'########-#'" />
                         </a-form-item>
                     </a-col>
 
                     <!--Col-->
-                    <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
+                    <a-col :span="24">
 
                         <!--Group-->
-                        <a-form-item label="Plazo:" v-bind="validateInfos.PLAZO">
+                        <a-form-item label="Departamento:" v-bind="validateInfos.DEPARTAMENTO">
 
-                            <!--Input-->
-                            <a-input-number type="tel" v-model:value="formstate.PLAZO" :min="3" />
+                            <!--Select-->
+                            <a-select v-model:value="formstate.DEPARTAMENTO" show-search @change="doChangeMunicipio"
+                                :options="getDepartamento" :filter-option="filterOption" />
                         </a-form-item>
                     </a-col>
 
                     <!--Col-->
-                    <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
+                    <a-col :span="24">
 
                         <!--Group-->
-                        <a-form-item label="Interes:" v-bind="validateInfos.INTERES">
+                        <a-form-item label="Municipio:" v-bind="validateInfos.MUNICIPIO">
 
-                            <!--Input-->
-                            <a-input-number type="tel" v-model:value="formstate.INTERES" :min="1" />
+                            <!--Select-->
+                            <a-select v-model:value="formstate.MUNICIPIO" show-search :options="dataSourceMn"
+                                :filter-option="filterOption" />
                         </a-form-item>
                     </a-col>
 
                     <!--Col-->
-                    <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
+                    <a-col :span="24">
 
                         <!--Group-->
-                        <a-form-item label="Cuota:" v-bind="validateInfos.CUOTA">
+                        <a-form-item label="Precio Venta:" v-bind="validateInfos.PRECIO">
 
                             <!--Input-->
-                            <a-input-number v-model:value="formstate.CUOTA" :min="3" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
-
-                        <!--Group-->
-                        <a-form-item label="Cuota Monto:" v-bind="validateInfos.CANTIDAD">
-
-                            <!--Input-->
-                            <a-input-number type="tel" v-model:value="formstate.CANTIDAD" :min="1" />
+                            <a-input-number type="tel" v-model:value="formstate.PRECIO" :min="1" />
                         </a-form-item>
                     </a-col>
                 </a-row>
 
                 <!--Row-->
-                <a-row :gutter="[24, 16]" v-if="current === 1">
+                <a-row :gutter="[24, 24]" v-if="current === 1">
 
                     <!--Col-->
-                    <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
+                    <a-col :span="24">
 
                         <!--Group-->
                         <a-form-item label="Poliza:" v-bind="validateInfos.POLIZA">
@@ -169,35 +126,38 @@
                     </a-col>
 
                     <!--Col-->
-                    <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
+                    <a-col :span="24">
 
                         <!--Group-->
                         <a-form-item label="Año:" v-bind="validateInfos.ANIO">
 
-                            <!--Input-->
-                            <a-input type="tel" v-model:value="formstate.ANIO" placeholder="YYYY" v-mask="'####'" />
+                            <!--Select-->
+                            <a-select v-model:value="formstate.ANIO" show-search :options="getAnio"
+                                :filter-option="filterOption" />
                         </a-form-item>
                     </a-col>
 
                     <!--Col-->
-                    <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
+                    <a-col :span="24">
 
                         <!--Group-->
                         <a-form-item label="Marca:" v-bind="validateInfos.MARCA">
 
-                            <!--Input-->
-                            <a-input v-model:value="formstate.MARCA" @change="doChangeLetter('MARCA')" />
+                            <!--Select-->
+                            <a-select v-model:value="formstate.MARCA" show-search @change="doChangeModelo"
+                                :options="getMarca" :filter-option="filterOption" />
                         </a-form-item>
                     </a-col>
 
                     <!--Col-->
-                    <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
+                    <a-col :span="24">
 
                         <!--Group-->
                         <a-form-item label="Modelo:" v-bind="validateInfos.MODELO">
 
-                            <!--Input-->
-                            <a-input v-model:value="formstate.MODELO" @change="doChangeLetter('MODELO')" />
+                            <!--Select-->
+                            <a-select v-model:value="formstate.MODELO" show-search :options="dataSourceMd"
+                                :filter-option="filterOption" />
                         </a-form-item>
                     </a-col>
 
@@ -207,8 +167,9 @@
                         <!--Group-->
                         <a-form-item label="Color:" v-bind="validateInfos.COLOR">
 
-                            <!--Input-->
-                            <a-input v-model:value="formstate.COLOR" @change="doChangeLetter('COLOR')" />
+                            <!--Select-->
+                            <a-select v-model:value="formstate.COLOR" show-search :options="getColor"
+                                :filter-option="filterOption" />
                         </a-form-item>
                     </a-col>
 
@@ -244,32 +205,19 @@
                             <a-input v-model:value="formstate.NUMEROCHASIS" @change="doChangeLetter('NUMEROCHASIS')" />
                         </a-form-item>
                     </a-col>
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Numero VIN:" v-bind="validateInfos.NUMEROVIN">
-
-                            <!--Input-->
-                            <a-input v-model:value="formstate.NUMEROVIN" @change="doChangeLetter('NUMEROVIN')" />
-                        </a-form-item>
-                    </a-col>
-
-
                 </a-row>
             </a-form>
         </div>
 
         <!--Container-->
-        <div class="container mb-3">
+        <div class="container">
 
             <!--Div-->
             <div class="steps-action formulario">
 
                 <!--Button-->
                 <a-button v-if="current < steps.length - 1" @click="next(); doChangeScrollto()"
-                    class="completar mb-4 mb-md-0 me-0 me-md-4">
+                    class="button-completar mb-4 mb-md-0 me-0 me-md-4">
                     Siguiente
                 </a-button>
 
@@ -278,13 +226,13 @@
                     v-if="current === steps.length - 1">
 
                     <!--Button-->
-                    <a-button class="completar mb-4 mb-md-0 me-0 me-md-4">
+                    <a-button class="button-completar mb-4 mb-md-0 me-0 me-md-4">
                         Completar
                     </a-button>
                 </a-popconfirm>
 
                 <!--Button-->
-                <a-button v-if="current > 0" @click="prev(); doChangeScrollto()" class="siguiente">
+                <a-button v-if="current > 0" @click="prev(); doChangeScrollto()" class="button-siguiente">
                     Volver
                 </a-button>
 
@@ -293,7 +241,7 @@
                     v-if="current === 0">
 
                     <!--Button-->
-                    <a-button class="siguiente">
+                    <a-button class="button-siguiente">
                         Limpiar
                     </a-button>
                 </a-popconfirm>
@@ -328,19 +276,25 @@ import {
 } from "file-saver"
 
 import {
-    isDUI
-} from "sivar-utils"
+    isValidDUI
+} from "@avalontechsv/idsv"
 
 import {
+    getAnio,
+    getColor,
+    getMarca,
+    getModelo,
     getMunicipio,
     getProfesion,
     getDepartamento
 } from "@/utils/data"
 
 import {
-    getCreate,
+    getToken,
     getError,
-    getLetter
+    getLetter,
+    getCreate,
+    getWarning
 } from "@/utils/index"
 
 import {
@@ -348,7 +302,8 @@ import {
 } from "ant-design-vue"
 
 import {
-    PostMutuoPrendarioApi
+    GetPlantillaApi,
+    PostCompraVentaApi
 } from "@/services/paths"
 
 const useForm = Form.useForm
@@ -363,12 +318,17 @@ export default {
         return {
             loading: false,
 
+            getAnio,
+            getColor,
+            getMarca,
+            getModelo,
             getMunicipio,
             getProfesion,
             getDepartamento,
 
             dataSourceMn: [],
             dataSourceMd: [],
+            dataSourcePl: [],
 
             steps: [
 
@@ -381,22 +341,35 @@ export default {
 
     async created() {
 
-        setTimeout(() => {
+        try {
+
+            const { config } = getToken()
+
+            const plantilla = await axios.get(GetPlantillaApi, config)
+
+            this.dataSourcePl = plantilla?.data
 
             this.loading = true
 
-        }, 950)
+        } catch (err) {
+
+            console.error(err)
+
+            this.loading = false
+
+            getWarning(err.response?.data?.mensaje)
+        }
     },
 
     setup() {
 
-        const current = ref(0)
+        const current = ref(1)
 
         const formstate = reactive({
 
-            NOMBRE: null,
+            PLANTILLA: null,
 
-            EDAD: null,
+            NOMBRE: null,
 
             PROFESION: null,
 
@@ -406,15 +379,7 @@ export default {
 
             DUI: null,
 
-            MONTO: null,
-
-            PLAZO: null,
-
-            CUOTA: null,
-
-            CANTIDAD: null,
-
-            INTERES: null,
+            PRECIO: null,
 
             POLIZA: null,
 
@@ -430,12 +395,18 @@ export default {
 
             NUMEROCHASIS: null,
 
-            NUMEROVIN: null,
-
             TIPO: 'URBANO'
         })
 
         const rules = reactive({
+
+            PLANTILLA: [
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
+                }
+            ],
 
             NOMBRE: [
                 {
@@ -447,19 +418,6 @@ export default {
                     min: 8,
 
                     message: "Minimo 8 caracteres"
-                }
-            ],
-
-            EDAD: [
-                {
-                    required: true,
-
-                    message: "Campo Requerido"
-                },
-                {
-                    min: 2,
-
-                    message: "Minimo 2 caracteres"
                 }
             ],
 
@@ -498,7 +456,7 @@ export default {
 
                         const { DUI } = formstate
 
-                        if (isDUI(DUI) == false && DUI !== null && DUI !== '') {
+                        if (isValidDUI(DUI) == false && DUI !== null && DUI !== '') {
 
                             return Promise.reject(
 
@@ -509,39 +467,7 @@ export default {
                 }
             ],
 
-            MONTO: [
-                {
-                    required: true,
-
-                    message: "Campo Requerido"
-                }
-            ],
-
-            PLAZO: [
-                {
-                    required: true,
-
-                    message: "Campo Requerido"
-                }
-            ],
-
-            CUOTA: [
-                {
-                    required: true,
-
-                    message: "Campo Requerido"
-                }
-            ],
-
-            CANTIDAD: [
-                {
-                    required: true,
-
-                    message: "Campo Requerido"
-                }
-            ],
-
-            INTERES: [
+            PRECIO: [
                 {
                     required: true,
 
@@ -610,14 +536,6 @@ export default {
                 }
             ],
 
-            NUMEROVIN: [
-                {
-                    required: true,
-
-                    message: "Campo Requerido"
-                }
-            ],
-
             TIPO: [
                 {
                     required: true,
@@ -628,14 +546,16 @@ export default {
         })
 
         const {
+
             validate,
+
             validateInfos,
 
         } = useForm(formstate, rules)
 
         const next = () => {
 
-            const fieldsToValidate = ['NOMBRE', 'EDAD', 'PROFESION', 'DEPARTAMENTO', 'MUNICIPIO', 'DUI', 'MONTO', 'PLAZO', 'CUOTA', 'CANTIDAD', 'INTERES']
+            const fieldsToValidate = ['PLANTILLA', 'NOMBRE', 'PROFESION', 'DEPARTAMENTO', 'MUNICIPIO', 'DUI', 'PRECIO']
 
             validate(fieldsToValidate).then(() => {
 
@@ -673,7 +593,7 @@ export default {
 
                 const { body, config } = getCreate(this.formstate)
 
-                const response = await axios.post(PostMutuoPrendarioApi, body, config)
+                const response = await axios.post(PostCompraVentaApi, body, config)
 
                 const blob = new Blob(
 
@@ -681,7 +601,7 @@ export default {
 
                     { type: 'application/pdf' })
 
-                saveAs(blob, `${this.formstate?.DUI}`)
+                saveAs(blob, `COMPRA-VENTA-${this.formstate?.DUI}`)
 
                 //this.doChangeFieldClear
 
@@ -709,6 +629,15 @@ export default {
             const data = getMunicipio.filter(item => item.departamento === this.formstate.DEPARTAMENTO)
 
             this.dataSourceMn = data
+        },
+
+        doChangeModelo() {
+
+            this.formstate.MODELO = null
+
+            const data = getModelo.filter(item => item.marca === this.formstate.MARCA)
+
+            this.dataSourceMd = data
         },
 
         doChangeLetter(item) {

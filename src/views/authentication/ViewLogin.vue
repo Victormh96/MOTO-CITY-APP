@@ -1,6 +1,6 @@
 <template>
-    <!--Video-->
-    <video src="/img/christmas/video-christmas.mp4" autoplay="true" muted="true" loop="true" />
+    <!--Img-->
+    <img src="@/../public/img/original.png" class="img-fondo">
 
     <!--Component-->
     <Login />

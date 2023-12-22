@@ -21,7 +21,7 @@ export default {
     },
 
     mutations: {
-        
+
         MutationCuenta(state, data) {
 
             state.cuenta = data
@@ -44,21 +44,21 @@ export default {
 
                     commit('MutationCuenta', response.data)
 
-                    getOpen('Bienvenido a MotocityApp')
+                    getOpen('Bienvenido a Motocity App')
                 })
 
-                    .catch((err) => {
+                .catch((err) => {
 
-                        if (err?.response?.status == 401) {
+                    if (err?.response?.status == 401) {
 
-                            getWarning(err?.response?.data?.message)
+                        getWarning(err?.response?.data?.message)
 
-                        } else {
+                    } else {
 
-                            getError('Error de servidor')
-                        }
-                    })
-            },
+                        getError('Error de servidor')
+                    }
+                })
+        },
 
         async CuentaCerrar({ commit }) {
 

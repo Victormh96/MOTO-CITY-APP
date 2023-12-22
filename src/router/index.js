@@ -1,11 +1,11 @@
 import store from "../store"
 import { createRouter, createWebHistory } from "vue-router"
-import { credicityRoutes } from "@/router/credicity/credicityRoutes"
+import { motocityRoutes } from "@/router/motocity/motocityRoutes"
 import { authenticationRoutes } from "@/router/authentication/authenticationRoutes"
 
 const routes = [
 
-    ...credicityRoutes,
+    ...motocityRoutes,
 
     ...authenticationRoutes,
 
@@ -15,7 +15,7 @@ const routes = [
         name: "Notfound",
 
         meta: { requiresAuth: true },
-        
+
         component: () => import("@/views/error/ViewNotFound.vue")
     }
 ]
@@ -34,11 +34,11 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 
-    if (to.meta.requiresAuth && !store.state.authentication?.cuenta?.access_token && !store.state.authentication?.cuenta?.key_security) {
+    if (to.meta.requiresAuth && !store.state.authentication?.cuenta?.token) {
 
         next('/')
 
-    } else if (to.path === '/' && store.state.authentication?.cuenta?.access_token && store.state.authentication?.cuenta?.key_security) {
+    } else if (to.path === '/' && store.state.authentication?.cuenta?.token) {
 
         next('/go')
 

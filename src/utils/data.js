@@ -1507,7 +1507,163 @@ const getProfesion = [
     {
         value: "AGRICULTOR PEQUEÑO",
         label: "AGRICULTOR PEQUEÑO"
+    },
+    {
+        value: "MOTORISTA",
+        label: "MOTORISTA"
     }
 ]
 
-export { getDepartamento, getMunicipio, getProfesion } 
+const getAnio = [
+    {
+        value: "DOS MIL VEINTIDOS",
+        label: "2022"
+    },
+    {
+        value: "DOS MIL VEINTITRES",
+        label: "2023"
+    },
+    {
+        value: "DOS MIL VEINTICUATRO",
+        label: "2024"
+    },
+    {
+        value: "DOS MIL VEINTICINCO",
+        label: "2025"
+    },
+    {
+        value: "DOS MIL VEINTISEIS",
+        label: "2026"
+    },
+    {
+        value: "DOS MIL VEINTISIETE",
+        label: "2027"
+    },
+    {
+        value: "DOS MIL VEINTIOCHO",
+        label: "2028"
+    }
+]
+
+const getMarca = [
+    {
+        value: "DAYUN",
+        label: "DAYUN"
+    },
+    {
+        value: "KATANA",
+        label: "KATANA"
+    }
+]
+
+const getModelo = [
+    {
+        value: "DY125-6",
+        label: "DY125-6",
+        marca: "DAYUN"
+    },
+    {
+        value: "DY150-29",
+        label: "DY150-29",
+        marca: "DAYUN"
+    },
+    {
+        value: "DY150",
+        label: "DY150",
+        marca: "DAYUN"
+    },
+    {
+        value: "DY150-6E",
+        label: "DY150-6E",
+        marca: "DAYUN"
+    },
+    {
+        value: "DY200-9",
+        label: "DY200-9",
+        marca: "DAYUN"
+    },
+    {
+        value: "DY150-16D",
+        label: "DY150-16D",
+        marca: "DAYUN"
+    },
+    {
+        value: "SMX200",
+        label: "SMX200",
+        marca: "KATANA"
+    },
+    {
+        value: "SMX150",
+        label: "SMX150",
+        marca: "KATANA"
+    },
+    {
+        value: "R1-200",
+        label: "R1-200",
+        marca: "KATANA"
+    },
+    {
+        value: "MK1",
+        label: "MK1",
+        marca: "KATANA"
+    },
+    {
+        value: "CR150",
+        label: "CR150",
+        marca: "KATANA"
+    },
+    {
+        value: "NAVE 150",
+        label: "NAVE 150",
+        marca: "KATANA"
+    }
+]
+
+const getColor = [
+    {
+        value: "AZUL C/F MULTICOLOR",
+        label: "AZUL C/F MULTICOLOR"
+    },
+    {
+        value: "BLANCO C/F MULTICOLOR",
+        label: "BLANCO C/F MULTICOLOR"
+    },
+    {
+        value: "ROJO C/F MULTICOLOR",
+        label: "ROJO C/F MULTICOLOR"
+    },
+    {
+        value: "NEGRO C/F MULTICOLOR",
+        label: "NEGRO C/F MULTICOLOR"
+    },
+    {
+        value: "ROJO",
+        label: "ROJO"
+    },
+    {
+        value: "NEGRO",
+        label: "NEGRO"
+    },
+    {
+        value: "PLATEADO",
+        label: "PLATEADO"
+    },
+    {
+        value: "AZUL",
+        label: "AZUL"
+    },
+    {
+        value: "ROJO/GRIS",
+        label: "ROJO/GRIS"
+    },
+    {
+        value: "NEGRO/GRIS/ROJO",
+        label: "NEGRO/GRIS/ROJO"
+    },
+    {
+        value: "PLATEADO/GRIS/ROJO",
+        label: "PLATEADO/GRIS/ROJO"
+    }
+]
+
+export { getDepartamento, getMunicipio, getProfesion, getAnio, getMarca, getModelo, getColor } 

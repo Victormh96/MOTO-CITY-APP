@@ -28,10 +28,12 @@ export default {
     },
 
     created() {
+
         localStorage.theme === 'true' && this.doChangeTema(true)
     },
 
     methods: {
+
         doChangeTema(checked) {
 
             const html = document.querySelector('html')

@@ -10,8 +10,6 @@ import "../public/css/main.css"
 
 const app = createApp(App)
 
-app.config.globalProperties.imagen = process.env.VUE_APP_URL_IMG
-
 app.use(store)
     .use(Antd)
     .use(router)

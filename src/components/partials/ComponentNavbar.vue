@@ -9,10 +9,10 @@
             <a-row>
 
                 <!--Col-->
-                <a-col :span="24">
+                <a-col :span="17">
 
                     <!--Enlace-->
-                    <a href="https://www.facebook.com/credicitysv" target="_blank" class="me-4">
+                    <a href="https://www.facebook.com/motocitysv" target="_blank" class="me-4">
 
                         <!--Icon-->
                         <i class="fa-brands fa-facebook-f"></i>
@@ -31,6 +31,13 @@
                         <!--Icon-->
                         <i class="fa-brands fa-youtube"></i>
                     </a>
+                </a-col>
+
+                <!--Col-->
+                <a-col :span="7" class="text-center">
+
+                    <!--Component-->
+                    <Logout />
                 </a-col>
             </a-row>
         </div>
@@ -52,7 +59,7 @@
                     <router-link :to="{ name: 'Go' }">
 
                         <!--Div-->
-                        <div class="credicity"></div>
+                        <div class="motocity"></div>
                     </router-link>
                 </a-col>
 
@@ -71,10 +78,12 @@
 <!--=======Script=======-->
 <script>
 import Theme from "@/components/partials/ComponentTheme.vue"
+import Logout from "@/components/authentication/ComponentLogout.vue"
 
 export default {
     components: {
-        Theme
+        Theme,
+        Logout
     }
 };
 </script>

@@ -6,7 +6,7 @@
         <Theme />
 
         <!--Img-->
-        <img src="@/../public/img/christmas/motocity--white-christmas.png" class="limage mb-4 mt-3">
+        <img src="@/../public/img/motocity-white.png" class="img-login mb-4 mt-3">
 
         <!--Form-->
         <a-form layout="vertical" :model="formstate" :rules="rules" @finish="doChangeLogin">

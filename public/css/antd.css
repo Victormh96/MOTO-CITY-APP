@@ -13,6 +13,30 @@
 /* stylelint-disable no-duplicate-selectors */
 /* stylelint-disable */
 /* stylelint-disable declaration-bang-space-before,no-duplicate-selectors,string-no-newline */
+@font-face {
+    font-family: 'Poppins';
+    src: url('../css/Poppins-Regular.ttf') format('truetype');
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../css/Poppins-Medium.ttf') format('truetype');
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../css/Poppins-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: 'Poppins';
+    src: url('../css/Poppins-Bold.ttf') format('truetype');
+    font-weight: 700;
+}
+
 [class^=ant-]::-ms-clear,
 [class*=ant-]::-ms-clear,
 [class^=ant-] input::-ms-clear,
@@ -3422,8 +3446,8 @@ html {
     text-align: center;
     vertical-align: middle;
     background: var(--borde);
-    width: 32px;
-    height: 32px;
+    width: 33px;
+    height: 33px;
     line-height: 32px;
     border-radius: 50%;
 }
@@ -3432,10 +3456,12 @@ html {
     background: var(--white);
     width: 50px;
     height: 22px;
-    line-height: 21px;
+    line-height: 22px;
     border-radius: 20px;
-    font-size: 14px;
+    font-size: 13px;
 }
+
+
 
 .ant-avatar-image {
     background: transparent;
@@ -3633,7 +3659,7 @@ html {
 
 .ant-badge-count {
     z-index: auto;
-    min-width: 20px;
+    min-width: 23px;
     height: 22px;
     padding: 2px 6px;
     color: #fff !important;
@@ -3647,7 +3673,15 @@ html {
 }
 
 .ant-layout-header .ant-badge-count {
-    min-width: 22px;
+    min-width: 23px;
+    background: #891924;
+    height: 23px;
+    padding: 2px 6px;
+    transition: all 0.2s;
+}
+
+.ant-layout-header .ant-badge:hover .ant-badge-count {
+    background: rgb(159 28 41);
 }
 
 .ant-badge-count a,
@@ -3838,7 +3872,7 @@ html {
     top: auto;
     display: block;
     transform-origin: 50% 50%;
-    border-radius: 10px;
+    border-radius: 20px;
     min-width: 23px;
 }
 
@@ -6258,57 +6292,6 @@ html {
     opacity: .5;
 }
 
-.siguiente {
-    font-size: .75rem;
-    color: var(--white) !important;
-    background: rgb(25, 137, 126) !important;
-    height: 41px;
-    min-width: 105px;
-}
-
-.completar {
-    font-size: .75rem;
-    color: var(--white) !important;
-    background: rgb(25, 103, 137) !important;
-    height: 41px;
-    min-width: 105px;
-}
-
-.actualizar {
-    font-size: .75rem;
-    color: var(--white) !important;
-    background: #2F8919 !important;
-    height: 41px;
-    min-width: 105px;
-}
-
-/*===Phone===**/
-@media (max-width: 575.98px) {
-    .completar {
-        display: block;
-    }
-
-    .siguiente {
-        display: block;
-    }
-}
-
-.default {
-    font-size: .7rem;
-    color: var(--texto) !important;
-    border: 1px solid var(--borde) !important;
-    height: 31px;
-    background: var(--background-white) !important;
-}
-
-.buscar {
-    font-size: .75rem;
-    background: var(--background-white) !important;
-    border: 1px solid var(--borde) !important;
-    color: var(--texto) !important;
-    padding: 0 25px !important;
-}
-
 .ant-btn[disabled]>a:only-child,
 .ant-btn[disabled]:hover>a:only-child,
 .ant-btn[disabled]:focus>a:only-child,
@@ -8610,11 +8593,11 @@ span.ant-radio+* {
 .ant-radio-button-wrapper {
     position: relative;
     display: inline-block;
-    height: 38px;
+    height: 36px;
     margin: 0;
     padding: 0 18px;
     font-size: .75rem !important;
-    line-height: 35px;
+    line-height: 34px;
     background: var(--background-white);
     border: 1px solid var(--borde);
     border-top-width: 1.02px;
@@ -10583,7 +10566,7 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
 
 .ant-card-meta-avatar {
     float: left;
-    padding-right: 16px;
+    padding-right: 14px;
 }
 
 .ant-card-rtl .ant-card-meta-avatar {
@@ -20240,7 +20223,9 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
     right: 0 !important;
     bottom: 0 !important;
     float: initial !important;
+    z-index: 99 !important;
 }
+
 
 .ant-descriptions-view {
     width: 260px;
@@ -20286,15 +20271,6 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
     position: relative;
     top: -0.5px;
     margin: 0 8px 0 2px;
-}
-
-.addimg .ant-image {
-    display: inline !important;
-}
-
-.addimg .img-articulo {
-    margin: 0 !important;
-    height: 357px !important;
 }
 
 .ant-descriptions-item-label.ant-descriptions-item-no-colon::after {
@@ -20354,8 +20330,12 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
 
 .ant-descriptions-bordered .ant-descriptions-item-label,
 .ant-descriptions-bordered .ant-descriptions-item-content {
-    padding: 4.8px 15px;
+    padding: 5.2px 15px;
     border-right: 1px solid var(--borde);
+}
+
+.añadir .ant-descriptions-item-label {
+    padding: 5.4px 15px !important;
 }
 
 .ant-descriptions-bordered .ant-descriptions-item-label:last-child,
@@ -20784,7 +20764,7 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
     left: 0;
     width: 100%;
     height: 0;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.8);
     opacity: 0;
     transition: opacity 0.3s linear, height 0s ease 0.3s;
     pointer-events: none;
@@ -22642,6 +22622,7 @@ textarea.ant-input-number {
 
 .ant-input-number-group-wrapper {
     display: inline-block;
+    width: 100%;
     text-align: start;
     vertical-align: top;
 }
@@ -22750,11 +22731,11 @@ textarea.ant-input-number {
 
 .ant-input-number-input {
     width: 100%;
-    height: 35px;
-    max-height: 35px;
+    height: 38px;
+    max-height: 38px;
     padding: 0 11px;
     text-align: left;
-    background-color: var(--background-white);
+    background-color: var(--background);
     border: 0;
     border-radius: 2px;
     outline: 0;
@@ -23858,7 +23839,7 @@ textarea.ant-input {
     flex: auto;
     /* fix firefox can't set height smaller than content on flex item */
     min-height: 0;
-    padding: 2px 0 30px 0;
+    padding: 0 0 30px 0;
 }
 
 .ant-layout-sider {
@@ -24404,15 +24385,6 @@ textarea.ant-input {
     transition: transform 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
 }
 
-.lavatar .ant-spin-dot {
-    width: 1.2em;
-    height: 1.2em;
-}
-
-.lavatar .ant-spin {
-    line-height: 2.1 !important;
-}
-
 .ant-spin-spinning {
     position: static;
     display: inline-block;
@@ -24530,10 +24502,6 @@ textarea.ant-input {
     height: 1em;
 }
 
-.lavatar .ant-spin-dot {
-    font-size: 14px !important;
-}
-
 .ant-spin-dot-item {
     position: absolute;
     display: block;
@@ -24545,11 +24513,6 @@ textarea.ant-input {
     transform-origin: 50% 50%;
     opacity: 0.3;
     animation: antSpinMove 1s infinite linear alternate;
-}
-
-.lavatar .ant-spin-dot-item {
-    width: 8px;
-    height: 8px;
 }
 
 .ant-spin-dot-item:nth-child(1) {
@@ -25764,7 +25727,7 @@ textarea.ant-mentions {
     left: 0;
     z-index: 1000;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 .ant-modal-mask-hidden {
@@ -25804,19 +25767,7 @@ textarea.ant-mentions {
 }
 
 .login .ant-modal-content {
-    background-color: transparent !important;
-}
-
-.loading .ant-modal-content {
-    background: transparent !important;
-}
-
-.loading .fa-xmark {
-    display: none;
-}
-
-.login .ant-modal-body {
-    border: none !important;
+    background-color: transparent;
 }
 
 .login .ant-form-item-explain-error {
@@ -33135,20 +33086,6 @@ div.ant-typography-edit-content.ant-typography-rtl {
     }
 }
 
-.img-max {
-    width: 100%;
-    height: auto;
-    border-radius: 0;
-}
-
-.img-fluid {
-    width: 100%;
-    height: auto;
-    cursor: pointer;
-    border-radius: 20px;
-    transition: all 0.5s;
-}
-
 figure {
     border-radius: 10px;
     overflow: hidden;
@@ -33156,38 +33093,6 @@ figure {
 
 figure:hover .img-fluid {
     transform: scale(1.1);
-}
-
-.img-total {
-    background-image: var(--image-total);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: contain;
-    width: 70%;
-    height: 70%;
-    animation: float 4s ease-in-out infinite;
-}
-
-/*===Phone===**/
-@media (max-width: 575.98px) {
-    .img-total {
-        width: 100%;
-        height: 100%;
-    }
-}
-
-@keyframes float {
-    0% {
-        transform: translatey(0px);
-    }
-
-    50% {
-        transform: translatey(-20px);
-    }
-
-    100% {
-        transform: translatey(0px);
-    }
 }
 
 .form-control input,
