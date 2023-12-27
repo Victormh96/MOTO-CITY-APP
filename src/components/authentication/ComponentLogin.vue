@@ -30,7 +30,7 @@
             <a-form-item class="text-end pt-2">
 
                 <!--Button-->
-                <a-button key="submit" htmlType="submit" :loading="loading" class="button-xl">Entrar</a-button>
+                <a-button key="submit" htmlType="submit" :loading="loading" class="button-login">Entrar</a-button>
             </a-form-item>
         </a-form>
     </a-modal>

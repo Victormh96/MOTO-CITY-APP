@@ -3,7 +3,7 @@ import authentication from "./modules/authentication"
 import createPersistedState from "vuex-persistedstate"
 
 export default createStore({
-    
+
     state: {
     },
 

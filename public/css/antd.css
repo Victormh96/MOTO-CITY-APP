@@ -19026,9 +19026,10 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
 
 .ant-carousel .slick-slide img {
     width: 100%;
-    height: auto;
+    height: 770px;
     display: block;
-    border-radius: 20px;
+    object-fit: cover;
+    border-radius: 5px;
 }
 
 .ant-carousel .slick-slide.slick-loading img {

@@ -94,6 +94,12 @@ figure {
   }
 }
 
+.titulo {
+  float: right;
+  padding: 5px 14px;
+  border-radius: 2px;
+}
+
 .fa-xmark {
   font-size: 28px;
   position: absolute;
@@ -104,16 +110,10 @@ figure {
   cursor: pointer;
 }
 
-.shape-navidad {
-  position: absolute;
-  top: 0;
-  left: 10px;
-}
-
 /* ============================================================*/
 /* Button
 /* ============================================================*/
-.button-xl {
+.button-login {
   font-size: .8rem;
   font-weight: 500;
   padding: 4px 35px;
@@ -131,26 +131,6 @@ figure {
   background: var(--background-white) !important;
 }
 
-.button-carrito {
-  font-size: 15px;
-  padding: 5px 11px;
-  color: var(--texto);
-  position: relative;
-  z-index: 999;
-}
-
-.button-carrito:hover {
-  color: var(--texto);
-}
-
-.button-buscar {
-  font-size: .75rem;
-  background: var(--background-white) !important;
-  border: 1px solid var(--borde) !important;
-  color: var(--texto) !important;
-  padding: 0 25px !important;
-}
-
 .button-completar {
   font-size: .75rem;
   color: var(--white) !important;
@@ -165,25 +145,6 @@ figure {
   background: rgb(25, 137, 126) !important;
   height: 41px;
   min-width: 105px;
-}
-
-.button-actualizar {
-  font-size: .75rem;
-  color: var(--white) !important;
-  background: #2F8919 !important;
-  height: 41px;
-  min-width: 105px;
-}
-
-/*===Phone===**/
-@media (max-width: 575.98px) {
-  .button-completar {
-    display: block;
-  }
-
-  .button-siguiente {
-    display: block;
-  }
 }
 
 /* ============================================================*/
@@ -230,42 +191,27 @@ figure {
   border-radius: 5px;
 }
 
+.img-total {
+  background-image: var(--nofound);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  width: 70%;
+  height: 70%;
+  animation: float 4s ease-in-out infinite;
+}
+
+/*===Phone===**/
+@media (max-width: 575.98px) {
+  .img-total {
+    width: 100%;
+    height: 100%;
+  }
+}
+
 /* ============================================================*/
 /* Loading
 /* ============================================================*/
-.iloading {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  background: var(--catalogo);
-  cursor: pointer;
-  border-radius: 20px;
-}
-
-.iloading i {
-  font-size: 35px;
-  color: var(--texto);
-  opacity: .1;
-}
-
-.slick-dots .iloading {
-  border-radius: 0 !important;
-}
-
-.loading .ant-modal-content {
-  background: transparent !important;
-}
-
-.loading .fa-xmark {
-  display: none;
-}
-
-.fa-spin {
-  color: var(--texto);
-}
-
 .ant-layout-content.loading {
   height: calc(100vh - 119px);
 }
@@ -291,6 +237,14 @@ figure {
     min-height: 590px;
     height: calc(100vh - 180px);
   }
+}
+
+.loading .ant-modal-content {
+  background: transparent !important;
+}
+
+.loading .fa-xmark {
+  display: none;
 }
 
 /* ============================================================*/
@@ -349,20 +303,6 @@ figure {
   width: 175px;
   height: 58px;
   display: inline-block;
-}
-
-.ant-layout-header .fa-store {
-  font-size: 24px;
-  height: max-content;
-  color: var(--icono);
-  cursor: pointer;
-}
-
-.ant-layout-header .fa-qrcode {
-  font-size: 25px;
-  height: max-content;
-  color: var(--icono);
-  cursor: pointer;
 }
 
 /* ============================================================*/

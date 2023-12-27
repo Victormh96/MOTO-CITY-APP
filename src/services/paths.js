@@ -8,3 +8,7 @@ export const GetCompraVentaApi = URL_NODE + '/motocity/compra-venta'
 
 export const PostCompraVentaApi = URL_NODE + '/motocity/compra-venta-create'
 
+export const GetPrimeraMatriculaApi = URL_NODE + '/motocity/primera-matricula'
+
+export const PostPrimeraMatriculaApi = URL_NODE + '/motocity/primera-matricula-create'
+

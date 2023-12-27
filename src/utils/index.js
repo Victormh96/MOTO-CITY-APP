@@ -2,11 +2,6 @@ import store from "../store"
 import router from "@/router"
 import { message } from "ant-design-vue"
 
-function getLetter(data) {
-
-    return data.toUpperCase()
-}
-
 const getClose = (err) => {
 
     const key = 'updatable'
@@ -31,6 +26,16 @@ const getOpen = (err) => {
     message.success({
 
         key,
+
+        duration: 3,
+
+        content: err + '.'
+    })
+}
+
+const getSuccess = (err) => {
+
+    message.success({
 
         duration: 3,
 
@@ -68,7 +73,7 @@ function getToken() {
 
         body: {
 
-            slpcode: store.state.authentication?.cuenta?.slpcode 
+            slpcode: store.state.authentication?.cuenta?.slpcode
         },
 
         config: {
@@ -90,7 +95,7 @@ function getCreate(record) {
         body: {
 
             NOMBRE: record?.NOMBRE,
-            
+
             EDAD: record?.EDAD,
 
             PROFESION: record?.PROFESION,
@@ -118,7 +123,7 @@ function getCreate(record) {
             MODELO: record?.MODELO,
 
             ANIO: record?.ANIO,
-            
+
             COLOR: record?.COLOR,
 
             NUMEROMOTOR: record?.NUMEROMOTOR,
@@ -148,4 +153,27 @@ function getCreate(record) {
     return data
 }
 
-export { getLetter, getClose, getOpen, getWarning, getError, getToken, getCreate } 
+function getPlantilla(record) {
+
+    const data = {
+
+        body: {
+
+            rol: store.state.authentication?.cuenta?.rol,
+
+            tipo: record
+        },
+
+        config: {
+
+            headers: {
+
+                Authorization: store.state.authentication?.cuenta?.token
+            }
+        }
+    }
+
+    return data
+}
+
+export { getClose, getOpen, getSuccess, getWarning, getError, getToken, getCreate, getPlantilla } 

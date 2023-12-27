@@ -12,12 +12,12 @@
             <Document />
 
             <!--Tag-->
-            <a-tag color="#19897e" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
-                COMPRA VENTA {{ new Date().getFullYear() }}
+            <a-tag color="#196789" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
+                PRIMERA MATRICULA {{ new Date().getFullYear() }}
             </a-tag>
 
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourceCv" :columns="columnce" bordered
+            <a-table :pagination="pagination" :data-source="dataSourcePm" :columns="columnce" bordered
                 :scroll="{ x: 1400 }">
 
                 <!--Template-->
@@ -33,25 +33,11 @@
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'precio'">
-                        $ {{ record.precio }}
-                    </template>
-
-                    <!--Template-->
-                    <template v-if="column.key === 'n_motor'">
+                    <template v-if="column.key === 'dui'">
 
                         <!--Typography-->
                         <a-typography-paragraph :copyable="{ tooltip: false }">
-                            {{ record.n_motor }}
-                        </a-typography-paragraph>
-                    </template>
-
-                    <!--Template-->
-                    <template v-if="column.key === 'n_chasis'">
-
-                        <!--Typography-->
-                        <a-typography-paragraph :copyable="{ tooltip: false }">
-                            {{ record.n_chasis }}
+                            {{ record.dui }}
                         </a-typography-paragraph>
                     </template>
 
@@ -106,21 +92,21 @@ import {
 } from "@/utils/index"
 
 import {
-    GetCompraVentaApi
+    GetPrimeraMatriculaApi
 } from "@/services/paths"
 
 import axios from "axios"
 import store from "@/store"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
-import Document from "@/components/compraventa/ComponentCreate.vue"
+import Document from "@/components/primeramatricula/ComponentCreate.vue"
 
 export default {
     data() {
         return {
             loading: false,
 
-            dataSourceCv: [],
+            dataSourcePm: [],
 
             pagination: {
 
@@ -139,9 +125,9 @@ export default {
 
             const { body, config } = getToken()
 
-            const compraventa = await axios.post(GetCompraVentaApi, body, config)
+            const primeramatricula = await axios.post(GetPrimeraMatriculaApi, body, config)
 
-            this.dataSourceCv = compraventa?.data
+            this.dataSourcePm = primeramatricula?.data
 
             this.loading = true
 
@@ -191,29 +177,11 @@ export default {
             }
         },
         {
-            title: "MODELO",
+            title: "DUI",
 
-            dataIndex: "modelo",
+            dataIndex: "dui",
 
-            key: "modelo",
-
-            align: "center"
-        },
-        {
-            title: "COLOR",
-
-            dataIndex: "color",
-
-            key: "color",
-
-            align: "center"
-        },
-        {
-            title: "MOTOR",
-
-            dataIndex: "n_motor",
-
-            key: "n_motor",
+            key: "dui",
 
             align: "center",
 
@@ -221,7 +189,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.n_motor.toString().toLowerCase().includes(value.toLowerCase()),
+                record.dui.toString().toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownVisibleChange: visible => {
 
@@ -232,34 +200,20 @@ export default {
             }
         },
         {
-            title: "CHASIS",
+            title: "DEPARTAMENTO",
 
-            dataIndex: "n_chasis",
+            dataIndex: "departamento",
 
-            key: "n_chasis",
+            key: "departamento",
 
-            align: "center",
-
-            customFilterDropdown: true,
-
-            onFilter: (value, record) =>
-
-                record.n_chasis.toString().toLowerCase().includes(value.toLowerCase()),
-
-            onFilterDropdownVisibleChange: visible => {
-
-                if (visible) {
-
-                    setTimeout(() => { focusearch.value.focus() }, 100)
-                }
-            }
+            align: "center"
         },
         {
-            title: "PRECIO",
+            title: "MUNICIPIO",
 
-            dataIndex: "precio",
+            dataIndex: "municipio",
 
-            key: "precio",
+            key: "municipio",
 
             align: "center"
         },

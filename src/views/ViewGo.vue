@@ -6,12 +6,12 @@
     <a-layout-content class="fade-out" v-if="(loading)">
 
         <!--Container-->
-        <div class="container">
+        <div class="container mb-3">
 
             <a-row :gutter="[{ sm: 0, md: 16 }, 0]">
 
                 <!--Col-->
-                <a-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12" :xxl="12" :xxxl="12">
+                <a-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12" :xxl="12" :xxxl="12" class="mb-3 mb-lg-0">
 
                     <!--Carrousel-->
                     <a-carousel autoplay :autoplaySpeed="6000" effect="fade">
@@ -36,10 +36,10 @@
                     </router-link>
 
                     <!--Enlace-->
-                    <router-link :to="{ name: 'Compraventa' }">
+                    <router-link :to="{ name: 'Primeramatricula' }">
 
                         <!--Img-->
-                        <img src="@/../public/img/categoria/primera-matricula.png" class="img-option">
+                        <img src="@/../public/img/categoria/primera-matricula.png" class="img-option mb-3 mb-lg-0">
                     </router-link>
                 </a-col>
             </a-row>
