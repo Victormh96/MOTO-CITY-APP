@@ -17,7 +17,7 @@
             </a-tag>
 
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourceCv" :columns="columnce" bordered
+            <a-table :pagination="pagination" :data-source="dataSourceFm" :columns="columnce" bordered
                 :scroll="{ x: 1400 }">
 
                 <!--Template-->
@@ -29,29 +29,6 @@
                         <!--Typography-->
                         <a-typography-paragraph :copyable="{ tooltip: false }">
                             {{ record.nombre }}
-                        </a-typography-paragraph>
-                    </template>
-
-                    <!--Template-->
-                    <template v-if="column.key === 'precio'">
-                        $ {{ record.precio }}
-                    </template>
-
-                    <!--Template-->
-                    <template v-if="column.key === 'n_motor'">
-
-                        <!--Typography-->
-                        <a-typography-paragraph :copyable="{ tooltip: false }">
-                            {{ record.n_motor }}
-                        </a-typography-paragraph>
-                    </template>
-
-                    <!--Template-->
-                    <template v-if="column.key === 'n_chasis'">
-
-                        <!--Typography-->
-                        <a-typography-paragraph :copyable="{ tooltip: false }">
-                            {{ record.n_chasis }}
                         </a-typography-paragraph>
                     </template>
 
@@ -106,20 +83,20 @@ import {
 } from "@/utils/index"
 
 import {
-    GetCompraVentaApi
+    GetFormatoApi
 } from "@/services/paths"
 
 import axios from "axios"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
-import Document from "@/components/compraventa/ComponentCreate.vue"
+import Document from "@/components/plantilla/ComponentCreate.vue"
 
 export default {
     data() {
         return {
             loading: false,
 
-            dataSourceCv: [],
+            dataSourceFm: [],
 
             pagination: {
 
@@ -136,11 +113,11 @@ export default {
 
         try {
 
-            const { body, config } = getToken()
+            const { config } = getToken()
 
-            const compraventa = await axios.post(GetCompraVentaApi, body, config)
+            const formato = await axios.get(GetFormatoApi, config)
 
-            this.dataSourceCv = compraventa?.data
+            this.dataSourceFm = formato?.data
 
             this.loading = true
 
@@ -188,77 +165,38 @@ export default {
             }
         },
         {
-            title: "MODELO",
+            title: "CONTENIDO",
 
-            dataIndex: "modelo",
+            dataIndex: "contenido",
 
-            key: "modelo",
-
-            align: "center"
-        },
-        {
-            title: "COLOR",
-
-            dataIndex: "color",
-
-            key: "color",
-
-            align: "center"
-        },
-        {
-            title: "MOTOR",
-
-            dataIndex: "n_motor",
-
-            key: "n_motor",
+            key: "contenido",
 
             align: "center",
 
-            customFilterDropdown: true,
-
-            onFilter: (value, record) =>
-
-                record.n_motor.toString().toLowerCase().includes(value.toLowerCase()),
-
-            onFilterDropdownVisibleChange: visible => {
-
-                if (visible) {
-
-                    setTimeout(() => { focusearch.value.focus() }, 100)
-                }
-            }
+            width: "900px"
         },
         {
-            title: "CHASIS",
+            title: "TIPO",
 
-            dataIndex: "n_chasis",
+            dataIndex: "tipo",
 
-            key: "n_chasis",
+            key: "tipo",
 
             align: "center",
 
-            customFilterDropdown: true,
+            filters: [{
 
-            onFilter: (value, record) =>
+                text: "CV",
 
-                record.n_chasis.toString().toLowerCase().includes(value.toLowerCase()),
+                value: "CV"
+            },
+            {
+                text: "PG",
 
-            onFilterDropdownVisibleChange: visible => {
+                value: "PG"
+            }],
 
-                if (visible) {
-
-                    setTimeout(() => { focusearch.value.focus() }, 100)
-                }
-            }
-        },
-        {
-            title: "PRECIO",
-
-            dataIndex: "precio",
-
-            key: "precio",
-
-            align: "center"
+            onFilter: (value, record) => record.tipo.toString().includes(value)
         },
         {
             title: "AÑADIDO",

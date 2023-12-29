@@ -57,13 +57,13 @@ router.beforeEach((to, from, next) => {
 
 function roleAccess(to, store, requiredRole, next) {
 
-    if (store.state.authentication?.cuenta?.roluser === requiredRole) {
+    if (store.state.authentication?.cuenta?.rol === requiredRole) {
 
-        next('/404')
+        next()
 
     } else {
 
-        next()
+        next('/404')
     }
 }
 

@@ -43,7 +43,7 @@
                     </router-link>
 
                     <!--Enlace-->
-                    <router-link :to="{ name: 'Plantilla' }">
+                    <router-link :to="{ name: 'Plantilla' }" v-if="role === 'Tramite'">
 
                         <!--Img-->
                         <img src="@/../public/img/categoria/plantilla.png" class="img-option mb-3 mb-lg-0">
@@ -76,7 +76,8 @@ import Navbar from "@/components/partials/ComponentNavbar.vue"
 export default {
     data() {
         return {
-            loading: false
+            loading: false,
+            role: this.$store.state.authentication?.cuenta?.rol
         }
     },
 
