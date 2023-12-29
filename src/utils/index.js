@@ -108,15 +108,7 @@ function getCreate(record) {
 
             PRECIO: record?.PRECIO,
 
-            PLAZO: record?.PLAZO,
-
-            CUOTA: record?.CUOTA,
-
-            CANTIDAD: record?.CANTIDAD,
-
-            INTERES: record?.INTERES,
-
-            POLIZA: record?.POLIZA,
+            POLIZA: record?.PLANTILLA === 10 ? "M-" + record?.POLIZA : "4-" + record?.POLIZA,
 
             MARCA: record?.MARCA,
 
@@ -133,6 +125,18 @@ function getCreate(record) {
             NUMEROVIN: record?.NUMEROVIN,
 
             TIPO: record?.TIPO,
+
+            MESES: record?.MESES,
+
+            VENCIMIENTO: record?.VENCIMIENTO,
+
+            PRIMERACUOTA: record?.PRIMERACUOTA,
+
+            DIAPAGO: record?.DIAPAGO,
+
+            CUOTA: record?.CUOTA,
+
+            PRECIOCUOTA: record?.PRECIOCUOTA,
 
             PLANTILLA: record?.PLANTILLA,
 

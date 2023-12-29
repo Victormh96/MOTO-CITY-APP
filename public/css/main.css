@@ -103,8 +103,8 @@ figure {
 .fa-xmark {
   font-size: 28px;
   position: absolute;
-  top: 12px;
-  right: 15px;
+  top: 8px;
+  right: 12px;
   color: var(--texto);
   z-index: 999;
   cursor: pointer;

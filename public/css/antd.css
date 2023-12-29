@@ -22386,7 +22386,7 @@ textarea.ant-input-number {
     padding: 0;
     color: rgba(0, 0, 0, 0.85);
     font-weight: normal;
-    font-size: 14px;
+    font-size: 13px;
     text-align: center;
     background-color: var(--background-white);
     border: 1px solid var(--borde);
@@ -22731,6 +22731,7 @@ textarea.ant-input-number {
 }
 
 .ant-input-number-input {
+    font-size: .75rem;
     width: 100%;
     height: 38px;
     max-height: 38px;
@@ -23204,7 +23205,7 @@ textarea.ant-input-affix-wrapper {
 
 .ant-input[disabled] {
     color: rgba(0, 0, 0, 0.25);
-    background-color: #f5f5f5;
+    background-color: var(--skeleton) !important;
     border-color: #d9d9d9;
     box-shadow: none;
     cursor: not-allowed;
@@ -25645,30 +25646,6 @@ textarea.ant-mentions {
 
 .ant-card-cover {
     position: relative;
-}
-
-.flotante {
-    position: absolute;
-    bottom: 0;
-    left: 17px;
-}
-
-.liqui {
-    font-size: .65rem !important;
-    color: #891924;
-    background: #89192450;
-    padding: 1px 8px 1px 8px !important;
-    margin: 0 4px;
-    border: 0 !important;
-}
-
-.nue {
-    font-size: .65rem !important;
-    color: #0C6730;
-    background: #0c673050;
-    padding: 1px 8px 1px 8px !important;
-    margin: 0 4px;
-    border: 0 !important;
 }
 
 /*!**********************************************************************************************************************************************************************************************************************************************************!*\

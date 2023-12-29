@@ -2,261 +2,342 @@
     <!--Button-->
     <a-button class="button-default mb-3" @click="showModal()">
         NUEVO DOCUMENTO
-    </a-button>
+    </a-button> 
 
     <!--Modal-->
-    <a-modal v-model:visible="visible" width="900px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:visible="visible" width="800px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" centered :class="!loading ? 'loading' : null">
 
         <!--Icon-->
-        <i type="button" class="fa-solid fa-xmark" @click="onClose"></i>
+        <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
 
         <!--Layout-->
         <div v-if="(loading)">
 
-            <!--Container-->
-            <div class="container mb-3">
+            <!--Step-->
+            <a-steps :current="current" :percent="doChangePorcentaje()" class="mb-3">
 
-                <!--Step-->
-                <a-steps :current="current" :percent="doChangePorcentaje()">
+                <!--Enlace-->
+                <a-step v-for="item in steps" :key="item?.title" :title="item?.title" />
+            </a-steps>
 
-                    <!--Enlace-->
-                    <a-step v-for="item in steps" :key="item?.title" :title="item?.title" />
-                </a-steps>
-            </div>
+            <!--Form-->
+            <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
 
-            <!--Container-->
-            <div class="container mb-3 pb-2">
+                <!--Row-->
+                <a-row :gutter="[24, 24]" v-if="current === 0">
 
-                <!--Form-->
-                <a-form layout="vertical" :model="formstate" class="formulario">
+                    <!--Col-->
+                    <a-col :span="24">
 
-                    <!--Row-->
-                    <a-row :gutter="[24, 24]" v-if="current === 0">
+                        <!--Group-->
+                        <a-form-item label="Plantilla:" v-bind="validateInfos.PLANTILLA">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                            <!--Select-->
+                            <a-select v-model:value="formstate.PLANTILLA" show-search :options="dataSourcePl"
+                                :filter-option="filterOption" @change="doChangeReplace" />
+                        </a-form-item>
+                    </a-col>
 
-                            <!--Group-->
-                            <a-form-item label="Plantilla:" v-bind="validateInfos.PLANTILLA">
+                    <!--Col-->
+                    <a-col :span="24">
 
-                                <!--Select-->
-                                <a-select v-model:value="formstate.PLANTILLA" show-search :options="dataSourcePl"
-                                    :filter-option="filterOption" @change="doChangeDisabled" />
-                            </a-form-item>
-                        </a-col>
+                        <!--Group-->
+                        <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                            <!--Input-->
+                            <a-input v-model:value="formstate.NOMBRE" @change="doChangeLetter('NOMBRE')"
+                                :disabled="disabled" />
+                        </a-form-item>
+                    </a-col>
 
-                            <!--Group-->
-                            <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
+                    <!--Col-->
+                    <a-col :span="24">
 
-                                <!--Input-->
-                                <a-input v-model:value="formstate.NOMBRE" @change="doChangeLetter('NOMBRE')"
-                                    :disabled="disabled" />
-                            </a-form-item>
-                        </a-col>
+                        <!--Group-->
+                        <a-form-item label="Profesion:" v-bind="validateInfos.PROFESION">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                            <!--Select-->
+                            <a-select v-model:value="formstate.PROFESION" show-search :options="getProfesion"
+                                :filter-option="filterOption" :disabled="disabled" />
+                        </a-form-item>
+                    </a-col>
 
-                            <!--Group-->
-                            <a-form-item label="Profesion:" v-bind="validateInfos.PROFESION">
+                    <!--Col-->
+                    <a-col :span="24">
 
-                                <!--Select-->
-                                <a-select v-model:value="formstate.PROFESION" show-search :options="getProfesion"
-                                    :filter-option="filterOption" :disabled="disabled" />
-                            </a-form-item>
-                        </a-col>
+                        <!--Group-->
+                        <a-form-item label="Dui:" v-bind="validateInfos.DUI">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                            <!--Input-->
+                            <a-input type="tel" v-model:value="formstate.DUI" v-mask="'########-#'" :disabled="disabled" />
+                        </a-form-item>
+                    </a-col>
 
-                            <!--Group-->
-                            <a-form-item label="Dui:" v-bind="validateInfos.DUI">
+                    <!--Col-->
+                    <a-col :span="24">
 
-                                <!--Input-->
-                                <a-input type="tel" v-model:value="formstate.DUI" v-mask="'########-#'"
-                                    :disabled="disabled" />
-                            </a-form-item>
-                        </a-col>
+                        <!--Group-->
+                        <a-form-item label="Departamento:" v-bind="validateInfos.DEPARTAMENTO">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                            <!--Select-->
+                            <a-select v-model:value="formstate.DEPARTAMENTO" show-search @change="doChangeMunicipio"
+                                :options="getDepartamento" :filter-option="filterOption" :disabled="disabled" />
+                        </a-form-item>
+                    </a-col>
 
-                            <!--Group-->
-                            <a-form-item label="Departamento:" v-bind="validateInfos.DEPARTAMENTO">
+                    <!--Col-->
+                    <a-col :span="24">
 
-                                <!--Select-->
-                                <a-select v-model:value="formstate.DEPARTAMENTO" show-search @change="doChangeMunicipio"
-                                    :options="getDepartamento" :filter-option="filterOption" :disabled="disabled" />
-                            </a-form-item>
-                        </a-col>
+                        <!--Group-->
+                        <a-form-item label="Municipio:" v-bind="validateInfos.MUNICIPIO">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                            <!--Select-->
+                            <a-select v-model:value="formstate.MUNICIPIO" show-search :options="dataSourceMn"
+                                :filter-option="filterOption" :disabled="disabled" />
+                        </a-form-item>
+                    </a-col>
 
-                            <!--Group-->
-                            <a-form-item label="Municipio:" v-bind="validateInfos.MUNICIPIO">
+                    <!--Col-->
+                    <a-col :span="24">
 
-                                <!--Select-->
-                                <a-select v-model:value="formstate.MUNICIPIO" show-search :options="dataSourceMn"
-                                    :filter-option="filterOption" :disabled="disabled" />
-                            </a-form-item>
-                        </a-col>
+                        <!--Group-->
+                        <a-form-item label="Precio Venta:" v-bind="validateInfos.PRECIO">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                            <!--Input-->
+                            <a-input-number type="tel" v-model:value="formstate.PRECIO" :min="1" />
+                        </a-form-item>
+                    </a-col>
+                </a-row>
 
-                            <!--Group-->
-                            <a-form-item label="Precio Venta:" v-bind="validateInfos.PRECIO">
+                <!--Row-->
+                <a-row :gutter="[24, 24]" v-if="current === 1">
 
-                                <!--Input-->
-                                <a-input-number type="tel" v-model:value="formstate.PRECIO" :min="1" />
-                            </a-form-item>
-                        </a-col>
-                    </a-row>
+                    <!--Col-->
+                    <a-col :span="24">
 
-                    <!--Row-->
-                    <a-row :gutter="[24, 24]" v-if="current === 1">
+                        <!--Group-->
+                        <a-form-item :label="formstate.PLANTILLA === 10 ? 'Placa:' : 'Poliza:'"
+                            v-bind="validateInfos.POLIZA">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                            <!--Input-->
+                            <a-input-number type="tel" v-model:value="formstate.POLIZA">
 
-                            <!--Group-->
-                            <a-form-item label="Poliza:" v-bind="validateInfos.POLIZA">
+                                <!--Template-->
+                                <template #addonBefore>{{ formstate.PLANTILLA === 10 ? 'M-' : '4-' }}</template>
+                            </a-input-number>
 
-                                <!--Input-->
-                                <a-input-number type="tel" v-model:value="formstate.POLIZA">
+                        </a-form-item>
+                    </a-col>
 
-                                    <!--Template-->
-                                    <template #addonBefore>4-</template>
-                                </a-input-number>
-                            </a-form-item>
-                        </a-col>
+                    <!--Col-->
+                    <a-col :span="24">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                        <!--Group-->
+                        <a-form-item label="Año:" v-bind="validateInfos.ANIO">
 
-                            <!--Group-->
-                            <a-form-item label="Año:" v-bind="validateInfos.ANIO">
+                            <!--Select-->
+                            <a-select v-model:value="formstate.ANIO" show-search :options="getAnio"
+                                :filter-option="filterOption" />
+                        </a-form-item>
+                    </a-col>
 
-                                <!--Select-->
-                                <a-select v-model:value="formstate.ANIO" show-search :options="getAnio"
-                                    :filter-option="filterOption" />
-                            </a-form-item>
-                        </a-col>
+                    <!--Col-->
+                    <a-col :span="24">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                        <!--Group-->
+                        <a-form-item label="Marca:" v-bind="validateInfos.MARCA">
 
-                            <!--Group-->
-                            <a-form-item label="Marca:" v-bind="validateInfos.MARCA">
+                            <!--Select-->
+                            <a-select v-model:value="formstate.MARCA" show-search @change="doChangeModelo"
+                                :options="getMarca" :filter-option="filterOption" />
+                        </a-form-item>
+                    </a-col>
 
-                                <!--Select-->
-                                <a-select v-model:value="formstate.MARCA" show-search @change="doChangeModelo"
-                                    :options="getMarca" :filter-option="filterOption" />
-                            </a-form-item>
-                        </a-col>
+                    <!--Col-->
+                    <a-col :span="24">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                        <!--Group-->
+                        <a-form-item label="Modelo:" v-bind="validateInfos.MODELO">
 
-                            <!--Group-->
-                            <a-form-item label="Modelo:" v-bind="validateInfos.MODELO">
+                            <!--Select-->
+                            <a-select v-model:value="formstate.MODELO" show-search :options="dataSourceMd"
+                                :filter-option="filterOption" />
+                        </a-form-item>
+                    </a-col>
 
-                                <!--Select-->
-                                <a-select v-model:value="formstate.MODELO" show-search :options="dataSourceMd"
-                                    :filter-option="filterOption" />
-                            </a-form-item>
-                        </a-col>
+                    <!--Col-->
+                    <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
 
-                        <!--Col-->
-                        <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
+                        <!--Group-->
+                        <a-form-item label="Color:" v-bind="validateInfos.COLOR">
 
-                            <!--Group-->
-                            <a-form-item label="Color:" v-bind="validateInfos.COLOR">
+                            <!--Select-->
+                            <a-select v-model:value="formstate.COLOR" show-search :options="getColor"
+                                :filter-option="filterOption" />
+                        </a-form-item>
+                    </a-col>
 
-                                <!--Select-->
-                                <a-select v-model:value="formstate.COLOR" show-search :options="getColor"
-                                    :filter-option="filterOption" />
-                            </a-form-item>
-                        </a-col>
+                    <!--Col-->
+                    <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
 
-                        <!--Col-->
-                        <a-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12" :xxl="12" :xxxl="12">
+                        <!--Group-->
+                        <a-form-item label="Tipo:" v-bind="validateInfos.TIPO">
 
-                            <!--Group-->
-                            <a-form-item label="Tipo:" v-bind="validateInfos.TIPO">
+                            <!--Input-->
+                            <a-input v-model:value="formstate.TIPO" @change="doChangeLetter('TIPO')" />
+                        </a-form-item>
+                    </a-col>
 
-                                <!--Input-->
-                                <a-input v-model:value="formstate.TIPO" @change="doChangeLetter('TIPO')" />
-                            </a-form-item>
-                        </a-col>
+                    <!--Col-->
+                    <a-col :span="24">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                        <!--Group-->
+                        <a-form-item label="Numero Motor:" v-bind="validateInfos.NUMEROMOTOR">
 
-                            <!--Group-->
-                            <a-form-item label="Numero Motor:" v-bind="validateInfos.NUMEROMOTOR">
+                            <!--Input-->
+                            <a-input v-model:value="formstate.NUMEROMOTOR" @change="doChangeLetter('NUMEROMOTOR')" />
+                        </a-form-item>
+                    </a-col>
 
-                                <!--Input-->
-                                <a-input v-model:value="formstate.NUMEROMOTOR" @change="doChangeLetter('NUMEROMOTOR')" />
-                            </a-form-item>
-                        </a-col>
+                    <!--Col-->
+                    <a-col :span="24">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                        <!--Group-->
+                        <a-form-item label="Numero Chasis:" v-bind="validateInfos.NUMEROCHASIS">
 
-                            <!--Group-->
-                            <a-form-item label="Numero Chasis:" v-bind="validateInfos.NUMEROCHASIS">
+                            <!--Input-->
+                            <a-input v-model:value="formstate.NUMEROCHASIS" @change="doChangeLetter('NUMEROCHASIS')" />
+                        </a-form-item>
+                    </a-col>
+                </a-row>
 
-                                <!--Input-->
-                                <a-input v-model:value="formstate.NUMEROCHASIS" @change="doChangeLetter('NUMEROCHASIS')" />
-                            </a-form-item>
-                        </a-col>
-                    </a-row>
-                </a-form>
-            </div>
+                <!--Row-->
+                <a-row :gutter="[24, 24]" v-if="current === 2">
 
-            <!--Container-->
-            <div class="container">
+                    <!--Col-->
+                    <a-col :span="24">
 
-                <!--Div-->
-                <div class="steps-action formulario">
+                        <!--Group-->
+                        <a-form-item label="Meses:" v-bind="validateInfos.MESES">
+
+                            <!--Input-->
+                            <a-input-number type="tel" v-model:value="formstate.MESES">
+
+                                <!--Template-->
+                                <template #addonBefore>N°</template>
+                            </a-input-number>
+                        </a-form-item>
+                    </a-col>
+
+                    <!--Col-->
+                    <a-col :span="24">
+
+                        <!--Group-->
+                        <a-form-item label="Vencimiento:" v-bind="validateInfos.VENCIMIENTO">
+
+                            <!--Input-->
+                            <a-input type="tel" v-model:value="formstate.VENCIMIENTO" placeholder="YYYY-MM-DD"
+                                v-mask="'####-##-##'" />
+                        </a-form-item>
+                    </a-col>
+
+                    <!--Col-->
+                    <a-col :span="24">
+
+                        <!--Group-->
+                        <a-form-item label="Primera Cuota:" v-bind="validateInfos.PRIMERACUOTA">
+
+                            <!--Input-->
+                            <a-input type="tel" v-model:value="formstate.PRIMERACUOTA" placeholder="YYYY-MM-DD"
+                                v-mask="'####-##-##'" />
+                        </a-form-item>
+                    </a-col>
+
+                    <!--Col-->
+                    <a-col :span="24">
+
+                        <!--Group-->
+                        <a-form-item label="Dia Pago:" v-bind="validateInfos.DIAPAGO">
+
+                            <!--Input-->
+                            <a-input-number type="tel" v-model:value="formstate.DIAPAGO">
+
+                                <!--Template-->
+                                <template #addonBefore>N°</template>
+                            </a-input-number>
+                        </a-form-item>
+                    </a-col>
+
+                    <!--Col-->
+                    <a-col :span="24">
+
+                        <!--Group-->
+                        <a-form-item label="Cuotas:" v-bind="validateInfos.CUOTA">
+
+                            <!--Input-->
+                            <a-input-number type="tel" v-model:value="formstate.CUOTA">
+
+                                <!--Template-->
+                                <template #addonBefore>N°</template>
+                            </a-input-number>
+                        </a-form-item>
+                    </a-col>
+
+                    <!--Col-->
+                    <a-col :span="24">
+
+                        <!--Group-->
+                        <a-form-item label="Precio Cuota:" v-bind="validateInfos.PRECIOCUOTA">
+
+                            <!--Input-->
+                            <a-input-number type="tel" v-model:value="formstate.PRECIOCUOTA">
+
+                                <!--Template-->
+                                <template #addonBefore>$</template>
+                            </a-input-number>
+                        </a-form-item>
+                    </a-col>
+                </a-row>
+            </a-form>
+
+            <!--Div-->
+            <div class="steps-action formulario">
+
+                <!--Button-->
+                <a-button v-if="current === 0" @click="nextDato()" class="button-completar me-3">
+                    Siguiente
+                </a-button>
+
+                <!--Button-->
+                <a-button v-if="current === 1 && steps.length === 3" @click="nextMoto()" class="button-completar me-3">
+                    Siguiente
+                </a-button>
+
+                <!--Popconfirm-->
+                <a-popconfirm title="¿Completar proceso?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion"
+                    v-if="current === steps.length - 1">
 
                     <!--Button-->
-                    <a-button v-if="current < steps.length - 1" @click="next(); doChangeScrollto()"
-                        class="button-completar me-3 mb-3">
-                        Siguiente
+                    <a-button class="button-completar me-3">
+                        Completar
                     </a-button>
+                </a-popconfirm>
 
-                    <!--Popconfirm-->
-                    <a-popconfirm title="¿Completar proceso?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion"
-                        v-if="current === steps.length - 1">
+                <!--Button-->
+                <a-button v-if="current > 0" @click="prev()" class="button-siguiente">
+                    Volver
+                </a-button>
 
-                        <!--Button-->
-                        <a-button class="button-completar me-3 mb-3">
-                            Completar
-                        </a-button>
-                    </a-popconfirm>
+                <!--Popconfirm-->
+                <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear"
+                    v-if="current === 0">
 
                     <!--Button-->
-                    <a-button v-if="current > 0" @click="prev(); doChangeScrollto()" class="button-siguiente">
-                        Volver
+                    <a-button class="button-siguiente">
+                        Limpiar
                     </a-button>
-
-                    <!--Popconfirm-->
-                    <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear"
-                        v-if="current === 0">
-
-                        <!--Button-->
-                        <a-button class="button-siguiente">
-                            Limpiar
-                        </a-button>
-                    </a-popconfirm>
-                </div>
+                </a-popconfirm>
             </div>
         </div>
 
@@ -419,7 +500,19 @@ export default {
 
             NUMEROCHASIS: null,
 
-            TIPO: 'URBANO'
+            TIPO: 'URBANO',
+
+            MESES: null,
+
+            VENCIMIENTO: null,
+
+            PRIMERACUOTA: null,
+
+            DIAPAGO: null,
+
+            CUOTA: null,
+
+            PRECIOCUOTA: null
         })
 
         const rules = reactive({
@@ -561,6 +654,54 @@ export default {
 
                     message: "Campo Requerido"
                 }
+            ],
+
+            MESES: [
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
+                }
+            ],
+
+            VENCIMIENTO: [
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
+                }
+            ],
+
+            PRIMERACUOTA: [
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
+                }
+            ],
+
+            DIAPAGO: [
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
+                }
+            ],
+
+            CUOTA: [
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
+                }
+            ],
+
+            PRECIOCUOTA: [
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
+                }
             ]
         })
 
@@ -572,11 +713,25 @@ export default {
 
         } = useForm(formstate, rules)
 
-        const next = () => {
+        const nextDato = () => {
 
-            const fieldsToValidate = ['PLANTILLA', 'NOMBRE', 'PROFESION', 'DEPARTAMENTO', 'MUNICIPIO', 'DUI', 'PRECIO']
+            const field = ['PLANTILLA', 'NOMBRE', 'PROFESION', 'DEPARTAMENTO', 'MUNICIPIO', 'DUI', 'PRECIO']
 
-            validate(fieldsToValidate).then(() => {
+            validate(field).then(() => {
+
+                current.value++
+
+            }).catch(err => {
+
+                console.log('error', err)
+            })
+        }
+
+        const nextMoto = () => {
+
+            const field = ['POLIZA', 'MARCA', 'MODELO', 'ANIO', 'COLOR', 'NUMEROMOTOR', 'NUMEROCHASIS', 'TIPO']
+
+            validate(field).then(() => {
 
                 current.value++
 
@@ -594,12 +749,13 @@ export default {
         const filterOption = (input, option) => option.label.toLowerCase().includes(input.toLowerCase())
 
         return {
-            next,
             prev,
             onClose,
             visible,
             current,
             validate,
+            nextDato,
+            nextMoto,
             showModal,
             formstate,
             filterOption,
@@ -611,7 +767,18 @@ export default {
 
         doChangeValidacion() {
 
-            this.validate().then(() => {
+            let field = []
+
+            if (this.steps[2]?.title === 'FORMA PAGO') {
+
+                field = ['MESES', 'VENCIMIENTO', 'PRIMERACUOTA', 'DIAPAGO', 'CUOTA', 'PRECIOCUOTA']
+
+            } else {
+
+                field = ['POLIZA', 'MARCA', 'MODELO', 'ANIO', 'COLOR', 'NUMEROMOTOR', 'NUMEROCHASIS', 'TIPO']
+            }
+
+            this.validate(field).then(() => {
 
                 this.doChangeAdd()
 
@@ -639,7 +806,7 @@ export default {
 
                 getSuccess('Descargando')
 
-                setTimeout(function () { location.reload() }, 600)
+                setTimeout(function () { location.reload() }, 650)
 
             } catch (err) {
 
@@ -651,57 +818,43 @@ export default {
             }
         },
 
-        doChangeDisabled(value, option) {
+        doChangeReplace(value, option) {
 
-            if (value == 13) {
-                this.steps = [
+            if ([1, 10, 12, 13].includes(value)) {
 
-                    { title: 'DATO' },
+                this.doChangeFieldClear()
 
-                    { title: 'FORMA PAGO' },
-
-                    { title: 'MOTO' }
-                ]
-            }
-
-
-
-            if (value > 2) {
-
-                this.formstate.NOMBRE = option?.label
-
-                this.formstate.PROFESION = ' '
-
-                this.formstate.DEPARTAMENTO = ' '
-
-                this.formstate.MUNICIPIO = ' '
-
-                this.formstate.DUI = '00000000-0'
-
-                this.disabled = true
+                this.disabled = false
 
             } else {
 
-                const exclude = ['TIPO', 'PLANTILLA', 'PRECIO']
+                this.doChangeFieldClear()
 
-                Object.keys(this.formstate)
+                const fields = ['NOMBRE', 'PROFESION', 'DUI', 'DEPARTAMENTO', 'MUNICIPIO']
 
-                    .filter(key => !exclude.includes(key))
+                for (const field of fields) {
 
-                    .forEach(key => {
+                    this.formstate[field] = field === 'DUI' ? '00000000-0' : field === 'NOMBRE' ? option?.label : ' '
+                }
 
-                        this.formstate[key] = null
-                    })
-
-                this.disabled = false
+                this.disabled = true
             }
+
+            this.steps = [
+
+                { title: 'DATO' },
+
+                { title: 'MOTO' },
+
+                ...([12, 13].includes(value) ? [{ title: 'FORMA PAGO' }] : [])
+            ]
         },
 
         doChangePorcentaje() {
 
-            if (this.current === 0) return 50
+            if (this.current === 0) return (100 / this.steps.length)
 
-            return ((this.current + 1) / 2) * 100
+            return ((this.current + 1) / this.steps.length) * 100
         },
 
         doChangeMunicipio() {
@@ -729,7 +882,7 @@ export default {
 
         doChangeFieldClear() {
 
-            const exclude = ['TIPO']
+            const exclude = ['PLANTILLA', 'TIPO']
 
             Object.keys(this.formstate)
 
@@ -739,16 +892,6 @@ export default {
 
                     this.formstate[key] = null
                 })
-        },
-
-        doChangeScrollto() {
-
-            window.scrollTo({
-
-                top: 0,
-
-                behavior: "smooth"
-            })
         }
     }
 };

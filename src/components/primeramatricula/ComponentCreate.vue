@@ -5,134 +5,124 @@
     </a-button>
 
     <!--Modal-->
-    <a-modal v-model:visible="visible" width="900px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:visible="visible" width="800px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" centered :class="!loading ? 'loading' : null">
 
         <!--Icon-->
-        <i type="button" class="fa-solid fa-xmark" @click="onClose"></i>
+        <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
 
         <!--Div-->
         <div v-if="(loading)">
 
-            <!--Container-->
-            <div class="container mb-3 pb-2">
+            <!--Form-->
+            <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
 
-                <!--Form-->
-                <a-form layout="vertical" :model="formstate" class="formulario">
+                <!--Row-->
+                <a-row :gutter="[24, 24]">
 
-                    <!--Row-->
-                    <a-row :gutter="[24, 24]">
+                    <!--Col-->
+                    <a-col :span="24">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                        <!--Group-->
+                        <a-form-item label="Plantilla:" v-bind="validateInfos.PLANTILLA">
 
-                            <!--Group-->
-                            <a-form-item label="Plantilla:" v-bind="validateInfos.PLANTILLA">
+                            <!--Select-->
+                            <a-select v-model:value="formstate.PLANTILLA" show-search :options="dataSourcePl"
+                                :filter-option="filterOption" />
+                        </a-form-item>
+                    </a-col>
 
-                                <!--Select-->
-                                <a-select v-model:value="formstate.PLANTILLA" show-search :options="dataSourcePl"
-                                    :filter-option="filterOption" />
-                            </a-form-item>
-                        </a-col>
+                    <!--Col-->
+                    <a-col :span="24">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                        <!--Group-->
+                        <a-form-item label="Año:">
 
-                            <!--Group-->
-                            <a-form-item label="Año:">
+                            <!--Input-->
+                            <a-input value="2023" disabled />
+                        </a-form-item>
+                    </a-col>
 
-                                <!--Input-->
-                                <a-input value="2023" disabled />
-                            </a-form-item>
-                        </a-col>
+                    <!--Col-->
+                    <a-col :span="24">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                        <!--Group-->
+                        <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
 
-                            <!--Group-->
-                            <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
+                            <!--Input-->
+                            <a-input v-model:value="formstate.NOMBRE" @change="doChangeLetter('NOMBRE')" />
+                        </a-form-item>
+                    </a-col>
 
-                                <!--Input-->
-                                <a-input v-model:value="formstate.NOMBRE" @change="doChangeLetter('NOMBRE')"
-                                    :disabled="disabled" />
-                            </a-form-item>
-                        </a-col>
+                    <!--Col-->
+                    <a-col :span="24">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                        <!--Group-->
+                        <a-form-item label="Profesion:" v-bind="validateInfos.PROFESION">
 
-                            <!--Group-->
-                            <a-form-item label="Profesion:" v-bind="validateInfos.PROFESION">
+                            <!--Select-->
+                            <a-select v-model:value="formstate.PROFESION" show-search :options="getProfesion"
+                                :filter-option="filterOption" />
+                        </a-form-item>
+                    </a-col>
 
-                                <!--Select-->
-                                <a-select v-model:value="formstate.PROFESION" show-search :options="getProfesion"
-                                    :filter-option="filterOption" :disabled="disabled" />
-                            </a-form-item>
-                        </a-col>
+                    <!--Col-->
+                    <a-col :span="24">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                        <!--Group-->
+                        <a-form-item label="Dui:" v-bind="validateInfos.DUI">
 
-                            <!--Group-->
-                            <a-form-item label="Dui:" v-bind="validateInfos.DUI">
+                            <!--Input-->
+                            <a-input type="tel" v-model:value="formstate.DUI" v-mask="'########-#'" />
+                        </a-form-item>
+                    </a-col>
 
-                                <!--Input-->
-                                <a-input type="tel" v-model:value="formstate.DUI" v-mask="'########-#'"
-                                    :disabled="disabled" />
-                            </a-form-item>
-                        </a-col>
+                    <!--Col-->
+                    <a-col :span="24">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                        <!--Group-->
+                        <a-form-item label="Departamento:" v-bind="validateInfos.DEPARTAMENTO">
 
-                            <!--Group-->
-                            <a-form-item label="Departamento:" v-bind="validateInfos.DEPARTAMENTO">
+                            <!--Select-->
+                            <a-select v-model:value="formstate.DEPARTAMENTO" show-search @change="doChangeMunicipio"
+                                :options="getDepartamento" :filter-option="filterOption" />
+                        </a-form-item>
+                    </a-col>
 
-                                <!--Select-->
-                                <a-select v-model:value="formstate.DEPARTAMENTO" show-search @change="doChangeMunicipio"
-                                    :options="getDepartamento" :filter-option="filterOption" :disabled="disabled" />
-                            </a-form-item>
-                        </a-col>
+                    <!--Col-->
+                    <a-col :span="24">
 
-                        <!--Col-->
-                        <a-col :span="24">
+                        <!--Group-->
+                        <a-form-item label="Municipio:" v-bind="validateInfos.MUNICIPIO">
 
-                            <!--Group-->
-                            <a-form-item label="Municipio:" v-bind="validateInfos.MUNICIPIO">
+                            <!--Select-->
+                            <a-select v-model:value="formstate.MUNICIPIO" show-search :options="dataSourceMn"
+                                :filter-option="filterOption" />
+                        </a-form-item>
+                    </a-col>
+                </a-row>
+            </a-form>
 
-                                <!--Select-->
-                                <a-select v-model:value="formstate.MUNICIPIO" show-search :options="dataSourceMn"
-                                    :filter-option="filterOption" :disabled="disabled" />
-                            </a-form-item>
-                        </a-col>
-                    </a-row>
-                </a-form>
-            </div>
+            <!--Div-->
+            <div class="steps-action formulario">
 
-            <!--Container-->
-            <div class="container">
+                <!--Popconfirm-->
+                <a-popconfirm title="¿Completar proceso?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
-                <!--Div-->
-                <div class="steps-action formulario">
+                    <!--Button-->
+                    <a-button class="button-completar me-3">
+                        Completar
+                    </a-button>
+                </a-popconfirm>
 
-                    <!--Popconfirm-->
-                    <a-popconfirm title="¿Completar proceso?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
+                <!--Popconfirm-->
+                <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear">
 
-                        <!--Button-->
-                        <a-button class="button-completar me-3">
-                            Completar
-                        </a-button>
-                    </a-popconfirm>
-
-                    <!--Popconfirm-->
-                    <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear">
-
-                        <!--Button-->
-                        <a-button class="button-siguiente">
-                            Limpiar
-                        </a-button>
-                    </a-popconfirm>
-                </div>
+                    <!--Button-->
+                    <a-button class="button-siguiente">
+                        Limpiar
+                    </a-button>
+                </a-popconfirm>
             </div>
         </div>
 
@@ -192,7 +182,6 @@ export default {
     data() {
         return {
             loading: false,
-            disabled: false,
 
             getMunicipio,
             getProfesion,
@@ -249,7 +238,7 @@ export default {
 
         const formstate = reactive({
 
-            PLANTILLA: 15,
+            PLANTILLA: 14,
 
             NOMBRE: null,
 
@@ -380,7 +369,7 @@ export default {
 
                 getSuccess('Descargando')
 
-                setTimeout(function () { location.reload() }, 600)
+                setTimeout(function () { location.reload() }, 500)
 
             } catch (err) {
 
@@ -418,16 +407,6 @@ export default {
 
                     this.formstate[key] = null
                 })
-        },
-
-        doChangeScrollto() {
-
-            window.scrollTo({
-
-                top: 0,
-
-                behavior: "smooth"
-            })
         }
     }
 };
