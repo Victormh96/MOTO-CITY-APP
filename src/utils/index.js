@@ -67,6 +67,20 @@ const getError = (err) => {
     })
 }
 
+function getResponse(err) {
+
+    if (err.response.status === 500) {
+
+        getWarning('Error, se ha notificado a TI de OUTLANDER')
+
+    } else {
+
+        store.dispatch("CuentaCerrar")
+
+        getClose('Sesión cerrada')
+    }
+}
+
 function getToken() {
 
     const data = {
@@ -96,8 +110,6 @@ function getCreate(record) {
 
             NOMBRE: record?.NOMBRE,
 
-            EDAD: record?.EDAD,
-
             PROFESION: record?.PROFESION,
 
             DEPARTAMENTO: record?.DEPARTAMENTO,
@@ -126,17 +138,27 @@ function getCreate(record) {
 
             TIPO: record?.TIPO,
 
-            MESES: record?.MESES,
+            MESES: record?.MESES ?? 0,
 
-            VENCIMIENTO: record?.VENCIMIENTO,
+            VENCIMIENTO: record?.VENCIMIENTO ?? '1990-01-01',
 
-            PRIMERACUOTA: record?.PRIMERACUOTA,
+            PRIMERACUOTA: record?.PRIMERACUOTA ?? '1990-01-01',
 
-            DIAPAGO: record?.DIAPAGO,
+            DIAPAGO: record?.DIAPAGO ?? 0,
 
-            CUOTA: record?.CUOTA,
+            CUOTA: record?.CUOTA ?? 0,
 
-            PRECIOCUOTA: record?.PRECIOCUOTA,
+            PRECIOCUOTA: record?.PRECIOCUOTA ?? 0,
+
+            PRIMA: record?.PRIMA,
+
+            NOMBREF: record?.NOMBREF,
+
+            DEPARTAMENTOF: record?.DEPARTAMENTOF,
+
+            MUNICIPIOF: record?.MUNICIPIOF,
+
+            DUIF: record?.DUIF,
 
             PLANTILLA: record?.PLANTILLA,
 
@@ -180,4 +202,4 @@ function getPlantilla(record) {
     return data
 }
 
-export { getClose, getOpen, getSuccess, getWarning, getError, getToken, getCreate, getPlantilla } 
+export { getClose, getOpen, getSuccess, getWarning, getError, getResponse, getToken, getCreate, getPlantilla } 

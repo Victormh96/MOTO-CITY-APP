@@ -2,7 +2,7 @@
     <!--Button-->
     <a-button class="button-default mb-3" @click="showModal()">
         NUEVO DOCUMENTO
-    </a-button> 
+    </a-button>
 
     <!--Modal-->
     <a-modal v-model:visible="visible" width="800px" :destroyOnClose="true" :maskClosable="false" :footer="null"
@@ -59,7 +59,7 @@
 
                             <!--Select-->
                             <a-select v-model:value="formstate.PROFESION" show-search :options="getProfesion"
-                                :filter-option="filterOption" :disabled="disabled" />
+                                :filter-option="filterOption" :disabled="disabled || profesion" />
                         </a-form-item>
                     </a-col>
 
@@ -213,7 +213,7 @@
                 </a-row>
 
                 <!--Row-->
-                <a-row :gutter="[24, 24]" v-if="current === 2">
+                <a-row :gutter="[24, 24]" v-if="current === 2 && this.steps[2]?.title === 'FORMA PAGO'">
 
                     <!--Col-->
                     <a-col :span="24">
@@ -225,7 +225,22 @@
                             <a-input-number type="tel" v-model:value="formstate.MESES">
 
                                 <!--Template-->
-                                <template #addonBefore>N°</template>
+                                <template #addonBefore>MM</template>
+                            </a-input-number>
+                        </a-form-item>
+                    </a-col>
+
+                    <!--Col-->
+                    <a-col :span="24">
+
+                        <!--Group-->
+                        <a-form-item label="Prima:" v-bind="validateInfos.PRIMA">
+
+                            <!--Input-->
+                            <a-input-number type="tel" v-model:value="formstate.PRIMA" :disabled="prima">
+
+                                <!--Template-->
+                                <template #addonBefore>$</template>
                             </a-input-number>
                         </a-form-item>
                     </a-col>
@@ -236,9 +251,8 @@
                         <!--Group-->
                         <a-form-item label="Vencimiento:" v-bind="validateInfos.VENCIMIENTO">
 
-                            <!--Input-->
-                            <a-input type="tel" v-model:value="formstate.VENCIMIENTO" placeholder="YYYY-MM-DD"
-                                v-mask="'####-##-##'" />
+                            <!--Picker-->
+                            <a-date-picker v-model:value="formstate.VENCIMIENTO" placeholder="YYYY-MM-DD" />
                         </a-form-item>
                     </a-col>
 
@@ -248,9 +262,8 @@
                         <!--Group-->
                         <a-form-item label="Primera Cuota:" v-bind="validateInfos.PRIMERACUOTA">
 
-                            <!--Input-->
-                            <a-input type="tel" v-model:value="formstate.PRIMERACUOTA" placeholder="YYYY-MM-DD"
-                                v-mask="'####-##-##'" />
+                            <!--Picker-->
+                            <a-date-picker v-model:value="formstate.PRIMERACUOTA" placeholder="YYYY-MM-DD" />
                         </a-form-item>
                     </a-col>
 
@@ -264,7 +277,7 @@
                             <a-input-number type="tel" v-model:value="formstate.DIAPAGO">
 
                                 <!--Template-->
-                                <template #addonBefore>N°</template>
+                                <template #addonBefore>DD</template>
                             </a-input-number>
                         </a-form-item>
                     </a-col>
@@ -296,6 +309,56 @@
                                 <!--Template-->
                                 <template #addonBefore>$</template>
                             </a-input-number>
+                        </a-form-item>
+                    </a-col>
+                </a-row>
+
+                <!--Row-->
+                <a-row :gutter="[24, 24]" v-if="current === 2 && this.steps[2]?.title === 'FIRMA'">
+
+                    <!--Col-->
+                    <a-col :span="24">
+
+                        <!--Group-->
+                        <a-form-item label="Nombre:" v-bind="validateInfos.NOMBREF">
+
+                            <!--Input-->
+                            <a-input v-model:value="formstate.NOMBREF" @change="doChangeLetter('NOMBREF')" />
+                        </a-form-item>
+                    </a-col>
+
+                    <!--Col-->
+                    <a-col :span="24">
+
+                        <!--Group-->
+                        <a-form-item label="Dui:" v-bind="validateInfos.DUIF">
+
+                            <!--Input-->
+                            <a-input type="tel" v-model:value="formstate.DUIF" v-mask="'########-#'" />
+                        </a-form-item>
+                    </a-col>
+
+                    <!--Col-->
+                    <a-col :span="24">
+
+                        <!--Group-->
+                        <a-form-item label="Departamento:" v-bind="validateInfos.DEPARTAMENTOF">
+
+                            <!--Select-->
+                            <a-select v-model:value="formstate.DEPARTAMENTOF" show-search @change="doChangeMunicipioF"
+                                :options="getDepartamento" :filter-option="filterOption" />
+                        </a-form-item>
+                    </a-col>
+
+                    <!--Col-->
+                    <a-col :span="24">
+
+                        <!--Group-->
+                        <a-form-item label="Municipio:" v-bind="validateInfos.MUNICIPIOF">
+
+                            <!--Select-->
+                            <a-select v-model:value="formstate.MUNICIPIOF" show-search :options="dataSourceFMn"
+                                :filter-option="filterOption" />
                         </a-form-item>
                     </a-col>
                 </a-row>
@@ -372,9 +435,9 @@ import {
 } from "@/utils/data"
 
 import {
-    getClose,
     getCreate,
     getSuccess,
+    getResponse,
     getPlantilla
 } from "@/utils/index"
 
@@ -395,13 +458,14 @@ const useForm = Form.useForm
 
 import axios from "axios"
 import dayjs from "dayjs"
-import store from "@/store"
 
 export default {
     data() {
         return {
+            prima: false,
             loading: false,
             disabled: false,
+            profesion: false,
 
             getAnio,
             getColor,
@@ -414,6 +478,7 @@ export default {
             dataSourceMn: [],
             dataSourceMd: [],
             dataSourcePl: [],
+            dataSourceFMn: [],
 
             steps: [
 
@@ -440,9 +505,7 @@ export default {
 
             console.error(err)
 
-            store.dispatch("CuentaCerrar")
-
-            getClose('Sesión cerrada')
+            getResponse(err)
         }
     },
 
@@ -504,6 +567,8 @@ export default {
 
             MESES: null,
 
+            PRIMA: null,
+
             VENCIMIENTO: null,
 
             PRIMERACUOTA: null,
@@ -512,7 +577,15 @@ export default {
 
             CUOTA: null,
 
-            PRECIOCUOTA: null
+            PRECIOCUOTA: null,
+
+            NOMBREF: null,
+
+            DEPARTAMENTOF: null,
+
+            MUNICIPIOF: null,
+
+            DUIF: null
         })
 
         const rules = reactive({
@@ -616,11 +689,6 @@ export default {
                     required: true,
 
                     message: "Campo Requerido"
-                },
-                {
-                    min: 4,
-
-                    message: "Minimo 4 caracteres"
                 }
             ],
 
@@ -657,6 +725,14 @@ export default {
             ],
 
             MESES: [
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
+                }
+            ],
+
+            PRIMA: [
                 {
                     required: true,
 
@@ -701,6 +777,52 @@ export default {
                     required: true,
 
                     message: "Campo Requerido"
+                }
+            ],
+
+            NOMBREF: [
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
+                }
+            ],
+
+            DEPARTAMENTOF: [
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
+                }
+            ],
+
+            MUNICIPIOF: [
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
+                }
+            ],
+
+            DUIF: [
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
+                },
+                {
+                    validator: async () => {
+
+                        const { DUI } = formstate
+
+                        if (isValidDUI(DUI) == false && DUI !== null && DUI !== '') {
+
+                            return Promise.reject(
+
+                                new Error("Formato Incorrecto")
+                            )
+                        }
+                    }
                 }
             ]
         })
@@ -773,6 +895,10 @@ export default {
 
                 field = ['MESES', 'VENCIMIENTO', 'PRIMERACUOTA', 'DIAPAGO', 'CUOTA', 'PRECIOCUOTA']
 
+            } else if (this.steps[2]?.title === 'FIRMA') {
+
+                field = ['NOMBREF', 'DUIF', 'DEPARTAMENTOF', 'MUNICIPIOF']
+
             } else {
 
                 field = ['POLIZA', 'MARCA', 'MODELO', 'ANIO', 'COLOR', 'NUMEROMOTOR', 'NUMEROCHASIS', 'TIPO']
@@ -806,21 +932,19 @@ export default {
 
                 getSuccess('Descargando')
 
-                setTimeout(function () { location.reload() }, 650)
+                setTimeout(function () { location.reload() }, 500)
 
             } catch (err) {
 
                 console.error(err)
 
-                store.dispatch("CuentaCerrar")
-
-                getClose('Sesión cerrada')
+                getResponse(err)
             }
         },
 
         doChangeReplace(value, option) {
 
-            if ([1, 10, 12, 13].includes(value)) {
+            if ([1, 10, 12, 13, 9].includes(value)) {
 
                 this.doChangeFieldClear()
 
@@ -840,13 +964,37 @@ export default {
                 this.disabled = true
             }
 
+            if ([13].includes(value)) {
+
+                this.prima = false
+
+            } else {
+
+                this.prima = true
+
+                this.formstate.PRIMA = 0
+            }
+
+            if ([9].includes(value)) {
+
+                this.profesion = true
+
+                this.formstate.PROFESION = ' '
+
+            } else {
+
+                this.profesion = false
+            }
+
             this.steps = [
 
                 { title: 'DATO' },
 
                 { title: 'MOTO' },
 
-                ...([12, 13].includes(value) ? [{ title: 'FORMA PAGO' }] : [])
+                ...([12, 13].includes(value) ? [{ title: 'FORMA PAGO' }] : []),
+
+                ...([9].includes(value) ? [{ title: 'FIRMA' }] : [])
             ]
         },
 
@@ -864,6 +1012,15 @@ export default {
             const data = getMunicipio.filter(item => item.departamento === this.formstate.DEPARTAMENTO)
 
             this.dataSourceMn = data
+        },
+
+        doChangeMunicipioF() {
+
+            this.formstate.MUNICIPIOF = null
+
+            const data = getMunicipio.filter(item => item.departamento === this.formstate.DEPARTAMENTOF)
+
+            this.dataSourceFMn = data
         },
 
         doChangeModelo() {

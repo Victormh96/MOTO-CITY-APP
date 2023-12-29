@@ -157,9 +157,9 @@ import {
 } from "@/utils/data"
 
 import {
-    getClose,
     getCreate,
     getSuccess,
+    getResponse,
     getPlantilla
 } from "@/utils/index"
 
@@ -176,7 +176,6 @@ const useForm = Form.useForm
 
 import axios from "axios"
 import dayjs from "dayjs"
-import store from "@/store"
 
 export default {
     data() {
@@ -208,9 +207,7 @@ export default {
 
             console.error(err)
 
-            store.dispatch("CuentaCerrar")
-
-            getClose('Sesión cerrada')
+            getResponse(err)
         }
     },
 
@@ -375,9 +372,7 @@ export default {
 
                 console.error(err)
 
-                store.dispatch("CuentaCerrar")
-
-                getClose('Sesión cerrada')
+                getResponse(err)
             }
         },
 

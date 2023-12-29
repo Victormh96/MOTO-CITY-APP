@@ -13,7 +13,7 @@
 
             <!--Tag-->
             <a-tag color="#19897e" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
-                COMPRA VENTA {{ new Date().getFullYear() }}
+                PLANTILLA {{ new Date().getFullYear() }}
             </a-tag>
 
             <!--Table-->

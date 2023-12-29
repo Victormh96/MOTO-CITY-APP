@@ -39,7 +39,14 @@
                     <router-link :to="{ name: 'Primeramatricula' }">
 
                         <!--Img-->
-                        <img src="@/../public/img/categoria/primera-matricula.png" class="img-option mb-3 mb-lg-0">
+                        <img src="@/../public/img/categoria/primera-matricula.png" class="img-option mb-3">
+                    </router-link>
+
+                    <!--Enlace-->
+                    <router-link :to="{ name: 'Plantilla' }">
+
+                        <!--Img-->
+                        <img src="@/../public/img/categoria/plantilla.png" class="img-option mb-3 mb-lg-0">
                     </router-link>
                 </a-col>
             </a-row>

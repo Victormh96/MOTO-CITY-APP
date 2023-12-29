@@ -19,6 +19,13 @@ const motocityRoutes = [
         name: 'Primeramatricula',
 
         component: () => import("@/views/primeramatricula/ViewIndex.vue")
+    },
+    {
+        path: '/plantilla',
+
+        name: 'Plantilla',
+
+        component: () => import("@/views/plantilla/ViewIndex.vue")
     }
 ]
 

@@ -42,7 +42,7 @@ export default {
 
     created() {
 
-        setTimeout(() => { this.loading = true }, 600)
+        setTimeout(() => { this.loading = true }, 850)
     },
 
     components: {

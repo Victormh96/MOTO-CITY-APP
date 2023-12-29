@@ -8799,7 +8799,7 @@ span.ant-radio+* {
     background: var(--input);
     border: 1px solid var(--borde);
     border-radius: 2px;
-    height: 35px;
+    height: 40px;
     width: 100%;
 }
 
@@ -19026,7 +19026,7 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
 
 .ant-carousel .slick-slide img {
     width: 100%;
-    height: 770px;
+    height: 766px;
     display: block;
     object-fit: cover;
     border-radius: 5px;

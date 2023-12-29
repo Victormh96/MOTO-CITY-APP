@@ -88,7 +88,7 @@ import {
 
 import {
     getToken,
-    getClose
+    getResponse
 } from "@/utils/index"
 
 import {
@@ -96,7 +96,6 @@ import {
 } from "@/services/paths"
 
 import axios from "axios"
-import store from "@/store"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
 import Document from "@/components/primeramatricula/ComponentCreate.vue"
@@ -135,9 +134,7 @@ export default {
 
             console.error(err)
 
-            store.dispatch("CuentaCerrar")
-
-            getClose('Sesión cerrada')
+            getResponse(err)
         }
     },
 
