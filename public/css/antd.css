@@ -32997,6 +32997,36 @@ div.ant-typography-edit-content.ant-typography-rtl {
     padding: 0;
 }
 
+.ql-toolbar.ql-snow {
+    border-top: 1px solid var(--borde) !important;
+    border-left: 1px solid var(--borde) !important;
+    border-right: 1px solid var(--borde) !important;
+    border-bottom: none !important;
+}
+
+.ql-container.ql-snow {
+    border: 1px solid var(--borde) !important;
+}
+
+.ql-editor {
+    font-size: .8rem !important;
+    color: var(--texto) !important;
+}
+
+.ql-snow .ql-toolbar button svg,
+.quillWrapper .ql-snow.ql-toolbar button svg {
+    width: 20px !important;
+    height: 20px !important;
+}
+
+.quillWrapper .ql-snow.ql-toolbar .ql-formats {
+    margin-bottom: 5px !important;
+}
+
+.ql-editor {
+    min-height: 400px !important;
+}
+
 /*!**********************************************************************************************************************************************************************************************************************************************************!*\
   !*** Bootstrap
   \**********************************************************************************************************************************************************************************************************************************************************/

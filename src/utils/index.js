@@ -160,6 +160,10 @@ function getCreate(record) {
 
             DUIF: record?.DUIF,
 
+            ID: record?.ID,
+
+            CONTENIDO: record?.CONTENIDO,
+
             PLANTILLA: record?.PLANTILLA,
 
             USUARIO: store.state.authentication?.cuenta?.slpcode

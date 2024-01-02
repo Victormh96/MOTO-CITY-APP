@@ -9,7 +9,7 @@
         <div class="container-fluid mb-3">
 
             <!--Component-->
-            <Document />
+            <Crear />
 
             <!--Tag-->
             <a-tag color="#19897e" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
@@ -33,8 +33,22 @@
                     </template>
 
                     <!--Template-->
+                    <template v-if="column.key === 'contenido'">
+
+                        <!--Typography-->
+                        <a-typography-paragraph :ellipsis="{ rows: 2 }" :content="record.contenido" />
+                    </template>
+
+                    <!--Template-->
                     <template v-if="column.key === 'creado'">
                         {{ new Date(record.creado).toISOString().split("T")[0] }}
+                    </template>
+
+                    <!--Template-->
+                    <template v-if="column.key === 'acciones'">
+
+                        <!--Component-->
+                        <Editar :record="record" />
                     </template>
                 </template>
 
@@ -87,9 +101,10 @@ import {
 } from "@/services/paths"
 
 import axios from "axios"
+import Editar from "@/components/plantilla/ComponentEdit.vue"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
-import Document from "@/components/plantilla/ComponentCreate.vue"
+import Crear from "@/components/plantilla/ComponentCreate.vue"
 
 export default {
     data() {
@@ -220,6 +235,15 @@ export default {
                     setTimeout(() => { focusearch.value.focus() }, 100)
                 }
             }
+        },
+        {
+            title: "ACCIONES",
+
+            dataIndex: "acciones",
+
+            key: "acciones",
+
+            align: "center"
         }]
 
         const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -253,9 +277,10 @@ export default {
     },
 
     components: {
+        Crear,
         Footer,
         Navbar,
-        Document
+        Editar,
     }
 };
 </script>

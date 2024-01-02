@@ -1,7 +1,7 @@
 <template>
     <!--Button-->
-    <a-button class="button-default mb-3" @click="showModal()">
-        NUEVA PLANTILLA
+    <a-button class="button-default" @click="showModal(); doChangePlantilla()">
+        EDITAR
     </a-button>
 
     <!--Modal-->
@@ -37,8 +37,7 @@
                         <!--Group-->
                         <a-form-item label="Contenido:" v-bind="validateInfos.CONTENIDO">
 
-                            <!--Editor-->
-                            <vue-editor v-model="formstate.CONTENIDO" :editorToolbar="customToolbar"></vue-editor>
+                 
                         </a-form-item>
                     </a-col>
                 </a-row>
@@ -83,9 +82,7 @@ import {
     reactive
 } from "vue"
 
-import {
-    VueEditor
-} from "vue3-editor"
+
 
 import {
     getCreate,
@@ -98,13 +95,12 @@ import {
 } from "ant-design-vue"
 
 import {
-    PostPlantillaApi
+    PutPlantillaApi
 } from "@/services/paths"
 
 const useForm = Form.useForm
 
 import axios from "axios"
-import SummernoteEditor from "vue3-summernote-editor"
 
 export default {
     data() {
@@ -154,6 +150,8 @@ export default {
 
         const formstate = reactive({
 
+            ID: null,
+
             NOMBRE: null,
 
             CONTENIDO: null
@@ -202,7 +200,7 @@ export default {
 
             this.validate().then(() => {
 
-                this.doChangeAdd()
+                this.doChangeUpdate()
 
             }).catch(err => {
 
@@ -210,15 +208,15 @@ export default {
             })
         },
 
-        async doChangeAdd() {
+        async doChangeUpdate() {
 
             try {
 
                 const { body, config } = getCreate(this.formstate)
 
-                await axios.post(PostPlantillaApi, body, config)
+                await axios.post(PutPlantillaApi, body, config)
 
-                getSuccess('Guardado')
+                getSuccess('Editado')
 
                 setTimeout(function () { location.reload() }, 500)
 
@@ -228,6 +226,15 @@ export default {
 
                 getResponse(err)
             }
+        },
+
+        doChangePlantilla() {
+
+            this.formstate.ID = this.record?.id
+
+            this.formstate.NOMBRE = this.record?.nombre
+
+            this.formstate.CONTENIDO = this.record?.contenido
         },
 
         doChangeLetter(item) {
@@ -247,7 +254,9 @@ export default {
     },
 
     components: {
-        SummernoteEditor 
-    }
+
+    },
+
+    props: ["record"]
 };
 </script>
