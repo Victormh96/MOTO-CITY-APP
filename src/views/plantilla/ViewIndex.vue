@@ -280,7 +280,7 @@ export default {
         Crear,
         Footer,
         Navbar,
-        Editar,
+        Editar
     }
 };
 </script>

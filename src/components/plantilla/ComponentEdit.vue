@@ -6,7 +6,7 @@
 
     <!--Modal-->
     <a-modal v-model:visible="visible" width="800px" :destroyOnClose="true" :maskClosable="false" :footer="null"
-        :keyboard="false" centered :class="!loading ? 'loading' : null">
+        :keyboard="false" :class="!loading ? 'loading' : null" centered>
 
         <!--Icon-->
         <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
@@ -37,7 +37,8 @@
                         <!--Group-->
                         <a-form-item label="Contenido:" v-bind="validateInfos.CONTENIDO">
 
-                 
+                            <!--Froala-->
+                            <froala :config="config" v-model:value="formstate.CONTENIDO" />
                         </a-form-item>
                     </a-col>
                 </a-row>
@@ -52,15 +53,6 @@
                     <!--Button-->
                     <a-button class="button-completar me-3">
                         Completar
-                    </a-button>
-                </a-popconfirm>
-
-                <!--Popconfirm-->
-                <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear">
-
-                    <!--Button-->
-                    <a-button class="button-siguiente">
-                        Limpiar
                     </a-button>
                 </a-popconfirm>
             </div>
@@ -81,8 +73,6 @@ import {
     ref,
     reactive
 } from "vue"
-
-
 
 import {
     getCreate,
@@ -106,18 +96,49 @@ export default {
     data() {
         return {
             loading: false,
-            customToolbar: [
+            config: {
 
-                ["bold", "italic", "underline"],
+                toolbarButtons: {
 
-                [{ list: "ordered" }, { list: "bullet" }],
+                    moreText: {
 
-                [{ align: "" }, { align: "center" }, { align: "right" }, { align: "justify" }],
+                        buttons: ['bold', 'italic', 'underline', 'clearFormatting'],
 
-                [{ indent: "-1" }, { indent: "+1" }],
+                        buttonsVisible: 1
+                    },
 
-                ["clean"]
-            ]
+                    moreParagraph: {
+
+                        buttons: ['alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'outdent', 'indent'],
+
+                        buttonsVisible: 0
+                    },
+
+                    moreRich: {
+
+                        buttons: ['insertTable']
+                    },
+
+                    moreMisc: {
+
+                        buttons: ['undo', 'redo', 'html'],
+
+                        align: 'right',
+
+                        buttonsVisible: 3
+                    },
+
+                    quickInsertEnabled: false,
+
+                    events: {
+
+                        initialized: function () {
+
+                            console.log("initialized")
+                        }
+                    }
+                }
+            }
         }
     },
 
@@ -240,21 +261,7 @@ export default {
         doChangeLetter(item) {
 
             this.formstate[item] = this.formstate[item].toUpperCase()
-        },
-
-        doChangeFieldClear() {
-
-            Object.keys(this.formstate)
-
-                .forEach(key => {
-
-                    this.formstate[key] = null
-                })
         }
-    },
-
-    components: {
-
     },
 
     props: ["record"]

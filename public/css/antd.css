@@ -33027,6 +33027,28 @@ div.ant-typography-edit-content.ant-typography-rtl {
     min-height: 400px !important;
 }
 
+.fr-wrapper a {
+    display: none !important;
+}
+
+.fr-sticky-on {
+    position: relative !important;
+}
+
+.fr-box.fr-basic .fr-element {
+    min-height: 360px !important;
+    max-height: 360px !important;
+}
+
+.fr-box.fr-code-view textarea.fr-code {
+    min-height: 360px !important;
+    max-height: 360px !important;
+}
+
+.fr-visible {
+    display: none !important;
+}
+
 /*!**********************************************************************************************************************************************************************************************************************************************************!*\
   !*** Bootstrap
   \**********************************************************************************************************************************************************************************************************************************************************/
