@@ -1,7 +1,7 @@
 <template>
     <!--Button-->
-    <a-button class="button-default mb-3" @click="showModal()">
-        NUEVA PLANTILLA
+    <a-button class="button-default" @click="showModal(); doChangePlantilla()">
+        EDITAR
     </a-button>
 
     <!--Modal-->
@@ -85,7 +85,7 @@ import {
 } from "ant-design-vue"
 
 import {
-    PostPlantillaApi
+    PutPlantillaApi
 } from "@/services/paths"
 
 const useForm = Form.useForm
@@ -171,6 +171,8 @@ export default {
 
         const formstate = reactive({
 
+            ID: null,
+
             NOMBRE: null,
 
             CONTENIDO: null
@@ -219,7 +221,7 @@ export default {
 
             this.validate().then(() => {
 
-                this.doChangeAdd()
+                this.doChangeUpdate()
 
             }).catch(err => {
 
@@ -227,15 +229,15 @@ export default {
             })
         },
 
-        async doChangeAdd() {
+        async doChangeUpdate() {
 
             try {
 
                 const { body, config } = getCreate(this.formstate)
 
-                await axios.post(PostPlantillaApi, body, config)
+                await axios.post(PutPlantillaApi, body, config)
 
-                getSuccess('Guardado')
+                getSuccess('Editado')
 
                 setTimeout(function () { location.reload() }, 500)
 
@@ -247,10 +249,21 @@ export default {
             }
         },
 
+        doChangePlantilla() {
+
+            this.formstate.ID = this.record?.id
+
+            this.formstate.NOMBRE = this.record?.nombre
+
+            this.formstate.CONTENIDO = this.record?.contenido
+        },
+
         doChangeLetter(item) {
 
             this.formstate[item] = this.formstate[item].toUpperCase()
         }
-    }
+    },
+
+    props: ["record"]
 };
 </script>

@@ -165,6 +165,9 @@ function getCreate(record) {
             DIAS: record?.DIAS,
 
             CREDITO: record?.CREDITO,
+            ID: record?.ID,
+
+            CONTENIDO: record?.CONTENIDO,
 
             PLANTILLA: record?.PLANTILLA,
 
