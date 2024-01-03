@@ -12,13 +12,12 @@
             <Crear />
 
             <!--Tag-->
-            <a-tag color="#19897e" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
-                PLANTILLA {{ new Date().getFullYear() }}
+            <a-tag color="#196789" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
+                PLANTILLA
             </a-tag>
 
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourceFm" :columns="columnce" bordered
-                :scroll="{ x: 1400 }">
+            <a-table :pagination="pagination" :data-source="dataSourceFm" :columns="column" bordered :scroll="{ x: 1400 }">
 
                 <!--Template-->
                 <template #bodyCell="{ column, record }">
@@ -33,10 +32,13 @@
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'contenido'">
+                    <template v-if="column.key === 'estado'">
 
-                        <!--Typography-->
-                        <a-typography-paragraph :ellipsis="{ rows: 2 }" :content="record.contenido" />
+                        <!--Tag-->
+                        <a-tag color="cyan" v-if="record.estado">ACTIVADO</a-tag>
+
+                        <!--Tag-->
+                        <a-tag color="blue" v-else>DESACTIVADO</a-tag>
                     </template>
 
                     <!--Template-->
@@ -92,9 +94,12 @@ import {
 } from "vue"
 
 import {
-    getToken,
     getResponse
 } from "@/utils/index"
+
+import {
+    getToken
+} from "@/utils/request"
 
 import {
     GetFormatoApi
@@ -155,7 +160,7 @@ export default {
             searchedColumn: ''
         })
 
-        const columnce = [{
+        const column = [{
 
             title: "NOMBRE",
 
@@ -180,17 +185,6 @@ export default {
             }
         },
         {
-            title: "CONTENIDO",
-
-            dataIndex: "contenido",
-
-            key: "contenido",
-
-            align: "center",
-
-            width: "900px"
-        },
-        {
             title: "TIPO",
 
             dataIndex: "tipo",
@@ -212,6 +206,15 @@ export default {
             }],
 
             onFilter: (value, record) => record.tipo.toString().includes(value)
+        },
+        {
+            title: "ESTADO",
+
+            dataIndex: "estado",
+
+            key: "estado",
+
+            align: "center"
         },
         {
             title: "AÑADIDO",
@@ -256,7 +259,7 @@ export default {
         }
 
         return {
-            columnce,
+            column,
             focusearch,
             handleSearch,
             ...toRefs(state)

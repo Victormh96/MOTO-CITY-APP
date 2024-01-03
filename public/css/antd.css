@@ -33035,18 +33035,42 @@ div.ant-typography-edit-content.ant-typography-rtl {
     position: relative !important;
 }
 
-.fr-box.fr-basic .fr-element {
-    min-height: 360px !important;
-    max-height: 360px !important;
+.fr-fullscreen .fr-box.fr-basic .fr-element {
+    min-height: 100% !important;
 }
 
-.fr-box.fr-code-view textarea.fr-code {
-    min-height: 360px !important;
-    max-height: 360px !important;
+.fr-box.fr-basic .fr-element {
+    min-height: 400px !important;
+    max-height: 400px !important;
 }
 
 .fr-visible {
     display: none !important;
+}
+
+.fr-element {
+    background: var(--input) !important;
+}
+
+.fr-second-toolbar {
+    display: none !important;
+}
+
+.fr-toolbar {
+    background: var(--input) !important;
+    border: 1px solid var(--borde) !important;
+}
+
+.fr-box.fr-basic .fr-wrapper {
+    border: 1px solid var(--borde) !important;
+}
+
+.fr-toolbar .fr-newline {
+    display: none !important;
+}
+
+.fr-box.fr-basic .fr-element {
+    color: var(--texto) !important;
 }
 
 /*!**********************************************************************************************************************************************************************************************************************************************************!*\

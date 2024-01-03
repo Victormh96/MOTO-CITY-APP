@@ -75,10 +75,13 @@ import {
 } from "vue"
 
 import {
-    getCreate,
     getSuccess,
     getResponse
 } from "@/utils/index"
+
+import {
+    RequestPlantilla
+} from "@/utils/request"
 
 import {
     Form
@@ -102,9 +105,9 @@ export default {
 
                     moreText: {
 
-                        buttons: ['bold', 'italic', 'underline', 'clearFormatting'],
+                        buttons: ['bold', 'fontSize', 'italic', 'underline', 'clearFormatting'],
 
-                        buttonsVisible: 1
+                        buttonsVisible: 2
                     },
 
                     moreParagraph: {
@@ -121,7 +124,7 @@ export default {
 
                     moreMisc: {
 
-                        buttons: ['undo', 'redo', 'html'],
+                        buttons: ['undo', 'redo', 'fullscreen'],
 
                         align: 'right',
 
@@ -231,7 +234,7 @@ export default {
 
             try {
 
-                const { body, config } = getCreate(this.formstate)
+                const { body, config } = RequestPlantilla(this.formstate)
 
                 await axios.post(PostPlantillaApi, body, config)
 

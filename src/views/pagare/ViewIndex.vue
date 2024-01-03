@@ -13,22 +13,21 @@
 
             <!--Tag-->
             <a-tag color="#196789" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
-                PAGARE {{ new Date().getFullYear() }}
+                PAGARE
             </a-tag>
 
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourcePg" :columns="columnce" bordered
-                :scroll="{ x: 1400 }">
+            <a-table :pagination="pagination" :data-source="dataSourcePg" :columns="column" bordered :scroll="{ x: 1400 }">
 
                 <!--Template-->
                 <template #bodyCell="{ column, record }">
 
                     <!--Template-->
-                    <template v-if="column.key === 'Nombre'">
+                    <template v-if="column.key === 'nombre'">
 
                         <!--Typography-->
                         <a-typography-paragraph :copyable="{ tooltip: false }">
-                            {{ record.Nombre }}
+                            {{ record.nombre }}
                         </a-typography-paragraph>
                     </template>
 
@@ -45,7 +44,7 @@
                     <template v-if="column.key === 'fecha_pago'">
                         {{ new Date(record.fecha_pago).toISOString().split("T")[0] }}
                     </template>
-                    
+
                     <!--Template-->
                     <template v-if="column.key === 'creado'">
                         {{ new Date(record.creado).toISOString().split("T")[0] }}
@@ -92,18 +91,21 @@ import {
 } from "vue"
 
 import {
-    getToken,
     getResponse
 } from "@/utils/index"
+
+import {
+    getToken
+} from "@/utils/request"
 
 import {
     GetPagareApi
 } from "@/services/paths"
 
 import axios from "axios"
+import Crear from "@/components/pagare/ComponentCreate.vue"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
-import Crear from "@/components/pagare/ComponentCreate.vue"
 
 export default {
     data() {
@@ -154,13 +156,13 @@ export default {
             searchedColumn: ''
         })
 
-        const columnce = [{
+        const column = [{
 
             title: "NOMBRE",
 
-            dataIndex: "Nombre",
+            dataIndex: "nombre",
 
-            key: "Nombre",
+            key: "nombre",
 
             align: "center",
 
@@ -213,9 +215,9 @@ export default {
         {
             title: "CREDITO",
 
-            dataIndex: "creado",
+            dataIndex: "credito",
 
-            key: "creado",
+            key: "credito",
 
             align: "center",
 
@@ -230,7 +232,7 @@ export default {
             align: "center",
 
         }
-    ]
+        ]
 
         const handleSearch = (selectedKeys, confirm, dataIndex) => {
 
@@ -242,7 +244,7 @@ export default {
         }
 
         return {
-            columnce,
+            column,
             focusearch,
             handleSearch,
             ...toRefs(state)
@@ -263,9 +265,9 @@ export default {
     },
 
     components: {
+        Crear,
         Footer,
-        Navbar,
-        Crear
+        Navbar
     }
 };
 </script>

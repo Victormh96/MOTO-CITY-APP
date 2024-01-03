@@ -9,16 +9,15 @@
         <div class="container-fluid mb-3">
 
             <!--Component-->
-            <Document />
+            <Crear />
 
             <!--Tag-->
-            <a-tag color="#19897e" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
-                COMPRA VENTA {{ new Date().getFullYear() }}
+            <a-tag color="#196789" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
+                COMPRA VENTA
             </a-tag>
 
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourceCv" :columns="columnce" bordered
-                :scroll="{ x: 1400 }">
+            <a-table :pagination="pagination" :data-source="dataSourceCv" :columns="column" bordered :scroll="{ x: 1400 }">
 
                 <!--Template-->
                 <template #bodyCell="{ column, record }">
@@ -101,9 +100,12 @@ import {
 } from "vue"
 
 import {
-    getToken,
     getResponse
 } from "@/utils/index"
+
+import {
+    getToken
+} from "@/utils/request"
 
 import {
     GetCompraVentaApi
@@ -112,7 +114,7 @@ import {
 import axios from "axios"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
-import Document from "@/components/compraventa/ComponentCreate.vue"
+import Crear from "@/components/compraventa/ComponentCreate.vue"
 
 export default {
     data() {
@@ -163,7 +165,7 @@ export default {
             searchedColumn: ''
         })
 
-        const columnce = [{
+        const column = [{
 
             title: "NOMBRE",
 
@@ -294,7 +296,7 @@ export default {
         }
 
         return {
-            columnce,
+            column,
             focusearch,
             handleSearch,
             ...toRefs(state)
@@ -315,9 +317,9 @@ export default {
     },
 
     components: {
+        Crear,
         Footer,
-        Navbar,
-        Document
+        Navbar
     }
 };
 </script>

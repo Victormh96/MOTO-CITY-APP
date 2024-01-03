@@ -9,16 +9,15 @@
         <div class="container-fluid mb-3">
 
             <!--Component-->
-            <Document />
+            <Crear />
 
             <!--Tag-->
             <a-tag color="#196789" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
-                PRIMERA MATRICULA {{ new Date().getFullYear() }}
+                PRIMERA MATRICULA
             </a-tag>
 
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourcePm" :columns="columnce" bordered
-                :scroll="{ x: 1400 }">
+            <a-table :pagination="pagination" :data-source="dataSourcePm" :columns="column" bordered :scroll="{ x: 1400 }">
 
                 <!--Template-->
                 <template #bodyCell="{ column, record }">
@@ -87,9 +86,12 @@ import {
 } from "vue"
 
 import {
-    getToken,
     getResponse
 } from "@/utils/index"
+
+import {
+    getToken
+} from "@/utils/request"
 
 import {
     GetPrimeraMatriculaApi
@@ -98,7 +100,7 @@ import {
 import axios from "axios"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
-import Document from "@/components/primeramatricula/ComponentCreate.vue"
+import Crear from "@/components/primeramatricula/ComponentCreate.vue"
 
 export default {
     data() {
@@ -149,7 +151,7 @@ export default {
             searchedColumn: ''
         })
 
-        const columnce = [{
+        const column = [{
 
             title: "NOMBRE",
 
@@ -248,7 +250,7 @@ export default {
         }
 
         return {
-            columnce,
+            column,
             focusearch,
             handleSearch,
             ...toRefs(state)
@@ -269,9 +271,9 @@ export default {
     },
 
     components: {
+        Crear,
         Footer,
-        Navbar,
-        Document
+        Navbar
     }
 };
 </script>

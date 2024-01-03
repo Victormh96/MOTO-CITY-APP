@@ -157,11 +157,14 @@ import {
 } from "@/utils/data"
 
 import {
-    getCreate,
     getSuccess,
-    getResponse,
-    getPlantilla
+    getResponse
 } from "@/utils/index"
+
+import {
+    getPlantilla,
+    RequestPrimeraMatricula
+} from "@/utils/request"
 
 import {
     Form
@@ -195,7 +198,7 @@ export default {
 
         try {
 
-            const { body, config } = getPlantilla('GP')
+            const { body, config } = getPlantilla('PM')
 
             const plantilla = await axios.post(GetPlantillaApi, body, config)
 
@@ -352,7 +355,7 @@ export default {
 
             try {
 
-                const { body, config } = getCreate(this.formstate)
+                const { body, config } = RequestPrimeraMatricula(this.formstate)
 
                 const response = await axios.post(PostPrimeraMatriculaApi, body, config)
 

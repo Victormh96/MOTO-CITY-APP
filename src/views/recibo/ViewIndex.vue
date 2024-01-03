@@ -139,9 +139,12 @@ import {
 } from "@/utils/data"
 
 import {
-    getToken,
     getResponse
 } from "@/utils/index"
+
+import {
+    getToken
+} from "@/utils/request"
 
 import {
     Form

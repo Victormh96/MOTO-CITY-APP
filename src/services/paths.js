@@ -1,8 +1,8 @@
 const URL_NODE = process.env.VUE_APP_URL_NODE
 
-export const GetPagareApi = URL_NODE + '/motocity/pagare'
-
 export const CuentaApi = URL_NODE + '/auth/inicio-sesion'
+
+export const GetPagareApi = URL_NODE + '/motocity/pagare'
 
 export const GetFormatoApi = URL_NODE + '/utilidad/formato'
 

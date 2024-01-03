@@ -6,7 +6,7 @@
 
     <!--Modal-->
     <a-modal v-model:visible="visible" width="800px" :destroyOnClose="true" :maskClosable="false" :footer="null"
-        :keyboard="false" centered :class="!loading ? 'loading' : null">
+        :keyboard="false" :class="!loading ? 'loading' : null" centered>
 
         <!--Icon-->
         <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
@@ -23,13 +23,13 @@
                     <!--Col-->
                     <a-col :span="24">
 
-                    <!--Group-->
-                    <a-form-item label="Plantilla:" v-bind="validateInfos.PLANTILLA">
+                        <!--Group-->
+                        <a-form-item label="Plantilla:" v-bind="validateInfos.PLANTILLA">
 
-                        <!--Select-->
-                        <a-select v-model:value="formstate.PLANTILLA" show-search :options="dataSourcePl"
-                            :filter-option="filterOption" @change="doChangeReplace" />
-                    </a-form-item>
+                            <!--Select-->
+                            <a-select v-model:value="formstate.PLANTILLA" show-search :options="dataSourcePl"
+                                :filter-option="filterOption" />
+                        </a-form-item>
                     </a-col>
 
                     <!--Col-->
@@ -94,10 +94,10 @@
                     <a-col :span="24">
 
                         <!--Group-->
-                        <a-form-item label="Dias:" v-bind="validateInfos.DIAS">
+                        <a-form-item label="Dia:" v-bind="validateInfos.DIA">
 
                             <!--Input-->
-                            <a-input type="tel" v-model:value="formstate.DIAS" readonly />
+                            <a-input type="tel" v-model:value="formstate.DIA" readonly />
                         </a-form-item>
                     </a-col>
 
@@ -108,13 +108,13 @@
                         <a-form-item label="Credito:" v-bind="validateInfos.CREDITO">
 
                             <!--Input-->
-                            <a-input-number type="tel" v-model:value="formstate.CREDITO" >
+                            <a-input-number type="tel" v-model:value="formstate.CREDITO">
 
                                 <!--Template-->
                                 <template #addonBefore>$</template>
                             </a-input-number>
                         </a-form-item>
-                        </a-col>
+                    </a-col>
                 </a-row>
             </a-form>
 
@@ -167,24 +167,26 @@ import {
 
 import {
     getMunicipio,
-    getProfesion,
     getDepartamento
 } from "@/utils/data"
 
 import {
-    getCreate,
     getSuccess,
-    getResponse,
-    getPlantilla
+    getResponse
 } from "@/utils/index"
+
+import {
+    getPlantilla,
+    RequestPagare
+} from "@/utils/request"
 
 import {
     Form
 } from "ant-design-vue"
 
 import {
-    GetPlantillaApi,
-    PostPagareApi
+    PostPagareApi,
+    GetPlantillaApi
 } from "@/services/paths"
 
 const useForm = Form.useForm
@@ -195,12 +197,9 @@ import dayjs from "dayjs"
 export default {
     data() {
         return {
-            selectedDate: null,
-            diferenciaDias: null,
             loading: false,
 
             getMunicipio,
-            getProfesion,
             getDepartamento,
 
             dataSourceMn: [],
@@ -252,7 +251,7 @@ export default {
 
         const formstate = reactive({
 
-            PLANTILLA: null,
+            PLANTILLA: 15,
 
             NOMBRE: null,
 
@@ -264,9 +263,9 @@ export default {
 
             FECHAPAGO: null,
 
-            DIAS: null,
+            DIA: null,
 
-            CREDITO: null,
+            CREDITO: null
         })
 
         const rules = reactive({
@@ -279,7 +278,6 @@ export default {
                 }
             ],
 
-            
             NOMBRE: [
                 {
                     required: true,
@@ -334,7 +332,7 @@ export default {
                 }
             ],
 
-            DIAS: [
+            DIA: [
                 {
                     required: true,
 
@@ -349,8 +347,6 @@ export default {
                     message: "Campo Requerido"
                 }
             ]
-
-
         })
 
         const {
@@ -376,17 +372,6 @@ export default {
 
     methods: {
 
-        doChangeCalcular() {
-            const fechaSeleccionada = new Date(this.formstate.FECHAPAGO ?? 0);
-            const fechaActual = new Date();
-
-            // Calcula la diferencia en milisegundos
-            const diferenciaEnMilisegundos = fechaSeleccionada - fechaActual;
-
-            // Convierte la diferencia a días
-            this.formstate.DIAS = Math.ceil(diferenciaEnMilisegundos / (1000 * 60 * 60 * 24));
-        },
-
         doChangeValidacion() {
 
             this.validate().then(() => {
@@ -403,7 +388,7 @@ export default {
 
             try {
 
-                const { body, config } = getCreate(this.formstate)
+                const { body, config } = RequestPagare(this.formstate)
 
                 const response = await axios.post(PostPagareApi, body, config)
 
@@ -425,6 +410,15 @@ export default {
 
                 getResponse(err)
             }
+        },
+
+        doChangeCalcular() {
+
+            const fechapago = new Date(this.formstate.FECHAPAGO ?? 0)
+
+            const date = fechapago - new Date()
+
+            this.formstate.DIA = Math.ceil(date / (1000 * 60 * 60 * 24))
         },
 
         doChangeMunicipio() {

@@ -6,7 +6,7 @@
 
     <!--Modal-->
     <a-modal v-model:visible="visible" width="800px" :destroyOnClose="true" :maskClosable="false" :footer="null"
-        :keyboard="false" centered :class="!loading ? 'loading' : null">
+        :keyboard="false" :class="!loading ? 'loading' : null" centered>
 
         <!--Icon-->
         <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
@@ -435,11 +435,14 @@ import {
 } from "@/utils/data"
 
 import {
-    getCreate,
     getSuccess,
-    getResponse,
-    getPlantilla
+    getResponse
 } from "@/utils/index"
+
+import {
+    getPlantilla,
+    RequestCompraVenta
+} from "@/utils/request"
 
 import {
     Form
@@ -918,7 +921,7 @@ export default {
 
             try {
 
-                const { body, config } = getCreate(this.formstate)
+                const { body, config } = RequestCompraVenta(this.formstate)
 
                 const response = await axios.post(PostCompraVentaApi, body, config)
 
