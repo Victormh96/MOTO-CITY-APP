@@ -1666,4 +1666,34 @@ const getColor = [
     }
 ]
 
-export { getDepartamento, getMunicipio, getProfesion, getAnio, getMarca, getModelo, getColor } 
+const getSociedad = [
+    {
+        value: "OUTLANDER",
+        label: "OUTLANDER"
+    },
+    {
+        value: "CREDICITY",
+        label: "CREDICITY"
+    }
+]
+
+const getTipoPago = [
+    {
+        value: "EFECTIVO",
+        label: "EFECTIVO"
+    },
+    {
+        value: "TARJETA",
+        label: "TARJETA"
+    },
+    {
+        value: "TRANSFERENCIA",
+        label: "TRANSFERENCIA"
+    },
+    {
+        value: "CHEQUE",
+        label: "CHEQUE"
+    }
+]
+
+export { getDepartamento, getMunicipio, getProfesion, getAnio, getMarca, getModelo, getColor, getSociedad, getTipoPago } 

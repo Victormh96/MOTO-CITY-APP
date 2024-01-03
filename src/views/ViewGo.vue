@@ -48,6 +48,20 @@
                         <!--Img-->
                         <img src="@/../public/img/categoria/plantilla.png" class="img-option mb-3 mb-lg-0">
                     </router-link>
+
+                    <!--Enlace-->
+                        <router-link :to="{ name: 'Recibo' }" v-if="role === 'Caja'">
+
+                     <!--Img-->
+                     <img src="@/../public/img/categoria/recibo.png" class="img-option mb-3 mb-lg-0">
+                    </router-link>
+
+                    <!--Enlace-->
+                        <router-link :to="{ name: 'Pagare' }" v-if="role === 'Jefe'">
+
+                    <!--Img-->
+                    <img src="@/../public/img/categoria/pagare.png" class="img-option mb-3 mb-lg-0">
+                    </router-link>
                 </a-col>
             </a-row>
         </div>
