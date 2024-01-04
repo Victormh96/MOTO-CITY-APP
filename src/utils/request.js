@@ -44,7 +44,7 @@ function getPlantilla(record) {
     return data
 }
 
-function RequestCompraVenta(record) {
+function PostCompraVenta(record) {
 
     const data = {
 
@@ -121,7 +121,7 @@ function RequestCompraVenta(record) {
     return data
 }
 
-function RequestPlantilla(record) {
+function PostPlantilla(record) {
 
     const data = {
 
@@ -148,7 +148,7 @@ function RequestPlantilla(record) {
     return data
 }
 
-function RequestPagare(record) {
+function PostPagare(record) {
 
     const data = {
 
@@ -187,7 +187,7 @@ function RequestPagare(record) {
     return data
 }
 
-function RequestPrimeraMatricula(record) {
+function PostPrimeraMatricula(record) {
 
     const data = {
 
@@ -222,4 +222,4 @@ function RequestPrimeraMatricula(record) {
     return data
 }
 
-export { getToken, getPlantilla, RequestCompraVenta, RequestPlantilla, RequestPagare, RequestPrimeraMatricula } 
+export { getToken, getPlantilla, PostCompraVenta, PostPlantilla, PostPagare, PostPrimeraMatricula } 

@@ -163,7 +163,7 @@ import {
 
 import {
     getPlantilla,
-    RequestPrimeraMatricula
+    PostPrimeraMatricula
 } from "@/utils/request"
 
 import {
@@ -355,7 +355,7 @@ export default {
 
             try {
 
-                const { body, config } = RequestPrimeraMatricula(this.formstate)
+                const { body, config } = PostPrimeraMatricula(this.formstate)
 
                 const response = await axios.post(PostPrimeraMatriculaApi, body, config)
 

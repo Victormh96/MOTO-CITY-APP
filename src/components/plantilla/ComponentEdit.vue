@@ -80,7 +80,7 @@ import {
 } from "@/utils/index"
 
 import {
-    RequestPlantilla
+    PostPlantilla
 } from "@/utils/request"
 
 import {
@@ -236,7 +236,7 @@ export default {
 
             try {
 
-                const { body, config } = RequestPlantilla(this.formstate)
+                const { body, config } = PostPlantilla(this.formstate)
 
                 await axios.post(PutPlantillaApi, body, config)
 

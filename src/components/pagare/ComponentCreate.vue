@@ -177,7 +177,7 @@ import {
 
 import {
     getPlantilla,
-    RequestPagare
+    PostPagare
 } from "@/utils/request"
 
 import {
@@ -387,8 +387,7 @@ export default {
         async doChangeAdd() {
 
             try {
-
-                const { body, config } = RequestPagare(this.formstate)
+                const { body, config } = PostPagare(this.formstate)
 
                 const response = await axios.post(PostPagareApi, body, config)
 

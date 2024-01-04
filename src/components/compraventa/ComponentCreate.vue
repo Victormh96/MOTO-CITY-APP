@@ -441,7 +441,7 @@ import {
 
 import {
     getPlantilla,
-    RequestCompraVenta
+    PostCompraVenta
 } from "@/utils/request"
 
 import {
@@ -921,7 +921,7 @@ export default {
 
             try {
 
-                const { body, config } = RequestCompraVenta(this.formstate)
+                const { body, config } = PostCompraVenta(this.formstate)
 
                 const response = await axios.post(PostCompraVentaApi, body, config)
 

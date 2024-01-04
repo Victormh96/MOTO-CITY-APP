@@ -19032,6 +19032,22 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
     border-radius: 5px;
 }
 
+/*===Phone===**/
+@media (max-width: 575.98px) {
+    .ant-carousel .slick-slide img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+/*===Ipad===**/
+@media (min-width: 559px) and (max-width: 991.98px) {
+    .ant-carousel .slick-slide img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
 .ant-carousel .slick-slide.slick-loading img {
     display: none;
 }
