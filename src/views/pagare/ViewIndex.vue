@@ -49,6 +49,13 @@
                     <template v-if="column.key === 'creado'">
                         {{ new Date(record.creado).toISOString().split("T")[0] }}
                     </template>
+
+                    <!--Template-->
+                    <template v-if="column.key === 'acciones'">
+
+                        <!--Component-->
+                        <Descargar :record="record" />
+                    </template>
                 </template>
 
                 <!--Template-->
@@ -104,6 +111,7 @@ import {
 
 import axios from "axios"
 import Crear from "@/components/pagare/ComponentCreate.vue"
+import Descargar from "@/components/pagare/ComponentShow.vue"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
 
@@ -231,8 +239,16 @@ export default {
 
             align: "center",
 
-        }
-        ]
+        },
+        {
+            title: "ACCIONES",
+
+            dataIndex: "acciones",
+
+            key: "acciones",
+
+            align: "center"
+        }]
 
         const handleSearch = (selectedKeys, confirm, dataIndex) => {
 
@@ -267,7 +283,8 @@ export default {
     components: {
         Crear,
         Footer,
-        Navbar
+        Navbar,
+        Descargar
     }
 };
 </script>

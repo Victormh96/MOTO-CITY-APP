@@ -35,6 +35,17 @@
                     <a-col :span="24">
 
                         <!--Group-->
+                        <a-form-item label="Estado:" v-bind="validateInfos.ESTADO">
+
+                            <!--Select-->
+                            <a-select v-model:value="formstate.ESTADO" :options="getEstado" :filter-option="filterOption" />
+                        </a-form-item>
+                    </a-col>
+
+                    <!--Col-->
+                    <a-col :span="24">
+
+                        <!--Group-->
                         <a-form-item label="Contenido:" v-bind="validateInfos.CONTENIDO">
 
                             <!--Froala-->
@@ -75,6 +86,10 @@ import {
 } from "vue"
 
 import {
+    getEstado
+} from "@/utils/data"
+
+import {
     getSuccess,
     getResponse
 } from "@/utils/index"
@@ -98,6 +113,7 @@ import axios from "axios"
 export default {
     data() {
         return {
+            getEstado,
             loading: false,
             config: {
 
@@ -107,7 +123,7 @@ export default {
 
                         buttons: ['bold', 'fontSize', 'italic', 'underline', 'clearFormatting'],
 
-                        buttonsVisible: 2
+                        buttonsVisible: 0
                     },
 
                     moreParagraph: {
@@ -176,12 +192,22 @@ export default {
 
             NOMBRE: null,
 
+            ESTADO: null,
+
             CONTENIDO: null
         })
 
         const rules = reactive({
 
             NOMBRE: [
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
+                }
+            ],
+
+            ESTADO: [
                 {
                     required: true,
 
@@ -240,7 +266,7 @@ export default {
 
                 getSuccess('Guardado')
 
-                setTimeout(function () { location.reload() }, 500)
+                setTimeout(function () { location.reload() }, 600)
 
             } catch (err) {
 

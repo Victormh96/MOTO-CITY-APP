@@ -6,7 +6,9 @@
     <a-layout-content class="fade-out" v-if="(loading)">
 
         <!--Container-->
-        <div class="container-fluid mb-3">
+        <div class="container mb-3">
+
+            <!--Form-->
             <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
                 <!--Row-->
                 <a-row :gutter="[24, 24]">
@@ -15,10 +17,10 @@
                     <a-col :span="24">
 
                         <!--Group-->
-                        <a-form-item label="Plantilla:" v-bind="validateInfos.PLANTILLA">
+                        <a-form-item label="Sociedad:" v-bind="validateInfos.SOCIEDAD">
 
                             <!--Select-->
-                            <a-select v-model:value="formstate.PLANTILLA" show-search :options="getSociedad"
+                            <a-select v-model:value="formstate.SOCIEDAD" show-search :options="getSociedad"
                                 :filter-option="filterOption" />
                         </a-form-item>
                     </a-col>
@@ -35,18 +37,7 @@
                     </a-col>
 
                     <!--Col-->
-                    <a-col :span="12">
-
-                        <!--Group-->
-                        <a-form-item label="Valor:" v-bind="validateInfos.VALOR">
-
-                            <!--Input-->
-                            <a-input v-model:value="formstate.VALOR" @change="doChangeLetter('VALOR')" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :span="12">
+                    <a-col :span="24">
 
                         <!--Group-->
                         <a-form-item label="Tipo Pago:" v-bind="validateInfos.TIPOPAGO">
@@ -72,10 +63,26 @@
                     <a-col :span="24">
 
                         <!--Group-->
+                        <a-form-item label="Valor:" v-bind="validateInfos.VALOR">
+
+                            <!--Input-->
+                            <a-input-number type="tel" v-model:value="formstate.VALOR">
+
+                                <!--Template-->
+                                <template #addonBefore>$</template>
+                            </a-input-number>
+                        </a-form-item>
+                    </a-col>
+
+                    <!--Col-->
+                    <a-col :span="24">
+
+                        <!--Group-->
                         <a-form-item label="Comentario:" v-bind="validateInfos.COMENTARIO">
 
-                            <!--Select-->
-                            <a-input v-model:value="formstate.ENTREGADO" @change="doChangeLetter('COMENTARIO')" />
+                            <!--Textarea-->
+                            <a-textarea v-model:value="formstate.COMENTARIO" :rows="7"
+                                @change="doChangeLetter('COMENTARIO')" />
                         </a-form-item>
                     </a-col>
                 </a-row>
@@ -93,14 +100,8 @@
                     </a-button>
                 </a-popconfirm>
 
-                <!--Button-->
-                <a-button v-if="current > 0" @click="prev()" class="button-siguiente">
-                    Volver
-                </a-button>
-
                 <!--Popconfirm-->
-                <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear"
-                    v-if="current === 0">
+                <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear">
 
                     <!--Button-->
                     <a-button class="button-siguiente">
@@ -129,9 +130,12 @@
 <!--=======Script=======-->
 <script>
 import {
-    ref,
     reactive
 } from "vue"
+
+import {
+    saveAs
+} from "file-saver"
 
 import {
     getSociedad,
@@ -139,11 +143,12 @@ import {
 } from "@/utils/data"
 
 import {
+    getSuccess,
     getResponse
 } from "@/utils/index"
 
 import {
-    getToken
+    PostRecibo
 } from "@/utils/request"
 
 import {
@@ -151,12 +156,13 @@ import {
 } from "ant-design-vue"
 
 import {
-    GetPrimeraMatriculaApi
+    PostReciboApi
 } from "@/services/paths"
 
 const useForm = Form.useForm
 
 import axios from "axios"
+import dayjs from "dayjs"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
 
@@ -165,68 +171,20 @@ export default {
         return {
             getSociedad,
             getTipoPago,
-            loading: false,
-
-            dataSourcePm: [],
-
-            pagination: {
-
-                pageSize: 20,
-
-                showSizeChanger: false,
-
-                onChange: this.doChangeScrollto
-            }
+            loading: false
         }
     },
 
     async created() {
 
-        try {
-
-            const { body, config } = getToken()
-
-            const primeramatricula = await axios.post(GetPrimeraMatriculaApi, body, config)
-
-            this.dataSourcePm = primeramatricula?.data
-
-            this.loading = true
-
-        } catch (err) {
-
-            console.error(err)
-
-            getResponse(err)
-        }
+        setTimeout(() => { this.loading = true }, 850)
     },
 
     setup() {
 
-        const current = ref(0)
-
-        const visible = ref(false)
-
-        const showModal = () => {
-
-            visible.value = true
-
-            history.pushState({ estado: true }, "")
-
-            window.addEventListener("popstate", onClose)
-        }
-
-        const onClose = () => {
-
-            visible.value = false
-
-            history.replaceState(history.state, "", window.location.pathname)
-
-            window.removeEventListener("popstate", onClose)
-        }
-
         const formstate = reactive({
 
-            PLANTILLA: null,
+            SOCIEDAD: null,
 
             NOMBRE: null,
 
@@ -236,12 +194,12 @@ export default {
 
             ENTREGADO: null,
 
-            COMENTARIO: null,
+            COMENTARIO: null
         })
 
         const rules = reactive({
 
-            PLANTILLA: [
+            SOCIEDAD: [
                 {
                     required: true,
 
@@ -298,58 +256,81 @@ export default {
 
         } = useForm(formstate, rules)
 
-        const nextDato = () => {
-
-            const field = ['PLANTILLA', 'NOMBRE', 'VALOR', 'TIPOPAGO', 'ENTREGADO', 'COMENTARIO']
-
-            validate(field).then(() => {
-
-                current.value++
-
-            }).catch(err => {
-
-                console.log('error', err)
-            })
-        }
-
-        const prev = () => {
-
-            current.value--
-        }
-
         const filterOption = (input, option) => option.label.toLowerCase().includes(input.toLowerCase())
 
         return {
-            prev,
-            onClose,
-            visible,
-            current,
             validate,
-            nextDato,
-            showModal,
             formstate,
             filterOption,
             validateInfos
         }
     },
 
-
     methods: {
 
-        doChangeScrollto() {
+        doChangeValidacion() {
 
-            window.scrollTo({
+            this.validate().then(() => {
 
-                top: 0,
+                this.doChangeAdd()
 
-                behavior: "smooth"
+            }).catch(err => {
+
+                console.log('error', err)
             })
+        },
+
+        async doChangeAdd() {
+
+            try {
+
+                const { body, config } = PostRecibo(this.formstate)
+
+                const response = await axios.post(PostReciboApi, body, config)
+
+                const blob = new Blob(
+
+                    [response.data],
+
+                    { type: 'application/pdf' })
+
+                saveAs(blob, `RECIBO-${dayjs().format('YYYY-MM-DD HH_mm_ss')}`)
+
+                getSuccess('Descargando')
+
+                setTimeout(function () { location.reload() }, 600)
+
+            } catch (err) {
+
+                console.error(err)
+
+                getResponse(err)
+            }
+        },
+
+        doChangeLetter(item) {
+
+            this.formstate[item] = this.formstate[item].toUpperCase()
+        },
+
+        doChangeFieldClear() {
+
+            const exclude = ['SOCIEDAD']
+
+            Object.keys(this.formstate)
+
+                .filter(key => !exclude.includes(key))
+
+                .forEach(key => {
+
+                    this.formstate[key] = null
+                })
         }
     },
 
     components: {
         Footer,
-        Navbar,
+        Navbar
     }
 };
 </script>

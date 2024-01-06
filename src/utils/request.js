@@ -94,13 +94,13 @@ function PostCompraVenta(record) {
 
             PRIMA: record?.PRIMA,
 
-            NOMBREF: record?.NOMBREF,
+            NOMBREF: record?.NOMBREF ?? '',
 
-            DEPARTAMENTOF: record?.DEPARTAMENTOF,
+            DEPARTAMENTOF: record?.DEPARTAMENTOF ?? '',
 
-            MUNICIPIOF: record?.MUNICIPIOF,
+            MUNICIPIOF: record?.MUNICIPIOF ?? '',
 
-            DUIF: record?.DUIF,
+            DUIF: record?.DUIF ?? '00000000-0',
 
             PLANTILLA: record?.PLANTILLA,
 
@@ -128,6 +128,8 @@ function PostPlantilla(record) {
         body: {
 
             NOMBRE: record?.NOMBRE,
+
+            ESTADO: record?.ESTADO,
 
             CONTENIDO: record?.CONTENIDO,
 
@@ -222,4 +224,62 @@ function PostPrimeraMatricula(record) {
     return data
 }
 
-export { getToken, getPlantilla, PostCompraVenta, PostPlantilla, PostPagare, PostPrimeraMatricula } 
+function PostRecibo(record) {
+
+    const data = {
+
+        body: {
+
+            SOCIEDAD: record?.SOCIEDAD,
+
+            NOMBRE: record?.NOMBRE,
+
+            VALOR: record?.VALOR,
+
+            TIPOPAGO: record?.TIPOPAGO,
+
+            ENTREGADO: record?.ENTREGADO,
+
+            COMENTARIO: record?.COMENTARIO,
+
+            SUCURSAL: store.state.authentication?.cuenta?.sucursal
+        },
+
+        config: {
+
+            responseType: 'blob',
+
+            headers: {
+
+                Authorization: store.state.authentication?.cuenta?.token
+            }
+        }
+    }
+
+    return data
+}
+
+function PostDescarga(record) {
+
+    const data = {
+
+        body: {
+
+            RECORD: record
+        },
+
+        config: {
+
+            responseType: 'blob',
+
+            headers: {
+
+                Authorization: store.state.authentication?.cuenta?.token
+            }
+        }
+    }
+
+    return data
+}
+
+export { getToken, getPlantilla, PostCompraVenta, PostPlantilla, PostPagare, PostPrimeraMatricula, PostRecibo, PostDescarga } 

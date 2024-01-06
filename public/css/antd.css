@@ -22400,7 +22400,7 @@ textarea.ant-input-number {
 .ant-input-number-group-addon {
     position: relative;
     padding: 0;
-    color: rgba(0, 0, 0, 0.85);
+    color: var(--texto); 
     font-weight: normal;
     font-size: 13px;
     text-align: center;
@@ -23250,6 +23250,7 @@ textarea.ant-input {
     min-height: 32px;
     line-height: 1.5715;
     vertical-align: bottom;
+    padding: 10px 11px;
 }
 
 .tamano {
@@ -33044,7 +33045,7 @@ div.ant-typography-edit-content.ant-typography-rtl {
 }
 
 .fr-wrapper a {
-    display: none !important;
+    visibility: hidden !important;
 }
 
 .fr-sticky-on {
@@ -33056,9 +33057,20 @@ div.ant-typography-edit-content.ant-typography-rtl {
 }
 
 .fr-box.fr-basic .fr-element {
-    min-height: 400px !important;
-    max-height: 400px !important;
+    margin: -42px 0 0 0 !important;
+    color: var(--texto) !important;
+    min-height: calc(100vh - 450px) !important;
+    max-height: calc(100vh - 450px) !important;
+    z-index: 9999 !important;
 }
+
+/*===Phone===**/
+@media (max-width: 575.98px) {
+    .fr-box.fr-basic .fr-element {
+        min-height: calc(100vh - 530px) !important;
+        max-height: calc(100vh - 530px) !important;
+    }
+  }
 
 .fr-visible {
     display: none !important;
@@ -33083,10 +33095,6 @@ div.ant-typography-edit-content.ant-typography-rtl {
 
 .fr-toolbar .fr-newline {
     display: none !important;
-}
-
-.fr-box.fr-basic .fr-element {
-    color: var(--texto) !important;
 }
 
 /*!**********************************************************************************************************************************************************************************************************************************************************!*\

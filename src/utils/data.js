@@ -1696,4 +1696,15 @@ const getTipoPago = [
     }
 ]
 
-export { getDepartamento, getMunicipio, getProfesion, getAnio, getMarca, getModelo, getColor, getSociedad, getTipoPago } 
+const getEstado = [
+    {
+        value: 1,
+        label: "ACTIVADO"
+    },
+    {
+        value: 0,
+        label: "DESACTIVADO"
+    }
+]
+
+export { getDepartamento, getMunicipio, getProfesion, getAnio, getMarca, getModelo, getColor, getSociedad, getTipoPago, getEstado } 

@@ -69,15 +69,15 @@ const getError = (err) => {
 
 function getResponse(err) {
 
-    if (err.response.status === 500) {
-
-        getWarning('Error, se ha notificado a TI de OUTLANDER')
-
-    } else {
+    if ([403, 404].includes(err.response?.status)) {
 
         store.dispatch("CuentaCerrar")
 
         getClose('Sesión cerrada')
+
+    } else {
+
+        getWarning('Error, se ha notificado a TI de OUTLANDER')
     }
 }
 

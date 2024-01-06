@@ -39,7 +39,7 @@
                         <a-form-item label="Año:">
 
                             <!--Input-->
-                            <a-input value="2023" disabled />
+                            <a-input :value="new Date().getFullYear().toString()" disabled />
                         </a-form-item>
                     </a-col>
 
@@ -369,7 +369,7 @@ export default {
 
                 getSuccess('Descargando')
 
-                setTimeout(function () { location.reload() }, 500)
+                setTimeout(function () { location.reload() }, 600)
 
             } catch (err) {
 

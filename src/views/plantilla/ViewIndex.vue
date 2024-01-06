@@ -32,6 +32,30 @@
                     </template>
 
                     <!--Template-->
+                    <template v-if="column.key === 'tipo'">
+
+                        <!--Typography-->
+                        <a-typography-paragraph v-if="record.tipo === 'CV'">
+                            COMPRA VENTA
+                        </a-typography-paragraph>
+
+                        <!--Typography-->
+                        <a-typography-paragraph v-if="record.tipo === 'PG'">
+                            PAGARE
+                        </a-typography-paragraph>
+
+                        <!--Typography-->
+                        <a-typography-paragraph v-if="record.tipo === 'PM'">
+                            PRIMERA MATRICULA
+                        </a-typography-paragraph>
+
+                        <!--Typography-->
+                        <a-typography-paragraph v-if="record.tipo === 'RB'">
+                            RECIBO
+                        </a-typography-paragraph>
+                    </template>
+
+                    <!--Template-->
                     <template v-if="column.key === 'estado'">
 
                         <!--Tag-->

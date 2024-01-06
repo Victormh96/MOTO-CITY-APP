@@ -401,7 +401,7 @@ export default {
 
                 getSuccess('Descargando')
 
-                setTimeout(function () { location.reload() }, 500)
+                setTimeout(function () { location.reload() }, 600)
 
             } catch (err) {
 

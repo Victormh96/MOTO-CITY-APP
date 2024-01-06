@@ -163,7 +163,7 @@ figure {
 /*===Phone===**/
 @media (max-width: 575.98px) {
   .img-fondo {
-    object-position: right;
+    object-position: center;
   }
 }
 
