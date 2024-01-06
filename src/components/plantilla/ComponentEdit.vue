@@ -135,7 +135,9 @@ export default {
 
                     moreRich: {
 
-                        buttons: ['insertTable']
+                        buttons: ['insertTable', 'formatOL', 'formatUL'],
+
+                        buttonsVisible: 0
                     },
 
                     moreMisc: {
