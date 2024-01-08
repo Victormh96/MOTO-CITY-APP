@@ -9,7 +9,7 @@
         :keyboard="false" :class="!loading ? 'loading' : null" centered>
 
         <!--Icon-->
-        <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i> 
+        <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
 
         <!--Layout-->
         <div v-if="(loading)">

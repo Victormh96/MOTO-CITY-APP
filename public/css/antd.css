@@ -22400,7 +22400,7 @@ textarea.ant-input-number {
 .ant-input-number-group-addon {
     position: relative;
     padding: 0;
-    color: var(--texto); 
+    color: var(--texto);
     font-weight: normal;
     font-size: 13px;
     text-align: center;
@@ -25815,7 +25815,7 @@ textarea.ant-mentions {
 }
 
 .ant-modal-body {
-    padding: 24px;
+    padding: 25px;
     font-size: 14px;
     line-height: 1.5715;
     word-wrap: break-word;
@@ -33064,13 +33064,17 @@ div.ant-typography-edit-content.ant-typography-rtl {
     z-index: 9999 !important;
 }
 
+.fr-box.fr-basic .fr-element p {
+    margin-bottom: 0 !important;
+}
+
 /*===Phone===**/
 @media (max-width: 575.98px) {
     .fr-box.fr-basic .fr-element {
         min-height: calc(100vh - 530px) !important;
         max-height: calc(100vh - 530px) !important;
     }
-  }
+}
 
 .fr-visible {
     display: none !important;
