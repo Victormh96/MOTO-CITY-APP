@@ -13,7 +13,7 @@ const motocityRoutes = [
 
         name: 'Compraventa',
 
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, requiresRole: ['Tramite', 'Concesionario', 'Jefe', 'Caja'] },
 
         component: () => import("@/views/compraventa/ViewIndex.vue")
     },
@@ -22,7 +22,7 @@ const motocityRoutes = [
 
         name: 'Primeramatricula',
 
-        meta: { requiresAuth: true },
+        meta: { requiresAuth: true, requiresRole: ['Tramite', 'Concesionario', 'Jefe', 'Caja'] },
 
         component: () => import("@/views/primeramatricula/ViewIndex.vue")
     },
@@ -31,7 +31,7 @@ const motocityRoutes = [
 
         name: 'Plantilla',
 
-        meta: { requiresAuth: true, requiresRole: 'Tramite' },
+        meta: { requiresAuth: true, requiresRole: ['Tramite', 'Administrador'] },
 
         component: () => import("@/views/plantilla/ViewIndex.vue")
     },
@@ -40,7 +40,7 @@ const motocityRoutes = [
 
         name: 'Recibo',
 
-        meta: { requiresAuth: true, requiresRole: 'Caja' },
+        meta: { requiresAuth: true, requiresRole: ['Caja'] },
 
         component: () => import("@/views/recibo/ViewIndex.vue")
     },
@@ -49,7 +49,7 @@ const motocityRoutes = [
 
         name: 'Pagare',
 
-        meta: { requiresAuth: true, requiresRole: 'Jefe' },
+        meta: { requiresAuth: true, requiresRole: ['Jefe'] },
 
         component: () => import("@/views/pagare/ViewIndex.vue")
     }

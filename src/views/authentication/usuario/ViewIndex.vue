@@ -13,11 +13,11 @@
 
             <!--Tag-->
             <a-tag color="#196789" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
-                PLANTILLA
+                USUARIO
             </a-tag>
 
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourceFm" :columns="column" bordered :scroll="{ x: 1400 }">
+            <a-table :pagination="pagination" :data-source="dataSourceUs" :columns="column" bordered :scroll="{ x: 1400 }">
 
                 <!--Template-->
                 <template #bodyCell="{ column, record }">
@@ -126,21 +126,21 @@ import {
 } from "@/utils/request"
 
 import {
-    GetPlantillaApi
+    GetUsuarioApi
 } from "@/services/paths"
 
 import axios from "axios"
-import Editar from "@/components/plantilla/ComponentEdit.vue"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
-import Crear from "@/components/plantilla/ComponentCreate.vue"
+import Editar from "@/components/authentication/usuario/ComponentEdit.vue"
+import Crear from "@/components/authentication/usuario/ComponentCreate.vue"
 
 export default {
     data() {
         return {
             loading: false,
 
-            dataSourceFm: [],
+            dataSourceUs: [],
 
             pagination: {
 
@@ -159,9 +159,9 @@ export default {
 
             const { config } = getToken()
 
-            const plantilla = await axios.get(GetPlantillaApi, config)
+            const usuario = await axios.get(GetUsuarioApi, config)
 
-            this.dataSourceFm = plantilla?.data
+            this.dataSourceUs = usuario?.data
 
             this.loading = true
 
@@ -209,27 +209,37 @@ export default {
             }
         },
         {
-            title: "TIPO",
 
-            dataIndex: "tipo",
+            title: "USUARIO",
 
-            key: "tipo",
+            dataIndex: "usuario",
+
+            key: "usuario",
 
             align: "center",
 
-            filters: [{
+            customFilterDropdown: true,
 
-                text: "CV",
+            onFilter: (value, record) =>
 
-                value: "CV"
-            },
-            {
-                text: "PG",
+                record.usuario.toString().toLowerCase().includes(value.toLowerCase()),
 
-                value: "PG"
-            }],
+            onFilterDropdownVisibleChange: visible => {
 
-            onFilter: (value, record) => record.tipo.toString().includes(value)
+                if (visible) {
+
+                    setTimeout(() => { focusearch.value.focus() }, 100)
+                }
+            }
+        },
+        {
+            title: "ROL",
+
+            dataIndex: "rol",
+
+            key: "rol",
+
+            align: "center"
         },
         {
             title: "ESTADO",

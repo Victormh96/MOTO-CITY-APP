@@ -449,7 +449,7 @@ import {
 } from "ant-design-vue"
 
 import {
-    GetPlantillaApi,
+    ShowPlantillaApi,
     PostCompraVentaApi
 } from "@/services/paths"
 
@@ -498,7 +498,7 @@ export default {
 
             const { body, config } = getPlantilla('CV')
 
-            const plantilla = await axios.post(GetPlantillaApi, body, config)
+            const plantilla = await axios.post(ShowPlantillaApi, body, config)
 
             this.dataSourcePl = plantilla?.data
 

@@ -57,7 +57,7 @@ router.beforeEach((to, from, next) => {
 
 function roleAccess(to, store, requiredRole, next) {
 
-    if (store.state.authentication?.cuenta?.rol === requiredRole) {
+    if (requiredRole.includes(store.state.authentication?.cuenta?.rol)) {
 
         next()
 

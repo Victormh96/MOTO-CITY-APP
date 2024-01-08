@@ -1707,4 +1707,23 @@ const getEstado = [
     }
 ]
 
-export { getDepartamento, getMunicipio, getProfesion, getAnio, getMarca, getModelo, getColor, getSociedad, getTipoPago, getEstado } 
+const getRol = [
+    {
+        value: "Tramite",
+        label: "TRAMITE"
+    },
+    {
+        value: "Concesionario",
+        label: "CONCESIONARIO"
+    },
+    {
+        value: "Jefe",
+        label: "JEFE"
+    },
+    {
+        value: "Caja",
+        label: "CAJA"
+    }
+]
+
+export { getDepartamento, getMunicipio, getProfesion, getAnio, getMarca, getModelo, getColor, getSociedad, getTipoPago, getEstado, getRol } 

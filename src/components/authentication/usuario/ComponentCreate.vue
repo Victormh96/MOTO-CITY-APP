@@ -1,7 +1,7 @@
 <template>
     <!--Button-->
     <a-button class="button-default mb-3" @click="showModal()">
-        NUEVO DOCUMENTO
+        NUEVO USUARIO
     </a-button>
 
     <!--Modal-->
@@ -11,7 +11,7 @@
         <!--Icon-->
         <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
 
-        <!--Div-->
+        <!--Layout-->
         <div v-if="(loading)">
 
             <!--Form-->
@@ -19,18 +19,6 @@
 
                 <!--Row-->
                 <a-row :gutter="[24, 24]">
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Plantilla:" v-bind="validateInfos.PLANTILLA">
-
-                            <!--Select-->
-                            <a-select v-model:value="formstate.PLANTILLA" show-search :options="dataSourcePl"
-                                :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
 
                     <!--Col-->
                     <a-col :span="24">
@@ -47,10 +35,10 @@
                     <a-col :span="24">
 
                         <!--Group-->
-                        <a-form-item label="Dui:" v-bind="validateInfos.DUI">
+                        <a-form-item label="Usuario:" v-bind="validateInfos.USUARIO">
 
                             <!--Input-->
-                            <a-input type="tel" v-model:value="formstate.DUI" v-mask="'########-#'" />
+                            <a-input v-model:value="formstate.USUARIO" @change="doChangeLower('USUARIO')" />
                         </a-form-item>
                     </a-col>
 
@@ -58,11 +46,10 @@
                     <a-col :span="24">
 
                         <!--Group-->
-                        <a-form-item label="Departamento:" v-bind="validateInfos.DEPARTAMENTO">
+                        <a-form-item label="Password:" v-bind="validateInfos.PASSWORD">
 
-                            <!--Select-->
-                            <a-select v-model:value="formstate.DEPARTAMENTO" show-search @change="doChangeMunicipio"
-                                :options="getDepartamento" :filter-option="filterOption" />
+                            <!--Input-->
+                            <a-input-password type="password" v-model:value="formstate.PASSWORD" placeholder="••••••••" />
                         </a-form-item>
                     </a-col>
 
@@ -70,10 +57,10 @@
                     <a-col :span="24">
 
                         <!--Group-->
-                        <a-form-item label="Municipio:" v-bind="validateInfos.MUNICIPIO">
+                        <a-form-item label="Sucursal:" v-bind="validateInfos.SUCURSAL">
 
                             <!--Select-->
-                            <a-select v-model:value="formstate.MUNICIPIO" show-search :options="dataSourceMn"
+                            <a-select v-model:value="formstate.SUCURSAL" show-search :options="dataSourceSc"
                                 :filter-option="filterOption" />
                         </a-form-item>
                     </a-col>
@@ -82,11 +69,10 @@
                     <a-col :span="24">
 
                         <!--Group-->
-                        <a-form-item label="Fecha Pago:" v-bind="validateInfos.FECHAPAGO">
+                        <a-form-item label="Rol:" v-bind="validateInfos.ROL">
 
-                            <!--Picker-->
-                            <a-date-picker v-model:value="formstate.FECHAPAGO" placeholder="YYYY-MM-DD"
-                                @change="doChangeCalcular" />
+                            <!--Select-->
+                            <a-select v-model:value="formstate.ROL" :options="getRol" :filter-option="filterOption" />
                         </a-form-item>
                     </a-col>
 
@@ -94,25 +80,10 @@
                     <a-col :span="24">
 
                         <!--Group-->
-                        <a-form-item label="Dia:" v-bind="validateInfos.DIA">
+                        <a-form-item label="Estado:" v-bind="validateInfos.ESTADO">
 
-                            <!--Input-->
-                            <a-input type="tel" v-model:value="formstate.DIA" readonly />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Credito:" v-bind="validateInfos.CREDITO">
-
-                            <!--Input-->
-                            <a-input-number type="tel" v-model:value="formstate.CREDITO">
-
-                                <!--Template-->
-                                <template #addonBefore>$</template>
-                            </a-input-number>
+                            <!--Select-->
+                            <a-select v-model:value="formstate.ESTADO" :options="getEstado" :filter-option="filterOption" />
                         </a-form-item>
                     </a-col>
                 </a-row>
@@ -127,15 +98,6 @@
                     <!--Button-->
                     <a-button class="button-completar me-3">
                         Completar
-                    </a-button>
-                </a-popconfirm>
-
-                <!--Popconfirm-->
-                <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear">
-
-                    <!--Button-->
-                    <a-button class="button-siguiente">
-                        Limpiar
                     </a-button>
                 </a-popconfirm>
             </div>
@@ -158,16 +120,8 @@ import {
 } from "vue"
 
 import {
-    saveAs
-} from "file-saver"
-
-import {
-    isValidDUI
-} from "@avalontechsv/idsv"
-
-import {
-    getMunicipio,
-    getDepartamento
+    getRol,
+    getEstado
 } from "@/utils/data"
 
 import {
@@ -176,8 +130,8 @@ import {
 } from "@/utils/index"
 
 import {
-    getPlantilla,
-    PostPagare
+    getToken,
+    PostUsuario
 } from "@/utils/request"
 
 import {
@@ -185,25 +139,23 @@ import {
 } from "ant-design-vue"
 
 import {
-    PostPagareApi,
-    ShowPlantillaApi
+    ShowUsuarioApi,
+    PostUsuarioApi,
+    GetSucursalApi
 } from "@/services/paths"
 
 const useForm = Form.useForm
 
 import axios from "axios"
-import dayjs from "dayjs"
 
 export default {
     data() {
         return {
             loading: false,
 
-            getMunicipio,
-            getDepartamento,
-
-            dataSourceMn: [],
-            dataSourcePl: []
+            getRol,
+            getEstado,
+            dataSourceSc: []
         }
     },
 
@@ -211,11 +163,11 @@ export default {
 
         try {
 
-            const { body, config } = getPlantilla('PG')
+            const { config } = getToken()
 
-            const plantilla = await axios.post(ShowPlantillaApi, body, config)
+            const sucursal = await axios.get(GetSucursalApi, config)
 
-            this.dataSourcePl = plantilla?.data
+            this.dataSourceSc = sucursal?.data
 
             this.loading = true
 
@@ -251,32 +203,20 @@ export default {
 
         const formstate = reactive({
 
-            PLANTILLA: 15,
-
             NOMBRE: null,
 
-            DUI: null,
+            USUARIO: null,
 
-            DEPARTAMENTO: null,
+            PASSWORD: null,
 
-            MUNICIPIO: null,
+            ROL: null,
 
-            FECHAPAGO: null,
+            SUCURSAL: null,
 
-            DIA: null,
-
-            CREDITO: null
+            ESTADO: null
         })
 
         const rules = reactive({
-
-            PLANTILLA: [
-                {
-                    required: true,
-
-                    message: "Campo Requerido"
-                }
-            ],
 
             NOMBRE: [
                 {
@@ -286,7 +226,7 @@ export default {
                 }
             ],
 
-            DUI: [
+            USUARIO: [
                 {
                     required: true,
 
@@ -295,20 +235,41 @@ export default {
                 {
                     validator: async () => {
 
-                        const { DUI } = formstate
+                        const { USUARIO } = formstate
 
-                        if (isValidDUI(DUI) == false && DUI !== null && DUI !== '') {
+                        const { config } = getToken()
+
+                        const conteo = await axios.post(ShowUsuarioApi, { USUARIO: USUARIO }, config)
+
+                        if (conteo.data[0].CONTEO > 0) {
 
                             return Promise.reject(
 
-                                new Error("Formato Incorrecto")
+                                new Error("Usuario Existente")
                             )
                         }
-                    }
+                    },
+
+                    trigger: "blur"
                 }
             ],
 
-            DEPARTAMENTO: [
+            PASSWORD: [
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
+                },
+                {
+                    min: 8,
+
+                    message: "Minimo 8 caracteres",
+
+                    trigger: "blur"
+                }
+            ],
+
+            ROL: [
                 {
                     required: true,
 
@@ -316,7 +277,7 @@ export default {
                 }
             ],
 
-            MUNICIPIO: [
+            SUCURSAL: [
                 {
                     required: true,
 
@@ -324,23 +285,7 @@ export default {
                 }
             ],
 
-            FECHAPAGO: [
-                {
-                    required: true,
-
-                    message: "Campo Requerido"
-                }
-            ],
-
-            DIA: [
-                {
-                    required: true,
-
-                    message: "Campo Requerido"
-                }
-            ],
-
-            CREDITO: [
+            ESTADO: [
                 {
                     required: true,
 
@@ -360,8 +305,8 @@ export default {
         const filterOption = (input, option) => option.label.toLowerCase().includes(input.toLowerCase())
 
         return {
-            visible,
             onClose,
+            visible,
             validate,
             showModal,
             formstate,
@@ -387,19 +332,12 @@ export default {
         async doChangeAdd() {
 
             try {
-                const { body, config } = PostPagare(this.formstate)
 
-                const response = await axios.post(PostPagareApi, body, config)
+                const { body, config } = PostUsuario(this.formstate)
 
-                const blob = new Blob(
+                await axios.post(PostUsuarioApi, body, config)
 
-                    [response.data],
-
-                    { type: 'application/pdf' })
-
-                saveAs(blob, `PAGARE-${dayjs().format('YYYY-MM-DD HH_mm_ss')}`)
-
-                getSuccess('Descargando')
+                getSuccess('Guardado')
 
                 setTimeout(function () { location.reload() }, 600)
 
@@ -411,41 +349,14 @@ export default {
             }
         },
 
-        doChangeCalcular() {
-
-            const fechapago = new Date(this.formstate.FECHAPAGO ?? 0)
-
-            const date = fechapago - new Date()
-
-            this.formstate.DIA = Math.ceil(date / (1000 * 60 * 60 * 24))
-        },
-
-        doChangeMunicipio() {
-
-            this.formstate.MUNICIPIO = null
-
-            const data = getMunicipio.filter(item => item.departamento === this.formstate.DEPARTAMENTO)
-
-            this.dataSourceMn = data
-        },
-
         doChangeLetter(item) {
 
             this.formstate[item] = this.formstate[item].toUpperCase()
         },
 
-        doChangeFieldClear() {
+        doChangeLower(item) {
 
-            const exclude = ['PLANTILLA']
-
-            Object.keys(this.formstate)
-
-                .filter(key => !exclude.includes(key))
-
-                .forEach(key => {
-
-                    this.formstate[key] = null
-                })
+            this.formstate[item] = this.formstate[item].toLowerCase()
         }
     }
 };

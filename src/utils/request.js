@@ -259,6 +259,39 @@ function PostRecibo(record) {
     return data
 }
 
+function PostUsuario(record) {
+
+    const data = {
+
+        body: {
+
+            NOMBRE: record?.NOMBRE,
+
+            USUARIO: record?.USUARIO,
+
+            PASSWORD: record?.PASSWORD,
+
+            SUCURSAL: record?.SUCURSAL,
+
+            ROL: record?.ROL,
+
+            ESTADO: record?.ESTADO,
+
+            ID: record?.ID
+        },
+
+        config: {
+
+            headers: {
+
+                Authorization: store.state.authentication?.cuenta?.token
+            }
+        }
+    }
+
+    return data
+}
+
 function PostDescarga(record) {
 
     const data = {
@@ -282,4 +315,4 @@ function PostDescarga(record) {
     return data
 }
 
-export { getToken, getPlantilla, PostCompraVenta, PostPlantilla, PostPagare, PostPrimeraMatricula, PostRecibo, PostDescarga } 
+export { getToken, getPlantilla, PostCompraVenta, PostPlantilla, PostPagare, PostPrimeraMatricula, PostRecibo, PostUsuario, PostDescarga } 
