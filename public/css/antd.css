@@ -33059,8 +33059,8 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .fr-box.fr-basic .fr-element {
     margin: -42px 0 0 0 !important;
     color: var(--texto) !important;
-    min-height: calc(100vh - 450px) !important;
-    max-height: calc(100vh - 450px) !important;
+    min-height: 300px !important;
+    max-height: 300px !important;
     z-index: 9999 !important;
 }
 

@@ -15,7 +15,7 @@ function getToken() {
 
                 Authorization: store.state.authentication?.cuenta?.token,
 
-                Usuario: store.state.authentication?.cuenta?.usuario
+                Slpname: store.state.authentication?.cuenta?.usuario
             }
         }
     }
@@ -40,7 +40,7 @@ function getPlantilla(record) {
 
                 Authorization: store.state.authentication?.cuenta?.token,
 
-                Usuario: store.state.authentication?.cuenta?.usuario
+                Slpname: store.state.authentication?.cuenta?.usuario
             }
         }
     }
@@ -119,7 +119,7 @@ function PostCompraVenta(record) {
 
                 Authorization: store.state.authentication?.cuenta?.token,
 
-                Usuario: store.state.authentication?.cuenta?.usuario
+                Slpname: store.state.authentication?.cuenta?.usuario
             }
         }
     }
@@ -150,7 +150,7 @@ function PostPlantilla(record) {
 
                 Authorization: store.state.authentication?.cuenta?.token,
 
-                Usuario: store.state.authentication?.cuenta?.usuario
+                Slpname: store.state.authentication?.cuenta?.usuario
             }
         }
     }
@@ -191,7 +191,7 @@ function PostPagare(record) {
 
                 Authorization: store.state.authentication?.cuenta?.token,
 
-                Usuario: store.state.authentication?.cuenta?.usuario
+                Slpname: store.state.authentication?.cuenta?.usuario
             }
         }
     }
@@ -228,7 +228,7 @@ function PostPrimeraMatricula(record) {
 
                 Authorization: store.state.authentication?.cuenta?.token,
 
-                Usuario: store.state.authentication?.cuenta?.usuario
+                Slpname: store.state.authentication?.cuenta?.usuario
             }
         }
     }
@@ -242,8 +242,6 @@ function PostRecibo(record) {
 
         body: {
 
-            SOCIEDAD: record?.SOCIEDAD,
-
             NOMBRE: record?.NOMBRE,
 
             VALOR: record?.VALOR,
@@ -254,7 +252,9 @@ function PostRecibo(record) {
 
             COMENTARIO: record?.COMENTARIO,
 
-            SUCURSAL: store.state.authentication?.cuenta?.sucursal
+            PLANTILLA: record?.PLANTILLA,
+
+            USUARIO: store.state.authentication?.cuenta?.slpcode
         },
 
         config: {
@@ -265,7 +265,7 @@ function PostRecibo(record) {
 
                 Authorization: store.state.authentication?.cuenta?.token,
 
-                Usuario: store.state.authentication?.cuenta?.usuario
+                Slpname: store.state.authentication?.cuenta?.usuario
             }
         }
     }
@@ -300,7 +300,7 @@ function PostUsuario(record) {
 
                 Authorization: store.state.authentication?.cuenta?.token,
 
-                Usuario: store.state.authentication?.cuenta?.usuario
+                Slpname: store.state.authentication?.cuenta?.usuario
             }
         }
     }
@@ -325,7 +325,7 @@ function PostDescarga(record) {
 
                 Authorization: store.state.authentication?.cuenta?.token,
 
-                Usuario: store.state.authentication?.cuenta?.usuario
+                Slpname: store.state.authentication?.cuenta?.usuario
             }
         }
     }

@@ -1666,17 +1666,6 @@ const getColor = [
     }
 ]
 
-const getSociedad = [
-    {
-        value: "OUTLANDER",
-        label: "OUTLANDER"
-    },
-    {
-        value: "CREDICITY",
-        label: "CREDICITY"
-    }
-]
-
 const getTipoPago = [
     {
         value: "EFECTIVO",
@@ -1726,4 +1715,4 @@ const getRol = [
     }
 ]
 
-export { getDepartamento, getMunicipio, getProfesion, getAnio, getMarca, getModelo, getColor, getSociedad, getTipoPago, getEstado, getRol } 
+export { getDepartamento, getMunicipio, getProfesion, getAnio, getMarca, getModelo, getColor, getTipoPago, getEstado, getRol } 

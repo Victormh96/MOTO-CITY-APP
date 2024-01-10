@@ -6,109 +6,62 @@
     <a-layout-content class="fade-out" v-if="(loading)">
 
         <!--Container-->
-        <div class="container mb-3">
+        <div class="container-fluid mb-3">
 
-            <!--Form-->
-            <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
-                <!--Row-->
-                <a-row :gutter="[24, 24]">
+            <!--Component-->
+            <Crear />
 
-                    <!--Col-->
-                    <a-col :span="24">
+            <!--Tag-->
+            <a-tag color="#196789" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
+                RECIBO
+            </a-tag>
 
-                        <!--Group-->
-                        <a-form-item label="Sociedad:" v-bind="validateInfos.SOCIEDAD">
+            <!--Table-->
+            <a-table :pagination="pagination" :data-source="dataSourceRb" :columns="column" bordered :scroll="{ x: 1400 }">
 
-                            <!--Select-->
-                            <a-select v-model:value="formstate.SOCIEDAD" show-search :options="getSociedad"
-                                :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
+                <!--Template-->
+                <template #bodyCell="{ column, record }">
 
-                    <!--Col-->
-                    <a-col :span="24">
+                    <!--Template-->
+                    <template v-if="column.key === 'nombre'">
 
-                        <!--Group-->
-                        <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
+                        <!--Typography-->
+                        <a-typography-paragraph :copyable="{ tooltip: false }">
+                            {{ record.nombre }}
+                        </a-typography-paragraph>
+                    </template>
 
-                            <!--Input-->
-                            <a-input v-model:value="formstate.NOMBRE" @change="doChangeLetter('NOMBRE')" />
-                        </a-form-item>
-                    </a-col>
+                    <!--Template-->
+                    <template v-if="column.key === 'valor'">
+                        $ {{ record.valor }}
+                    </template>
 
-                    <!--Col-->
-                    <a-col :span="24">
+                    <!--Template-->
+                    <template v-if="column.key === 'creado'">
+                        {{ new Date(record.creado).toISOString().split("T")[0] }}
+                    </template>
 
-                        <!--Group-->
-                        <a-form-item label="Tipo Pago:" v-bind="validateInfos.TIPOPAGO">
+                    <!--Template-->
+                    <template v-if="column.key === 'acciones'">
 
-                            <!--Select-->
-                            <a-select v-model:value="formstate.TIPOPAGO" show-search :options="getTipoPago"
-                                :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
+                        <!--Component-->
+                        <Descargar :record="record" />
+                    </template>
+                </template>
 
-                    <!--Col-->
-                    <a-col :span="24">
+                <!--Template-->
+                <template #customFilterDropdown="{ setSelectedKeys, selectedKeys, confirm, column }">
 
-                        <!--Group-->
-                        <a-form-item label="Entregado por:" v-bind="validateInfos.ENTREGADO">
+                    <!--Div-->
+                    <div style="padding: 7px">
 
-                            <!--Input-->
-                            <a-input v-model:value="formstate.ENTREGADO" @change="doChangeLetter('ENTREGADO')" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Valor:" v-bind="validateInfos.VALOR">
-
-                            <!--Input-->
-                            <a-input-number type="tel" v-model:value="formstate.VALOR">
-
-                                <!--Template-->
-                                <template #addonBefore>$</template>
-                            </a-input-number>
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Comentario:" v-bind="validateInfos.COMENTARIO">
-
-                            <!--Textarea-->
-                            <a-textarea v-model:value="formstate.COMENTARIO" :rows="7"
-                                @change="doChangeLetter('COMENTARIO')" />
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-            </a-form>
-
-            <!--Div-->
-            <div class="steps-action formulario">
-
-                <!--Popconfirm-->
-                <a-popconfirm title="¿Completar proceso?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
-
-                    <!--Button-->
-                    <a-button class="button-completar me-3">
-                        Completar
-                    </a-button>
-                </a-popconfirm>
-
-                <!--Popconfirm-->
-                <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear">
-
-                    <!--Button-->
-                    <a-button class="button-siguiente">
-                        Limpiar
-                    </a-button>
-                </a-popconfirm>
-            </div>
+                        <!--Input-->
+                        <a-input type="search" placeholder="..." :value="selectedKeys[0]" class="buscador-modal"
+                            ref="focusearch" @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
+                            @pressEnter="handleSearch(selectedKeys, confirm, column.dataIndex)" />
+                    </div>
+                </template>
+            </a-table>
         </div>
     </a-layout-content>
 
@@ -130,207 +83,221 @@
 <!--=======Script=======-->
 <script>
 import {
+    ref,
+    toRefs,
     reactive
 } from "vue"
 
 import {
-    saveAs
-} from "file-saver"
-
-import {
-    getSociedad,
-    getTipoPago
-} from "@/utils/data"
-
-import {
-    getSuccess,
     getResponse
 } from "@/utils/index"
 
 import {
-    PostRecibo
+    getToken
 } from "@/utils/request"
 
 import {
-    Form
-} from "ant-design-vue"
-
-import {
-    PostReciboApi
+    GetReciboApi
 } from "@/services/paths"
 
-const useForm = Form.useForm
-
 import axios from "axios"
-import dayjs from "dayjs"
+import Crear from "@/components/recibo/ComponentCreate.vue"
+import Descargar from "@/components/recibo/ComponentShow.vue"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
 
 export default {
     data() {
         return {
-            getSociedad,
-            getTipoPago,
-            loading: false
+            loading: false,
+
+            dataSourceRb: [],
+
+            pagination: {
+
+                pageSize: 20,
+
+                showSizeChanger: false,
+
+                onChange: this.doChangeScrollto
+            }
         }
     },
 
     async created() {
 
-        setTimeout(() => { this.loading = true }, 850)
+        try {
+
+            const { body, config } = getToken()
+
+            const recibo = await axios.post(GetReciboApi, body, config)
+
+            this.dataSourceRb = recibo?.data
+
+            this.loading = true
+
+        } catch (err) {
+
+            console.error(err)
+
+            getResponse(err)
+        }
     },
 
     setup() {
 
-        const formstate = reactive({
+        const focusearch = ref()
 
-            SOCIEDAD: null,
+        const state = reactive({
 
-            NOMBRE: null,
+            searchText: '',
 
-            VALOR: null,
-
-            TIPOPAGO: null,
-
-            ENTREGADO: null,
-
-            COMENTARIO: null
+            searchedColumn: ''
         })
 
-        const rules = reactive({
+        const column = [{
 
-            SOCIEDAD: [
-                {
-                    required: true,
+            title: "NOMBRE",
 
-                    message: "Campo Requerido"
+            dataIndex: "nombre",
+
+            key: "nombre",
+
+            align: "center",
+
+            customFilterDropdown: true,
+
+            onFilter: (value, record) =>
+
+                record.nombre.toString().toLowerCase().includes(value.toLowerCase()),
+
+            onFilterDropdownVisibleChange: visible => {
+
+                if (visible) {
+
+                    setTimeout(() => { focusearch.value.focus() }, 100)
                 }
-            ],
+            }
+        },
+        {
+            title: "CANTIDAD",
 
-            NOMBRE: [
-                {
-                    required: true,
+            dataIndex: "valor",
 
-                    message: "Campo Requerido"
+            key: "valor",
+
+            align: "center"
+        },
+        {
+            title: "TIPO",
+
+            dataIndex: "tipo_pago",
+
+            key: "tipo_pago",
+
+            align: "center",
+
+            filters: [{
+
+                text: "EFECTIVO",
+
+                value: "EFECTIVO"
+            },
+            {
+                text: "TARJETA",
+
+                value: "TARJETA"
+            },
+            {
+                text: "TRANSFERENCIA",
+
+                value: "TRANSFERENCIA"
+            },
+            {
+                text: "CHEQUE",
+
+                value: "CHEQUE"
+            }],
+
+            onFilter: (value, record) => record.tipo_pago.toString().includes(value)
+        },
+        {
+            title: "COMENTARIO",
+
+            dataIndex: "comentario",
+
+            key: "comentario",
+
+            align: "center"
+        },
+        {
+            title: "AÑADIDO",
+
+            dataIndex: "creado",
+
+            key: "creado",
+
+            align: "center",
+
+            customFilterDropdown: true,
+
+            onFilter: (value, record) =>
+
+                record.creado.toString().toLowerCase().includes(value.toLowerCase()),
+
+            onFilterDropdownVisibleChange: visible => {
+
+                if (visible) {
+
+                    setTimeout(() => { focusearch.value.focus() }, 100)
                 }
-            ],
+            }
+        },
+        {
+            title: "ACCIONES",
 
-            VALOR: [
-                {
-                    required: true,
+            dataIndex: "acciones",
 
-                    message: "Campo Requerido"
-                }
-            ],
+            key: "acciones",
 
-            TIPOPAGO: [
-                {
-                    required: true,
+            align: "center"
+        }]
 
-                    message: "Campo Requerido"
-                }
-            ],
+        const handleSearch = (selectedKeys, confirm, dataIndex) => {
 
-            ENTREGADO: [
-                {
-                    required: true,
+            confirm()
 
-                    message: "Campo Requerido"
-                }
-            ],
+            state.searchText = selectedKeys[0]
 
-            COMENTARIO: [
-                {
-                    required: true,
-
-                    message: "Campo Requerido"
-                },
-            ]
-        })
-
-        const {
-
-            validate,
-
-            validateInfos,
-
-        } = useForm(formstate, rules)
-
-        const filterOption = (input, option) => option.label.toLowerCase().includes(input.toLowerCase())
+            state.searchedColumn = dataIndex
+        }
 
         return {
-            validate,
-            formstate,
-            filterOption,
-            validateInfos
+            column,
+            focusearch,
+            handleSearch,
+            ...toRefs(state)
         }
     },
 
     methods: {
 
-        doChangeValidacion() {
+        doChangeScrollto() {
 
-            this.validate().then(() => {
+            window.scrollTo({
 
-                this.doChangeAdd()
+                top: 0,
 
-            }).catch(err => {
-
-                console.log('error', err)
+                behavior: "smooth"
             })
-        },
-
-        async doChangeAdd() {
-
-            try {
-
-                const { body, config } = PostRecibo(this.formstate)
-
-                const response = await axios.post(PostReciboApi, body, config)
-
-                const blob = new Blob(
-
-                    [response.data],
-
-                    { type: 'application/pdf' })
-
-                saveAs(blob, `RECIBO-${dayjs().format('YYYY-MM-DD HH_mm_ss')}`)
-
-                getSuccess('Descargando')
-
-                setTimeout(function () { location.reload() }, 600)
-
-            } catch (err) {
-
-                console.error(err)
-
-                getResponse(err)
-            }
-        },
-
-        doChangeLetter(item) {
-
-            this.formstate[item] = this.formstate[item].toUpperCase()
-        },
-
-        doChangeFieldClear() {
-
-            const exclude = ['SOCIEDAD']
-
-            Object.keys(this.formstate)
-
-                .filter(key => !exclude.includes(key))
-
-                .forEach(key => {
-
-                    this.formstate[key] = null
-                })
         }
     },
 
     components: {
+        Crear,
         Footer,
-        Navbar
+        Navbar,
+        Descargar
     }
 };
 </script>

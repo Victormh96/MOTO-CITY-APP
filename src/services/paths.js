@@ -8,6 +8,8 @@ export const CerrarApi = URL_NODE + '/auth/cerrar-sesion'
 
 export const GetPagareApi = URL_NODE + '/motocity/pagare'
 
+export const GetReciboApi = URL_NODE + '/motocity/recibo'
+
 export const ShowUsuarioApi = URL_NODE + '/auth/usuario-show'
 
 export const GetSucursalApi = URL_NODE + '/utilidad/sucursal'
@@ -19,6 +21,8 @@ export const ShowPagareApi = URL_NODE + '/motocity/pagare-show'
 export const PostUsuarioApi = URL_NODE + '/auth/usuario-create'
 
 export const GetPlantillaApi = URL_NODE + '/utilidad/plantilla'
+
+export const ShowReciboApi = URL_NODE + '/motocity/recibo-show'
 
 export const PostReciboApi = URL_NODE + '/motocity/recibo-create'
 
