@@ -5,7 +5,7 @@
     </a-button>
 
     <!--Modal-->
-    <a-modal v-model:visible="visible" width="800px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:visible="visible" width="700px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" centered :class="!loading ? 'loading' : null">
 
         <!--Icon-->

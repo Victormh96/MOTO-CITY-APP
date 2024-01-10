@@ -4,6 +4,8 @@ export const GetUsuarioApi = URL_NODE + '/auth/usuario'
 
 export const CuentaApi = URL_NODE + '/auth/inicio-sesion'
 
+export const CerrarApi = URL_NODE + '/auth/cerrar-sesion'
+
 export const GetPagareApi = URL_NODE + '/motocity/pagare'
 
 export const ShowUsuarioApi = URL_NODE + '/auth/usuario-show'

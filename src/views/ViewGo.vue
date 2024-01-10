@@ -23,8 +23,7 @@
                             <img src="@/../public/img/carrousel/banner.png" class="d-none d-md-block img-banner" />
 
                             <!--Img Tablet-->
-                            <img src="@/../public/img/carrousel/bannerx2.png"
-                                class="d-none d-sm-block d-md-none img-banner" />
+                            <img src="@/../public/img/carrousel/bannerx2.png" class="d-none d-sm-block d-md-none img-banner" />
 
                             <!--Img Mobile-->
                             <img src="@/../public/img/carrousel/bannerx3.png" class="d-sm-none img-banner" />

@@ -6,14 +6,16 @@ function getToken() {
 
         body: {
 
-            slpcode: store.state.authentication?.cuenta?.slpcode
+            SLPCODE: store.state.authentication?.cuenta?.slpcode
         },
 
         config: {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: store.state.authentication?.cuenta?.token,
+
+                Usuario: store.state.authentication?.cuenta?.usuario
             }
         }
     }
@@ -27,16 +29,18 @@ function getPlantilla(record) {
 
         body: {
 
-            rol: store.state.authentication?.cuenta?.rol,
+            ROL: store.state.authentication?.cuenta?.rol,
 
-            tipo: record
+            TIPO: record
         },
 
         config: {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: store.state.authentication?.cuenta?.token,
+
+                Usuario: store.state.authentication?.cuenta?.usuario
             }
         }
     }
@@ -113,7 +117,9 @@ function PostCompraVenta(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: store.state.authentication?.cuenta?.token,
+
+                Usuario: store.state.authentication?.cuenta?.usuario
             }
         }
     }
@@ -142,7 +148,9 @@ function PostPlantilla(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: store.state.authentication?.cuenta?.token,
+
+                Usuario: store.state.authentication?.cuenta?.usuario
             }
         }
     }
@@ -181,7 +189,9 @@ function PostPagare(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: store.state.authentication?.cuenta?.token,
+
+                Usuario: store.state.authentication?.cuenta?.usuario
             }
         }
     }
@@ -216,7 +226,9 @@ function PostPrimeraMatricula(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: store.state.authentication?.cuenta?.token,
+
+                Usuario: store.state.authentication?.cuenta?.usuario
             }
         }
     }
@@ -251,7 +263,9 @@ function PostRecibo(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: store.state.authentication?.cuenta?.token,
+
+                Usuario: store.state.authentication?.cuenta?.usuario
             }
         }
     }
@@ -269,7 +283,7 @@ function PostUsuario(record) {
 
             USUARIO: record?.USUARIO,
 
-            PASSWORD: record?.PASSWORD,
+            PASSWORD: record?.PASSWORD ?? 0,
 
             SUCURSAL: record?.SUCURSAL,
 
@@ -284,7 +298,9 @@ function PostUsuario(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: store.state.authentication?.cuenta?.token,
+
+                Usuario: store.state.authentication?.cuenta?.usuario
             }
         }
     }
@@ -307,6 +323,29 @@ function PostDescarga(record) {
 
             headers: {
 
+                Authorization: store.state.authentication?.cuenta?.token,
+
+                Usuario: store.state.authentication?.cuenta?.usuario
+            }
+        }
+    }
+
+    return data
+}
+
+function getLogout() {
+
+    const data = {
+
+        body: {
+
+            USUARIO: store.state.authentication?.cuenta?.usuario
+        },
+
+        config: {
+
+            headers: {
+
                 Authorization: store.state.authentication?.cuenta?.token
             }
         }
@@ -315,4 +354,4 @@ function PostDescarga(record) {
     return data
 }
 
-export { getToken, getPlantilla, PostCompraVenta, PostPlantilla, PostPagare, PostPrimeraMatricula, PostRecibo, PostUsuario, PostDescarga } 
+export { getToken, getPlantilla, PostCompraVenta, PostPlantilla, PostPagare, PostPrimeraMatricula, PostRecibo, PostUsuario, PostDescarga, getLogout } 

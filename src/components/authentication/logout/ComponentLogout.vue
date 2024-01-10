@@ -32,9 +32,9 @@ export default {
 
                 cancelText: 'No',
 
-                onOk() {
+                async onOk() {
 
-                    store.dispatch("CuentaCerrar")
+                    await store.dispatch("CuentaCerrar")
 
                     getClose('Sesión cerrada')
 

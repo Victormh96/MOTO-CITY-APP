@@ -7,7 +7,12 @@ import {
 } from "@/utils/index"
 
 import {
-    CuentaApi
+    getLogout
+} from "@/utils/request"
+
+import {
+    CuentaApi,
+    CerrarApi
 } from "../../services/paths"
 
 export default {
@@ -62,7 +67,22 @@ export default {
 
         async CuentaCerrar({ commit }) {
 
-            await commit("MutationCerrar")
+            const { body, config } = getLogout()
+
+            await axios
+                .post(CerrarApi, body, config)
+
+                .then((response) => {
+
+                    console.log(response)
+
+                    commit("MutationCerrar")
+                })
+
+                .catch((err) => {
+
+                    console.log(err)
+                })
         }
     }
 };

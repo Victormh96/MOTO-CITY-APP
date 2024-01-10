@@ -23,6 +23,16 @@
                 <template #bodyCell="{ column, record }">
 
                     <!--Template-->
+                    <template v-if="column.key === 'enlinea'">
+
+                        <!--Badge-->
+                        <a-badge status="processing" color="#2f8919" v-if="record.enlinea" />
+
+                        <!--Badge-->
+                        <a-badge status="processing" color="#891924" v-else />
+                    </template>
+
+                    <!--Template-->
                     <template v-if="column.key === 'nombre'">
 
                         <!--Typography-->
@@ -185,6 +195,16 @@ export default {
         })
 
         const column = [{
+
+            title: "EN LINEA",
+
+            dataIndex: "enlinea",
+
+            key: "enlinea",
+
+            align: "center"
+        },
+        {
 
             title: "NOMBRE",
 

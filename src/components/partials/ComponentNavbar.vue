@@ -36,6 +36,11 @@
                 <!--Col-->
                 <a-col :span="7" class="text-center">
 
+                    <!--Avatar-->
+                    <a-avatar class="me-4">
+                        {{ vname + vlastname }}
+                    </a-avatar>
+
                     <!--Component-->
                     <Logout />
                 </a-col>
@@ -81,6 +86,13 @@ import Theme from "@/components/partials/ComponentTheme.vue"
 import Logout from "@/components/authentication/logout/ComponentLogout.vue"
 
 export default {
+    data() {
+        return {
+            vname: this.$store.state.authentication?.cuenta?.usuario.charAt(0).toUpperCase(),
+            vlastname: this.$store.state.authentication?.cuenta?.usuario?.split('.')[1]?.charAt(0).toUpperCase()
+        }
+    },
+
     components: {
         Theme,
         Logout
