@@ -23,6 +23,15 @@
                 <template #bodyCell="{ column, record }">
 
                     <!--Template-->
+                    <template v-if="column.key === 'serie'">
+
+                        <!--Typography-->
+                        <a-typography-paragraph :copyable="{ tooltip: false }">
+                            {{ record.serie }}
+                        </a-typography-paragraph>
+                    </template>
+
+                    <!--Template-->
                     <template v-if="column.key === 'nombre'">
 
                         <!--Typography-->
@@ -157,6 +166,16 @@ export default {
 
         const column = [{
 
+            title: "SERIE",
+
+            dataIndex: "serie",
+
+            key: "serie",
+
+            align: "center"
+        },
+        {
+
             title: "NOMBRE",
 
             dataIndex: "nombre",
@@ -220,15 +239,6 @@ export default {
             }],
 
             onFilter: (value, record) => record.tipo_pago.toString().includes(value)
-        },
-        {
-            title: "COMENTARIO",
-
-            dataIndex: "comentario",
-
-            key: "comentario",
-
-            align: "center"
         },
         {
             title: "AÑADIDO",
