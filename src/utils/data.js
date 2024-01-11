@@ -1712,6 +1712,10 @@ const getRol = [
     {
         value: "Caja",
         label: "CAJA"
+    },
+    {
+        value: "Contabilidad",
+        label: "CONTABILIDAD"
     }
 ]
 

@@ -63,6 +63,13 @@
                     </router-link>
 
                     <!--Enlace-->
+                    <router-link :to="{ name: 'ReciboTrigger' }" v-if="['Contabilidad'].includes(role)">
+
+                        <!--Img-->
+                        <img src="@/../public/img/categoria/recibo.png" class="img-option mb-3 mb-lg-0">
+                    </router-link>
+
+                    <!--Enlace-->
                     <router-link :to="{ name: 'Pagare' }" v-if="['Jefe'].includes(role)">
 
                         <!--Img-->

@@ -6,7 +6,9 @@ function getToken() {
 
         body: {
 
-            SLPCODE: store.state.authentication?.cuenta?.slpcode
+            SLPCODE: store.state.authentication?.cuenta?.slpcode,
+
+            ROL: store.state.authentication?.cuenta?.rol
         },
 
         config: {
@@ -253,8 +255,10 @@ function PostRecibo(record) {
             COMENTARIO: record?.COMENTARIO,
 
             PLANTILLA: record?.PLANTILLA,
-
-            USUARIO: store.state.authentication?.cuenta?.slpcode
+            
+            USUARIO: store.state.authentication?.cuenta?.slpcode,
+            
+            SUCURSAL: store.state.authentication?.cuenta?.sucursal
         },
 
         config: {

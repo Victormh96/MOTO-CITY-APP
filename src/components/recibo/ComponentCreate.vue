@@ -59,7 +59,7 @@
                     <a-col :span="24">
 
                         <!--Group-->
-                        <a-form-item label="Entregado:" v-bind="validateInfos.ENTREGADO">
+                        <a-form-item label="Entregado Por:" v-bind="validateInfos.ENTREGADO">
 
                             <!--Input-->
                             <a-input v-model:value="formstate.ENTREGADO" @change="doChangeLetter('ENTREGADO')" />
@@ -88,7 +88,7 @@
                         <a-form-item label="Comentario:" v-bind="validateInfos.COMENTARIO">
 
                             <!--Textarea-->
-                            <a-textarea v-model:value="formstate.COMENTARIO" :rows="6"
+                            <a-textarea v-model:value="formstate.COMENTARIO" :rows="6" show-count :maxlength="175"
                                 @change="doChangeLetter('COMENTARIO')" />
                         </a-form-item>
                     </a-col>

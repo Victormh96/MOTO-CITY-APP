@@ -30,6 +30,8 @@ export const PostPagareApi = URL_NODE + '/motocity/pagare-create'
 
 export const GetCompraVentaApi = URL_NODE + '/motocity/compra-venta'
 
+export const TriggerReciboApi = URL_NODE + '/motocity/recibo-trigger'
+
 export const ShowPlantillaApi = URL_NODE + '/utilidad/plantilla-show'
 
 export const PostPlantillaApi = URL_NODE + '/utilidad/plantilla-create'

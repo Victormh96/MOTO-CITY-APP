@@ -9,11 +9,11 @@
         <div class="container-fluid mb-3">
 
             <!--Component-->
-            <Crear />
+            <Generar />
 
             <!--Tag-->
             <a-tag color="#196789" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
-                RECIBO
+                RECIBO REPORTE
             </a-tag>
 
             <!--Table-->
@@ -110,10 +110,10 @@ import {
 } from "@/services/paths"
 
 import axios from "axios"
-import Crear from "@/components/recibo/ComponentCreate.vue"
 import Descargar from "@/components/recibo/ComponentShow.vue"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
+import Generar from "@/components/recibo/ComponentTrigger.vue"
 
 export default {
     data() {
@@ -365,7 +365,7 @@ export default {
     },
 
     components: {
-        Crear,
+        Generar,
         Footer,
         Navbar,
         Descargar
