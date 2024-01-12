@@ -188,6 +188,8 @@ export default {
 
                 getSuccess('Descargando')
 
+                setTimeout(function () { location.reload() }, 600)
+
             } catch (err) {
 
                 console.error(err)
