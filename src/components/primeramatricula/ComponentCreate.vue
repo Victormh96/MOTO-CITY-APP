@@ -50,7 +50,7 @@
                         <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
 
                             <!--Input-->
-                            <a-input v-model:value="formstate.NOMBRE" @change="doChangeLetter('NOMBRE')" />
+                            <a-input v-model:value="formstate.NOMBRE" @input="doChangeLetter('NOMBRE', $event)" />
                         </a-form-item>
                     </a-col>
 
@@ -135,7 +135,7 @@
     </a-modal>
 </template>
 
-<!--=======Script=======-->
+<!--=======Script=======--> 
 <script>
 import {
     ref,
@@ -388,9 +388,13 @@ export default {
             this.dataSourceMn = data
         },
 
-        doChangeLetter(item) {
+        doChangeLetter(key, event) {
 
-            this.formstate[item] = this.formstate[item].toUpperCase()
+            const cursorPosition = event.target.selectionStart
+
+            this.formstate[key] = event.target.value.toUpperCase()
+
+            this.$nextTick(() => event.target.setSelectionRange(cursorPosition, cursorPosition))
         },
 
         doChangeFieldClear() {

@@ -39,7 +39,7 @@
                         <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
 
                             <!--Input-->
-                            <a-input v-model:value="formstate.NOMBRE" @change="doChangeLetter('NOMBRE')" />
+                            <a-input v-model:value="formstate.NOMBRE" @input="doChangeLetter('NOMBRE', $event)" />
                         </a-form-item>
                     </a-col>
 
@@ -62,7 +62,7 @@
                         <a-form-item label="Entregado Por:" v-bind="validateInfos.ENTREGADO">
 
                             <!--Input-->
-                            <a-input v-model:value="formstate.ENTREGADO" @change="doChangeLetter('ENTREGADO')" />
+                            <a-input v-model:value="formstate.ENTREGADO" @input="doChangeLetter('ENTREGADO', $event)" />
                         </a-form-item>
                     </a-col>
 
@@ -89,7 +89,7 @@
 
                             <!--Textarea-->
                             <a-textarea v-model:value="formstate.COMENTARIO" :rows="6" show-count :maxlength="175"
-                                @change="doChangeLetter('COMENTARIO')" />
+                                @input="doChangeLetter('COMENTARIO', $event)" />
                         </a-form-item>
                     </a-col>
                 </a-row>
@@ -347,9 +347,13 @@ export default {
             }
         },
 
-        doChangeLetter(item) {
+        doChangeLetter(key, event) {
 
-            this.formstate[item] = this.formstate[item].toUpperCase()
+            const cursorPosition = event.target.selectionStart
+
+            this.formstate[key] = event.target.value.toUpperCase()
+
+            this.$nextTick(() => event.target.setSelectionRange(cursorPosition, cursorPosition))
         },
 
         doChangeFieldClear() {

@@ -46,7 +46,7 @@
                         <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
 
                             <!--Input-->
-                            <a-input v-model:value="formstate.NOMBRE" @change="doChangeLetter('NOMBRE')"
+                            <a-input v-model:value="formstate.NOMBRE" @input="doChangeLetter('NOMBRE', $event)"
                                 :disabled="disabled" />
                         </a-form-item>
                     </a-col>
@@ -185,7 +185,7 @@
                         <a-form-item label="Tipo:" v-bind="validateInfos.TIPO">
 
                             <!--Input-->
-                            <a-input v-model:value="formstate.TIPO" @change="doChangeLetter('TIPO')" />
+                            <a-input v-model:value="formstate.TIPO" @input="doChangeLetter('TIPO', $event)" />
                         </a-form-item>
                     </a-col>
 
@@ -196,7 +196,7 @@
                         <a-form-item label="Numero Motor:" v-bind="validateInfos.NUMEROMOTOR">
 
                             <!--Input-->
-                            <a-input v-model:value="formstate.NUMEROMOTOR" @change="doChangeLetter('NUMEROMOTOR')" />
+                            <a-input v-model:value="formstate.NUMEROMOTOR" @input="doChangeLetter('NUMEROMOTOR', $event)" />
                         </a-form-item>
                     </a-col>
 
@@ -207,7 +207,8 @@
                         <a-form-item label="Numero Chasis:" v-bind="validateInfos.NUMEROCHASIS">
 
                             <!--Input-->
-                            <a-input v-model:value="formstate.NUMEROCHASIS" @change="doChangeLetter('NUMEROCHASIS')" />
+                            <a-input v-model:value="formstate.NUMEROCHASIS"
+                                @input="doChangeLetter('NUMEROCHASIS', $event)" />
                         </a-form-item>
                     </a-col>
                 </a-row>
@@ -323,7 +324,7 @@
                         <a-form-item label="Nombre:" v-bind="validateInfos.NOMBREF">
 
                             <!--Input-->
-                            <a-input v-model:value="formstate.NOMBREF" @change="doChangeLetter('NOMBREF')" />
+                            <a-input v-model:value="formstate.NOMBREF" @input="doChangeLetter('NOMBREF', $event)" />
                         </a-form-item>
                     </a-col>
 
@@ -1035,9 +1036,13 @@ export default {
             this.dataSourceMd = data
         },
 
-        doChangeLetter(item) {
+        doChangeLetter(key, event) {
 
-            this.formstate[item] = this.formstate[item].toUpperCase()
+            const cursorPosition = event.target.selectionStart
+
+            this.formstate[key] = event.target.value.toUpperCase()
+
+            this.$nextTick(() => event.target.setSelectionRange(cursorPosition, cursorPosition))
         },
 
         doChangeFieldClear() {
