@@ -125,7 +125,7 @@
                 <a-popconfirm title="¿Completar proceso?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
                     <!--Button-->
-                    <a-button class="button-completar me-3">
+                    <a-button class="button-completar me-3" :loading="download">
                         Completar
                     </a-button>
                 </a-popconfirm>
@@ -198,6 +198,7 @@ export default {
     data() {
         return {
             loading: false,
+            download: false,
 
             getMunicipio,
             getDepartamento,
@@ -386,6 +387,8 @@ export default {
 
         async doChangeAdd() {
 
+            this.download = true
+
             try {
                 const { body, config } = PostPagare(this.formstate)
 
@@ -409,6 +412,8 @@ export default {
 
                 getResponse(err)
             }
+
+            this.download = false
         },
 
         doChangeCalcular() {

@@ -23,10 +23,11 @@
                     <!--Col-->
                     <a-col :span="24">
 
-                        <a-form-item label="Fecha:" v-bind="validateInfos.FECHA">
+                        <a-form-item v-bind="validateInfos.FECHA">
 
                             <!--Picker-->
-                            <a-range-picker v-model:value="formstate.FECHA" :placeholder="['DESDE', 'HASTA']" />
+                            <a-range-picker v-model:value="formstate.FECHA" :placeholder="['DESDE', 'HASTA']"
+                                :allowClear="false" />
                         </a-form-item>
                     </a-col>
                 </a-row>
@@ -39,7 +40,7 @@
                 <a-popconfirm title="¿Completar proceso?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
                     <!--Button-->
-                    <a-button class="button-completar me-3">
+                    <a-button class="button-completar me-3" :loading="download">
                         Generar
                     </a-button>
                 </a-popconfirm>
@@ -91,7 +92,8 @@ import dayjs from "dayjs"
 export default {
     data() {
         return {
-            loading: false
+            loading: false,
+            download: false
         }
     },
 
@@ -172,6 +174,8 @@ export default {
 
         async doChangeDownload() {
 
+            this.download = true
+
             try {
 
                 const { body, config } = PostDescarga(this.formstate)
@@ -196,6 +200,8 @@ export default {
 
                 getResponse(err)
             }
+
+            this.download = false
         }
     }
 };

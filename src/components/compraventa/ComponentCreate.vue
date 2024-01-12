@@ -383,7 +383,7 @@
                     v-if="current === steps.length - 1">
 
                     <!--Button-->
-                    <a-button class="button-completar me-3">
+                    <a-button class="button-completar me-3" :loading="download">
                         Completar
                     </a-button>
                 </a-popconfirm>
@@ -469,6 +469,7 @@ export default {
             prima: false,
             loading: false,
             disabled: false,
+            download: false,
             profesion: false,
 
             getAnio,
@@ -920,6 +921,8 @@ export default {
 
         async doChangeAdd() {
 
+            this.download = true
+
             try {
 
                 const { body, config } = PostCompraVenta(this.formstate)
@@ -944,6 +947,8 @@ export default {
 
                 getResponse(err)
             }
+
+            this.download = false
         },
 
         doChangeReplace(value, option) {

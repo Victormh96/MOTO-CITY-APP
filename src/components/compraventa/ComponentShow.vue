@@ -1,6 +1,6 @@
 <template>
     <!--Button-->
-    <a-button class="button-default" :disabled="disabled" @click="doChangeDownload">
+    <a-button class="button-default" :disabled="download" @click="doChangeDownload">
         DESCARGAR
     </a-button>
 </template>
@@ -31,7 +31,7 @@ export default {
     data() {
         return {
             loading: false,
-            disabled: false
+            download: false
         }
     },
 
@@ -39,7 +39,7 @@ export default {
 
         async doChangeDownload() {
 
-            this.disabled = true
+            this.download = true
 
             try {
 
@@ -64,7 +64,7 @@ export default {
                 getResponse(err)
             }
 
-            this.disabled = false
+            this.download = false
         }
     },
 

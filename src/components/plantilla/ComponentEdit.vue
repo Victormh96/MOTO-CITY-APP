@@ -62,7 +62,7 @@
                 <a-popconfirm title="¿Completar proceso?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
                     <!--Button-->
-                    <a-button class="button-completar me-3">
+                    <a-button class="button-completar me-3" :loading="download">
                         Completar
                     </a-button>
                 </a-popconfirm>
@@ -115,6 +115,7 @@ export default {
         return {
             getEstado,
             loading: false,
+            download: false,
             config: {
 
                 toolbarButtons: {
@@ -262,6 +263,8 @@ export default {
 
         async doChangeUpdate() {
 
+            this.download = true
+
             try {
 
                 const { body, config } = PostPlantilla(this.formstate)
@@ -278,6 +281,8 @@ export default {
 
                 getResponse(err)
             }
+
+            this.download = false
         },
 
         doChangePlantilla() {

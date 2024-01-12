@@ -9036,7 +9036,7 @@ textarea.ant-picker-input>input {
     bottom: -1px;
     height: 2px;
     margin-left: 11px;
-    background: #1890ff;
+    background: rgb(25, 103, 137) !important;
     opacity: 0;
     transition: all 0.3s ease-out;
     pointer-events: none;
@@ -9395,7 +9395,7 @@ textarea.ant-picker-input>input {
     bottom: 0;
     left: 0;
     z-index: 1;
-    border: 1px solid #891924;
+    border: 2px solid #891924;
     border-radius: 2px;
     content: '';
 }
