@@ -273,7 +273,7 @@ export default {
 
                 getSuccess('Editado')
 
-                setTimeout(function () { location.reload() }, 600)
+                setTimeout(function () { location.reload() }, 500)
 
             } catch (err) {
 

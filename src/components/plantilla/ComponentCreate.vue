@@ -271,7 +271,7 @@ export default {
 
                 getSuccess('Guardado')
 
-                setTimeout(function () { location.reload() }, 600)
+                setTimeout(function () { location.reload() }, 500)
 
             } catch (err) {
 

@@ -939,7 +939,7 @@ export default {
 
                 getSuccess('Descargando')
 
-                setTimeout(function () { location.reload() }, 600)
+                setTimeout(function () { location.reload() }, 500)
 
             } catch (err) {
 
