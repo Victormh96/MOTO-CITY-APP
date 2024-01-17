@@ -4,8 +4,6 @@ export const GetUsuarioApi = URL_NODE + '/auth/usuario'
 
 export const CuentaApi = URL_NODE + '/auth/inicio-sesion'
 
-export const CerrarApi = URL_NODE + '/auth/cerrar-sesion'
-
 export const GetPagareApi = URL_NODE + '/motocity/pagare'
 
 export const GetReciboApi = URL_NODE + '/motocity/recibo'
@@ -15,6 +13,8 @@ export const ShowUsuarioApi = URL_NODE + '/auth/usuario-show'
 export const GetSucursalApi = URL_NODE + '/utilidad/sucursal'
 
 export const PutUsuarioApi = URL_NODE + '/auth/usuario-update'
+
+export const GetPreciarioApi = URL_NODE + '/motocity/preciario'
 
 export const ShowPagareApi = URL_NODE + '/motocity/pagare-show'
 
@@ -34,19 +34,18 @@ export const TriggerReciboApi = URL_NODE + '/motocity/recibo-trigger'
 
 export const ShowPlantillaApi = URL_NODE + '/utilidad/plantilla-show'
 
-export const PostPlantillaApi = URL_NODE + '/utilidad/plantilla-create'
-
 export const PutPlantillaApi = URL_NODE + '/utilidad/plantilla-update'
 
-export const PostCompraVentaApi = URL_NODE + '/motocity/compra-venta-create'
+export const PostPreciarioApi = URL_NODE + '/motocity/preciario-create'
+
+export const PostPlantillaApi = URL_NODE + '/utilidad/plantilla-create'
 
 export const ShowCompraVentaApi = URL_NODE + '/motocity/compra-venta-show'
 
-export const GetPrimeraMatriculaApi = URL_NODE + '/motocity/primera-matricula'
+export const PostCompraVentaApi = URL_NODE + '/motocity/compra-venta-create'
 
-export const PostPrimeraMatriculaApi = URL_NODE + '/motocity/primera-matricula-create'
+export const GetPrimeraMatriculaApi = URL_NODE + '/motocity/primera-matricula'
 
 export const ShowPrimeraMatriculaApi = URL_NODE + '/motocity/primera-matricula-show'
 
-
-
+export const PostPrimeraMatriculaApi = URL_NODE + '/motocity/primera-matricula-create'

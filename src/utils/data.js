@@ -1719,4 +1719,36 @@ const getRol = [
     }
 ]
 
-export { getDepartamento, getMunicipio, getProfesion, getAnio, getMarca, getModelo, getColor, getTipoPago, getEstado, getRol } 
+const getmes = [
+    {
+        value: 6,
+        label: "6 MESES",
+        disabled: true
+    },
+    {
+        value: 12,
+        label: "12 MESES",
+        disabled: true
+    },
+    {
+        value: 16,
+        label: "16 MESES",
+        disabled: true
+    },
+    {
+        value: 24,
+        label: "24 MESES",
+        disabled: true
+    },
+    {
+        value: 36,
+        label: "36 MESES",
+        disabled: true
+    },
+    {
+        value: 48,
+        label: "48 MESES"
+    }
+]
+
+export { getDepartamento, getMunicipio, getProfesion, getAnio, getMarca, getModelo, getColor, getTipoPago, getEstado, getRol, getmes } 

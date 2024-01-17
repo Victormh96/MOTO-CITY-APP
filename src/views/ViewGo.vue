@@ -29,10 +29,11 @@
                             <img src="@/../public/img/carrousel/bannerx3.png" class="d-sm-none img-banner" />
                         </div>
                     </a-carousel>
+
                 </a-col>
 
                 <!--Col-->
-                <a-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12" :xxl="12" :xxxl="12">
+                <a-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12" :xxl="12" :xxxl="12" class="opciones">
 
                     <!--Enlace-->
                     <router-link :to="{ name: 'Compraventa' }" v-if="['Tramite', 'Concesionario', 'Jefe', 'Caja'].includes(role)">
@@ -81,6 +82,13 @@
 
                         <!--Img-->
                         <img src="@/../public/img/categoria/usuario.png" class="img-option mb-3 mb-lg-0 mt-3">
+                    </router-link>
+
+                    <!--Enlace-->
+                    <router-link :to="{ name: 'Preciario' }" v-if="['Jefe'].includes(role)">
+
+                        <!--Img-->
+                        <img src="@/../public/img/categoria/preciario.png" class="img-option mb-3 mb-lg-0 mt-3">
                     </router-link>
                 </a-col>
             </a-row>

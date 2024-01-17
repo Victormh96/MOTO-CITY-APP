@@ -15,9 +15,7 @@ function getToken() {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token,
-
-                Slpname: store.state.authentication?.cuenta?.usuario
+                Authorization: store.state.authentication?.cuenta?.token
             }
         }
     }
@@ -40,9 +38,57 @@ function getPlantilla(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token,
+                Authorization: store.state.authentication?.cuenta?.token
+            }
+        }
+    }
 
-                Slpname: store.state.authentication?.cuenta?.usuario
+    return data
+}
+
+function getPreciario(record) {
+
+    const data = {
+
+        body: {
+
+            SUCURSAL: store.state.authentication?.cuenta?.sucursal,
+
+            TASA: '0.0487',
+
+            MESES: record?.MESES
+        },
+
+        config: {
+
+            headers: {
+
+                Authorization: store.state.authentication?.cuenta?.token
+            }
+        }
+    }
+
+    return data
+}
+
+function PostPreciario(record) {
+
+    const data = {
+
+        body: {
+
+            PLANTILLA: 20,
+
+            PRECIARIO: record?.PRECIARIO
+        },
+
+        config: {
+
+            responseType: 'blob',
+
+            headers: {
+
+                Authorization: store.state.authentication?.cuenta?.token
             }
         }
     }
@@ -119,9 +165,7 @@ function PostCompraVenta(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token,
-
-                Slpname: store.state.authentication?.cuenta?.usuario
+                Authorization: store.state.authentication?.cuenta?.token
             }
         }
     }
@@ -150,9 +194,7 @@ function PostPlantilla(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token,
-
-                Slpname: store.state.authentication?.cuenta?.usuario
+                Authorization: store.state.authentication?.cuenta?.token
             }
         }
     }
@@ -191,9 +233,7 @@ function PostPagare(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token,
-
-                Slpname: store.state.authentication?.cuenta?.usuario
+                Authorization: store.state.authentication?.cuenta?.token
             }
         }
     }
@@ -228,9 +268,7 @@ function PostPrimeraMatricula(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token,
-
-                Slpname: store.state.authentication?.cuenta?.usuario
+                Authorization: store.state.authentication?.cuenta?.token
             }
         }
     }
@@ -255,9 +293,9 @@ function PostRecibo(record) {
             COMENTARIO: record?.COMENTARIO,
 
             PLANTILLA: record?.PLANTILLA,
-            
+
             USUARIO: store.state.authentication?.cuenta?.slpcode,
-            
+
             SUCURSAL: store.state.authentication?.cuenta?.sucursal
         },
 
@@ -267,9 +305,7 @@ function PostRecibo(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token,
-
-                Slpname: store.state.authentication?.cuenta?.usuario
+                Authorization: store.state.authentication?.cuenta?.token
             }
         }
     }
@@ -302,9 +338,7 @@ function PostUsuario(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token,
-
-                Slpname: store.state.authentication?.cuenta?.usuario
+                Authorization: store.state.authentication?.cuenta?.token
             }
         }
     }
@@ -327,29 +361,6 @@ function PostDescarga(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token,
-
-                Slpname: store.state.authentication?.cuenta?.usuario
-            }
-        }
-    }
-
-    return data
-}
-
-function getLogout() {
-
-    const data = {
-
-        body: {
-
-            USUARIO: store.state.authentication?.cuenta?.usuario
-        },
-
-        config: {
-
-            headers: {
-
                 Authorization: store.state.authentication?.cuenta?.token
             }
         }
@@ -358,4 +369,4 @@ function getLogout() {
     return data
 }
 
-export { getToken, getPlantilla, PostCompraVenta, PostPlantilla, PostPagare, PostPrimeraMatricula, PostRecibo, PostUsuario, PostDescarga, getLogout } 
+export { getToken, getPlantilla, getPreciario, PostPreciario, PostCompraVenta, PostPlantilla, PostPagare, PostPrimeraMatricula, PostRecibo, PostUsuario, PostDescarga } 

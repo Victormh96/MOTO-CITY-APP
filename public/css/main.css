@@ -104,8 +104,8 @@ figure {
 .fa-xmark {
   font-size: 26px;
   position: absolute;
-  top: 8px;
-  right: 12px;
+  top: 6px;
+  right: 10px;
   color: var(--texto);
   z-index: 999;
   cursor: pointer;
@@ -189,6 +189,13 @@ figure {
   width: 100%;
   height: 245px;
   object-fit: cover;
+  border-radius: 5px;
+}
+
+.img-preciario {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
   border-radius: 5px;
 }
 

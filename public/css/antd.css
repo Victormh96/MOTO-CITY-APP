@@ -7415,8 +7415,8 @@ html {
 }
 
 .ant-btn-icon-only.ant-btn-sm {
-    width: 24px;
-    height: 24px;
+    width: 100%;
+    height: 28px;
     padding: 0px 0;
     font-size: 14px;
     border-radius: 2px;
@@ -19024,11 +19024,17 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
     min-height: 1px;
 }
 
+.opciones {
+    height: calc(100vh - 175px);
+    overflow: auto;
+}
+
 .ant-carousel .slick-slide img {
     width: 100%;
-    height: 766px;
+    height: calc(100vh - 175px);
     display: block;
     object-fit: cover;
+    object-position: top;
     border-radius: 5px;
 }
 
@@ -19038,6 +19044,11 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
         width: 100%;
         height: 100%;
     }
+
+    .opciones {
+        height: 100%;
+        overflow: hidden;
+    }
 }
 
 /*===Ipad===**/
@@ -19045,6 +19056,11 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
     .ant-carousel .slick-slide img {
         width: 100%;
         height: 100%;
+    }
+
+    .opciones {
+        height: 100%;
+        overflow: hidden;
     }
 }
 
@@ -19734,8 +19750,8 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
 }
 
 .ant-checkbox-checked .ant-checkbox-inner {
-    background-color: var(--red);
-    border-color: var(--red);
+    background-color: #19897E;
+    border-color: #19897E;
 }
 
 .ant-checkbox-disabled {
@@ -19844,7 +19860,7 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
     left: 50%;
     width: 8px;
     height: 8px;
-    background-color: #1890ff;
+    background-color: #196789;
     border: 0;
     transform: translate(-50%, -50%) scale(1);
     opacity: 1;
@@ -19858,6 +19874,11 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
 
 .ant-checkbox-rtl {
     direction: rtl;
+}
+
+.ant-transfer .ant-input-prefix,
+.ant-transfer .ant-input-suffix {
+    display: none;
 }
 
 .ant-checkbox-group-rtl .ant-checkbox-group-item {
@@ -21343,10 +21364,6 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
     box-shadow: 0 0 0 2px rgba(255, 77, 79, 0.2);
     border-right-width: 1px !important;
     outline: 0;
-}
-
-.ant-form-item-has-error .ant-transfer-list {
-    border-color: #ff4d4f;
 }
 
 .ant-form-item-has-error .ant-transfer-list-search:not([disabled]) {
@@ -31061,14 +31078,14 @@ tr.ant-table-expanded-row .ant-descriptions-view table {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: rgba(0, 0, 0, 0.85);
-    font-size: 14px;
+    color: var(--texto);
+    font-size: .8rem;
     font-variant: tabular-nums;
     line-height: 1.5715;
     list-style: none;
     font-feature-settings: 'tnum';
     position: relative;
-    display: flex;
+    display: block;
     align-items: stretch;
 }
 
@@ -31079,9 +31096,9 @@ tr.ant-table-expanded-row .ant-descriptions-view table {
 .ant-transfer-list {
     display: flex;
     flex-direction: column;
-    width: 180px;
-    height: 200px;
-    border: 1px solid #d9d9d9;
+    width: 100%;
+    height: 240px;
+    border: 1px solid var(--borde);
     border-radius: 2px;
 }
 
@@ -31100,9 +31117,9 @@ tr.ant-table-expanded-row .ant-descriptions-view table {
     align-items: center;
     height: 40px;
     padding: 8px 12px 9px;
-    color: rgba(0, 0, 0, 0.85);
-    background: #fff;
-    border-bottom: 1px solid #f0f0f0;
+    color: var(--texto);
+    background: var(--input);
+    border-bottom: 1px solid var(--borde);
     border-radius: 2px 2px 0 0;
 }
 
@@ -31126,6 +31143,7 @@ tr.ant-table-expanded-row .ant-descriptions-view table {
     font-size: 10px;
     transform: translateY(10%);
     cursor: pointer;
+    display: none;
 }
 
 .ant-transfer-list-header-dropdown[disabled] {
@@ -31137,7 +31155,7 @@ tr.ant-table-expanded-row .ant-descriptions-view table {
     flex: auto;
     flex-direction: column;
     overflow: hidden;
-    font-size: 14px;
+    font-size: .75rem;
 }
 
 .ant-transfer-list-body-search-wrapper {
@@ -31158,9 +31176,8 @@ tr.ant-table-expanded-row .ant-descriptions-view table {
     display: flex;
     align-items: center;
     min-height: 32px;
-    padding: 6px 12px;
+    padding: 5px 12px;
     line-height: 20px;
-    transition: all 0.3s;
 }
 
 .ant-transfer-list-content-item>*:not(:last-child) {
@@ -31211,7 +31228,7 @@ tr.ant-table-expanded-row .ant-descriptions-view table {
 }
 
 .ant-transfer-list-content-item:not(.ant-transfer-list-content-item-disabled):hover {
-    background-color: #f5f5f5;
+    background-color: var(--background-white);
     cursor: pointer;
 }
 
@@ -31256,7 +31273,7 @@ tr.ant-table-expanded-row .ant-descriptions-view table {
     flex: none;
     flex-direction: column;
     align-self: center;
-    margin: 0 8px;
+    margin: 6px 0;
     vertical-align: middle;
 }
 
@@ -31269,7 +31286,8 @@ tr.ant-table-expanded-row .ant-descriptions-view table {
 }
 
 .ant-transfer-operation .ant-btn .anticon {
-    font-size: 12px;
+    font-size: 13px;
+    rotate: 90deg;
 }
 
 .ant-transfer .ant-empty-image {
@@ -33059,8 +33077,8 @@ div.ant-typography-edit-content.ant-typography-rtl {
 .fr-box.fr-basic .fr-element {
     margin: -42px 0 0 0 !important;
     color: var(--texto) !important;
-    min-height: 300px !important;
-    max-height: 300px !important;
+    min-height: 350px !important;
+    max-height: 350px !important;
     z-index: 9999 !important;
 }
 
@@ -33099,6 +33117,11 @@ div.ant-typography-edit-content.ant-typography-rtl {
 
 .fr-toolbar .fr-newline {
     display: none !important;
+}
+
+.preciario {
+    background: rgb(24, 141, 70);
+    background: linear-gradient(0deg, rgba(24, 141, 70, 1) 50%, rgba(215, 29, 44, 1) 50%);
 }
 
 /*!**********************************************************************************************************************************************************************************************************************************************************!*\
@@ -33166,6 +33189,10 @@ div.ant-typography-edit-content.ant-typography-rtl {
     .container {
         max-width: 1360px;
     }
+}
+
+.position-relative {
+    position: relative;
 }
 
 figure {

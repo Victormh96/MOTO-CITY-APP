@@ -53,6 +53,11 @@
                         <a-typography-paragraph v-if="record.tipo === 'RB'">
                             RECIBO
                         </a-typography-paragraph>
+
+                        <!--Typography-->
+                        <a-typography-paragraph v-if="record.tipo === 'PO'">
+                            PRECIARIO
+                        </a-typography-paragraph>
                     </template>
 
                     <!--Template-->
@@ -157,9 +162,9 @@ export default {
 
         try {
 
-            const { config } = getToken()
+            const { body, config } = getToken()
 
-            const plantilla = await axios.get(GetPlantillaApi, config)
+            const plantilla = await axios.post(GetPlantillaApi, body, config)
 
             this.dataSourceFm = plantilla?.data
 
