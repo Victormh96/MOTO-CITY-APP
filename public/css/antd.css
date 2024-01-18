@@ -19026,13 +19026,13 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
 }
 
 .opciones {
-    height: calc(100vh - 178px);
+    height: calc(100vh - 175px);
     overflow: auto;
 }
 
 .ant-carousel .slick-slide img {
     width: 100%;
-    height: calc(100vh - 178px);
+    height: calc(100vh - 175px);
     display: block;
     object-fit: cover;
     object-position: top;
