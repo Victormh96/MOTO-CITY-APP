@@ -134,9 +134,9 @@ function PostCompraVenta(record) {
 
             MESES: record?.MESES ?? 0,
 
-            VENCIMIENTO: record?.VENCIMIENTO ?? '1990-01-01',
+            VENCIMIENTO: record?.VENCIMIENTO,
 
-            PRIMERACUOTA: record?.PRIMERACUOTA ?? '1990-01-01',
+            PRIMERACUOTA: record?.PRIMERACUOTA,
 
             DIAPAGO: record?.DIAPAGO ?? 0,
 

@@ -5,7 +5,7 @@
     </a-button>
 
     <!--Modal-->
-    <a-modal v-model:visible="visible" width="700px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:visible="visible" width="600px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" :class="!loading ? 'loading' : null" centered>
 
         <!--Icon-->
@@ -214,7 +214,7 @@
                 </a-row>
 
                 <!--Row-->
-                <a-row :gutter="[24, 24]" v-if="current === 2 && this.steps[2]?.title === 'FORMA PAGO'">
+                <a-row :gutter="[24, 24]" v-if="current === 2 && this.steps[2]?.title === 'PAGO'">
 
                     <!--Col-->
                     <a-col :span="24">
@@ -253,7 +253,8 @@
                         <a-form-item label="Vencimiento:" v-bind="validateInfos.VENCIMIENTO">
 
                             <!--Picker-->
-                            <a-date-picker v-model:value="formstate.VENCIMIENTO" placeholder="YYYY-MM-DD" />
+                            <a-date-picker v-model:value="formstate.VENCIMIENTO" placeholder="YYYY-MM-DD"
+                                :disabled="vencimiento" />
                         </a-form-item>
                     </a-col>
 
@@ -471,6 +472,7 @@ export default {
             disabled: false,
             download: false,
             profesion: false,
+            vencimiento: false,
 
             getAnio,
             getColor,
@@ -574,9 +576,9 @@ export default {
 
             PRIMA: null,
 
-            VENCIMIENTO: null,
+            VENCIMIENTO: dayjs(),
 
-            PRIMERACUOTA: null,
+            PRIMERACUOTA: dayjs(),
 
             DIAPAGO: null,
 
@@ -896,7 +898,7 @@ export default {
 
             let field = []
 
-            if (this.steps[2]?.title === 'FORMA PAGO') {
+            if (this.steps[2]?.title === 'PAGO') {
 
                 field = ['MESES', 'VENCIMIENTO', 'PRIMERACUOTA', 'DIAPAGO', 'CUOTA', 'PRECIOCUOTA']
 
@@ -953,7 +955,7 @@ export default {
 
         doChangeReplace(value, option) {
 
-            if ([1, 10, 12, 13, 9].includes(value)) {
+            if ([1, 10, 12, 13, 9, 18].includes(value)) {
 
                 this.doChangeFieldClear()
 
@@ -973,7 +975,7 @@ export default {
                 this.disabled = true
             }
 
-            if ([13].includes(value)) {
+            if ([13, 18].includes(value)) {
 
                 this.prima = false
 
@@ -995,13 +997,22 @@ export default {
                 this.profesion = false
             }
 
+            if ([18].includes(value)) {
+
+                this.vencimiento = true
+
+            } else {
+
+                this.vencimiento = false
+            }
+
             this.steps = [
 
                 { title: 'DATO' },
 
                 { title: 'MOTO' },
 
-                ...([12, 13].includes(value) ? [{ title: 'FORMA PAGO' }] : []),
+                ...([12, 13, 18].includes(value) ? [{ title: 'PAGO' }] : []),
 
                 ...([9].includes(value) ? [{ title: 'FIRMA' }] : [])
             ]
@@ -1052,7 +1063,7 @@ export default {
 
         doChangeFieldClear() {
 
-            const exclude = ['PLANTILLA', 'TIPO']
+            const exclude = ['PLANTILLA', 'TIPO', 'VENCIMIENTO', 'PRIMERACUOTA']
 
             Object.keys(this.formstate)
 

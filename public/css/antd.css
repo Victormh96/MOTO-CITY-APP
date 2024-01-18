@@ -8990,6 +8990,7 @@ textarea.ant-picker-input>input {
     cursor: pointer;
     opacity: 0;
     transition: opacity 0.3s, color 0.3s;
+    display: none;
 }
 
 .ant-picker-clear>* {

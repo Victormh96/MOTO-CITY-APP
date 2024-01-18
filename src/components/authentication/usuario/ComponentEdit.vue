@@ -5,7 +5,7 @@
     </a-button>
 
     <!--Modal-->
-    <a-modal v-model:visible="visible" width="700px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:visible="visible" width="600px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" :class="!loading ? 'loading' : null" centered>
 
         <!--Icon-->
@@ -310,6 +310,8 @@ export default {
                 this.formstate.NOMBRE = this.record?.nombre
 
                 this.formstate.USUARIO = this.record?.usuario
+
+                this.formstate.PASSWORD = this.record?.password
 
                 this.formstate.ROL = this.record?.rol
 
