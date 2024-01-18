@@ -27,7 +27,7 @@
                         <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
 
                             <!--Input-->
-                            <a-input v-model:value="formstate.NOMBRE" @change="doChangeLetter('NOMBRE')" />
+                            <a-input v-model:value="formstate.NOMBRE" @input="doChangeLetter('NOMBRE', $event)" />
                         </a-form-item>
                     </a-col>
 
@@ -38,7 +38,7 @@
                         <a-form-item label="Usuario:" v-bind="validateInfos.USUARIO">
 
                             <!--Input-->
-                            <a-input v-model:value="formstate.USUARIO" @change="doChangeLower('USUARIO')" />
+                            <a-input v-model:value="formstate.USUARIO" @input="doChangeLower('USUARIO', $event)" />
                         </a-form-item>
                     </a-col>
 
@@ -93,7 +93,7 @@
             <div class="steps-action formulario">
 
                 <!--Popconfirm-->
-                <a-popconfirm title="¿Completar proceso?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
+                <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
                     <!--Button-->
                     <a-button class="button-completar me-3">
@@ -349,14 +349,22 @@ export default {
             }
         },
 
-        doChangeLetter(item) {
+        doChangeLetter(key, event) {
 
-            this.formstate[item] = this.formstate[item].toUpperCase()
+            const cursorPosition = event.target.selectionStart
+
+            this.formstate[key] = event.target.value.toUpperCase()
+
+            this.$nextTick(() => event.target.setSelectionRange(cursorPosition, cursorPosition))
         },
 
-        doChangeLower(item) {
+        doChangeLower(key, event) {
 
-            this.formstate[item] = this.formstate[item].toLowerCase()
+            const cursorPosition = event.target.selectionStart
+
+            this.formstate[key] = event.target.value.toLowerCase()
+
+            this.$nextTick(() => event.target.setSelectionRange(cursorPosition, cursorPosition))
         }
     }
 };

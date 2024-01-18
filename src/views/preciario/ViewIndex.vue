@@ -49,7 +49,7 @@
                             <a-col :span="24">
 
                                 <!--Popconfirm-->
-                                <a-popconfirm title="¿Completar proceso?" ok-text="Si" cancel-text="No"
+                                <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No"
                                     @confirm="doChangeValidacion">
 
                                     <!--Button-->
@@ -66,7 +66,7 @@
                 <a-col :xs="24" :sm="24" :md="24" :lg="14" :xl="14" :xxl="15" :xxxl="14" class="preciario">
 
                     <!--Img-->
-                    <img src="@/../public/img/preciario.png" class="img-preciario">
+                    <img src="@/../public/img/preciario.gif" class="img-preciario">
                 </a-col>
             </a-row>
         </div>

@@ -99,7 +99,7 @@
             <div class="steps-action formulario">
 
                 <!--Popconfirm-->
-                <a-popconfirm title="¿Completar proceso?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
+                <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
                     <!--Button-->
                     <a-button class="button-completar me-3" :loading="download">

@@ -46,6 +46,26 @@
                     </template>
 
                     <!--Template-->
+                    <template v-if="column.key === 'estado'">
+
+                        <!--Popconfirm-->
+                        <a-popconfirm title="¿Estas seguro?" ok-text="Yes" cancel-text="No"
+                            @confirm="doChangeStatus(record.id, 'FACTURADO')" v-if="record.estado == 'ANULADO'">
+
+                            <!--Tag-->
+                            <a-tag color="blue">ANULADO</a-tag>
+                        </a-popconfirm>
+
+                        <!--Popconfirm-->
+                        <a-popconfirm title="¿Estas seguro?" ok-text="Yes" cancel-text="No"
+                            @confirm="doChangeStatus(record.id, 'ANULADO')" v-if="record.estado == 'FACTURADO'">
+
+                            <!--Tag-->
+                            <a-tag color="cyan">FACTURADO</a-tag>
+                        </a-popconfirm>
+                    </template>
+
+                    <!--Template-->
                     <template v-if="column.key === 'creado'">
                         {{ new Date(record.creado).toISOString().split("T")[0] }}
                     </template>
@@ -98,15 +118,18 @@ import {
 } from "vue"
 
 import {
+    getWarning,
     getResponse
 } from "@/utils/index"
 
 import {
-    getToken
+    getToken,
+    PutRecibo
 } from "@/utils/request"
 
 import {
-    GetReciboApi
+    GetReciboApi,
+    PutReciboApi
 } from "@/services/paths"
 
 import axios from "axios"
@@ -302,6 +325,15 @@ export default {
             }
         },
         {
+            title: "ESTADO",
+
+            dataIndex: "estado",
+
+            key: "estado",
+
+            align: "center"
+        },
+        {
             title: "AÑADIDO",
 
             dataIndex: "creado",
@@ -352,6 +384,26 @@ export default {
     },
 
     methods: {
+
+        async doChangeStatus(id, status) {
+
+            try {
+
+                const { body, config } = PutRecibo(id, status)
+
+                await axios.post(PutReciboApi, body, config)
+
+                getWarning('Actualizado')
+
+                setTimeout(function () { location.reload() }, 300)
+
+            } catch (err) {
+
+                console.error(err)
+
+                getResponse(err)
+            }
+        },
 
         doChangeScrollto() {
 

@@ -195,8 +195,8 @@ figure {
 .img-preciario {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  border-radius: 5px;
+  object-fit: fill;
+  border-radius: 10px;
 }
 
 .img-total {

@@ -294,14 +294,35 @@ function PostRecibo(record) {
 
             PLANTILLA: record?.PLANTILLA,
 
-            USUARIO: store.state.authentication?.cuenta?.slpcode,
-
-            SUCURSAL: store.state.authentication?.cuenta?.sucursal
+            USUARIO: store.state.authentication?.cuenta?.slpcode
         },
 
         config: {
 
             responseType: 'blob',
+
+            headers: {
+
+                Authorization: store.state.authentication?.cuenta?.token
+            }
+        }
+    }
+
+    return data
+}
+
+function PutRecibo(id, status) {
+
+    const data = {
+
+        body: {
+
+            ID: id,
+
+            ESTADO: status
+        },
+
+        config: {
 
             headers: {
 
@@ -369,4 +390,4 @@ function PostDescarga(record) {
     return data
 }
 
-export { getToken, getPlantilla, getPreciario, PostPreciario, PostCompraVenta, PostPlantilla, PostPagare, PostPrimeraMatricula, PostRecibo, PostUsuario, PostDescarga } 
+export { getToken, getPlantilla, getPreciario, PostPreciario, PostCompraVenta, PostPlantilla, PostPagare, PostPrimeraMatricula, PostRecibo, PutRecibo, PostUsuario, PostDescarga } 

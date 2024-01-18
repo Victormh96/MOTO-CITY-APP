@@ -379,7 +379,7 @@
                 </a-button>
 
                 <!--Popconfirm-->
-                <a-popconfirm title="¿Completar proceso?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion"
+                <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion"
                     v-if="current === steps.length - 1">
 
                     <!--Button-->

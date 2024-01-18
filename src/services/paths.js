@@ -24,6 +24,8 @@ export const GetPlantillaApi = URL_NODE + '/utilidad/plantilla'
 
 export const ShowReciboApi = URL_NODE + '/motocity/recibo-show'
 
+export const PutReciboApi = URL_NODE + '/motocity/recibo-update'
+
 export const PostReciboApi = URL_NODE + '/motocity/recibo-create'
 
 export const PostPagareApi = URL_NODE + '/motocity/pagare-create'
