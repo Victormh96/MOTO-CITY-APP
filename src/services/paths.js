@@ -12,8 +12,6 @@ export const ShowUsuarioApi = URL_NODE + '/auth/usuario-show'
 
 export const GetSucursalApi = URL_NODE + '/utilidad/sucursal'
 
-export const DownloadPedidoApi = URL_NODE + '/motocity/pedido'
-
 export const PutUsuarioApi = URL_NODE + '/auth/usuario-update'
 
 export const GetPreciarioApi = URL_NODE + '/motocity/preciario'
@@ -34,11 +32,13 @@ export const PostPagareApi = URL_NODE + '/motocity/pagare-create'
 
 export const GetCompraVentaApi = URL_NODE + '/motocity/compra-venta'
 
-export const TriggerReciboApi = URL_NODE + '/motocity/recibo-trigger'
-
 export const ShowPlantillaApi = URL_NODE + '/utilidad/plantilla-show'
 
 export const PutPlantillaApi = URL_NODE + '/utilidad/plantilla-update'
+
+export const DownloadPedidoApi = URL_NODE + '/motocity/pedido-download'
+
+export const DownloadReciboApi = URL_NODE + '/motocity/recibo-download'
 
 export const PostPreciarioApi = URL_NODE + '/motocity/preciario-create'
 

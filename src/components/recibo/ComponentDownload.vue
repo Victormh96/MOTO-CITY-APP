@@ -81,7 +81,7 @@ import {
 } from "ant-design-vue"
 
 import {
-    TriggerReciboApi
+    DownloadReciboApi
 } from "@/services/paths"
 
 const useForm = Form.useForm
@@ -180,7 +180,7 @@ export default {
 
                 const { body, config } = PostDescarga(this.formstate)
 
-                const response = await axios.post(TriggerReciboApi, body, config)
+                const response = await axios.post(DownloadReciboApi, body, config)
 
                 const blob = new Blob(
 

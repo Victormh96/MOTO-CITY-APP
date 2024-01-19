@@ -86,7 +86,7 @@
                         <a-col :span="24" v-if="['Contabilidad'].includes(role)">
 
                             <!--Enlace-->
-                            <router-link :to="{ name: 'ReciboTrigger' }">
+                            <router-link :to="{ name: 'ReciboDownload' }">
 
                                 <!--Img-->
                                 <img src="@/../public/img/categoria/recibo.png" class="img-option">

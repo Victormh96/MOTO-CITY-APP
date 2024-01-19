@@ -8214,7 +8214,7 @@ a.ant-btn-sm {
 .ant-picker-calendar-header {
     display: flex;
     justify-content: flex-end;
-    padding: 12px 0;
+    padding: 0 0 12px 0;
 }
 
 .ant-picker-calendar-header .ant-picker-calendar-year-select {
@@ -8244,7 +8244,7 @@ a.ant-btn-sm {
 }
 
 .ant-picker-calendar .ant-picker-panel .ant-picker-body {
-    padding: 8px 0;
+    padding: 8px 0 0 0;
 }
 
 .ant-picker-calendar .ant-picker-panel .ant-picker-content {
@@ -8338,11 +8338,18 @@ a.ant-btn-sm {
 .ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-content {
     position: static;
     width: auto;
-    height: 86px;
+    height: 78px;
     overflow-y: auto;
     color: rgba(0, 0, 0, 0.85);
     line-height: 1.5715;
     text-align: left;
+}
+
+/*===Phone===**/
+@media (max-width: 575.98px) {
+    .ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-content {
+        height: 44px;
+    }
 }
 
 .ant-picker-calendar-full .ant-picker-panel .ant-picker-calendar-date-today {

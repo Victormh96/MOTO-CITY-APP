@@ -27,7 +27,7 @@
                         <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
 
                             <!--Input-->
-                            <a-input v-model:value="formstate.NOMBRE" @change="doChangeLetter('NOMBRE')" />
+                            <a-input v-model:value="formstate.NOMBRE" @input="doChangeLetter('NOMBRE', $event)" />
                         </a-form-item>
                     </a-col>
 
@@ -329,10 +329,14 @@ export default {
             }
         },
 
-        doChangeLetter(item) {
+        doChangeLetter(key, event) {
 
-            this.formstate[item] = this.formstate[item].toUpperCase()
-        }
+            const cursorPosition = event.target.selectionStart
+
+            this.formstate[key] = event.target.value.toUpperCase()
+
+            this.$nextTick(() => event.target.setSelectionRange(cursorPosition, cursorPosition))
+        },
     },
 
     props: ["record"]

@@ -3,10 +3,10 @@
     <Navbar />
 
     <!--Layout-->
-    <a-layout-content class="fade-out pt-5 mt-2" v-if="(loading)">
+    <a-layout-content class="fade-out" v-if="(loading)">
 
         <!--Container-->
-        <div class="container">
+        <div class="container mb-3">
 
             <!--Row-->
             <a-row>
@@ -18,10 +18,10 @@
                     <a-calendar :value="date" @select="onSelect" />
 
                     <!--Popconfirm-->
-                    <a-popconfirm title="¿Generar documento?" ok-text="Si" cancel-text="No" @confirm="doChangeFecha">
+                    <a-popconfirm title="¿Generar documento?" ok-text="Si" cancel-text="No" @confirm="doChangeDownload">
 
                         <!--Button-->
-                        <a-button class="button-completar">
+                        <a-button class="button-completar" :loading="download">
                             Descargar
                         </a-button>
                     </a-popconfirm>
@@ -61,6 +61,10 @@ import {
 } from "@/utils/index"
 
 import {
+    PostDescarga
+} from "@/utils/request"
+
+import {
     DownloadPedidoApi
 } from "@/services/paths"
 
@@ -72,7 +76,8 @@ import Navbar from "@/components/partials/ComponentNavbar.vue"
 export default {
     data() {
         return {
-            loading: false
+            loading: false,
+            download: false
         }
     },
 
@@ -98,15 +103,15 @@ export default {
 
     methods: {
 
-        async doChangeFecha() {
+        async doChangeDownload() {
+
+            this.download = true
 
             try {
 
-                const response = await axios.post(DownloadPedidoApi,
+                const { body, config } = PostDescarga({ FECHA: this.date.format('YYYY-MM-DD') })
 
-                    { FECHA: this.date.format('YYYY-MM-DD') },
-
-                    { responseType: 'blob' })
+                const response = await axios.post(DownloadPedidoApi, body, config)
 
                 const blob = new Blob(
 
@@ -124,6 +129,8 @@ export default {
 
                 getResponse(err)
             }
+
+            this.download = false
         }
     },
 

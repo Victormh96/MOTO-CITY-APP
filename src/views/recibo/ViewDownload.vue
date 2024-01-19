@@ -9,7 +9,7 @@
         <div class="container-fluid mb-3">
 
             <!--Component-->
-            <Generar />
+            <Descargar />
 
             <!--Tag-->
             <a-tag color="#196789" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
@@ -74,7 +74,7 @@
                     <template v-if="column.key === 'acciones'">
 
                         <!--Component-->
-                        <Descargar :record="record" />
+                        <Show :record="record" />
                     </template>
                 </template>
 
@@ -133,10 +133,10 @@ import {
 } from "@/services/paths"
 
 import axios from "axios"
-import Descargar from "@/components/recibo/ComponentShow.vue"
+import Show from "@/components/recibo/ComponentShow.vue"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
-import Generar from "@/components/recibo/ComponentTrigger.vue"
+import Descargar from "@/components/recibo/ComponentDownload.vue"
 
 export default {
     data() {
@@ -417,7 +417,7 @@ export default {
     },
 
     components: {
-        Generar,
+        Show,
         Footer,
         Navbar,
         Descargar

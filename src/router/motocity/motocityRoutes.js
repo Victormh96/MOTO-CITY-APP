@@ -45,13 +45,13 @@ const motocityRoutes = [
         component: () => import("@/views/recibo/ViewIndex.vue")
     },
     {
-        path: '/recibo/trigger',
+        path: '/recibo/download',
 
-        name: 'ReciboTrigger',
+        name: 'ReciboDownload',
 
         meta: { requiresAuth: true, requiresRole: ['Contabilidad'] },
 
-        component: () => import("@/views/recibo/ViewReporte.vue")
+        component: () => import("@/views/recibo/ViewDownload.vue")
     },
     {
         path: '/pagare',
@@ -78,7 +78,7 @@ const motocityRoutes = [
 
         meta: { requiresAuth: true, requiresRole: ['Logistica'] },
 
-        component: () => import("@/views/pedido/ViewIndex.vue")
+        component: () => import("@/views/pedido/ViewDownload.vue")
     }
 ]
 

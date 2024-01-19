@@ -54,7 +54,7 @@
                     <template v-if="column.key === 'acciones'">
 
                         <!--Component-->
-                        <Descargar :record="record" />
+                        <Show :record="record" />
                     </template>
                 </template>
 
@@ -110,8 +110,8 @@ import {
 } from "@/services/paths"
 
 import axios from "axios"
+import Show from "@/components/pagare/ComponentShow.vue"
 import Crear from "@/components/pagare/ComponentCreate.vue"
-import Descargar from "@/components/pagare/ComponentShow.vue"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
 
@@ -281,10 +281,10 @@ export default {
     },
 
     components: {
+        Show,
         Crear,
         Footer,
-        Navbar,
-        Descargar
+        Navbar
     }
 };
 </script>
