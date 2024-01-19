@@ -70,6 +70,15 @@ const motocityRoutes = [
         meta: { requiresAuth: true, requiresRole: ['Jefe'] },
 
         component: () => import("@/views/preciario/ViewIndex.vue")
+    },
+    {
+        path: '/pedidos',
+
+        name: 'Pedidos',
+
+        meta: { requiresAuth: true, requiresRole: ['Logistica'] },
+
+        component: () => import("@/views/pedido/ViewIndex.vue")
     }
 ]
 

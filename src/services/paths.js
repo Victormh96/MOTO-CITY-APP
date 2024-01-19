@@ -12,6 +12,8 @@ export const ShowUsuarioApi = URL_NODE + '/auth/usuario-show'
 
 export const GetSucursalApi = URL_NODE + '/utilidad/sucursal'
 
+export const DownloadPedidoApi = URL_NODE + '/motocity/pedido'
+
 export const PutUsuarioApi = URL_NODE + '/auth/usuario-update'
 
 export const GetPreciarioApi = URL_NODE + '/motocity/preciario'
