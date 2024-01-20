@@ -6,13 +6,10 @@
 
     <!--Modal-->
     <a-modal v-model:visible="visible" width="600px" :destroyOnClose="true" :maskClosable="false" :footer="null"
-        :keyboard="false" :class="!loading ? 'loading' : null" centered>
+        :keyboard="false" centered>
 
         <!--Icon-->
         <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
-
-        <!--Layout-->
-        <div v-if="(loading)">
 
             <!--Form-->
             <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
@@ -67,14 +64,6 @@
                     </a-button>
                 </a-popconfirm>
             </div>
-        </div>
-
-        <!--Container-->
-        <div class="container d-flex justify-content-center align-items-center" v-else>
-
-            <!--Spin-->
-            <a-spin size="large" />
-        </div>
     </a-modal>
 </template>
 
@@ -114,7 +103,6 @@ export default {
     data() {
         return {
             getEstado,
-            loading: false,
             download: false,
             config: {
 
@@ -162,11 +150,6 @@ export default {
                 }
             }
         }
-    },
-
-    async created() {
-
-        setTimeout(() => { this.loading = true }, 850)
     },
 
     setup() {
@@ -273,7 +256,7 @@ export default {
 
                 getSuccess('Editado')
 
-                setTimeout(function () { location.reload() }, 500)
+                setTimeout(function () { location.reload() }, 300)
 
             } catch (err) {
 

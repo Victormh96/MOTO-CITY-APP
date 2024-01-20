@@ -6,108 +6,97 @@
 
     <!--Modal-->
     <a-modal v-model:visible="visible" width="600px" :destroyOnClose="true" :maskClosable="false" :footer="null"
-        :keyboard="false" :class="!loading ? 'loading' : null" centered>
+        :keyboard="false" centered>
 
         <!--Icon-->
         <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
 
-        <!--Layout-->
-        <div v-if="(loading)">
+        <!--Form-->
+        <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
 
-            <!--Form-->
-            <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
+            <!--Row-->
+            <a-row :gutter="[24, 24]">
 
-                <!--Row-->
-                <a-row :gutter="[24, 24]">
+                <!--Col-->
+                <a-col :span="24">
 
-                    <!--Col-->
-                    <a-col :span="24">
+                    <!--Group-->
+                    <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
 
-                        <!--Group-->
-                        <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
+                        <!--Input-->
+                        <a-input v-model:value="formstate.NOMBRE" @input="doChangeLetter('NOMBRE', $event)" />
+                    </a-form-item>
+                </a-col>
 
-                            <!--Input-->
-                            <a-input v-model:value="formstate.NOMBRE" @input="doChangeLetter('NOMBRE', $event)" />
-                        </a-form-item>
-                    </a-col>
+                <!--Col-->
+                <a-col :span="24">
 
-                    <!--Col-->
-                    <a-col :span="24">
+                    <!--Group-->
+                    <a-form-item label="Usuario:">
 
-                        <!--Group-->
-                        <a-form-item label="Usuario:">
+                        <!--Input-->
+                        <a-input v-model:value="formstate.USUARIO" disabled />
+                    </a-form-item>
+                </a-col>
 
-                            <!--Input-->
-                            <a-input v-model:value="formstate.USUARIO" disabled />
-                        </a-form-item>
-                    </a-col>
+                <!--Col-->
+                <a-col :span="24">
 
-                    <!--Col-->
-                    <a-col :span="24">
+                    <!--Group-->
+                    <a-form-item label="Password:" v-bind="validateInfos.PASSWORD">
 
-                        <!--Group-->
-                        <a-form-item label="Password:" v-bind="validateInfos.PASSWORD">
+                        <!--Input-->
+                        <a-input-password type="password" v-model:value="formstate.PASSWORD" placeholder="••••••••" />
+                    </a-form-item>
+                </a-col>
 
-                            <!--Input-->
-                            <a-input-password type="password" v-model:value="formstate.PASSWORD" placeholder="••••••••" />
-                        </a-form-item>
-                    </a-col>
+                <!--Col-->
+                <a-col :span="24">
 
-                    <!--Col-->
-                    <a-col :span="24">
+                    <!--Group-->
+                    <a-form-item label="Sucursal:" v-bind="validateInfos.SUCURSAL">
 
-                        <!--Group-->
-                        <a-form-item label="Sucursal:" v-bind="validateInfos.SUCURSAL">
+                        <!--Select-->
+                        <a-select v-model:value="formstate.SUCURSAL" show-search :options="dataSourceSc"
+                            :filter-option="filterOption" />
+                    </a-form-item>
+                </a-col>
 
-                            <!--Select-->
-                            <a-select v-model:value="formstate.SUCURSAL" show-search :options="dataSourceSc"
-                                :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
+                <!--Col-->
+                <a-col :span="24">
 
-                    <!--Col-->
-                    <a-col :span="24">
+                    <!--Group-->
+                    <a-form-item label="Rol:" v-bind="validateInfos.ROL">
 
-                        <!--Group-->
-                        <a-form-item label="Rol:" v-bind="validateInfos.ROL">
+                        <!--Select-->
+                        <a-select v-model:value="formstate.ROL" :options="getRol" :filter-option="filterOption" />
+                    </a-form-item>
+                </a-col>
 
-                            <!--Select-->
-                            <a-select v-model:value="formstate.ROL" :options="getRol" :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
+                <!--Col-->
+                <a-col :span="24">
 
-                    <!--Col-->
-                    <a-col :span="24">
+                    <!--Group-->
+                    <a-form-item label="Estado:" v-bind="validateInfos.ESTADO">
 
-                        <!--Group-->
-                        <a-form-item label="Estado:" v-bind="validateInfos.ESTADO">
+                        <!--Select-->
+                        <a-select v-model:value="formstate.ESTADO" :options="getEstado" :filter-option="filterOption" />
+                    </a-form-item>
+                </a-col>
+            </a-row>
+        </a-form>
 
-                            <!--Select-->
-                            <a-select v-model:value="formstate.ESTADO" :options="getEstado" :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-            </a-form>
+        <!--Div-->
+        <div class="steps-action formulario">
 
-            <!--Div-->
-            <div class="steps-action formulario">
+            <!--Popconfirm-->
+            <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
-                <!--Popconfirm-->
-                <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
-
-                    <!--Button-->
-                    <a-button class="button-completar me-3">
-                        Actualizar
-                    </a-button>
-                </a-popconfirm>
-            </div>
-        </div>
-
-        <!--Container-->
-        <div class="container d-flex justify-content-center align-items-center" v-else>
-
-            <!--Spin-->
-            <a-spin size="large" />
+                <!--Button-->
+                <a-button class="button-completar me-3">
+                    Actualizar
+                </a-button>
+            </a-popconfirm>
         </div>
     </a-modal>
 </template>
@@ -130,7 +119,6 @@ import {
 } from "@/utils/index"
 
 import {
-    getToken,
     PostUsuario
 } from "@/utils/request"
 
@@ -139,8 +127,7 @@ import {
 } from "ant-design-vue"
 
 import {
-    PutUsuarioApi,
-    GetSucursalApi
+    PutUsuarioApi
 } from "@/services/paths"
 
 const useForm = Form.useForm
@@ -150,11 +137,8 @@ import axios from "axios"
 export default {
     data() {
         return {
-            loading: false,
-
             getRol,
-            getEstado,
-            dataSourceSc: []
+            getEstado
         }
     },
 
@@ -285,7 +269,7 @@ export default {
 
                 getSuccess('Guardado')
 
-                setTimeout(function () { location.reload() }, 500)
+                setTimeout(function () { location.reload() }, 300)
 
             } catch (err) {
 
@@ -297,36 +281,19 @@ export default {
 
         async doChangeUsuario() {
 
-            try {
+            this.formstate.ID = this.record?.id
 
-                const { config } = getToken()
+            this.formstate.NOMBRE = this.record?.nombre
 
-                const sucursal = await axios.get(GetSucursalApi, config)
+            this.formstate.USUARIO = this.record?.usuario
 
-                this.dataSourceSc = sucursal?.data
+            this.formstate.PASSWORD = this.record?.password
 
-                this.formstate.ID = this.record?.id
+            this.formstate.ROL = this.record?.rol
 
-                this.formstate.NOMBRE = this.record?.nombre
+            this.formstate.SUCURSAL = this.record?.sucursal
 
-                this.formstate.USUARIO = this.record?.usuario
-
-                this.formstate.PASSWORD = this.record?.password
-
-                this.formstate.ROL = this.record?.rol
-
-                this.formstate.SUCURSAL = this.record?.sucursal
-
-                this.formstate.ESTADO = this.record?.estado === true ? 1 : 0
-
-                this.loading = true
-
-            } catch (err) {
-
-                console.error(err)
-
-                getResponse(err)
-            }
+            this.formstate.ESTADO = this.record?.estado === true ? 1 : 0
         },
 
         doChangeLetter(key, event) {
@@ -339,6 +306,6 @@ export default {
         },
     },
 
-    props: ["record"]
+    props: ["record", "dataSourceSc"]
 };
 </script>

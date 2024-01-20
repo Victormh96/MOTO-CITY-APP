@@ -9,7 +9,7 @@
         <div class="container-fluid mb-3">
 
             <!--Component-->
-            <Crear />
+            <Crear :dataSourceSc="dataSourceSc"/>
 
             <!--Tag-->
             <a-tag color="#196789" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
@@ -84,7 +84,7 @@
                     <template v-if="column.key === 'acciones'">
 
                         <!--Component-->
-                        <Editar :record="record" />
+                        <Editar :record="record" :dataSourceSc="dataSourceSc" />
                     </template>
                 </template>
 
@@ -136,7 +136,8 @@ import {
 } from "@/utils/request"
 
 import {
-    GetUsuarioApi
+    GetUsuarioApi,
+    GetSucursalApi
 } from "@/services/paths"
 
 import axios from "axios"
@@ -151,6 +152,7 @@ export default {
             loading: false,
 
             dataSourceUs: [],
+            dataSourceSc: [],
 
             pagination: {
 
@@ -172,6 +174,10 @@ export default {
             const usuario = await axios.get(GetUsuarioApi, config)
 
             this.dataSourceUs = usuario?.data
+
+            const sucursal = await axios.get(GetSucursalApi, config)
+
+            this.dataSourceSc = sucursal?.data
 
             this.loading = true
 

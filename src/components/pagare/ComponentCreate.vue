@@ -6,146 +6,135 @@
 
     <!--Modal-->
     <a-modal v-model:visible="visible" width="600px" :destroyOnClose="true" :maskClosable="false" :footer="null"
-        :keyboard="false" :class="!loading ? 'loading' : null" centered>
+        :keyboard="false" centered>
 
         <!--Icon-->
         <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
 
+        <!--Form-->
+        <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
+
+            <!--Row-->
+            <a-row :gutter="[24, 24]">
+
+                <!--Col-->
+                <a-col :span="24">
+
+                    <!--Group-->
+                    <a-form-item label="Plantilla:" v-bind="validateInfos.PLANTILLA">
+
+                        <!--Select-->
+                        <a-select v-model:value="formstate.PLANTILLA" show-search :options="dataSourcePl"
+                            :filter-option="filterOption" />
+                    </a-form-item>
+                </a-col>
+
+                <!--Col-->
+                <a-col :span="24">
+
+                    <!--Group-->
+                    <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
+
+                        <!--Input-->
+                        <a-input v-model:value="formstate.NOMBRE" @input="doChangeLetter('NOMBRE', $event)" />
+                    </a-form-item>
+                </a-col>
+
+                <!--Col-->
+                <a-col :span="24">
+
+                    <!--Group-->
+                    <a-form-item label="Dui:" v-bind="validateInfos.DUI">
+
+                        <!--Input-->
+                        <a-input type="tel" v-model:value="formstate.DUI" v-mask="'########-#'" />
+                    </a-form-item>
+                </a-col>
+
+                <!--Col-->
+                <a-col :span="24">
+
+                    <!--Group-->
+                    <a-form-item label="Departamento:" v-bind="validateInfos.DEPARTAMENTO">
+
+                        <!--Select-->
+                        <a-select v-model:value="formstate.DEPARTAMENTO" show-search @change="doChangeMunicipio"
+                            :options="getDepartamento" :filter-option="filterOption" />
+                    </a-form-item>
+                </a-col>
+
+                <!--Col-->
+                <a-col :span="24">
+
+                    <!--Group-->
+                    <a-form-item label="Municipio:" v-bind="validateInfos.MUNICIPIO">
+
+                        <!--Select-->
+                        <a-select v-model:value="formstate.MUNICIPIO" show-search :options="dataSourceMn"
+                            :filter-option="filterOption" />
+                    </a-form-item>
+                </a-col>
+
+                <!--Col-->
+                <a-col :span="24">
+
+                    <!--Group-->
+                    <a-form-item label="Fecha Pago:" v-bind="validateInfos.FECHAPAGO">
+
+                        <!--Picker-->
+                        <a-date-picker v-model:value="formstate.FECHAPAGO" placeholder="YYYY-MM-DD"
+                            @change="doChangeCalcular" />
+                    </a-form-item>
+                </a-col>
+
+                <!--Col-->
+                <a-col :span="24">
+
+                    <!--Group-->
+                    <a-form-item label="Dia:" v-bind="validateInfos.DIA">
+
+                        <!--Input-->
+                        <a-input type="tel" v-model:value="formstate.DIA" readonly />
+                    </a-form-item>
+                </a-col>
+
+                <!--Col-->
+                <a-col :span="24">
+
+                    <!--Group-->
+                    <a-form-item label="Credito:" v-bind="validateInfos.CREDITO">
+
+                        <!--Input-->
+                        <a-input-number type="tel" v-model:value="formstate.CREDITO">
+
+                            <!--Template-->
+                            <template #addonBefore>$</template>
+                        </a-input-number>
+                    </a-form-item>
+                </a-col>
+            </a-row>
+        </a-form>
+
         <!--Div-->
-        <div v-if="(loading)">
+        <div class="steps-action formulario">
 
-            <!--Form-->
-            <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
+            <!--Popconfirm-->
+            <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
-                <!--Row-->
-                <a-row :gutter="[24, 24]">
+                <!--Button-->
+                <a-button class="button-completar me-3" :loading="download">
+                    Completar
+                </a-button>
+            </a-popconfirm>
 
-                    <!--Col-->
-                    <a-col :span="24">
+            <!--Popconfirm-->
+            <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear">
 
-                        <!--Group-->
-                        <a-form-item label="Plantilla:" v-bind="validateInfos.PLANTILLA">
-
-                            <!--Select-->
-                            <a-select v-model:value="formstate.PLANTILLA" show-search :options="dataSourcePl"
-                                :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
-
-                            <!--Input-->
-                            <a-input v-model:value="formstate.NOMBRE" @input="doChangeLetter('NOMBRE', $event)" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Dui:" v-bind="validateInfos.DUI">
-
-                            <!--Input-->
-                            <a-input type="tel" v-model:value="formstate.DUI" v-mask="'########-#'" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Departamento:" v-bind="validateInfos.DEPARTAMENTO">
-
-                            <!--Select-->
-                            <a-select v-model:value="formstate.DEPARTAMENTO" show-search @change="doChangeMunicipio"
-                                :options="getDepartamento" :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Municipio:" v-bind="validateInfos.MUNICIPIO">
-
-                            <!--Select-->
-                            <a-select v-model:value="formstate.MUNICIPIO" show-search :options="dataSourceMn"
-                                :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Fecha Pago:" v-bind="validateInfos.FECHAPAGO">
-
-                            <!--Picker-->
-                            <a-date-picker v-model:value="formstate.FECHAPAGO" placeholder="YYYY-MM-DD"
-                                @change="doChangeCalcular" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Dia:" v-bind="validateInfos.DIA">
-
-                            <!--Input-->
-                            <a-input type="tel" v-model:value="formstate.DIA" readonly />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Credito:" v-bind="validateInfos.CREDITO">
-
-                            <!--Input-->
-                            <a-input-number type="tel" v-model:value="formstate.CREDITO">
-
-                                <!--Template-->
-                                <template #addonBefore>$</template>
-                            </a-input-number>
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-            </a-form>
-
-            <!--Div-->
-            <div class="steps-action formulario">
-
-                <!--Popconfirm-->
-                <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
-
-                    <!--Button-->
-                    <a-button class="button-completar me-3" :loading="download">
-                        Completar
-                    </a-button>
-                </a-popconfirm>
-
-                <!--Popconfirm-->
-                <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear">
-
-                    <!--Button-->
-                    <a-button class="button-siguiente">
-                        Limpiar
-                    </a-button>
-                </a-popconfirm>
-            </div>
-        </div>
-
-        <!--Container-->
-        <div class="container d-flex justify-content-center align-items-center" v-else>
-
-            <!--Spin-->
-            <a-spin size="large" />
+                <!--Button-->
+                <a-button class="button-siguiente">
+                    Limpiar
+                </a-button>
+            </a-popconfirm>
         </div>
     </a-modal>
 </template>
@@ -197,7 +186,6 @@ import dayjs from "dayjs"
 export default {
     data() {
         return {
-            loading: false,
             download: false,
 
             getMunicipio,
@@ -217,8 +205,6 @@ export default {
             const plantilla = await axios.post(ShowPlantillaApi, body, config)
 
             this.dataSourcePl = plantilla?.data
-
-            this.loading = true
 
         } catch (err) {
 
@@ -404,7 +390,7 @@ export default {
 
                 getSuccess('Descargando')
 
-                setTimeout(function () { location.reload() }, 500)
+                setTimeout(function () { location.reload() }, 300)
 
             } catch (err) {
 

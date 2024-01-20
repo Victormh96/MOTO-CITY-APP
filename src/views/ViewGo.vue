@@ -172,7 +172,7 @@ export default {
 
     created() {
 
-        setTimeout(() => { this.loading = true }, 850)
+        setTimeout(() => { this.loading = true }, 800)
     },
 
     components: {

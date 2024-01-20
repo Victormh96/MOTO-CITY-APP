@@ -6,108 +6,97 @@
 
     <!--Modal-->
     <a-modal v-model:visible="visible" width="600px" :destroyOnClose="true" :maskClosable="false" :footer="null"
-        :keyboard="false" :class="!loading ? 'loading' : null" centered>
+        :keyboard="false" centered>
 
         <!--Icon-->
         <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
 
-        <!--Layout-->
-        <div v-if="(loading)">
+        <!--Form-->
+        <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
 
-            <!--Form-->
-            <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
+            <!--Row-->
+            <a-row :gutter="[24, 24]">
 
-                <!--Row-->
-                <a-row :gutter="[24, 24]">
+                <!--Col-->
+                <a-col :span="24">
 
-                    <!--Col-->
-                    <a-col :span="24">
+                    <!--Group-->
+                    <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
 
-                        <!--Group-->
-                        <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
+                        <!--Input-->
+                        <a-input v-model:value="formstate.NOMBRE" @input="doChangeLetter('NOMBRE', $event)" />
+                    </a-form-item>
+                </a-col>
 
-                            <!--Input-->
-                            <a-input v-model:value="formstate.NOMBRE" @input="doChangeLetter('NOMBRE', $event)" />
-                        </a-form-item>
-                    </a-col>
+                <!--Col-->
+                <a-col :span="24">
 
-                    <!--Col-->
-                    <a-col :span="24">
+                    <!--Group-->
+                    <a-form-item label="Usuario:" v-bind="validateInfos.USUARIO">
 
-                        <!--Group-->
-                        <a-form-item label="Usuario:" v-bind="validateInfos.USUARIO">
+                        <!--Input-->
+                        <a-input v-model:value="formstate.USUARIO" @input="doChangeLower('USUARIO', $event)" />
+                    </a-form-item>
+                </a-col>
 
-                            <!--Input-->
-                            <a-input v-model:value="formstate.USUARIO" @input="doChangeLower('USUARIO', $event)" />
-                        </a-form-item>
-                    </a-col>
+                <!--Col-->
+                <a-col :span="24">
 
-                    <!--Col-->
-                    <a-col :span="24">
+                    <!--Group-->
+                    <a-form-item label="Password:" v-bind="validateInfos.PASSWORD">
 
-                        <!--Group-->
-                        <a-form-item label="Password:" v-bind="validateInfos.PASSWORD">
+                        <!--Input-->
+                        <a-input-password type="password" v-model:value="formstate.PASSWORD" placeholder="••••••••" />
+                    </a-form-item>
+                </a-col>
 
-                            <!--Input-->
-                            <a-input-password type="password" v-model:value="formstate.PASSWORD" placeholder="••••••••" />
-                        </a-form-item>
-                    </a-col>
+                <!--Col-->
+                <a-col :span="24">
 
-                    <!--Col-->
-                    <a-col :span="24">
+                    <!--Group-->
+                    <a-form-item label="Sucursal:" v-bind="validateInfos.SUCURSAL">
 
-                        <!--Group-->
-                        <a-form-item label="Sucursal:" v-bind="validateInfos.SUCURSAL">
+                        <!--Select-->
+                        <a-select v-model:value="formstate.SUCURSAL" show-search :options="dataSourceSc"
+                            :filter-option="filterOption" />
+                    </a-form-item>
+                </a-col>
 
-                            <!--Select-->
-                            <a-select v-model:value="formstate.SUCURSAL" show-search :options="dataSourceSc"
-                                :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
+                <!--Col-->
+                <a-col :span="24">
 
-                    <!--Col-->
-                    <a-col :span="24">
+                    <!--Group-->
+                    <a-form-item label="Rol:" v-bind="validateInfos.ROL">
 
-                        <!--Group-->
-                        <a-form-item label="Rol:" v-bind="validateInfos.ROL">
+                        <!--Select-->
+                        <a-select v-model:value="formstate.ROL" :options="getRol" :filter-option="filterOption" />
+                    </a-form-item>
+                </a-col>
 
-                            <!--Select-->
-                            <a-select v-model:value="formstate.ROL" :options="getRol" :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
+                <!--Col-->
+                <a-col :span="24">
 
-                    <!--Col-->
-                    <a-col :span="24">
+                    <!--Group-->
+                    <a-form-item label="Estado:" v-bind="validateInfos.ESTADO">
 
-                        <!--Group-->
-                        <a-form-item label="Estado:" v-bind="validateInfos.ESTADO">
+                        <!--Select-->
+                        <a-select v-model:value="formstate.ESTADO" :options="getEstado" :filter-option="filterOption" />
+                    </a-form-item>
+                </a-col>
+            </a-row>
+        </a-form>
 
-                            <!--Select-->
-                            <a-select v-model:value="formstate.ESTADO" :options="getEstado" :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-            </a-form>
+        <!--Div-->
+        <div class="steps-action formulario">
 
-            <!--Div-->
-            <div class="steps-action formulario">
+            <!--Popconfirm-->
+            <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
-                <!--Popconfirm-->
-                <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
-
-                    <!--Button-->
-                    <a-button class="button-completar me-3">
-                        Completar
-                    </a-button>
-                </a-popconfirm>
-            </div>
-        </div>
-
-        <!--Container-->
-        <div class="container d-flex justify-content-center align-items-center" v-else>
-
-            <!--Spin-->
-            <a-spin size="large" />
+                <!--Button-->
+                <a-button class="button-completar me-3">
+                    Completar
+                </a-button>
+            </a-popconfirm>
         </div>
     </a-modal>
 </template>
@@ -140,8 +129,7 @@ import {
 
 import {
     ShowUsuarioApi,
-    PostUsuarioApi,
-    GetSucursalApi
+    PostUsuarioApi
 } from "@/services/paths"
 
 const useForm = Form.useForm
@@ -151,31 +139,8 @@ import axios from "axios"
 export default {
     data() {
         return {
-            loading: false,
-
             getRol,
-            getEstado,
-            dataSourceSc: []
-        }
-    },
-
-    async created() {
-
-        try {
-
-            const { config } = getToken()
-
-            const sucursal = await axios.get(GetSucursalApi, config)
-
-            this.dataSourceSc = sucursal?.data
-
-            this.loading = true
-
-        } catch (err) {
-
-            console.error(err)
-
-            getResponse(err)
+            getEstado
         }
     },
 
@@ -339,7 +304,7 @@ export default {
 
                 getSuccess('Guardado')
 
-                setTimeout(function () { location.reload() }, 500)
+                setTimeout(function () { location.reload() }, 300)
 
             } catch (err) {
 
@@ -366,6 +331,8 @@ export default {
 
             this.$nextTick(() => event.target.setSelectionRange(cursorPosition, cursorPosition))
         }
-    }
+    },
+
+    props: ["dataSourceSc"]
 };
 </script>

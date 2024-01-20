@@ -30,7 +30,6 @@ import dayjs from "dayjs"
 export default {
     data() {
         return {
-            loading: false,
             download: false
         }
     },

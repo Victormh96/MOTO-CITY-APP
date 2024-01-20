@@ -6,52 +6,41 @@
 
     <!--Modal-->
     <a-modal v-model:visible="visible" width="500px" :destroyOnClose="true" :maskClosable="false" :footer="null"
-        :keyboard="false" centered :class="!loading ? 'loading' : null">
+        :keyboard="false" centered>
 
         <!--Icon-->
         <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
 
+        <!--Form-->
+        <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
+
+            <!--Row-->
+            <a-row :gutter="[24, 24]">
+
+                <!--Col-->
+                <a-col :span="24">
+
+                    <a-form-item v-bind="validateInfos.FECHA">
+
+                        <!--Picker-->
+                        <a-range-picker v-model:value="formstate.FECHA" :placeholder="['DESDE', 'HASTA']"
+                            :allowClear="false" />
+                    </a-form-item>
+                </a-col>
+            </a-row>
+        </a-form>
+
         <!--Div-->
-        <div v-if="(loading)">
+        <div class="steps-action formulario">
 
-            <!--Form-->
-            <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
+            <!--Popconfirm-->
+            <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
-                <!--Row-->
-                <a-row :gutter="[24, 24]">
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <a-form-item v-bind="validateInfos.FECHA">
-
-                            <!--Picker-->
-                            <a-range-picker v-model:value="formstate.FECHA" :placeholder="['DESDE', 'HASTA']"
-                                :allowClear="false" />
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-            </a-form>
-
-            <!--Div-->
-            <div class="steps-action formulario">
-
-                <!--Popconfirm-->
-                <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
-
-                    <!--Button-->
-                    <a-button class="button-completar me-3" :loading="download">
-                        Generar
-                    </a-button>
-                </a-popconfirm>
-            </div>
-        </div>
-
-        <!--Container-->
-        <div class="container d-flex justify-content-center align-items-center" v-else>
-
-            <!--Spin-->
-            <a-spin size="large" />
+                <!--Button-->
+                <a-button class="button-completar me-3" :loading="download">
+                    Generar
+                </a-button>
+            </a-popconfirm>
         </div>
     </a-modal>
 </template>
@@ -92,14 +81,8 @@ import dayjs from "dayjs"
 export default {
     data() {
         return {
-            loading: false,
             download: false
         }
-    },
-
-    async created() {
-
-        setTimeout(() => { this.loading = true }, 850)
     },
 
     setup() {
@@ -192,7 +175,7 @@ export default {
 
                 getSuccess('Descargando')
 
-                setTimeout(function () { location.reload() }, 500)
+                setTimeout(function () { location.reload() }, 300)
 
             } catch (err) {
 

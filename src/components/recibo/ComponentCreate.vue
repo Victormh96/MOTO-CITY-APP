@@ -6,123 +6,112 @@
 
     <!--Modal-->
     <a-modal v-model:visible="visible" width="600px" :destroyOnClose="true" :maskClosable="false" :footer="null"
-        :keyboard="false" centered :class="!loading ? 'loading' : null">
+        :keyboard="false" centered>
 
         <!--Icon-->
         <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
 
+        <!--Form-->
+        <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
+
+            <!--Row-->
+            <a-row :gutter="[24, 24]">
+
+                <!--Col-->
+                <a-col :span="24">
+
+                    <!--Group-->
+                    <a-form-item label="Plantilla:" v-bind="validateInfos.PLANTILLA">
+
+                        <!--Select-->
+                        <a-select v-model:value="formstate.PLANTILLA" show-search :options="dataSourcePl"
+                            :filter-option="filterOption" />
+                    </a-form-item>
+                </a-col>
+
+                <!--Col-->
+                <a-col :span="24">
+
+                    <!--Group-->
+                    <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
+
+                        <!--Input-->
+                        <a-input v-model:value="formstate.NOMBRE" @input="doChangeLetter('NOMBRE', $event)" />
+                    </a-form-item>
+                </a-col>
+
+                <!--Col-->
+                <a-col :span="24">
+
+                    <!--Group-->
+                    <a-form-item label="Tipo:" v-bind="validateInfos.TIPOPAGO">
+
+                        <!--Select-->
+                        <a-select v-model:value="formstate.TIPOPAGO" show-search :options="getTipoPago"
+                            :filter-option="filterOption" />
+                    </a-form-item>
+                </a-col>
+
+                <!--Col-->
+                <a-col :span="24">
+
+                    <!--Group-->
+                    <a-form-item label="Entregado Por:" v-bind="validateInfos.ENTREGADO">
+
+                        <!--Input-->
+                        <a-input v-model:value="formstate.ENTREGADO" @input="doChangeLetter('ENTREGADO', $event)" />
+                    </a-form-item>
+                </a-col>
+
+                <!--Col-->
+                <a-col :span="24">
+
+                    <!--Group-->
+                    <a-form-item label="Cantidad:" v-bind="validateInfos.VALOR">
+
+                        <!--Input-->
+                        <a-input-number type="tel" v-model:value="formstate.VALOR">
+
+                            <!--Template-->
+                            <template #addonBefore>$</template>
+                        </a-input-number>
+                    </a-form-item>
+                </a-col>
+
+                <!--Col-->
+                <a-col :span="24">
+
+                    <!--Group-->
+                    <a-form-item label="Comentario:" v-bind="validateInfos.COMENTARIO">
+
+                        <!--Textarea-->
+                        <a-textarea v-model:value="formstate.COMENTARIO" :rows="6" show-count :maxlength="175"
+                            @input="doChangeLetter('COMENTARIO', $event)" />
+                    </a-form-item>
+                </a-col>
+            </a-row>
+        </a-form>
+
         <!--Div-->
-        <div v-if="(loading)">
+        <div class="steps-action formulario">
 
-            <!--Form-->
-            <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
+            <!--Popconfirm-->
+            <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
-                <!--Row-->
-                <a-row :gutter="[24, 24]">
+                <!--Button-->
+                <a-button class="button-completar me-3" :loading="download">
+                    Completar
+                </a-button>
+            </a-popconfirm>
 
-                    <!--Col-->
-                    <a-col :span="24">
+            <!--Popconfirm-->
+            <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear">
 
-                        <!--Group-->
-                        <a-form-item label="Plantilla:" v-bind="validateInfos.PLANTILLA">
-
-                            <!--Select-->
-                            <a-select v-model:value="formstate.PLANTILLA" show-search :options="dataSourcePl"
-                                :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
-
-                            <!--Input-->
-                            <a-input v-model:value="formstate.NOMBRE" @input="doChangeLetter('NOMBRE', $event)" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Tipo:" v-bind="validateInfos.TIPOPAGO">
-
-                            <!--Select-->
-                            <a-select v-model:value="formstate.TIPOPAGO" show-search :options="getTipoPago"
-                                :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Entregado Por:" v-bind="validateInfos.ENTREGADO">
-
-                            <!--Input-->
-                            <a-input v-model:value="formstate.ENTREGADO" @input="doChangeLetter('ENTREGADO', $event)" />
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Cantidad:" v-bind="validateInfos.VALOR">
-
-                            <!--Input-->
-                            <a-input-number type="tel" v-model:value="formstate.VALOR">
-
-                                <!--Template-->
-                                <template #addonBefore>$</template>
-                            </a-input-number>
-                        </a-form-item>
-                    </a-col>
-
-                    <!--Col-->
-                    <a-col :span="24">
-
-                        <!--Group-->
-                        <a-form-item label="Comentario:" v-bind="validateInfos.COMENTARIO">
-
-                            <!--Textarea-->
-                            <a-textarea v-model:value="formstate.COMENTARIO" :rows="6" show-count :maxlength="175"
-                                @input="doChangeLetter('COMENTARIO', $event)" />
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-            </a-form>
-
-            <!--Div-->
-            <div class="steps-action formulario">
-
-                <!--Popconfirm-->
-                <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
-
-                    <!--Button-->
-                    <a-button class="button-completar me-3" :loading="download">
-                        Completar
-                    </a-button>
-                </a-popconfirm>
-
-                <!--Popconfirm-->
-                <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear">
-
-                    <!--Button-->
-                    <a-button class="button-siguiente">
-                        Limpiar
-                    </a-button>
-                </a-popconfirm>
-            </div>
-        </div>
-
-        <!--Container-->
-        <div class="container d-flex justify-content-center align-items-center" v-else>
-
-            <!--Spin-->
-            <a-spin size="large" />
+                <!--Button-->
+                <a-button class="button-siguiente">
+                    Limpiar
+                </a-button>
+            </a-popconfirm>
         </div>
     </a-modal>
 </template>
@@ -170,7 +159,6 @@ export default {
     data() {
         return {
             getTipoPago,
-            loading: false,
             download: false,
 
             dataSourcePl: []
@@ -186,8 +174,6 @@ export default {
             const plantilla = await axios.post(ShowPlantillaApi, body, config)
 
             this.dataSourcePl = plantilla?.data
-
-            this.loading = true
 
         } catch (err) {
 
@@ -340,7 +326,7 @@ export default {
 
                 getSuccess('Descargando')
 
-                setTimeout(function () { location.reload() }, 500)
+                setTimeout(function () { location.reload() }, 300)
 
             } catch (err) {
 
