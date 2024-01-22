@@ -146,6 +146,8 @@ function PostCompraVenta(record) {
 
             PRIMA: record?.PRIMA,
 
+            INTERES: record?.INTERES ?? 0,
+
             NOMBREF: record?.NOMBREF ?? '',
 
             DEPARTAMENTOF: record?.DEPARTAMENTOF ?? '',
