@@ -11,11 +11,6 @@
             <!--Component-->
             <Descargar />
 
-            <!--Tag-->
-            <a-tag color="#196789" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
-                RECIBO REPORTE
-            </a-tag>
-
             <!--Table-->
             <a-table :pagination="pagination" :data-source="dataSourceRb" :columns="column" bordered :scroll="{ x: 1400 }">
 

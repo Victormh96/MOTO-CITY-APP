@@ -11,11 +11,6 @@
             <!--Component-->
             <Crear />
 
-            <!--Tag-->
-            <a-tag color="#196789" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
-                PLANTILLA
-            </a-tag>
-
             <!--Table-->
             <a-table :pagination="pagination" :data-source="dataSourceFm" :columns="column" bordered :scroll="{ x: 1400 }">
 

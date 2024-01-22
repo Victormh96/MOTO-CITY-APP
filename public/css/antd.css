@@ -9200,6 +9200,13 @@ textarea.ant-picker-input>input {
     direction: ltr;
 }
 
+/*===Phone===**/
+@media (max-width: 575.98px) {
+    .ant-picker-panel-container .ant-picker-panels {
+        display: block;
+    }
+}
+
 .ant-picker-panel-container .ant-picker-panel {
     vertical-align: top;
     background: var(--input);
@@ -9240,6 +9247,20 @@ textarea.ant-picker-input>input {
     display: flex;
     flex-direction: column;
     width: 280px;
+}
+
+/*===Phone===**/
+@media (max-width: 575.98px) {
+
+    .ant-picker-decade-panel,
+    .ant-picker-year-panel,
+    .ant-picker-quarter-panel,
+    .ant-picker-month-panel,
+    .ant-picker-week-panel,
+    .ant-picker-date-panel,
+    .ant-picker-time-panel {
+        width: 100%;
+    }
 }
 
 .ant-picker-header {
@@ -9706,6 +9727,13 @@ tr>.ant-picker-cell-in-view.ant-picker-cell-range-hover-start:last-child::after,
 
 .ant-picker-date-panel .ant-picker-content {
     width: 252px;
+}
+
+/*===Phone===**/
+@media (max-width: 575.98px) {
+    .ant-picker-date-panel .ant-picker-content {
+        width: 100%;
+    }
 }
 
 .ant-picker-date-panel .ant-picker-content th {

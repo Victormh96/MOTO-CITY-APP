@@ -94,13 +94,6 @@ figure {
   }
 }
 
-.titulo {
-  float: right;
-  padding: 5px 14px;
-  border-radius: 2px;
-  letter-spacing: 0.5px;
-}
-
 .fa-xmark {
   font-size: 26px;
   position: absolute;
