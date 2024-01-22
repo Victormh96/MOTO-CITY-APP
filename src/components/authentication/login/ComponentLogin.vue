@@ -109,9 +109,11 @@ export default {
 
             const body = {
 
-                usuario: data.usuario,
+                USUARIO: data.usuario,
 
-                password: data.password
+                PASSWORD: data.password,
+
+                SOCIEDAD: 'Motocity'
             }
 
             await this.$store.dispatch("Cuenta", body)
