@@ -11,11 +11,6 @@
             <!--Component-->
             <Crear :dataSourceSc="dataSourceSc"/>
 
-            <!--Tag-->
-            <a-tag color="#196789" class="titulo"><i class="fas fa-bell fa-shake"></i>&nbsp;
-                USUARIO
-            </a-tag>
-
             <!--Table-->
             <a-table :pagination="pagination" :data-source="dataSourceUs" :columns="column" bordered :scroll="{ x: 1400 }">
 

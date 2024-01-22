@@ -53,6 +53,11 @@
                         <a-typography-paragraph v-if="record.tipo === 'PO'">
                             PRECIARIO
                         </a-typography-paragraph>
+
+                        <!--Typography-->
+                        <a-typography-paragraph v-if="record.tipo === 'CVC'">
+                            COMPRA VENTA
+                        </a-typography-paragraph>
                     </template>
 
                     <!--Template-->
