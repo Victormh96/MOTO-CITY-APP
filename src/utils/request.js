@@ -29,6 +29,8 @@ function getPlantilla(record) {
 
         body: {
 
+            SLPCODE: store.state.authentication?.cuenta?.slpcode,
+
             ROL: store.state.authentication?.cuenta?.rol,
 
             TIPO: record

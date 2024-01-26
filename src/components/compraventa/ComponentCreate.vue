@@ -486,7 +486,7 @@ export default {
 
         try {
 
-            const { body, config } = getPlantilla('CV')
+            const { body, config } = getPlantilla('CV') 
 
             const plantilla = await axios.post(ShowPlantillaApi, body, config)
 
