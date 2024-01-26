@@ -1663,6 +1663,18 @@ const getColor = [
     {
         value: "PLATEADO/GRIS/ROJO",
         label: "PLATEADO/GRIS/ROJO"
+    },
+    {
+        value: "NEGRO MULTICOLOR",
+        label: "NEGRO MULTICOLOR"
+    },
+    {
+        value: "BLANCO MULTICOLOR",
+        label: "BLANCO MULTICOLOR"
+    },
+    {
+        value: "AZUL MULTICOLOR",
+        label: "AZUL MULTICOLOR"
     }
 ]
 
