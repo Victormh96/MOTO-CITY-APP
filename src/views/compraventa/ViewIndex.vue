@@ -266,7 +266,7 @@ export default {
             align: "center"
         },
         {
-            title: "AÑADIDO",
+            title: "CREADO",
 
             dataIndex: "creado",
 

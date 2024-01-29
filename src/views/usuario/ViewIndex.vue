@@ -138,8 +138,8 @@ import {
 import axios from "axios"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
-import Editar from "@/components/authentication/usuario/ComponentEdit.vue"
-import Crear from "@/components/authentication/usuario/ComponentCreate.vue"
+import Editar from "@/components/usuario/ComponentEdit.vue"
+import Crear from "@/components/usuario/ComponentCreate.vue"
 
 export default {
     data() {
@@ -272,7 +272,7 @@ export default {
             align: "center"
         },
         {
-            title: "AÑADIDO",
+            title: "CREADO",
 
             dataIndex: "creado",
 

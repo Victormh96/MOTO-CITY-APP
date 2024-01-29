@@ -326,10 +326,24 @@ export default {
 
             key: "estado",
 
-            align: "center"
+            align: "center",
+
+            filters: [{
+
+                text: "FACTURADO",
+
+                value: "FACTURADO"
+            },
+            {
+                text: "ANULADO",
+
+                value: "ANULADO"
+            }],
+
+            onFilter: (value, record) => record.estado.toString().includes(value)
         },
         {
-            title: "AÑADIDO",
+            title: "CREADO",
 
             dataIndex: "creado",
 

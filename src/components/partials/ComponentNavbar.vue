@@ -83,7 +83,7 @@
 <!--=======Script=======-->
 <script>
 import Theme from "@/components/partials/ComponentTheme.vue"
-import Logout from "@/components/authentication/logout/ComponentLogout.vue"
+import Logout from "@/components/authentication/ComponentLogout.vue"
 
 export default {
     data() {

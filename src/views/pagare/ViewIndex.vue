@@ -234,6 +234,20 @@ export default {
 
             align: "center",
 
+            customFilterDropdown: true,
+
+            onFilter: (value, record) =>
+
+                record.creado.toString().toLowerCase().includes(value.toLowerCase()),
+
+            onFilterDropdownVisibleChange: visible => {
+
+                if (visible) {
+
+                    setTimeout(() => { focusearch.value.focus() }, 100)
+                }
+            }
+
         },
         {
             title: "ACCIONES",

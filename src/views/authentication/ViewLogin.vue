@@ -8,7 +8,7 @@
 
 <!--=======Script=======-->
 <script>
-import Login from "@/components/authentication/login/ComponentLogin.vue"
+import Login from "@/components/authentication/ComponentLogin.vue"
 
 export default {
     components: {
