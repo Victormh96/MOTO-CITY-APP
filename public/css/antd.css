@@ -10201,6 +10201,7 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
     background: rgb(25, 137, 126);
     border-color: transparent;
     padding: 4px 15px !important;
+    font-size: .65rem !important;
     min-width: 90px;
     font-weight: 500;
     border-radius: 20px;
@@ -10241,6 +10242,7 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
     background: rgb(25, 103, 137);
     border-color: transparent;
     padding: 4px 15px !important;
+    font-size: .65rem !important;
     min-width: 90px;
     font-weight: 500;
     border-radius: 20px;
