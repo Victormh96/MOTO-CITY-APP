@@ -48,7 +48,7 @@
                             @confirm="doChangeStatus(record.id, 'FACTURADO')" v-if="record.estado == 'ANULADO'">
 
                             <!--Tag-->
-                            <a-tag color="cyan">ANULADO</a-tag>
+                            <a-tag color="cyan">Anulado</a-tag>
                         </a-popconfirm>
 
                         <!--Popconfirm-->
@@ -56,7 +56,7 @@
                             @confirm="doChangeStatus(record.id, 'ANULADO')" v-if="record.estado == 'FACTURADO'">
 
                             <!--Tag-->
-                            <a-tag color="blue">FACTURADO</a-tag>
+                            <a-tag color="blue">Facturado</a-tag>
                         </a-popconfirm>
                     </template>
 

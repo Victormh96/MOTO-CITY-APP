@@ -64,10 +64,10 @@
                     <template v-if="column.key === 'estado'">
 
                         <!--Tag-->
-                        <a-tag color="blue" v-if="record.estado">ACTIVADO</a-tag>
+                        <a-tag color="blue" v-if="record.estado">Activado</a-tag>
 
                         <!--Tag-->
-                        <a-tag color="cyan" v-else>DESACTIVADO</a-tag>
+                        <a-tag color="cyan" v-else>Desactivado</a-tag>
                     </template>
 
                     <!--Template-->
