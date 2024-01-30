@@ -10135,7 +10135,7 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
 }
 
 .ant-tag-red {
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--background);
     background: rgb(137, 25, 36);
     border-color: transparent;
     padding: 4px 18px !important;
@@ -10197,12 +10197,11 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
 }
 
 .ant-tag-cyan {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--background);
     background: rgb(25, 137, 126);
     border-color: transparent;
     padding: 4px 15px !important;
-    min-width: 88px;
-    font-size: .65rem !important;
+    min-width: 90px;
     font-weight: 500;
     border-radius: 20px;
 }
@@ -10238,12 +10237,11 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
 }
 
 .ant-tag-blue {
-    color: rgba(255, 255, 255, 0.8);
+    color: var(--background);
     background: rgb(25, 103, 137);
     border-color: transparent;
     padding: 4px 15px !important;
-    min-width: 88px;
-    font-size: .65rem !important;
+    min-width: 90px;
     font-weight: 500;
     border-radius: 20px;
 }

@@ -1,6 +1,5 @@
 const URL_NODE = process.env.VUE_APP_URL_NODE
 
-export const GetUsuarioApi = URL_NODE + '/auth/usuario'
 
 export const CuentaApi = URL_NODE + '/auth/inicio-sesion'
 
@@ -8,17 +7,13 @@ export const GetPagareApi = URL_NODE + '/motocity/pagare'
 
 export const GetReciboApi = URL_NODE + '/motocity/recibo'
 
-export const ShowUsuarioApi = URL_NODE + '/auth/usuario-show'
+export const GetUsuarioApi = URL_NODE + '/motocity/usuario'
 
 export const GetSucursalApi = URL_NODE + '/utilidad/sucursal'
-
-export const PutUsuarioApi = URL_NODE + '/auth/usuario-update'
 
 export const GetPreciarioApi = URL_NODE + '/motocity/preciario'
 
 export const ShowPagareApi = URL_NODE + '/motocity/pagare-show'
-
-export const PostUsuarioApi = URL_NODE + '/auth/usuario-create'
 
 export const GetPlantillaApi = URL_NODE + '/utilidad/plantilla'
 
@@ -26,9 +21,15 @@ export const ShowReciboApi = URL_NODE + '/motocity/recibo-show'
 
 export const PutReciboApi = URL_NODE + '/motocity/recibo-update'
 
+export const ShowUsuarioApi = URL_NODE + '/motocity/usuario-show'
+
 export const PostReciboApi = URL_NODE + '/motocity/recibo-create'
 
 export const PostPagareApi = URL_NODE + '/motocity/pagare-create'
+
+export const PutUsuarioApi = URL_NODE + '/motocity/usuario-update'
+
+export const PostUsuarioApi = URL_NODE + '/motocity/usuario-create'
 
 export const GetCompraVentaApi = URL_NODE + '/motocity/compra-venta'
 

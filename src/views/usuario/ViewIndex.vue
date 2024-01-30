@@ -9,7 +9,7 @@
         <div class="container-fluid mb-3">
 
             <!--Component-->
-            <Crear :dataSourceSc="dataSourceSc"/>
+            <Crear :dataSourceSc="dataSourceSc" />
 
             <!--Table-->
             <a-table :pagination="pagination" :data-source="dataSourceUs" :columns="column" bordered :scroll="{ x: 1400 }">
@@ -203,7 +203,21 @@ export default {
 
             key: "enlinea",
 
-            align: "center"
+            align: "center",
+
+            filters: [{
+
+                text: "CONECTADO",
+
+                value: "true"
+            },
+            {
+                text: "DESCONECTADO",
+
+                value: "false"
+            }],
+
+            onFilter: (value, record) => record.enlinea.toString().includes(value)
         },
         {
 
