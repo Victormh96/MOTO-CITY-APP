@@ -124,11 +124,6 @@ import {
 } from "vue"
 
 import {
-    saveAs
-} from "file-saver"
-
-import {
-    getSuccess,
     getResponse
 } from "@/utils/index"
 
@@ -153,7 +148,6 @@ import {
 const useForm = Form.useForm
 
 import axios from "axios"
-import dayjs from "dayjs"
 
 export default {
     data() {
@@ -322,11 +316,23 @@ export default {
 
                     { type: 'application/pdf' })
 
-                saveAs(blob, `RECIBO-${dayjs().format('YYYY-MM-DD HH_mm_ss')}`)
+                const blobUrl = URL.createObjectURL(blob)
 
-                getSuccess('Descargando')
+                const iframe = document.createElement('iframe')
 
-                setTimeout(function () { location.reload() }, 300)
+                iframe.style.display = 'none'
+
+                document.body.appendChild(iframe)
+
+                iframe.src = blobUrl
+
+                await new Promise(resolve => setTimeout(resolve, 1000))
+
+                iframe.contentWindow.print()
+
+                URL.revokeObjectURL(blobUrl)
+
+                window.addEventListener('afterprint', location.reload())
 
             } catch (err) {
 

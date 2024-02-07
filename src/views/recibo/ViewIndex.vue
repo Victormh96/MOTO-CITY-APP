@@ -43,21 +43,11 @@
                     <!--Template-->
                     <template v-if="column.key === 'estado'">
 
-                        <!--Popconfirm-->
-                        <a-popconfirm title="¿Estas seguro?" ok-text="Yes" cancel-text="No"
-                            @confirm="doChangeStatus(record.id, 'FACTURADO')" v-if="record.estado == 'ANULADO'">
+                        <!--Tag-->
+                        <a-tag color="cyan" v-if="record.estado == 'ANULADO'">ANULADO</a-tag>
 
-                            <!--Tag-->
-                            <a-tag color="cyan">ANULADO</a-tag>
-                        </a-popconfirm>
-
-                        <!--Popconfirm-->
-                        <a-popconfirm title="¿Estas seguro?" ok-text="Yes" cancel-text="No"
-                            @confirm="doChangeStatus(record.id, 'ANULADO')" v-if="record.estado == 'FACTURADO'">
-
-                            <!--Tag-->
-                            <a-tag color="blue">FACTURADO</a-tag>
-                        </a-popconfirm>
+                        <!--Tag-->
+                        <a-tag color="blue" v-if="record.estado == 'FACTURADO'">FACTURADO</a-tag>
                     </template>
 
                     <!--Template-->
@@ -68,8 +58,15 @@
                     <!--Template-->
                     <template v-if="column.key === 'acciones'">
 
-                        <!--Component-->
-                        <Show :record="record" />
+                        <!--Popconfirm-->
+                        <a-popconfirm title="¿Estas seguro?" ok-text="Yes" cancel-text="No"
+                            @confirm="doChangeStatus(record.id, 'ANULADO')">
+
+                            <!--Button-->
+                            <a-button class="button-default">
+                                ANULAR
+                            </a-button>
+                        </a-popconfirm>
                     </template>
                 </template>
 
@@ -128,7 +125,6 @@ import {
 } from "@/services/paths"
 
 import axios from "axios"
-import Show from "@/components/recibo/ComponentShow.vue"
 import Crear from "@/components/recibo/ComponentCreate.vue"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
@@ -137,6 +133,7 @@ export default {
     data() {
         return {
             loading: false,
+            download: false,
 
             dataSourceRb: [],
 
@@ -396,6 +393,8 @@ export default {
 
         async doChangeStatus(id, status) {
 
+            this.download = true
+
             try {
 
                 const { body, config } = PutRecibo(id, status)
@@ -412,6 +411,8 @@ export default {
 
                 getResponse(err)
             }
+
+            this.download = false
         },
 
         doChangeScrollto() {
@@ -426,7 +427,6 @@ export default {
     },
 
     components: {
-        Show,
         Crear,
         Footer,
         Navbar
