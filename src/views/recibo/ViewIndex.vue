@@ -64,7 +64,7 @@
 
                             <!--Button-->
                             <a-button class="button-default">
-                                ANULAR
+                                ANULADO
                             </a-button>
                         </a-popconfirm>
                     </template>

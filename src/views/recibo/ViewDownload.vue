@@ -43,21 +43,11 @@
                     <!--Template-->
                     <template v-if="column.key === 'estado'">
 
-                        <!--Popconfirm-->
-                        <a-popconfirm title="¿Estas seguro?" ok-text="Yes" cancel-text="No"
-                            @confirm="doChangeStatus(record.id, 'FACTURADO')" v-if="record.estado == 'ANULADO'">
+                        <!--Tag-->
+                        <a-tag color="cyan" v-if="record.estado == 'ANULADO'">ANULADO</a-tag>
 
-                            <!--Tag-->
-                            <a-tag color="cyan">ANULADO</a-tag>
-                        </a-popconfirm>
-
-                        <!--Popconfirm-->
-                        <a-popconfirm title="¿Estas seguro?" ok-text="Yes" cancel-text="No"
-                            @confirm="doChangeStatus(record.id, 'ANULADO')" v-if="record.estado == 'FACTURADO'">
-
-                            <!--Tag-->
-                            <a-tag color="blue">FACTURADO</a-tag>
-                        </a-popconfirm>
+                        <!--Tag-->
+                        <a-tag color="blue" v-if="record.estado == 'FACTURADO'">FACTURADO</a-tag>
                     </template>
 
                     <!--Template-->
@@ -67,6 +57,16 @@
 
                     <!--Template-->
                     <template v-if="column.key === 'acciones'">
+
+                        <!--Popconfirm-->
+                        <a-popconfirm title="¿Estas seguro?" ok-text="Yes" cancel-text="No"
+                            @confirm="doChangeStatus(record.id, 'ANULADO')">
+
+                            <!--Button-->
+                            <a-button class="button-default me-2">
+                                ANULADO
+                            </a-button>
+                        </a-popconfirm>
 
                         <!--Component-->
                         <Show :record="record" />

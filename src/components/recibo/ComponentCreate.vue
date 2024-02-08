@@ -332,7 +332,16 @@ export default {
 
                 URL.revokeObjectURL(blobUrl)
 
-                window.addEventListener('afterprint', location.reload())
+                const closeDialog = setInterval(() => {
+
+                    if (document.hasFocus()) {
+
+                        clearInterval(closeDialog)
+
+                        location.reload()
+                    }
+                    
+                }, 100)
 
             } catch (err) {
 
@@ -344,6 +353,9 @@ export default {
             this.download = false
         },
 
+        handleAfterPrint() {
+
+        },
         doChangeLetter(key, event) {
 
             const cursorPosition = event.target.selectionStart
