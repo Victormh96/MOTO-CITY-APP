@@ -54,20 +54,6 @@
                     <template v-if="column.key === 'creado'">
                         {{ new Date(record.creado).toISOString().split("T")[0] }}
                     </template>
-
-                    <!--Template-->
-                    <template v-if="column.key === 'acciones'">
-
-                        <!--Popconfirm-->
-                        <a-popconfirm title="¿Estas seguro?" ok-text="Yes" cancel-text="No"
-                            :disabled="record.estado == 'ANULADO'" @confirm="doChangeStatus(record.id, 'ANULADO')">
-
-                            <!--Button-->
-                            <a-button class="button-default" :disabled="record.estado == 'ANULADO'">
-                                ANULADO
-                            </a-button>
-                        </a-popconfirm>
-                    </template>
                 </template>
 
                 <!--Template-->
@@ -110,18 +96,15 @@ import {
 } from "vue"
 
 import {
-    getWarning,
     getResponse
 } from "@/utils/index"
 
 import {
-    getToken,
-    PutRecibo
+    getToken
 } from "@/utils/request"
 
 import {
-    GetReciboApi,
-    PutReciboApi
+    GetReciboApi
 } from "@/services/paths"
 
 import axios from "axios"
@@ -133,7 +116,6 @@ export default {
     data() {
         return {
             loading: false,
-            download: false,
 
             dataSourceRb: [],
 
@@ -361,15 +343,6 @@ export default {
                     setTimeout(() => { focusearch.value.focus() }, 100)
                 }
             }
-        },
-        {
-            title: "ACCIONES",
-
-            dataIndex: "acciones",
-
-            key: "acciones",
-
-            align: "center"
         }]
 
         const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -390,30 +363,6 @@ export default {
     },
 
     methods: {
-
-        async doChangeStatus(id, status) {
-
-            this.download = true
-
-            try {
-
-                const { body, config } = PutRecibo(id, status)
-
-                await axios.post(PutReciboApi, body, config)
-
-                getWarning('Actualizado')
-
-                setTimeout(function () { location.reload() }, 300)
-
-            } catch (err) {
-
-                console.error(err)
-
-                getResponse(err)
-            }
-
-            this.download = false
-        },
 
         doChangeScrollto() {
 
