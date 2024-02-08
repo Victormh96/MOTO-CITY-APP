@@ -60,10 +60,10 @@
 
                         <!--Popconfirm-->
                         <a-popconfirm title="¿Estas seguro?" ok-text="Yes" cancel-text="No"
-                            @confirm="doChangeStatus(record.id, 'ANULADO')">
+                            @confirm="doChangeStatus(record.id, 'ANULADO')" :disabled="record.estado == 'ANULADO'">
 
                             <!--Button-->
-                            <a-button class="button-default me-2">
+                            <a-button class="button-default me-2" :disabled="record.estado == 'ANULADO'">
                                 ANULADO
                             </a-button>
                         </a-popconfirm>
