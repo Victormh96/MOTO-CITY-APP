@@ -981,7 +981,7 @@ export default {
                 this.profesion = false
             }
 
-            if ([18].includes(value)) {
+            if ([18, 22].includes(value)) {
 
                 this.vencimiento = true
 
