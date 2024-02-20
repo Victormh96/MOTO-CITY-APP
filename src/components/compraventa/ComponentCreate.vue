@@ -939,7 +939,7 @@ export default {
 
         doChangeReplace(value, option) {
 
-            if ([1, 10, 12, 13, 9, 18].includes(value)) {
+            if ([1, 10, 12, 13, 9, 18, 22].includes(value)) {
 
                 this.doChangeFieldClear()
 
@@ -959,7 +959,7 @@ export default {
                 this.disabled = true
             }
 
-            if ([13, 18].includes(value)) {
+            if ([13, 18, 22].includes(value)) {
 
                 this.prima = false
 
@@ -996,7 +996,7 @@ export default {
 
                 { title: 'MOTO' },
 
-                ...([12, 13, 18].includes(value) ? [{ title: 'PAGO' }] : []),
+                ...([12, 13, 18, 22].includes(value) ? [{ title: 'PAGO' }] : []),
 
                 ...([9].includes(value) ? [{ title: 'FIRMA' }] : [])
             ]
