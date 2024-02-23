@@ -124,6 +124,7 @@ import {
 } from "vue"
 
 import {
+    getSuccess,
     getResponse
 } from "@/utils/index"
 
@@ -308,40 +309,11 @@ export default {
 
                 const { body, config } = PostRecibo(this.formstate)
 
-                const response = await axios.post(PostReciboApi, body, config)
+                await axios.post(PostReciboApi, body, config)
 
-                const blob = new Blob(
+                getSuccess('Guardado')
 
-                    [response.data],
-
-                    { type: 'application/pdf' })
-
-                const blobUrl = URL.createObjectURL(blob)
-
-                const iframe = document.createElement('iframe')
-
-                iframe.style.display = 'none'
-
-                document.body.appendChild(iframe)
-
-                iframe.src = blobUrl
-
-                await new Promise(resolve => setTimeout(resolve, 1000))
-
-                iframe.contentWindow.print()
-
-                URL.revokeObjectURL(blobUrl)
-
-                const closeDialog = setInterval(() => {
-
-                    if (document.hasFocus()) {
-
-                        clearInterval(closeDialog)
-
-                        location.reload()
-                    }
-                    
-                }, 100)
+                setTimeout(function () { location.reload() }, 300)
 
             } catch (err) {
 
@@ -353,9 +325,6 @@ export default {
             this.download = false
         },
 
-        handleAfterPrint() {
-
-        },
         doChangeLetter(key, event) {
 
             const cursorPosition = event.target.selectionStart

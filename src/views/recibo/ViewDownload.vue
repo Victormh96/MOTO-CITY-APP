@@ -64,7 +64,7 @@
 
                             <!--Button-->
                             <a-button class="button-default me-2" :disabled="record.estado == 'ANULADO'">
-                                ANULADO
+                                ANULAR
                             </a-button>
                         </a-popconfirm>
 
@@ -372,7 +372,9 @@ export default {
 
             key: "acciones",
 
-            align: "center"
+            align: "center",
+
+            width: 300
         }]
 
         const handleSearch = (selectedKeys, confirm, dataIndex) => {

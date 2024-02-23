@@ -56,7 +56,7 @@ function getPreciario(record) {
 
             SUCURSAL: store.state.authentication?.cuenta?.sucursal,
 
-            TASA: '0.0487',
+            TASA: '0.0483333',
 
             MESES: record?.MESES
         },
@@ -81,7 +81,9 @@ function PostPreciario(record) {
 
             PLANTILLA: 20,
 
-            PRECIARIO: record?.PRECIARIO
+            PRECIARIO: record?.PRECIARIO,
+
+            SUCURSAL: store.state.authentication?.cuenta?.sucursal
         },
 
         config: {
@@ -372,7 +374,7 @@ function PostUsuario(record) {
 }
 
 function PostDescarga(record) {
-    
+
     const data = {
 
         body: {

@@ -21,6 +21,8 @@ export const ShowReciboApi = URL_NODE + '/motocity/recibo-show'
 
 export const PutReciboApi = URL_NODE + '/motocity/recibo-update'
 
+export const PrintReciboApi = URL_NODE + '/motocity/recibo-print'
+
 export const ShowUsuarioApi = URL_NODE + '/motocity/usuario-show'
 
 export const PostReciboApi = URL_NODE + '/motocity/recibo-create'
@@ -41,9 +43,11 @@ export const DownloadPedidoApi = URL_NODE + '/motocity/pedido-download'
 
 export const DownloadReciboApi = URL_NODE + '/motocity/recibo-download'
 
-export const PostPreciarioApi = URL_NODE + '/motocity/preciario-create'
-
 export const PostPlantillaApi = URL_NODE + '/utilidad/plantilla-create'
+
+export const PostPreciarioApi1 = URL_NODE + '/motocity/preciario-create-1'
+
+export const PostPreciarioApi2 = URL_NODE + '/motocity/preciario-create-2'
 
 export const ShowCompraVentaApi = URL_NODE + '/motocity/compra-venta-show'
 

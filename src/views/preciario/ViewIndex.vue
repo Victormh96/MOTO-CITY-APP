@@ -117,13 +117,15 @@ import {
 
 import {
     GetPreciarioApi,
-    PostPreciarioApi
+    PostPreciarioApi1,
+    PostPreciarioApi2
 } from "@/services/paths"
 
 const useForm = Form.useForm
 
 import axios from "axios"
 import dayjs from "dayjs"
+import JSZip from "jszip"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
 
@@ -228,19 +230,23 @@ export default {
 
                 const { body, config } = PostPreciario(this.formstate)
 
-                const response = await axios.post(PostPreciarioApi, body, config)
+                const response1 = await axios.post(PostPreciarioApi1, body, config)
 
-                const blob = new Blob(
+                const response2 = await axios.post(PostPreciarioApi2, body, config)
 
-                    [response.data],
+                const zip = new JSZip()
 
-                    { type: 'application/pdf' })
+                zip.file(`PRECIARIO-FRONTAL-${dayjs().format('YYYY-MM-DD HH_mm_ss')}.pdf`, response1.data)
 
-                saveAs(blob, `PRECIARIO-${dayjs().format('YYYY-MM-DD HH_mm_ss')}`)
+                zip.file(`PRECIARIO-REVERSO-${dayjs().format('YYYY-MM-DD HH_mm_ss')}.pdf`, response2.data)
+
+                const zipBlob = await zip.generateAsync({ type: 'blob' })
+
+                saveAs(zipBlob, `PRECIARIO-${dayjs().format('YYYY-MM-DD_HH_mm_ss')}.zip`)
 
                 getSuccess('Descargando')
 
-                setTimeout(function () { location.reload() }, 300)
+                setTimeout(async () => { location.reload() }, 300)
 
             } catch (err) {
 
