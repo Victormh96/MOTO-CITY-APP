@@ -184,9 +184,9 @@ export default {
 
         const state = reactive({
 
-            searchText: '',
+            searchText: "",
 
-            searchedColumn: ''
+            searchedColumn: ""
         })
 
         const column = [{

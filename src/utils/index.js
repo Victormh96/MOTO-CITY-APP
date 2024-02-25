@@ -4,15 +4,27 @@ import { message } from "ant-design-vue"
 
 const getClose = (err) => {
 
-    const key = 'updatable'
+    const key = "updatable"
 
-    message.loading({ content: 'Cerrando sesión...', key })
+    message.loading({
+
+        content: "Cerrando sesión...",
+
+        key
+    })
 
     setTimeout(() => {
 
         router.push("/")
 
-        message.warning({ content: err + '.', key, duration: 3 })
+        message.warning({
+
+            content: err + ".",
+
+            key,
+
+            duration: 3
+        })
 
     }, 1500)
 }
@@ -29,7 +41,7 @@ const getOpen = (err) => {
 
         duration: 3,
 
-        content: err + '.'
+        content: err + "."
     })
 }
 
@@ -39,7 +51,7 @@ const getSuccess = (err) => {
 
         duration: 3,
 
-        content: err + '.'
+        content: err + "."
     })
 }
 
@@ -49,7 +61,7 @@ const getWarning = (err) => {
 
         duration: 3,
 
-        content: err + '.'
+        content: err + "."
     })
 }
 
@@ -63,7 +75,29 @@ const getError = (err) => {
 
         duration: 3,
 
-        content: err + '.'
+        content: err + "."
+    })
+}
+
+const getLoading = (err, key) => {
+
+    message.loading({
+
+        content: err,
+
+        key
+    })
+}
+
+const getDownload = (err, key) => {
+
+    message.success({
+
+        content: err + ".",
+
+        key,
+
+        duration: 3
     })
 }
 
@@ -73,12 +107,12 @@ function getResponse(err) {
 
         store.dispatch("CuentaCerrar")
 
-        getClose('Sesión cerrada')
+        getClose("Sesión cerrada")
 
     } else {
 
-        getWarning('Error, se ha notificado a TI de OUTLANDER')
+        getWarning("Error, se ha notificado a TI de OUTLANDER")
     }
 }
 
-export { getClose, getOpen, getSuccess, getWarning, getError, getResponse } 
+export { getClose, getOpen, getSuccess, getWarning, getError, getLoading, getDownload, getResponse } 

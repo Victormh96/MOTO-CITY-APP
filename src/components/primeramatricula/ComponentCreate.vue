@@ -187,7 +187,7 @@ export default {
 
         try {
 
-            const { body, config } = getPlantilla('PM')
+            const { body, config } = getPlantilla("PM")
 
             const plantilla = await axios.post(ShowPlantillaApi, body, config)
 
@@ -282,23 +282,24 @@ export default {
 
             DUI: [
                 {
-                    required: true,
-
-                    message: "Campo Requerido"
-                },
-                {
                     validator: async () => {
 
                         const { DUI } = formstate
 
-                        if (isValidDUI(DUI) == false && DUI !== null && DUI !== '') {
+                        if ((isValidDUI(DUI) == false || DUI?.length < 10) && DUI?.length > 0) {
 
                             return Promise.reject(
 
                                 new Error("Formato Incorrecto")
                             )
+
                         }
                     }
+                },
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
                 }
             ]
         })
@@ -334,7 +335,7 @@ export default {
 
             }).catch(err => {
 
-                console.log('error', err)
+                console.log("error", err)
             })
         },
 
@@ -352,11 +353,11 @@ export default {
 
                     [response.data],
 
-                    { type: 'application/pdf' })
+                    { type: "application/pdf" })
 
-                saveAs(blob, `PRIMERA-MATRICULA-${dayjs().format('YYYY-MM-DD HH_mm_ss')}`)
+                saveAs(blob, `PRIMERA-MATRICULA-${dayjs().format("YYYY-MM-DD HH_mm_ss")}`)
 
-                getSuccess('Descargando')
+                getSuccess("Descargando")
 
                 setTimeout(function () { location.reload() }, 300)
 
@@ -390,7 +391,7 @@ export default {
 
         doChangeFieldClear() {
 
-            const exclude = ['PLANTILLA']
+            const exclude = ["PLANTILLA"]
 
             Object.keys(this.formstate)
 

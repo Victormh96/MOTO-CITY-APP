@@ -164,7 +164,7 @@ export default {
 
         try {
 
-            const { body, config } = getPlantilla('RB')
+            const { body, config } = getPlantilla("RB")
 
             const plantilla = await axios.post(ShowPlantillaApi, body, config)
 
@@ -297,7 +297,7 @@ export default {
 
             }).catch(err => {
 
-                console.log('error', err)
+                console.log("error", err)
             })
         },
 
@@ -311,7 +311,7 @@ export default {
 
                 await axios.post(PostReciboApi, body, config)
 
-                getSuccess('Guardado')
+                getSuccess("Guardado")
 
                 setTimeout(function () { location.reload() }, 300)
 
@@ -336,7 +336,7 @@ export default {
 
         doChangeFieldClear() {
 
-            const exclude = ['PLANTILLA']
+            const exclude = ["PLANTILLA"]
 
             Object.keys(this.formstate)
 

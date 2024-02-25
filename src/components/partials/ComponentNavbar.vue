@@ -89,7 +89,7 @@ export default {
     data() {
         return {
             vname: this.$store.state.authentication?.cuenta?.usuario.charAt(0).toUpperCase(),
-            vlastname: this.$store.state.authentication?.cuenta?.usuario?.split('.')[1]?.charAt(0).toUpperCase()
+            vlastname: this.$store.state.authentication?.cuenta?.usuario?.split(".")[1]?.charAt(0).toUpperCase()
         }
     },
 

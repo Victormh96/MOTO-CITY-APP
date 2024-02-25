@@ -110,30 +110,30 @@ export default {
 
                     moreText: {
 
-                        buttons: ['bold', 'fontSize', 'italic', 'underline', 'clearFormatting'],
+                        buttons: ["bold", "fontSize", "italic", "underline", "clearFormatting"],
 
                         buttonsVisible: 0
                     },
 
                     moreParagraph: {
 
-                        buttons: ['alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'outdent', 'indent'],
+                        buttons: ["alignLeft", "alignCenter", "alignRight", "alignJustify", "outdent", "indent"],
 
                         buttonsVisible: 0
                     },
 
                     moreRich: {
 
-                        buttons: ['insertTable', 'formatOL', 'formatUL'],
+                        buttons: ["insertTable", "formatOL", "formatUL"],
 
                         buttonsVisible: 0
                     },
 
                     moreMisc: {
 
-                        buttons: ['undo', 'redo', 'fullscreen'],
+                        buttons: ["undo", "redo", "fullscreen"],
 
-                        align: 'right',
+                        align: "right",
 
                         buttonsVisible: 3
                     },
@@ -238,7 +238,7 @@ export default {
 
             }).catch(err => {
 
-                console.log('error', err)
+                console.log("error", err)
             })
         },
 
@@ -252,7 +252,7 @@ export default {
 
                 await axios.post(PostPlantillaApi, body, config)
 
-                getSuccess('Guardado')
+                getSuccess("Guardado")
 
                 setTimeout(function () { location.reload() }, 300)
 

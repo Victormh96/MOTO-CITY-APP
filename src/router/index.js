@@ -36,11 +36,11 @@ router.beforeEach((to, from, next) => {
 
     if (to.meta.requiresAuth && !store.state.authentication?.cuenta?.token) {
 
-        next('/')
+        next("/")
 
-    } else if (to.path === '/' && store.state.authentication?.cuenta?.token) {
+    } else if (to.path === "/" && store.state.authentication?.cuenta?.token) {
 
-        next('/go')
+        next("/go")
 
     } else {
 
@@ -63,7 +63,7 @@ function roleAccess(to, store, requiredRole, next) {
 
     } else {
 
-        next('/404')
+        next("/404")
     }
 }
 

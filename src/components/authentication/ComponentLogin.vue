@@ -113,7 +113,7 @@ export default {
 
                 PASSWORD: data.password,
 
-                SOCIEDAD: 'Motocity'
+                SOCIEDAD: "Motocity"
             }
 
             await this.$store.dispatch("Cuenta", body)

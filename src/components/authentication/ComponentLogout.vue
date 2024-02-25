@@ -22,21 +22,21 @@ export default {
 
             Modal.confirm({
 
-                title: 'Motocity App',
+                title: "Motocity App",
 
-                content: 'Tu sesión está a punto de finalizar.',
+                content: "Tu sesión está a punto de finalizar.",
 
                 centered: true,
 
-                okText: 'Si',
+                okText: "Si",
 
-                cancelText: 'No',
+                cancelText: "No",
 
                 async onOk() {
 
                     await store.dispatch("CuentaCerrar")
 
-                    getClose('Sesión cerrada')
+                    getClose("Sesión cerrada")
 
                     return
                 }

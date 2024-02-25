@@ -12,8 +12,9 @@ import {
 } from "file-saver"
 
 import {
-    getSuccess,
-    getResponse
+    getLoading,
+    getResponse,
+    getDownload
 } from "@/utils/index"
 
 import {
@@ -21,7 +22,7 @@ import {
 } from "@/utils/request"
 
 import {
-    ShowPrimeraMatriculaApi
+    DownloadCompraVentaApi
 } from "@/services/paths"
 
 import axios from "axios"
@@ -44,17 +45,19 @@ export default {
 
                 const { body, config } = PostDescarga(this.record)
 
-                const response = await axios.post(ShowPrimeraMatriculaApi, body, config)
+                const response = await axios.post(DownloadCompraVentaApi, body, config)
+
+                getLoading("Descargando", "download")
 
                 const blob = new Blob(
 
                     [response.data],
 
-                    { type: 'application/pdf' })
+                    { type: "application/pdf" })
 
-                saveAs(blob, `PRIMERA-MATRICULA-${dayjs().format('YYYY-MM-DD HH_mm_ss')}`)
+                saveAs(blob, `COMPRA-VENTA-${dayjs().format("YYYY-MM-DD HH_mm_ss")}`)
 
-                getSuccess('Descargando')
+                getDownload("Descargado", "download")
 
             } catch (err) {
 

@@ -1,91 +1,91 @@
 const motocityRoutes = [
     {
-        path: '/go',
+        path: "/go",
 
-        name: 'Go',
+        name: "Go",
 
         meta: { requiresAuth: true },
 
         component: () => import("@/views/ViewGo.vue")
     },
     {
-        path: '/compra-venta',
+        path: "/compra-venta",
 
-        name: 'Compraventa',
+        name: "Compraventa",
 
-        meta: { requiresAuth: true, requiresRole: ['Tramite', 'Concesionario', 'Jefe', 'Caja'] },
+        meta: { requiresAuth: true, requiresRole: ["Tramite", "Concesionario", "Jefe", "Caja"] },
 
         component: () => import("@/views/compraventa/ViewIndex.vue")
     },
     {
-        path: '/primera-matricula',
+        path: "/primera-matricula",
 
-        name: 'Primeramatricula',
+        name: "Primeramatricula",
 
-        meta: { requiresAuth: true, requiresRole: ['Tramite', 'Concesionario', 'Jefe', 'Caja'] },
+        meta: { requiresAuth: true, requiresRole: ["Tramite", "Concesionario", "Jefe", "Caja"] },
 
         component: () => import("@/views/primeramatricula/ViewIndex.vue")
     },
     {
-        path: '/plantilla',
+        path: "/plantilla",
 
-        name: 'Plantilla',
+        name: "Plantilla",
 
-        meta: { requiresAuth: true, requiresRole: ['Tramite', 'Administrador'] },
+        meta: { requiresAuth: true, requiresRole: ["Tramite", "Administrador"] },
 
         component: () => import("@/views/plantilla/ViewIndex.vue")
     },
     {
-        path: '/recibo',
+        path: "/recibo",
 
-        name: 'Recibo',
+        name: "Recibo",
 
-        meta: { requiresAuth: true, requiresRole: ['Caja'] },
+        meta: { requiresAuth: true, requiresRole: ["Caja"] },
 
         component: () => import("@/views/recibo/ViewIndex.vue")
     },
     {
-        path: '/recibo/download',
+        path: "/recibo/download",
 
-        name: 'ReciboDownload',
+        name: "ReciboDownload",
 
-        meta: { requiresAuth: true, requiresRole: ['Contabilidad'] },
+        meta: { requiresAuth: true, requiresRole: ["Contabilidad"] },
 
         component: () => import("@/views/recibo/ViewDownload.vue")
     },
     {
-        path: '/pagare',
+        path: "/pagare",
 
-        name: 'Pagare',
+        name: "Pagare",
 
-        meta: { requiresAuth: true, requiresRole: ['Jefe'] },
+        meta: { requiresAuth: true, requiresRole: ["Jefe"] },
 
         component: () => import("@/views/pagare/ViewIndex.vue")
     },
     {
-        path: '/preciario',
+        path: "/preciario",
 
-        name: 'Preciario',
+        name: "Preciario",
 
-        meta: { requiresAuth: true, requiresRole: ['Jefe'] },
+        meta: { requiresAuth: true, requiresRole: ["Jefe"] },
 
         component: () => import("@/views/preciario/ViewIndex.vue")
     },
     {
-        path: '/pedidos',
+        path: "/pedidos",
 
-        name: 'Pedidos',
+        name: "Pedidos",
 
-        meta: { requiresAuth: true, requiresRole: ['Logistica'] },
+        meta: { requiresAuth: true, requiresRole: ["Logistica"] },
 
         component: () => import("@/views/pedido/ViewDownload.vue")
     },
     {
-        path: '/usuario',
+        path: "/usuario",
 
-        name: 'Usuario',
+        name: "Usuario",
 
-        meta: { requiresAuth: true, requiresRole: ['Administrador'] },
+        meta: { requiresAuth: true, requiresRole: ["Administrador"] },
 
         component: () => import("@/views/usuario/ViewIndex")
     }

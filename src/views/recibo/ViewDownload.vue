@@ -9,7 +9,7 @@
         <div class="container-fluid mb-3">
 
             <!--Component-->
-            <Descargar />
+            <Report />
 
             <!--Table-->
             <a-table :pagination="pagination" :data-source="dataSourceRb" :columns="column" bordered :scroll="{ x: 1400 }">
@@ -69,7 +69,7 @@
                         </a-popconfirm>
 
                         <!--Component-->
-                        <Show :record="record" />
+                        <Download :record="record" />
                     </template>
                 </template>
 
@@ -128,10 +128,10 @@ import {
 } from "@/services/paths"
 
 import axios from "axios"
-import Show from "@/components/recibo/ComponentShow.vue"
+import Report from "@/components/recibo/ComponentReport.vue"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
-import Descargar from "@/components/recibo/ComponentDownload.vue"
+import Download from "@/components/recibo/ComponentDownload.vue"
 
 export default {
     data() {
@@ -177,9 +177,9 @@ export default {
 
         const state = reactive({
 
-            searchText: '',
+            searchText: "",
 
-            searchedColumn: ''
+            searchedColumn: ""
         })
 
         const column = [{
@@ -404,7 +404,7 @@ export default {
 
                 await axios.post(PutReciboApi, body, config)
 
-                getWarning('Actualizado')
+                getWarning("Actualizado")
 
                 setTimeout(function () { location.reload() }, 300)
 
@@ -428,10 +428,10 @@ export default {
     },
 
     components: {
-        Show,
         Footer,
         Navbar,
-        Descargar
+        Report,
+        Download,
     }
 };
 </script>

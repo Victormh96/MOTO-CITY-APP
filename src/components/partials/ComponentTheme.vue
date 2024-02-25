@@ -29,16 +29,16 @@ export default {
 
     created() {
 
-        localStorage.theme === 'true' && this.doChangeTema(true)
+        localStorage.theme === "true" && this.doChangeTema(true)
     },
 
     methods: {
 
         doChangeTema(checked) {
 
-            const html = document.querySelector('html')
+            const html = document.querySelector("html")
 
-            html.setAttribute('data-theme', checked ? 'Black-Mode' : '')
+            html.setAttribute("data-theme", checked ? "Black-Mode" : "")
 
             this.theme = checked
 

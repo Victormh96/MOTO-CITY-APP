@@ -109,7 +109,7 @@ export default {
 
             try {
 
-                const { body, config } = PostDescarga({ FECHA: this.date.format('YYYY-MM-DD') })
+                const { body, config } = PostDescarga({ FECHA: this.date.format("YYYY-MM-DD") })
 
                 const response = await axios.post(DownloadPedidoApi, body, config)
 
@@ -117,11 +117,11 @@ export default {
 
                     [response.data],
 
-                    { type: 'text/csv' })
+                    { type: "text/csv" })
 
-                saveAs(blob, `PEDIDOS-${dayjs().format('YYYY-MM-DD HH_mm_ss')}.csv`)
+                saveAs(blob, `PEDIDOS-${dayjs().format("YYYY-MM-DD HH_mm_ss")}.csv`)
 
-                getSuccess('Descargando')
+                getSuccess("Descargando")
 
             } catch (err) {
 

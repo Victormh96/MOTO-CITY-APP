@@ -42,9 +42,9 @@ export default {
 
                 .then((response) => {
 
-                    commit('MutationCuenta', response.data)
+                    commit("MutationCuenta", response.data)
 
-                    getOpen('Bienvenido a Motocity App')
+                    getOpen("Bienvenido a Motocity App")
                 })
 
                 .catch((err) => {
@@ -55,7 +55,7 @@ export default {
 
                     } else {
 
-                        getError('Error de servidor')
+                        getError("Error de servidor")
                     }
                 })
         },

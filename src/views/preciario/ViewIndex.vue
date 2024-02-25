@@ -218,7 +218,7 @@ export default {
 
             }).catch(err => {
 
-                console.log('error', err)
+                console.log("error", err)
             })
         },
 
@@ -236,15 +236,15 @@ export default {
 
                 const zip = new JSZip()
 
-                zip.file(`PRECIARIO-FRONTAL-${dayjs().format('YYYY-MM-DD HH_mm_ss')}.pdf`, response1.data)
+                zip.file(`PRECIARIO-FRONTAL-${dayjs().format("YYYY-MM-DD HH_mm_ss")}.pdf`, response1.data)
 
-                zip.file(`PRECIARIO-REVERSO-${dayjs().format('YYYY-MM-DD HH_mm_ss')}.pdf`, response2.data)
+                zip.file(`PRECIARIO-REVERSO-${dayjs().format("YYYY-MM-DD HH_mm_ss")}.pdf`, response2.data)
 
-                const zipBlob = await zip.generateAsync({ type: 'blob' })
+                const zipBlob = await zip.generateAsync({ type: "blob" })
 
-                saveAs(zipBlob, `PRECIARIO-${dayjs().format('YYYY-MM-DD_HH_mm_ss')}.zip`)
+                saveAs(zipBlob, `PRECIARIO-${dayjs().format("YYYY-MM-DD_HH_mm_ss")}.zip`)
 
-                getSuccess('Descargando')
+                getSuccess("Descargando")
 
                 setTimeout(async () => { location.reload() }, 300)
 
@@ -260,13 +260,13 @@ export default {
 
         doChangePreciario(targetKeys, direction, moveKeys) {
 
-            if (direction === 'right') {
+            if (direction === "right") {
 
                 const data = targetKeys.map(key => this.dataSourcePc.find(object => object.key === key))
 
                 this.formstate.PRECIARIO = data
 
-            } else if (direction === 'left') {
+            } else if (direction === "left") {
 
                 const data = this.formstate.PRECIARIO.filter(object => !moveKeys.includes(object.key))
 

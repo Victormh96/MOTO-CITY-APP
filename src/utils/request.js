@@ -48,6 +48,35 @@ function getPlantilla(record) {
     return data
 }
 
+function PostPlantilla(record) {
+
+    const data = {
+
+        body: {
+
+            NOMBRE: record?.NOMBRE,
+
+            ESTADO: record?.ESTADO,
+
+            CONTENIDO: record?.CONTENIDO,
+
+            ID: record?.ID
+        },
+
+        config: {
+
+            responseType: "blob",
+
+            headers: {
+
+                Authorization: store.state.authentication?.cuenta?.token
+            }
+        }
+    }
+
+    return data
+}
+
 function getPreciario(record) {
 
     const data = {
@@ -56,7 +85,7 @@ function getPreciario(record) {
 
             SUCURSAL: store.state.authentication?.cuenta?.sucursal,
 
-            TASA: '0.0483333',
+            TASA: "0.0483333",
 
             MESES: record?.MESES
         },
@@ -88,7 +117,7 @@ function PostPreciario(record) {
 
         config: {
 
-            responseType: 'blob',
+            responseType: "blob",
 
             headers: {
 
@@ -152,13 +181,13 @@ function PostCompraVenta(record) {
 
             INTERES: record?.INTERES ?? 0,
 
-            NOMBREF: record?.NOMBREF ?? '',
+            NOMBREF: record?.NOMBREF ?? "",
 
-            DEPARTAMENTOF: record?.DEPARTAMENTOF ?? '',
+            DEPARTAMENTOF: record?.DEPARTAMENTOF ?? "",
 
-            MUNICIPIOF: record?.MUNICIPIOF ?? '',
+            MUNICIPIOF: record?.MUNICIPIOF ?? "",
 
-            DUIF: record?.DUIF ?? '00000000-0',
+            DUIF: record?.DUIF ?? "00000000-0",
 
             PLANTILLA: record?.PLANTILLA,
 
@@ -167,36 +196,7 @@ function PostCompraVenta(record) {
 
         config: {
 
-            responseType: 'blob',
-
-            headers: {
-
-                Authorization: store.state.authentication?.cuenta?.token
-            }
-        }
-    }
-
-    return data
-}
-
-function PostPlantilla(record) {
-
-    const data = {
-
-        body: {
-
-            NOMBRE: record?.NOMBRE,
-
-            ESTADO: record?.ESTADO,
-
-            CONTENIDO: record?.CONTENIDO,
-
-            ID: record?.ID
-        },
-
-        config: {
-
-            responseType: 'blob',
+            responseType: "blob",
 
             headers: {
 
@@ -235,7 +235,7 @@ function PostPagare(record) {
 
         config: {
 
-            responseType: 'blob',
+            responseType: "blob",
 
             headers: {
 
@@ -270,7 +270,7 @@ function PostPrimeraMatricula(record) {
 
         config: {
 
-            responseType: 'blob',
+            responseType: "blob",
 
             headers: {
 
@@ -305,7 +305,7 @@ function PostRecibo(record) {
 
         config: {
 
-            responseType: 'blob',
+            responseType: "blob",
 
             headers: {
 
@@ -384,7 +384,7 @@ function PostDescarga(record) {
 
         config: {
 
-            responseType: 'blob',
+            responseType: "blob",
 
             headers: {
 
@@ -396,4 +396,4 @@ function PostDescarga(record) {
     return data
 }
 
-export { getToken, getPlantilla, getPreciario, PostPreciario, PostCompraVenta, PostPlantilla, PostPagare, PostPrimeraMatricula, PostRecibo, PutRecibo, PostUsuario, PostDescarga } 
+export { getToken, getPlantilla, PostPlantilla, getPreciario, PostPreciario, PostCompraVenta, PostPagare, PostPrimeraMatricula, PostRecibo, PutRecibo, PostUsuario, PostDescarga } 

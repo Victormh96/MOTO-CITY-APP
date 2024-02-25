@@ -136,10 +136,10 @@ import {
 } from "@/services/paths"
 
 import axios from "axios"
-import Footer from "@/components/partials/ComponentFooter.vue"
-import Navbar from "@/components/partials/ComponentNavbar.vue"
 import Editar from "@/components/usuario/ComponentEdit.vue"
 import Crear from "@/components/usuario/ComponentCreate.vue"
+import Footer from "@/components/partials/ComponentFooter.vue"
+import Navbar from "@/components/partials/ComponentNavbar.vue"
 
 export default {
     data() {
@@ -190,9 +190,9 @@ export default {
 
         const state = reactive({
 
-            searchText: '',
+            searchText: "",
 
-            searchedColumn: ''
+            searchedColumn: ""
         })
 
         const column = [{

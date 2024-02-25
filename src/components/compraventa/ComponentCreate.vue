@@ -475,9 +475,9 @@ export default {
 
             steps: [
 
-                { title: 'DATO' },
+                { title: "DATO" },
 
-                { title: 'MOTO' }
+                { title: "MOTO" }
             ]
         }
     },
@@ -486,7 +486,7 @@ export default {
 
         try {
 
-            const { body, config } = getPlantilla('CV') 
+            const { body, config } = getPlantilla("CV")
 
             const plantilla = await axios.post(ShowPlantillaApi, body, config)
 
@@ -554,7 +554,7 @@ export default {
 
             NUMEROCHASIS: null,
 
-            TIPO: 'URBANO',
+            TIPO: "URBANO",
 
             MESES: null,
 
@@ -623,23 +623,24 @@ export default {
 
             DUI: [
                 {
-                    required: true,
-
-                    message: "Campo Requerido"
-                },
-                {
                     validator: async () => {
 
                         const { DUI } = formstate
 
-                        if (isValidDUI(DUI) == false && DUI !== null && DUI !== '') {
+                        if ((isValidDUI(DUI) == false || DUI?.length < 10) && DUI?.length > 0) {
 
                             return Promise.reject(
 
                                 new Error("Formato Incorrecto")
                             )
+
                         }
                     }
+                },
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
                 }
             ],
 
@@ -797,23 +798,24 @@ export default {
 
             DUIF: [
                 {
-                    required: true,
-
-                    message: "Campo Requerido"
-                },
-                {
                     validator: async () => {
 
-                        const { DUI } = formstate
+                        const { DUIF } = formstate
 
-                        if (isValidDUI(DUI) == false && DUI !== null && DUI !== '') {
+                        if ((isValidDUI(DUIF) == false || DUIF?.length < 10) && DUIF?.length > 0) {
 
                             return Promise.reject(
 
                                 new Error("Formato Incorrecto")
                             )
+
                         }
                     }
+                },
+                {
+                    required: true,
+
+                    message: "Campo Requerido"
                 }
             ]
         })
@@ -828,7 +830,7 @@ export default {
 
         const nextDato = () => {
 
-            const field = ['PLANTILLA', 'NOMBRE', 'PROFESION', 'DEPARTAMENTO', 'MUNICIPIO', 'DUI', 'PRECIO']
+            const field = ["PLANTILLA", "NOMBRE", "PROFESION", "DEPARTAMENTO", "MUNICIPIO", "DUI", "PRECIO"]
 
             validate(field).then(() => {
 
@@ -836,13 +838,13 @@ export default {
 
             }).catch(err => {
 
-                console.log('error', err)
+                console.log("error", err)
             })
         }
 
         const nextMoto = () => {
 
-            const field = ['POLIZA', 'MARCA', 'MODELO', 'ANIO', 'COLOR', 'NUMEROMOTOR', 'NUMEROCHASIS', 'TIPO']
+            const field = ["POLIZA", "MARCA", "MODELO", "ANIO", "COLOR", "NUMEROMOTOR", "NUMEROCHASIS", "TIPO"]
 
             validate(field).then(() => {
 
@@ -850,7 +852,7 @@ export default {
 
             }).catch(err => {
 
-                console.log('error', err)
+                console.log("error", err)
             })
         }
 
@@ -882,17 +884,17 @@ export default {
 
             let field = []
 
-            if (this.steps[2]?.title === 'PAGO') {
+            if (this.steps[2]?.title === "PAGO") {
 
-                field = ['MESES', 'VENCIMIENTO', 'PRIMERACUOTA', 'DIAPAGO', 'CUOTA', 'PRECIOCUOTA']
+                field = ["MESES", "VENCIMIENTO", "PRIMERACUOTA", "DIAPAGO", "CUOTA", "PRECIOCUOTA"]
 
-            } else if (this.steps[2]?.title === 'FIRMA') {
+            } else if (this.steps[2]?.title === "FIRMA") {
 
-                field = ['NOMBREF', 'DUIF', 'DEPARTAMENTOF', 'MUNICIPIOF']
+                field = ["NOMBREF", "DUIF", "DEPARTAMENTOF", "MUNICIPIOF"]
 
             } else {
 
-                field = ['POLIZA', 'MARCA', 'MODELO', 'ANIO', 'COLOR', 'NUMEROMOTOR', 'NUMEROCHASIS', 'TIPO']
+                field = ["POLIZA", "MARCA", "MODELO", "ANIO", "COLOR", "NUMEROMOTOR", "NUMEROCHASIS", "TIPO"]
             }
 
             this.validate(field).then(() => {
@@ -901,7 +903,7 @@ export default {
 
             }).catch(err => {
 
-                console.log('error', err)
+                console.log("error", err)
             })
         },
 
@@ -919,11 +921,11 @@ export default {
 
                     [response.data],
 
-                    { type: 'application/pdf' })
+                    { type: "application/pdf" })
 
-                saveAs(blob, `COMPRA-VENTA-${dayjs().format('YYYY-MM-DD HH_mm_ss')}`)
+                saveAs(blob, `COMPRA-VENTA-${dayjs().format("YYYY-MM-DD HH_mm_ss")}`)
 
-                getSuccess('Descargando')
+                getSuccess("Descargando")
 
                 setTimeout(function () { location.reload() }, 300)
 
@@ -949,11 +951,11 @@ export default {
 
                 this.doChangeFieldClear()
 
-                const fields = ['NOMBRE', 'PROFESION', 'DUI', 'DEPARTAMENTO', 'MUNICIPIO']
+                const fields = ["NOMBRE", "PROFESION", "DUI", "DEPARTAMENTO", "MUNICIPIO"]
 
                 for (const field of fields) {
 
-                    this.formstate[field] = field === 'DUI' ? '00000000-0' : field === 'NOMBRE' ? option?.label : ' '
+                    this.formstate[field] = field === "DUI" ? "00000000-0" : field === "NOMBRE" ? option?.label : " "
                 }
 
                 this.disabled = true
@@ -974,7 +976,7 @@ export default {
 
                 this.profesion = true
 
-                this.formstate.PROFESION = ' '
+                this.formstate.PROFESION = " "
 
             } else {
 
@@ -992,13 +994,13 @@ export default {
 
             this.steps = [
 
-                { title: 'DATO' },
+                { title: "DATO" },
 
-                { title: 'MOTO' },
+                { title: "MOTO" },
 
-                ...([12, 13, 18, 22].includes(value) ? [{ title: 'PAGO' }] : []),
+                ...([12, 13, 18, 22].includes(value) ? [{ title: "PAGO" }] : []),
 
-                ...([9].includes(value) ? [{ title: 'FIRMA' }] : [])
+                ...([9].includes(value) ? [{ title: "FIRMA" }] : [])
             ]
         },
 
@@ -1047,7 +1049,7 @@ export default {
 
         doChangeFieldClear() {
 
-            const exclude = ['PLANTILLA', 'TIPO', 'VENCIMIENTO', 'PRIMERACUOTA']
+            const exclude = ["PLANTILLA", "TIPO", "VENCIMIENTO", "PRIMERACUOTA"]
 
             Object.keys(this.formstate)
 

@@ -1,8 +1,8 @@
 const authenticationRoutes = [
     {
-        path: '/',
+        path: "/",
 
-        name: 'Inicio-Sesion',
+        name: "Inicio-Sesion",
 
         component: () => import("@/views/authentication/ViewLogin.vue")
     }

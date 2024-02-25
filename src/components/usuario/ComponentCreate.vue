@@ -290,7 +290,7 @@ export default {
 
             }).catch(err => {
 
-                console.log('error', err)
+                console.log("error", err)
             })
         },
 
@@ -302,7 +302,7 @@ export default {
 
                 await axios.post(PostUsuarioApi, body, config)
 
-                getSuccess('Guardado')
+                getSuccess("Guardado")
 
                 setTimeout(function () { location.reload() }, 300)
 

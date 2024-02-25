@@ -8,8 +8,9 @@
 <!--=======Script=======-->
 <script>
 import {
-    getSuccess,
-    getResponse
+    getLoading,
+    getResponse,
+    getDownload
 } from "@/utils/index"
 
 import {
@@ -42,17 +43,19 @@ export default {
 
                 const response = await axios.post(PrintReciboApi, body, config)
 
+                getLoading("Imprimiendo", "download")
+
                 const blob = new Blob(
 
                     [response.data],
 
-                    { type: 'application/pdf' })
+                    { type: "application/pdf" })
 
                 const blobUrl = URL.createObjectURL(blob)
 
-                const iframe = document.createElement('iframe')
+                const iframe = document.createElement("iframe")
 
-                iframe.style.display = 'none'
+                iframe.style.display = "none"
 
                 document.body.appendChild(iframe)
 
@@ -73,9 +76,9 @@ export default {
                         location.reload()
                     }
 
-                }, 100)
+                }, 200)
 
-                getSuccess('Imprimiendo')
+                getDownload("Impreso", "download")
 
             } catch (err) {
 

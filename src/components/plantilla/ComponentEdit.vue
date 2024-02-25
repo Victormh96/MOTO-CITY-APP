@@ -11,59 +11,59 @@
         <!--Icon-->
         <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
 
-            <!--Form-->
-            <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
+        <!--Form-->
+        <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
 
-                <!--Row-->
-                <a-row :gutter="[24, 24]">
+            <!--Row-->
+            <a-row :gutter="[24, 24]">
 
-                    <!--Col-->
-                    <a-col :span="24">
+                <!--Col-->
+                <a-col :span="24">
 
-                        <!--Group-->
-                        <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
+                    <!--Group-->
+                    <a-form-item label="Nombre:" v-bind="validateInfos.NOMBRE">
 
-                            <!--Input-->
-                            <a-input v-model:value="formstate.NOMBRE" @input="doChangeLetter('NOMBRE', $event)" />
-                        </a-form-item>
-                    </a-col>
+                        <!--Input-->
+                        <a-input v-model:value="formstate.NOMBRE" @input="doChangeLetter('NOMBRE', $event)" />
+                    </a-form-item>
+                </a-col>
 
-                    <!--Col-->
-                    <a-col :span="24">
+                <!--Col-->
+                <a-col :span="24">
 
-                        <!--Group-->
-                        <a-form-item label="Estado:" v-bind="validateInfos.ESTADO">
+                    <!--Group-->
+                    <a-form-item label="Estado:" v-bind="validateInfos.ESTADO">
 
-                            <!--Select-->
-                            <a-select v-model:value="formstate.ESTADO" :options="getEstado" :filter-option="filterOption" />
-                        </a-form-item>
-                    </a-col>
+                        <!--Select-->
+                        <a-select v-model:value="formstate.ESTADO" :options="getEstado" :filter-option="filterOption" />
+                    </a-form-item>
+                </a-col>
 
-                    <!--Col-->
-                    <a-col :span="24">
+                <!--Col-->
+                <a-col :span="24">
 
-                        <!--Group-->
-                        <a-form-item label="Contenido:" v-bind="validateInfos.CONTENIDO">
+                    <!--Group-->
+                    <a-form-item label="Contenido:" v-bind="validateInfos.CONTENIDO">
 
-                            <!--Froala-->
-                            <froala :config="config" v-model:value="formstate.CONTENIDO" />
-                        </a-form-item>
-                    </a-col>
-                </a-row>
-            </a-form>
+                        <!--Froala-->
+                        <froala :config="config" v-model:value="formstate.CONTENIDO" />
+                    </a-form-item>
+                </a-col>
+            </a-row>
+        </a-form>
 
-            <!--Div-->
-            <div class="steps-action formulario">
+        <!--Div-->
+        <div class="steps-action formulario">
 
-                <!--Popconfirm-->
-                <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
+            <!--Popconfirm-->
+            <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
-                    <!--Button-->
-                    <a-button class="button-completar me-3" :loading="download">
-                        Actualizar
-                    </a-button>
-                </a-popconfirm>
-            </div>
+                <!--Button-->
+                <a-button class="button-completar me-3" :loading="download">
+                    Actualizar
+                </a-button>
+            </a-popconfirm>
+        </div>
     </a-modal>
 </template>
 
@@ -110,30 +110,30 @@ export default {
 
                     moreText: {
 
-                        buttons: ['bold', 'fontSize', 'italic', 'underline', 'clearFormatting'],
+                        buttons: ["bold", "fontSize", "italic", "underline", "clearFormatting"],
 
                         buttonsVisible: 0
                     },
 
                     moreParagraph: {
 
-                        buttons: ['alignLeft', 'alignCenter', 'alignRight', 'alignJustify', 'outdent', 'indent'],
+                        buttons: ["alignLeft", "alignCenter", "alignRight", "alignJustify", "outdent", "indent"],
 
                         buttonsVisible: 0
                     },
 
                     moreRich: {
 
-                        buttons: ['insertTable', 'formatOL', 'formatUL'],
+                        buttons: ["insertTable", "formatOL", "formatUL"],
 
                         buttonsVisible: 0
                     },
 
                     moreMisc: {
 
-                        buttons: ['undo', 'redo', 'fullscreen'],
+                        buttons: ["undo", "redo", "fullscreen"],
 
-                        align: 'right',
+                        align: "right",
 
                         buttonsVisible: 3
                     },
@@ -240,7 +240,7 @@ export default {
 
             }).catch(err => {
 
-                console.log('error', err)
+                console.log("error", err)
             })
         },
 
@@ -254,7 +254,7 @@ export default {
 
                 await axios.post(PutPlantillaApi, body, config)
 
-                getSuccess('Editado')
+                getSuccess("Editado")
 
                 setTimeout(function () { location.reload() }, 300)
 

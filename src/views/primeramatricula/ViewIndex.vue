@@ -44,7 +44,7 @@
                     <template v-if="column.key === 'acciones'">
 
                         <!--Component-->
-                        <Show :record="record" />
+                        <Download :record="record" />
                     </template>
                 </template>
 
@@ -102,8 +102,8 @@ import {
 import axios from "axios"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
-import Show from "@/components/primeramatricula/ComponentShow.vue"
 import Crear from "@/components/primeramatricula/ComponentCreate.vue"
+import Download from "@/components/primeramatricula/ComponentDownload.vue"
 
 export default {
     data() {
@@ -149,9 +149,9 @@ export default {
 
         const state = reactive({
 
-            searchText: '',
+            searchText: "",
 
-            searchedColumn: ''
+            searchedColumn: ""
         })
 
         const column = [{
@@ -283,10 +283,10 @@ export default {
     },
 
     components: {
-        Show,
         Crear,
         Footer,
-        Navbar
+        Navbar,
+        Download
     }
 };
 </script>
