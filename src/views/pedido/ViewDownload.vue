@@ -21,7 +21,7 @@
                     <a-popconfirm title="¿Generar documento?" ok-text="Si" cancel-text="No" @confirm="doChangeDownload">
 
                         <!--Button-->
-                        <a-button class="button-completar" :loading="download">
+                        <a-button class="button-completar">
                             Descargar
                         </a-button>
                     </a-popconfirm>
@@ -76,8 +76,7 @@ import Navbar from "@/components/partials/ComponentNavbar.vue"
 export default {
     data() {
         return {
-            loading: false,
-            download: false
+            loading: false
         }
     },
 
@@ -105,8 +104,6 @@ export default {
 
         async doChangeDownload() {
 
-            this.download = true
-
             try {
 
                 const { body, config } = PostDescarga({ FECHA: this.date.format("YYYY-MM-DD") })
@@ -129,8 +126,6 @@ export default {
 
                 getResponse(err)
             }
-
-            this.download = false
         }
     },
 
