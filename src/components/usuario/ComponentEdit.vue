@@ -35,7 +35,7 @@
                     <a-form-item label="Usuario:">
 
                         <!--Input-->
-                        <a-input v-model:value="formstate.USUARIO" disabled />
+                        <a-input v-model:value="formstate.USUARIO" readonly />
                     </a-form-item>
                 </a-col>
 
