@@ -12,9 +12,8 @@ import {
 } from "file-saver"
 
 import {
-    getLoading,
-    getResponse,
-    getDownload
+    getSuccess,
+    getResponse
 } from "@/utils/index"
 
 import {
@@ -44,10 +43,8 @@ export default {
             try {
 
                 const { body, config } = PostDescarga(this.record)
-                
+
                 const response = await axios.post(DownloadPrimeraMatriculaApi, body, config)
-                
-                getLoading("Descargando", "download")
 
                 const blob = new Blob(
 
@@ -57,7 +54,7 @@ export default {
 
                 saveAs(blob, `PRIMERA-MATRICULA-${dayjs().format("YYYY-MM-DD HH_mm_ss")}`)
 
-                getDownload("Descargado", "download")
+                getSuccess("Descargando")
 
             } catch (err) {
 

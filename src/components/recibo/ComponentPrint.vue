@@ -39,11 +39,11 @@ export default {
 
             try {
 
+                getLoading("Imprimiendo", "download")
+
                 const { body, config } = PostDescarga(this.record)
 
                 const response = await axios.post(PrintReciboApi, body, config)
-
-                getLoading("Imprimiendo", "download")
 
                 const blob = new Blob(
 
@@ -78,7 +78,7 @@ export default {
 
                 }, 200)
 
-                getDownload("Impreso", "download")
+                getDownload("Generado", "download")
 
             } catch (err) {
 

@@ -12,9 +12,8 @@ import {
 } from "file-saver"
 
 import {
-    getLoading,
-    getResponse,
-    getDownload
+    getSuccess,
+    getResponse
 } from "@/utils/index"
 
 import {
@@ -48,8 +47,6 @@ export default {
 
                 const response = await axios.post(DownloadReciboApi, body, config)
 
-                getLoading("Descargando", "download")
-
                 const blob = new Blob(
 
                     [response.data],
@@ -58,7 +55,7 @@ export default {
 
                 saveAs(blob, `RECIBO-${dayjs().format("YYYY-MM-DD HH_mm_ss")}`)
 
-                getDownload("Descargado", "download")
+                getSuccess("Descargando")
 
             } catch (err) {
 
