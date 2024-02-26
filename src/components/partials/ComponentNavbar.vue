@@ -9,35 +9,10 @@
             <a-row>
 
                 <!--Col-->
-                <a-col :span="17">
-
-                    <!--Enlace-->
-                    <a href="https://www.facebook.com/motocitysv" target="_blank" class="me-4">
-
-                        <!--Icon-->
-                        <i class="fa-brands fa-facebook-f"></i>
-                    </a>
-
-                    <!--Enlace-->
-                    <a href="https://twitter.com/motocitysv" target="_blank" class="me-4">
-
-                        <!--Icon-->
-                        <i class="fa-brands fa-twitter"></i>
-                    </a>
-
-                    <!--Enlace-->
-                    <a href="https://www.youtube.com/@MotoCityElSalvador" target="_blank" class="me-4">
-
-                        <!--Icon-->
-                        <i class="fa-brands fa-youtube"></i>
-                    </a>
-                </a-col>
-
-                <!--Col-->
-                <a-col :span="7" class="text-center">
+                <a-col :span="24" class="text-center">
 
                     <!--Avatar-->
-                    <a-avatar class="me-4">
+                    <a-avatar class="me-5">
                         {{ vname + vlastname }}
                     </a-avatar>
 

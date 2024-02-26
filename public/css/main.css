@@ -260,22 +260,17 @@ figure {
   z-index: 999;
 }
 
-.ant-layout-header.submenu a {
-  font-size: 15px;
-  color: var(--white);
-  cursor: pointer;
-  transition: all 0.5s;
-}
-
 .fa-sign-out-alt {
-  font-size: 16px !important;
-  color: var(--white) !important;
-  cursor: pointer !important;
-  min-width: 16px;
-  transition: all 0.5s !important;
+  font-size: 15px;
+  padding: 4px 16px;
+  cursor: pointer;
+  height: 22px;
+  border-radius: 3px;
+  color: #000;
+  background: #fff;
+  transition: all .5s;
 }
 
-.ant-layout-header.submenu a:hover,
 .fa-sign-out-alt:hover {
   opacity: .8 !important;
 }

@@ -3457,11 +3457,11 @@ html {
     width: 50px;
     height: 22px;
     line-height: 22px;
-    border-radius: 20px;
+    border-radius: 3px;
     font-size: 13px;
+    margin: -3px 0 0 0;
+    transition: all .5s;
 }
-
-
 
 .ant-avatar-image {
     background: transparent;
