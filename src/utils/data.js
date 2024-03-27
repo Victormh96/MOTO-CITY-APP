@@ -2081,6 +2081,11 @@ const getProfesion = [
         value: "MOTORISTA",
         
         label: "MOTORISTA"
+    },
+    {
+        value: "OFICIOS DOMESTICOS",
+        
+        label: "OFICIOS DOMESTICOS"
     }
 ]
 
