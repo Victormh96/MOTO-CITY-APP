@@ -177,7 +177,7 @@ export default {
 
     async created() {
 
-        const FECHAINICIO = new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)
+        const FECHAINICIO = new Date().toISOString().slice(0, 10)
 
         const FECHAFIN = new Date().toISOString().slice(0, 10)
 
