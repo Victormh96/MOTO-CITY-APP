@@ -64,7 +64,7 @@
 
                         <!--Popconfirm-->
                         <a-popconfirm title="¿Estas seguro?" ok-text="Yes" cancel-text="No"
-                            @confirm="doChangeStatus(record.DocEntry)" :disabled="record.Estado == 'PROCESADO'">
+                            @confirm="doChangeStatus(record.DocEntry, record.TipoDoc)" :disabled="record.Estado == 'PROCESADO'">
 
                             <!--Button-->
                             <a-button class="button-default" :disabled="record.Estado == 'PROCESADO'">
@@ -421,11 +421,11 @@ export default {
             }
         },
 
-        async doChangeStatus(docentry) {
+        async doChangeStatus(docentry, tipodoc) {
 
             try {
 
-                const { body, config } = PutDTE(docentry)
+                const { body, config } = PutDTE(docentry, tipodoc)
 
                 await axios.post(PutDTEApi, body, config)
 

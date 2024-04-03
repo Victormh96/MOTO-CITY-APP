@@ -100,13 +100,15 @@ function getDTE(fecini, fecfin) {
     return data
 }
 
-function PutDTE(docentry) {
+function PutDTE(docentry, tipodoc) {
 
     const data = {
 
         body: {
 
-            DOCENTRY: docentry
+            DOCENTRY: docentry,
+
+            TIPODOC: tipodoc
         },
 
         config: {
