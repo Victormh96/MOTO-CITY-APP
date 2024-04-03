@@ -403,7 +403,7 @@ export default {
 
                 this.dataSourceDt = dte?.data
 
-                this.loading = false
+                this.loading = true
 
             } catch (err) {
 
