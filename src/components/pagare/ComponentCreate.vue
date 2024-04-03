@@ -1,6 +1,6 @@
 <template>
     <!--Button-->
-    <a-button class="button-default mb-3" @click="showModal()">
+    <a-button class="button-default mb-3" @click="showModal">
         NUEVO DOCUMENTO
     </a-button>
 

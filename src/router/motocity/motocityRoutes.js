@@ -54,6 +54,15 @@ const motocityRoutes = [
         component: () => import("@/views/recibo/ViewDownload.vue")
     },
     {
+        path: "/dte",
+
+        name: "DTE",
+
+        meta: { requiresAuth: true, requiresRole: ["Contabilidad"] },
+
+        component: () => import("@/views/dte/ViewIndex.vue")
+    },
+    {
         path: "/pagare",
 
         name: "Pagare",

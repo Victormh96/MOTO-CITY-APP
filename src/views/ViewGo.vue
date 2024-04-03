@@ -94,6 +94,17 @@
                         </a-col>
 
                         <!--Col-->
+                        <a-col :span="24" v-if="['Contabilidad'].includes(role)">
+
+                            <!--Enlace-->
+                            <router-link :to="{ name: 'DTE' }">
+
+                                <!--Img-->
+                                <img src="@/../public/img/categoria/dte.png" class="img-option">
+                            </router-link>
+                        </a-col>
+
+                        <!--Col-->
                         <a-col :span="24" v-if="['Jefe'].includes(role)">
 
                             <!--Enlace-->

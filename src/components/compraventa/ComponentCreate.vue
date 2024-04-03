@@ -1,6 +1,6 @@
 <template>
     <!--Button-->
-    <a-button class="button-default mb-3" @click="showModal();">
+    <a-button class="button-default mb-3" @click="showModal">
         NUEVO DOCUMENTO
     </a-button>
 
@@ -12,7 +12,7 @@
         <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
 
         <!--Step-->
-        <a-steps :current="current" :percent="doChangePorcentaje()" class="mb-3">
+        <a-steps :current="current" :percent="doChangePorcentaje" class="mb-3">
 
             <!--Enlace-->
             <a-step v-for="item in steps" :key="item?.title" :title="item?.title" />
@@ -365,12 +365,12 @@
         <div class="steps-action formulario">
 
             <!--Button-->
-            <a-button v-if="current === 0" @click="nextDato()" class="button-completar me-3">
+            <a-button v-if="current === 0" @click="nextDato" class="button-completar me-3">
                 Siguiente
             </a-button>
 
             <!--Button-->
-            <a-button v-if="current === 1 && steps.length === 3" @click="nextMoto()" class="button-completar me-3">
+            <a-button v-if="current === 1 && steps.length === 3" @click="nextMoto" class="button-completar me-3">
                 Siguiente
             </a-button>
 
@@ -385,7 +385,7 @@
             </a-popconfirm>
 
             <!--Button-->
-            <a-button v-if="current > 0" @click="prev()" class="button-siguiente">
+            <a-button v-if="current > 0" @click="prev" class="button-siguiente">
                 Volver
             </a-button>
 

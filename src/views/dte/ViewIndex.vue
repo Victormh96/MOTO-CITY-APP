@@ -8,51 +8,52 @@
         <!--Container-->
         <div class="container-fluid mb-3">
 
-            <!--Component-->
-            <Report />
-
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourceRb" :columns="column" bordered :scroll="{ x: 1400 }">
+            <a-table :pagination="pagination" :data-source="dataSourceDt" :columns="column" bordered
+                :rowKey="row => row.DocEntry" :scroll="{ x: 1400 }">
 
                 <!--Template-->
                 <template #bodyCell="{ column, record }">
 
                     <!--Template-->
-                    <template v-if="column.key === 'serie'">
+                    <template v-if="column.key === 'DocEntry'">
 
                         <!--Typography-->
                         <a-typography-paragraph :copyable="{ tooltip: false }">
-                            {{ record.serie }}
+                            {{ record.DocEntry }}
                         </a-typography-paragraph>
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'nombre'">
+                    <template v-if="column.key === 'DocNum'">
 
                         <!--Typography-->
                         <a-typography-paragraph :copyable="{ tooltip: false }">
-                            {{ record.nombre }}
+                            {{ record.DocNum }}
                         </a-typography-paragraph>
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'valor'">
-                        $ {{ record.valor }}
+                    <template v-if="column.key === 'ObservacionMH'">
+                        {{ record.ObservacionMH ? record.ObservacionMH : "Sin observaciones" }}
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'estado'">
+                    <template v-if="column.key === 'Estado'">
 
                         <!--Tag-->
-                        <a-tag color="cyan" v-if="record.estado == 'ANULADO'">ANULADO</a-tag>
+                        <a-tag color="cyan" v-if="record.Estado === 'NO PROCESADO'">NO PROCESADO</a-tag>
 
                         <!--Tag-->
-                        <a-tag color="blue" v-if="record.estado == 'FACTURADO'">FACTURADO</a-tag>
+                        <a-tag color="blue" v-if="record.Estado === 'PROCESADO'">PROCESADO</a-tag>
+
+                        <!--Tag-->
+                        <a-tag color="red" v-if="record.Estado === 'RECHAZADO'">RECHAZADO</a-tag>
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'creado'">
-                        {{ new Date(record.creado).toISOString().split("T")[0] }}
+                    <template v-if="column.key === 'FechadeEmision'">
+                        {{ new Date(record.FechadeEmision).toISOString().split("T")[0] }}
                     </template>
 
                     <!--Template-->
@@ -60,16 +61,13 @@
 
                         <!--Popconfirm-->
                         <a-popconfirm title="¿Estas seguro?" ok-text="Yes" cancel-text="No"
-                            @confirm="doChangeStatus(record.id, 'ANULADO')" :disabled="record.estado == 'ANULADO'">
+                            @confirm="doChangeStatus(record.DocEntry)" :disabled="record.Estado == 'PROCESADO'">
 
                             <!--Button-->
-                            <a-button class="button-default me-2" :disabled="record.estado == 'ANULADO'">
-                                ANULAR
+                            <a-button class="button-default" :disabled="record.Estado == 'PROCESADO'">
+                                ACTUALIZAR
                             </a-button>
                         </a-popconfirm>
-
-                        <!--Component-->
-                        <Download :record="record" />
                     </template>
                 </template>
 
@@ -84,6 +82,31 @@
                             ref="focusearch" @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
                             @pressEnter="handleSearch(selectedKeys, confirm, column.dataIndex)" />
                     </div>
+                </template>
+
+                <!--Template-->
+                <template #expandedRowRender="{ record }">
+
+                    <!--Title-->
+                    <a-steps direction="vertical" size="small" :current="4">
+
+                        <!--Step-->
+                        <a-step title="CODIGO GENERACION" :description="record?.CodigoGeneracion"
+                            :status="record?.CodigoGeneracion ? '' : 'error'" />
+
+                        <!--Step-->
+                        <a-step title="CODIGO DTE" :description="record?.NumAtCard"
+                            :status="record?.NumAtCard ? '' : 'error'" />
+
+                        <!--Step-->
+                        <a-step title="SELLO" :description="record?.SelloRecibido"
+                            :status="record?.SelloRecibido ? '' : 'error'" />
+
+
+                        <!--Step-->
+                        <a-step title="RESPUESTA" :description="record?.RespuestaSAP"
+                            :status="record?.RespuestaSAP === 'RECIBIDO' ? '' : 'error'" />
+                    </a-steps>
                 </template>
             </a-table>
         </div>
@@ -118,27 +141,25 @@ import {
 } from "@/utils/index"
 
 import {
-    getToken,
-    PutRecibo
+    getDTE,
+    PutDTE
 } from "@/utils/request"
 
 import {
-    GetReciboApi,
-    PutReciboApi
+    GetDTEApi,
+    PutDTEApi
 } from "@/services/paths"
 
 import axios from "axios"
-import Report from "@/components/recibo/ComponentReport.vue"
 import Footer from "@/components/partials/ComponentFooter.vue"
 import Navbar from "@/components/partials/ComponentNavbar.vue"
-import Download from "@/components/recibo/ComponentDownload.vue"
 
 export default {
     data() {
         return {
             loading: false,
 
-            dataSourceRb: [],
+            dataSourceDt: [],
 
             pagination: {
 
@@ -153,22 +174,11 @@ export default {
 
     async created() {
 
-        try {
+        const FECHAINICIO = new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)
 
-            const { body, config } = getToken()
+        const FECHAFIN = new Date().toISOString().slice(0, 10)
 
-            const recibo = await axios.post(GetReciboApi, body, config)
-
-            this.dataSourceRb = recibo?.data
-
-            this.loading = true
-
-        } catch (err) {
-
-            console.error(err)
-
-            getResponse(err)
-        }
+        await this.doChangeDTE(FECHAINICIO, FECHAFIN)
     },
 
     setup() {
@@ -184,11 +194,11 @@ export default {
 
         const column = [{
 
-            title: "SERIE",
+            title: "DOCENTRY",
 
-            dataIndex: "serie",
+            dataIndex: "DocEntry",
 
-            key: "serie",
+            key: "DocEntry",
 
             align: "center",
 
@@ -196,7 +206,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.serie.toString().toLowerCase().includes(value.toLowerCase()),
+                record.DocEntry.toString().toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownVisibleChange: visible => {
 
@@ -207,36 +217,11 @@ export default {
             }
         },
         {
+            title: "DOCNUM",
 
-            title: "SOCIEDAD",
+            dataIndex: "DocNum",
 
-            dataIndex: "sociedad",
-
-            key: "sociedad",
-
-            align: "center",
-
-            filters: [{
-
-                text: "OUTLANDER",
-
-                value: "OUTLANDER"
-            },
-            {
-                text: "CREDICITY",
-
-                value: "CREDICITY"
-            }],
-
-            onFilter: (value, record) => record.sociedad.toString().includes(value)
-        },
-        {
-
-            title: "NOMBRE",
-
-            dataIndex: "nombre",
-
-            key: "nombre",
+            key: "DocNum",
 
             align: "center",
 
@@ -244,7 +229,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.nombre.toString().toLowerCase().includes(value.toLowerCase()),
+                record.DocNum.toString().toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownVisibleChange: visible => {
 
@@ -253,55 +238,13 @@ export default {
                     setTimeout(() => { focusearch.value.focus() }, 100)
                 }
             }
-        },
-        {
-            title: "CANTIDAD",
-
-            dataIndex: "valor",
-
-            key: "valor",
-
-            align: "center"
-        },
-        {
-            title: "TIPO",
-
-            dataIndex: "tipo_pago",
-
-            key: "tipo_pago",
-
-            align: "center",
-
-            filters: [{
-
-                text: "EFECTIVO",
-
-                value: "EFECTIVO"
-            },
-            {
-                text: "TARJETA",
-
-                value: "TARJETA"
-            },
-            {
-                text: "TRANSFERENCIA",
-
-                value: "TRANSFERENCIA"
-            },
-            {
-                text: "CHEQUE",
-
-                value: "CHEQUE"
-            }],
-
-            onFilter: (value, record) => record.tipo_pago.toString().includes(value)
         },
         {
             title: "SUCURSAL",
 
-            dataIndex: "sucursal",
+            dataIndex: "Sucursal",
 
-            key: "sucursal",
+            key: "Sucursal",
 
             align: "center",
 
@@ -309,7 +252,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.sucursal.toString().toLowerCase().includes(value.toLowerCase()),
+                record.Sucursal.toString().toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownVisibleChange: visible => {
 
@@ -320,34 +263,88 @@ export default {
             }
         },
         {
-            title: "ESTADO",
+            title: "TIPO",
 
-            dataIndex: "estado",
+            dataIndex: "TipoDoc",
 
-            key: "estado",
+            key: "TipoDoc",
 
             align: "center",
 
             filters: [{
 
-                text: "FACTURADO",
+                text: "FA",
 
-                value: "FACTURADO"
+                value: "FA"
             },
             {
-                text: "ANULADO",
+                text: "NR",
 
-                value: "ANULADO"
+                value: "NR"
+            },
+            {
+                text: "SJ",
+
+                value: "SJ"
+            },
+            {
+                text: "CF",
+
+                value: "CF"
+            },
+            {
+                text: "NCI",
+
+                value: "NCI"
             }],
 
-            onFilter: (value, record) => record.estado.toString().includes(value)
+            onFilter: (value, record) => record.TipoDoc.toString().includes(value)
+        },
+        {
+            title: "OBSERVACIONES",
+
+            dataIndex: "ObservacionMH",
+
+            key: "ObservacionMH",
+
+            align: "center",
+
+            width: 450
+        },
+        {
+            title: "ESTADO",
+
+            dataIndex: "Estado",
+
+            key: "Estado",
+
+            align: "center",
+
+            filters: [{
+
+                text: "PROCESADO",
+
+                value: "PROCESADO"
+            },
+            {
+                text: "NO PROCESADO",
+
+                value: "NO PROCESADO"
+            },
+            {
+                text: "RECHAZADO",
+
+                value: "RECHAZADO"
+            }],
+
+            onFilter: (value, record) => record.Estado.toString().includes(value)
         },
         {
             title: "CREADO",
 
-            dataIndex: "creado",
+            dataIndex: "FechadeEmision",
 
-            key: "creado",
+            key: "FechadeEmision",
 
             align: "center",
 
@@ -355,7 +352,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.creado.toString().toLowerCase().includes(value.toLowerCase()),
+                record.FechadeEmision.toString().toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownVisibleChange: visible => {
 
@@ -374,7 +371,7 @@ export default {
 
             align: "center",
 
-            width: 300
+            width: 200
         }]
 
         const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -396,13 +393,33 @@ export default {
 
     methods: {
 
-        async doChangeStatus(id, status) {
+        async doChangeDTE(fecini, fecfin) {
 
             try {
 
-                const { body, config } = PutRecibo(id, status)
+                const { body, config } = getDTE(fecini, fecfin)
 
-                await axios.post(PutReciboApi, body, config)
+                const dte = await axios.post(GetDTEApi, body, config)
+
+                this.dataSourceDt = dte?.data
+
+                this.loading = false
+
+            } catch (err) {
+
+                console.error(err)
+
+                getResponse(err)
+            }
+        },
+
+        async doChangeStatus(docentry) {
+
+            try {
+
+                const { body, config } = PutDTE(docentry)
+
+                await axios.post(PutDTEApi, body, config)
 
                 getWarning("Actualizado")
 
@@ -429,9 +446,7 @@ export default {
 
     components: {
         Footer,
-        Navbar,
-        Report,
-        Download
+        Navbar
     }
 };
 </script>

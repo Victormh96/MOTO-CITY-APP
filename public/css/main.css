@@ -213,7 +213,7 @@ figure {
 /* Loading
 /* ============================================================*/
 .ant-layout-content.loading {
-  height: calc(100vh - 119px);
+  height: calc(100vh - 125px);
 }
 
 /*===Phone===**/

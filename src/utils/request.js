@@ -77,6 +77,50 @@ function PostPlantilla(record) {
     return data
 }
 
+function getDTE(fecini, fecfin) {
+
+    const data = {
+
+        body: {
+
+            FECHAINICIO: fecini,
+
+            FECHAFIN: fecfin
+        },
+
+        config: {
+
+            headers: {
+
+                Authorization: store.state.authentication?.cuenta?.token
+            }
+        }
+    }
+
+    return data
+}
+
+function PutDTE(docentry) {
+
+    const data = {
+
+        body: {
+
+            DOCENTRY: docentry
+        },
+
+        config: {
+
+            headers: {
+
+                Authorization: store.state.authentication?.cuenta?.token
+            }
+        }
+    }
+
+    return data
+}
+
 function getPreciario(record) {
 
     const data = {
@@ -396,4 +440,4 @@ function PostDescarga(record) {
     return data
 }
 
-export { getToken, getPlantilla, PostPlantilla, getPreciario, PostPreciario, PostCompraVenta, PostPagare, PostPrimeraMatricula, PostRecibo, PutRecibo, PostUsuario, PostDescarga } 
+export { getToken, getPlantilla, PostPlantilla, getDTE, PutDTE, getPreciario, PostPreciario, PostCompraVenta, PostPagare, PostPrimeraMatricula, PostRecibo, PutRecibo, PostUsuario, PostDescarga } 

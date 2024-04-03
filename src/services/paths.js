@@ -1,10 +1,14 @@
 const URL_NODE = process.env.VUE_APP_URL_NODE
 
+export const GetDTEApi = URL_NODE + "/motocity/dte"
+
 export const CuentaApi = URL_NODE + "/auth/inicio-sesion"
 
 export const GetPagareApi = URL_NODE + "/motocity/pagare"
 
 export const GetReciboApi = URL_NODE + "/motocity/recibo"
+
+export const PutDTEApi = URL_NODE + "/motocity/dte-update"
 
 export const GetUsuarioApi = URL_NODE + "/motocity/usuario"
 
