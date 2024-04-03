@@ -49,6 +49,9 @@
 
                         <!--Tag-->
                         <a-tag color="red" v-if="record.Estado === 'RECHAZADO'">RECHAZADO</a-tag>
+
+                        <!--Tag-->
+                        <a-tag color="green" v-if="record.Estado === 'INVALIDADO'">INVALIDADO</a-tag>
                     </template>
 
                     <!--Template-->
@@ -335,6 +338,11 @@ export default {
                 text: "RECHAZADO",
 
                 value: "RECHAZADO"
+            },
+            {
+                text: "INVALIDADO",
+
+                value: "INVALIDADO"
             }],
 
             onFilter: (value, record) => record.Estado.toString().includes(value)

@@ -10191,9 +10191,13 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
 }
 
 .ant-tag-green {
-    color: #389e0d;
-    background: #f6ffed;
-    border-color: #b7eb8f;
+    color: var(--background);
+    background: rgb(237 95 8);
+    border-color: transparent;
+    padding: 4px 15px !important;
+    min-width: 90px;
+    font-weight: 500;
+    border-radius: 20px;
 }
 
 .ant-tag-green-inverse {
