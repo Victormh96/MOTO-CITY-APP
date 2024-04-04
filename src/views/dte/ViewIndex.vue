@@ -64,7 +64,8 @@
 
                         <!--Popconfirm-->
                         <a-popconfirm title="¿Estas seguro?" ok-text="Yes" cancel-text="No"
-                            @confirm="doChangeStatus(record.DocEntry, record.TipoDoc)" :disabled="record.Estado == 'PROCESADO'">
+                            @confirm="doChangeStatus(record.DocEntry, record.TipoDoc)"
+                            :disabled="record.Estado == 'PROCESADO'">
 
                             <!--Button-->
                             <a-button class="button-default" :disabled="record.Estado == 'PROCESADO'">
@@ -177,7 +178,22 @@ export default {
 
     async created() {
 
-        await this.doChangeDTE()
+        try {
+
+            const { config } = getToken()
+
+            const dte = await axios.get(GetDTEApi, config)
+
+            this.dataSourceDt = dte?.data
+
+            this.loading = true
+
+        } catch (err) {
+
+            console.error(err)
+
+            getResponse(err)
+        }
     },
 
     setup() {
@@ -396,27 +412,7 @@ export default {
     },
 
     methods: {
-
-        async doChangeDTE() {
-
-            try {
-
-                const { config } = getToken()
-
-                const dte = await axios.get(GetDTEApi, config)
-
-                this.dataSourceDt = dte?.data
-
-                this.loading = true
-
-            } catch (err) {
-
-                console.error(err)
-
-                getResponse(err)
-            }
-        },
-
+        
         async doChangeStatus(docentry, tipodoc) {
 
             try {
