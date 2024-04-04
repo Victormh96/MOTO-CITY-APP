@@ -77,29 +77,6 @@ function PostPlantilla(record) {
     return data
 }
 
-function getDTE(fecini, fecfin) {
-
-    const data = {
-
-        body: {
-
-            FECHAINICIO: fecini,
-
-            FECHAFIN: fecfin
-        },
-
-        config: {
-
-            headers: {
-
-                Authorization: store.state.authentication?.cuenta?.token
-            }
-        }
-    }
-
-    return data
-}
-
 function PutDTE(docentry, tipodoc) {
 
     const data = {
@@ -442,4 +419,4 @@ function PostDescarga(record) {
     return data
 }
 
-export { getToken, getPlantilla, PostPlantilla, getDTE, PutDTE, getPreciario, PostPreciario, PostCompraVenta, PostPagare, PostPrimeraMatricula, PostRecibo, PutRecibo, PostUsuario, PostDescarga } 
+export { getToken, getPlantilla, PostPlantilla, PutDTE, getPreciario, PostPreciario, PostCompraVenta, PostPagare, PostPrimeraMatricula, PostRecibo, PutRecibo, PostUsuario, PostDescarga } 

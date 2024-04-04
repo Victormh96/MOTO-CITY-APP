@@ -144,8 +144,8 @@ import {
 } from "@/utils/index"
 
 import {
-    getDTE,
-    PutDTE
+    PutDTE,
+    getToken
 } from "@/utils/request"
 
 import {
@@ -177,11 +177,7 @@ export default {
 
     async created() {
 
-        const FECHAINICIO = new Date().toISOString().slice(0, 10)
-
-        const FECHAFIN = new Date().toISOString().slice(0, 10)
-
-        await this.doChangeDTE(FECHAINICIO, FECHAFIN)
+        await this.doChangeDTE()
     },
 
     setup() {
@@ -401,13 +397,13 @@ export default {
 
     methods: {
 
-        async doChangeDTE(fecini, fecfin) {
+        async doChangeDTE() {
 
             try {
 
-                const { body, config } = getDTE(fecini, fecfin)
+                const { config } = getToken()
 
-                const dte = await axios.post(GetDTEApi, body, config)
+                const dte = await axios.get(GetDTEApi, config)
 
                 this.dataSourceDt = dte?.data
 
