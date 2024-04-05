@@ -27847,6 +27847,7 @@ textarea.ant-mentions {
 }
 
 .ant-space-vertical {
+    width: 90%;
     flex-direction: column;
 }
 

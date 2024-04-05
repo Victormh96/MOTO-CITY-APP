@@ -88,25 +88,87 @@
                 <!--Template-->
                 <template #expandedRowRender="{ record }">
 
-                    <!--Title-->
-                    <a-steps direction="vertical" size="small" :current="4">
+                    <!--Row-->
+                    <a-row :gutter="[24, 24]">
 
-                        <!--Step-->
-                        <a-step title="CODIGO GENERACION" :description="record?.CodigoGeneracion"
-                            :status="record?.CodigoGeneracion ? '' : 'error'" />
+                        <!--Col-->
+                        <a-col :span="6">
 
-                        <!--Step-->
-                        <a-step title="CODIGO DTE" :description="record?.NumAtCard"
-                            :status="record?.NumAtCard ? '' : 'error'" />
+                            <!--Title-->
+                            <a-steps direction="vertical" size="small" :current="4">
 
-                        <!--Step-->
-                        <a-step title="SELLO" :description="record?.SelloRecibido"
-                            :status="record?.SelloRecibido ? '' : 'error'" />
+                                <!--Step-->
+                                <a-step title="CODIGO GENERACION" :description="record?.CodigoGeneracion"
+                                    :status="record?.CodigoGeneracion ? '' : 'error'" />
 
-                        <!--Step-->
-                        <a-step title="RESPUESTA" :description="record?.RespuestaSAP"
-                            :status="record?.RespuestaSAP === 'RECIBIDO' ? '' : 'error'" />
-                    </a-steps>
+                                <!--Step-->
+                                <a-step title="CODIGO DTE" :description="record?.NumAtCard"
+                                    :status="record?.NumAtCard ? '' : 'error'" />
+
+                                <!--Step-->
+                                <a-step title="SELLO" :description="record?.SelloRecibido"
+                                    :status="record?.SelloRecibido ? '' : 'error'" />
+
+                                <!--Step-->
+                                <a-step title="RESPUESTA" :description="record?.RespuestaSAP"
+                                    :status="record?.RespuestaSAP === 'RECIBIDO' ? '' : 'error'" />
+                            </a-steps>
+                        </a-col>
+
+                        <!--Col-->
+                        <a-col :span="6">
+
+                            <!--Space-->
+                            <a-space direction="vertical">
+
+                                <!--Input-->
+                                <a-input :value="'CARDCODE ▶️ ' + record.CardCode" readonly />
+
+                                <!--Input-->
+                                <a-input :value="'TIPO PERSONA ▶️ ' + record.U_TipoPersona" readonly />
+
+                                <!--Input-->
+                                <a-input :value="'TIPO DOCUMENTO ▶️ ' + record.U_TipoDocumento" readonly />
+
+                                <!--Input-->
+                                <a-input :value="'EMAIL ▶️ ' + record.U_SN_Email" readonly />
+                            </a-space>
+                        </a-col>
+
+                        <!--Col-->
+                        <a-col :span="6">
+
+                            <!--Space-->
+                            <a-space direction="vertical">
+
+                                <!--Input-->
+                                <a-input :value="'DUI ▶️ ' + record.U_DUI" readonly />
+
+                                <!--Input-->
+                                <a-input :value="'ACTIVIDAD ECONOMICA ▶️ ' + record.U_CodeactiEconomica" readonly />
+
+                                <!--Input-->
+                                <a-input :value="'IMPUESTO ▶️ ' + record.TaxCode" readonly />
+
+                                <!--Input-->
+                                <a-input :value="'DEPARTAMENTO ▶️ ' + record.U_Departamento" readonly />
+                            </a-space>
+                        </a-col>
+
+                        <!--Col-->
+                        <a-col :span="6">
+
+                            <!--Space-->
+                            <a-space direction="vertical">
+
+                                <!--Input-->
+                                <a-input :value="'MUNICIPIO ▶️ ' + record.U_Municipio" readonly />
+
+                                <!--Input-->
+                                <a-input :value="'NIT ▶️ ' + record.U_NIT" readonly />
+                            </a-space>
+                        </a-col>
+                    </a-row>
                 </template>
             </a-table>
         </div>
@@ -320,7 +382,7 @@ export default {
 
             align: "center",
 
-            width: 450
+            width: 400
         },
         {
             title: "ESTADO",
@@ -405,7 +467,7 @@ export default {
     },
 
     methods: {
-        
+
         async doChangeStatus(docentry, tipodoc) {
 
             try {
