@@ -119,9 +119,9 @@
                         <a-col :span="1">
 
                             <!--Divider-->
-                            <a-divider type="vertical" style="height: 60px" />
+                            <a-divider type="vertical" style="height: 205px" />
                         </a-col>
-                        
+
                         <!--Col-->
                         <a-col :span="6">
 
