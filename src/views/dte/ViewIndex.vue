@@ -103,7 +103,6 @@
                         <a-step title="SELLO" :description="record?.SelloRecibido"
                             :status="record?.SelloRecibido ? '' : 'error'" />
 
-
                         <!--Step-->
                         <a-step title="RESPUESTA" :description="record?.RespuestaSAP"
                             :status="record?.RespuestaSAP === 'RECIBIDO' ? '' : 'error'" />
