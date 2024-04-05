@@ -20458,7 +20458,7 @@ _:-ms-fullscreen .ant-picker-range-wrapper .ant-picker-year-panel .ant-picker-ce
     margin: 0 8px;
     vertical-align: middle;
     border-top: 0;
-    border-left: 1px solid var(--dte);
+    border-left: 1px solid var(--borde);
 }
 
 .ant-divider-horizontal {
