@@ -94,7 +94,7 @@
                         </a-col>
 
                         <!--Col-->
-                        <a-col :span="24" v-if="['Contabilidad'].includes(role)">
+                        <a-col :span="24" v-if="['Contabilidad', 'Administrador'].includes(role)">
 
                             <!--Enlace-->
                             <router-link :to="{ name: 'DTE' }">
