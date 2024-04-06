@@ -28156,7 +28156,7 @@ textarea.ant-mentions {
 }
 
 .ant-steps-item-finish>.ant-steps-item-container>.ant-steps-item-tail::after {
-    background-color: #1890ff;
+    background-color: #196789;
 }
 
 .ant-steps-item-error .ant-steps-item-icon {
@@ -28339,7 +28339,7 @@ textarea.ant-mentions {
 }
 
 .ant-steps-vertical>.ant-steps-item>.ant-steps-item-container>.ant-steps-item-tail::after {
-    width: 1px;
+    width: 2px;
     height: 100%;
 }
 
