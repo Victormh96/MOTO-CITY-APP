@@ -412,7 +412,7 @@ export default {
 
             defaultFilteredValue: ["NO PROCESADO"],
 
-            onFilter: (value, record) => record.Estado.toString().includes(value)
+            onFilter: (value, record) => record.Estado.toString() === value
         },
         {
             title: "CREADO",
