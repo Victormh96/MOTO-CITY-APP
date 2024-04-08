@@ -92,7 +92,7 @@
                     <a-row :gutter="[24, 24]">
 
                         <!--Col-->
-                        <a-col :span="7">
+                        <a-col :span="6">
 
                             <!--Title-->
                             <a-steps direction="vertical" size="small" :current="4">
@@ -116,14 +116,7 @@
                         </a-col>
 
                         <!--Col-->
-                        <a-col :span="2">
-
-                            <!--Divider-->
-                            <a-divider type="vertical" style="height: 205px" />
-                        </a-col>
-
-                        <!--Col-->
-                        <a-col :span="5">
+                        <a-col :span="6">
 
                             <!--Space-->
                             <a-space direction="vertical">
@@ -143,7 +136,7 @@
                         </a-col>
 
                         <!--Col-->
-                        <a-col :span="5">
+                        <a-col :span="6">
 
                             <!--Space-->
                             <a-space direction="vertical">
@@ -163,7 +156,7 @@
                         </a-col>
 
                         <!--Col-->
-                        <a-col :span="5">
+                        <a-col :span="6">
 
                             <!--Space-->
                             <a-space direction="vertical">
