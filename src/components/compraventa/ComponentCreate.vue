@@ -114,13 +114,14 @@
                 <a-col :span="24">
 
                     <!--Group-->
-                    <a-form-item :label="formstate.PLANTILLA === 10 ? 'Placa:' : 'Poliza:'" v-bind="validateInfos.POLIZA">
+                    <a-form-item :label="[10, 24].includes(formstate.PLANTILLA) ? 'Placa:' : 'Poliza:'"
+                        v-bind="validateInfos.POLIZA">
 
                         <!--Input-->
                         <a-input-number type="tel" v-model:value="formstate.POLIZA">
 
                             <!--Template-->
-                            <template #addonBefore>{{ formstate.PLANTILLA === 10 ? 'M-' : '4-' }}</template>
+                            <template #addonBefore>{{ [10, 24].includes(formstate.PLANTILLA) ? 'M-' : '4-' }}</template>
                         </a-input-number>
 
                     </a-form-item>
@@ -145,8 +146,8 @@
                     <a-form-item label="Marca:" v-bind="validateInfos.MARCA">
 
                         <!--Select-->
-                        <a-select v-model:value="formstate.MARCA" show-search @change="doChangeModelo" :options="getMarca"
-                            :filter-option="filterOption" />
+                        <a-select v-model:value="formstate.MARCA" show-search @change="doChangeModelo"
+                            :options="getMarca" :filter-option="filterOption" />
                     </a-form-item>
                 </a-col>
 
@@ -203,7 +204,8 @@
                     <a-form-item label="Numero Chasis:" v-bind="validateInfos.NUMEROCHASIS">
 
                         <!--Input-->
-                        <a-input v-model:value="formstate.NUMEROCHASIS" @input="doChangeLetter('NUMEROCHASIS', $event)" />
+                        <a-input v-model:value="formstate.NUMEROCHASIS"
+                            @input="doChangeLetter('NUMEROCHASIS', $event)" />
                     </a-form-item>
                 </a-col>
             </a-row>

@@ -7,7 +7,6 @@
   --input: #ffffff;
   --texto: rgba(0, 0, 0, 0.85);
   --texto-opacity: rgba(0, 0, 0, 0.45);
-  --icono: #000000;
   --notificacion: #ffffff;
   --borde: #d0d7de;
   --catalogo: #ffffff;
@@ -26,7 +25,6 @@ html[data-theme="Black-Mode"] {
   --input: #0D1117;
   --texto: rgba(255, 255, 255, 0.85);
   --texto-opacity: rgba(255, 255, 255, 0.45);
-  --icono: #ffffff;
   --notificacion: #0D1117;
   --borde: #30363d;
   --catalogo: #0D1117;
@@ -325,20 +323,6 @@ figure {
 @media (min-width: 992px) and (max-width: 1199.98px) {
   .ant-layout-content.not-found {
     height: calc(100vh - 230px);
-  }
-}
-
-@keyframes float {
-  0% {
-    transform: translatey(0px);
-  }
-
-  50% {
-    transform: translatey(-20px);
-  }
-
-  100% {
-    transform: translatey(0px);
   }
 }
 
