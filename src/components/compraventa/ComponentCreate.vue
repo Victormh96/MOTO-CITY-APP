@@ -943,7 +943,7 @@ export default {
 
         doChangeReplace(value, option) {
 
-            if ([1, 10, 12, 13, 9, 18, 22].includes(value)) {
+            if ([1, 10, 12, 13, 9, 18, 22, 25].includes(value)) {
 
                 this.doChangeFieldClear()
 
