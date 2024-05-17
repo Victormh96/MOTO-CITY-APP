@@ -114,14 +114,14 @@
                 <a-col :span="24">
 
                     <!--Group-->
-                    <a-form-item :label="[10, 24].includes(formstate.PLANTILLA) ? 'Placa:' : 'Poliza:'"
+                    <a-form-item :label="[10, 24, 25].includes(formstate.PLANTILLA) ? 'Placa:' : 'Poliza:'"
                         v-bind="validateInfos.POLIZA">
 
                         <!--Input-->
                         <a-input-number type="tel" v-model:value="formstate.POLIZA">
 
                             <!--Template-->
-                            <template #addonBefore>{{ [10, 24].includes(formstate.PLANTILLA) ? 'M-' : '4-' }}</template>
+                            <template #addonBefore>{{ [10, 24, 25].includes(formstate.PLANTILLA) ? 'M-' : '4-' }}</template>
                         </a-input-number>
 
                     </a-form-item>
