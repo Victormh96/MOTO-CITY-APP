@@ -122,6 +122,9 @@
 
                             <!--Template-->
                             <template #addonBefore>{{ [10, 24, 25].includes(formstate.PLANTILLA) ? 'M-' : '4-' }}</template>
+
+                            <!--Template-->
+                            <template #addonAfter>{{ [10, 24, 25].includes(formstate.PLANTILLA) ? '-2011' : '' }}</template>
                         </a-input-number>
 
                     </a-form-item>
