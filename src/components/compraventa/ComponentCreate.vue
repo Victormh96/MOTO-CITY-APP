@@ -108,7 +108,7 @@
             </a-row>
 
             <!--Row-->
-            <a-row :gutter="[24, 24]" v-if="current === 1">
+            <a-row :gutter="[24, 24]" v-if="current === 1"> 
 
                 <!--Col-->
                 <a-col :span="24">

@@ -170,7 +170,7 @@ function PostCompraVenta(record) {
 
             PRECIO: record?.PRECIO,
 
-            POLIZA: record?.PLANTILLA === 10 ? "M-" + record?.POLIZA : "4-" + record?.POLIZA,
+            POLIZA: [10, 24].includes(record?.PLANTILLA) ? "M-" + record?.POLIZA + "-2011" : "4-" + record?.POLIZA,
 
             MARCA: record?.MARCA,
 
