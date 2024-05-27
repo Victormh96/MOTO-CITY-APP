@@ -47,8 +47,7 @@
                     <a-form-item label="Tipo:" v-bind="validateInfos.TIPOPAGO">
 
                         <!--Select-->
-                        <a-select v-model:value="formstate.TIPOPAGO" show-search :options="getTipoPago"
-                            :filter-option="filterOption" />
+                        <a-select v-model:value="formstate.TIPOPAGO" :options="getTipoPago" />
                     </a-form-item>
                 </a-col>
 

@@ -108,7 +108,7 @@
             </a-row>
 
             <!--Row-->
-            <a-row :gutter="[24, 24]" v-if="current === 1"> 
+            <a-row :gutter="[24, 24]" v-if="current === 1">
 
                 <!--Col-->
                 <a-col :span="24">
@@ -121,10 +121,12 @@
                         <a-input-number type="tel" v-model:value="formstate.POLIZA">
 
                             <!--Template-->
-                            <template #addonBefore>{{ [10, 24, 25].includes(formstate.PLANTILLA) ? 'M-' : '4-' }}</template>
+                            <template #addonBefore>{{ [10, 24, 25].includes(formstate.PLANTILLA) ? 'M-' : '4-'
+                                }}</template>
 
                             <!--Template-->
-                            <template #addonAfter v-if="[10, 24, 25].includes(formstate.PLANTILLA) ? true : false">-2011</template>
+                            <template #addonAfter
+                                v-if="[10, 24, 25].includes(formstate.PLANTILLA) ? true : false">-2011</template>
                         </a-input-number>
 
                     </a-form-item>
@@ -149,8 +151,7 @@
                     <a-form-item label="Marca:" v-bind="validateInfos.MARCA">
 
                         <!--Select-->
-                        <a-select v-model:value="formstate.MARCA" show-search @change="doChangeModelo"
-                            :options="getMarca" :filter-option="filterOption" />
+                        <a-select v-model:value="formstate.MARCA" @change="doChangeModelo" :options="getMarca" />
                     </a-form-item>
                 </a-col>
 
@@ -184,8 +185,8 @@
                     <!--Group-->
                     <a-form-item label="Tipo:" v-bind="validateInfos.TIPO">
 
-                        <!--Input-->
-                        <a-input v-model:value="formstate.TIPO" @input="doChangeLetter('TIPO', $event)" />
+                        <!--Select-->
+                        <a-select v-model:value="formstate.TIPO" :options="getTipoMoto" />
                     </a-form-item>
                 </a-col>
 
@@ -423,6 +424,7 @@ import {
     getColor,
     getMarca,
     getModelo,
+    getTipoMoto,
     getMunicipio,
     getProfesion,
     getDepartamento
@@ -469,6 +471,7 @@ export default {
             getColor,
             getMarca,
             getModelo,
+            getTipoMoto,
             getMunicipio,
             getProfesion,
             getDepartamento,

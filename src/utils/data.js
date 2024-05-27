@@ -1958,7 +1958,7 @@ const getProfesion = [
     },
     {
         value: "DOMESTICOS",
-        
+
         label: "DOMESTICOS"
     },
     {
@@ -1994,12 +1994,12 @@ const getProfesion = [
     },
     {
         value: "LIC EN CIENCIAS DE LA EDUCACION",
-        
+
         label: "LIC EN CIENCIAS DE LA EDUCACION"
     },
     {
         value: "LIC EN ENFERMERIA",
-        
+
         label: "LIC EN ENFERMERIA"
     },
     {
@@ -2009,87 +2009,87 @@ const getProfesion = [
     },
     {
         value: "MECANICO AUTOMOTRIZ",
-        
+
         label: "MECANICO AUTOMOTRIZ"
     },
     {
         value: "MUSICO",
-        
+
         label: "MUSICO"
     },
     {
         value: "OFICIOS VARIOS",
-        
+
         label: "OFICIOS VARIOS"
     },
     {
         value: "PAYASO",
-        
+
         label: "PAYASO"
     },
     {
         value: "PINTOR",
-        
+
         label: "PINTOR"
     },
     {
         value: "PROFESOR",
-        
+
         label: "PROFESOR"
     },
     {
         value: "SECRETARIA",
-        
+
         label: "SECRETARIA"
     },
     {
         value: "SOLDADOR",
-        
+
         label: "SOLDADOR"
     },
     {
         value: "VENDEDOR",
-        
+
         label: "VENDEDOR"
     },
     {
         value: "VETERINARIO",
-        
+
         label: "VETERINARIO"
     },
     {
         value: "ELECTRICISTA",
-        
+
         label: "ELECTRICISTA"
     },
     {
         value: "DR EN MEDICINA",
-        
+
         label: "DR EN MEDICINA"
     },
     {
         value: "MINISTRO EVANGELICO",
-        
+
         label: "MINISTRO EVANGELICO"
     },
     {
         value: "LIC EN ADMINISTRACION DE EMPRESAS",
-        
+
         label: "LIC EN ADMINISTRACION DE EMPRESAS"
     },
     {
         value: "AGRICULTOR PEQUEÑO",
-        
+
         label: "AGRICULTOR PEQUEÑO"
     },
     {
         value: "MOTORISTA",
-        
+
         label: "MOTORISTA"
     },
     {
         value: "OFICIOS DOMESTICOS",
-        
+
         label: "OFICIOS DOMESTICOS"
     }
 ]
@@ -2127,7 +2127,7 @@ const getAnio = [
     },
     {
         value: "DOS MIL VEINTIOCHO",
-        
+
         label: "2028"
     }
 ]
@@ -2135,17 +2135,31 @@ const getAnio = [
 const getMarca = [
     {
         value: "DAYUN",
-        
+
         label: "DAYUN"
     },
     {
         value: "KATANA",
-        
+
         label: "KATANA"
     }
 ]
 
 const getModelo = [
+    {
+        value: "DY250ZH-2",
+
+        label: "DY250ZH-2",
+
+        marca: "DAYUN"
+    },
+    {
+        value: "DY250-8",
+
+        label: "DY250-8",
+
+        marca: "DAYUN"
+    },
     {
         value: "DY125-6",
 
@@ -2187,6 +2201,27 @@ const getModelo = [
         label: "DY150-16D",
 
         marca: "DAYUN"
+    },
+    {
+        value: "NITRO",
+
+        label: "NITRO",
+
+        marca: "KATANA"
+    },
+    {
+        value: "SCRAMBLER",
+
+        label: "SCRAMBLER",
+
+        marca: "KATANA"
+    },
+    {
+        value: "TERRA",
+
+        label: "TERRA",
+
+        marca: "KATANA"
     },
     {
         value: "SMX200",
@@ -2235,72 +2270,72 @@ const getModelo = [
 const getColor = [
     {
         value: "AZUL C/F MULTICOLOR",
-        
+
         label: "AZUL C/F MULTICOLOR"
     },
     {
         value: "BLANCO C/F MULTICOLOR",
-        
+
         label: "BLANCO C/F MULTICOLOR"
     },
     {
         value: "ROJO C/F MULTICOLOR",
-        
+
         label: "ROJO C/F MULTICOLOR"
     },
     {
         value: "NEGRO C/F MULTICOLOR",
-        
+
         label: "NEGRO C/F MULTICOLOR"
     },
     {
         value: "ROJO",
-        
+
         label: "ROJO"
     },
     {
         value: "NEGRO",
-        
+
         label: "NEGRO"
     },
     {
         value: "PLATEADO",
-        
+
         label: "PLATEADO"
     },
     {
         value: "AZUL",
-        
+
         label: "AZUL"
     },
     {
         value: "ROJO/GRIS",
-        
+
         label: "ROJO/GRIS"
     },
     {
         value: "NEGRO/GRIS/ROJO",
-        
+
         label: "NEGRO/GRIS/ROJO"
     },
     {
         value: "PLATEADO/GRIS/ROJO",
-        
+
         label: "PLATEADO/GRIS/ROJO"
     },
     {
         value: "NEGRO MULTICOLOR",
-        
+
         label: "NEGRO MULTICOLOR"
     },
     {
         value: "BLANCO MULTICOLOR",
-        
+
         label: "BLANCO MULTICOLOR"
     },
     {
         value: "AZUL MULTICOLOR",
-        
+
         label: "AZUL MULTICOLOR"
     }
 ]
@@ -2308,22 +2343,22 @@ const getColor = [
 const getTipoPago = [
     {
         value: "EFECTIVO",
-        
+
         label: "EFECTIVO"
     },
     {
         value: "TARJETA",
-        
+
         label: "TARJETA"
     },
     {
         value: "TRANSFERENCIA",
-        
+
         label: "TRANSFERENCIA"
     },
     {
         value: "CHEQUE",
-        
+
         label: "CHEQUE"
     }
 ]
@@ -2331,12 +2366,12 @@ const getTipoPago = [
 const getEstado = [
     {
         value: 1,
-        
+
         label: "ACTIVADO"
     },
     {
         value: 0,
-        
+
         label: "DESACTIVADO"
     }
 ]
@@ -2344,32 +2379,32 @@ const getEstado = [
 const getRol = [
     {
         value: "Tramite",
-        
+
         label: "TRAMITE"
     },
     {
         value: "Concesionario",
-        
+
         label: "CONCESIONARIO"
     },
     {
         value: "Jefe",
-        
+
         label: "JEFE"
     },
     {
         value: "Caja",
-        
+
         label: "CAJA"
     },
     {
         value: "Contabilidad",
-        
+
         label: "CONTABILIDAD"
     },
     {
         value: "Logistica",
-        
+
         label: "LOGISTICA"
     }
 ]
@@ -2417,4 +2452,22 @@ const getmes = [
     }
 ]
 
-export { getDepartamento, getMunicipio, getProfesion, getAnio, getMarca, getModelo, getColor, getTipoPago, getEstado, getRol, getmes } 
+const getTipoMoto = [
+    {
+        value: "URBANO",
+
+        label: "URBANO"
+    },
+    {
+        value: "DEPORTIVO",
+
+        label: "DEPORTIVO"
+    },
+    {
+        value: "UTILITARIO",
+
+        label: "UTILITARIO"
+    }
+]
+
+export { getDepartamento, getMunicipio, getProfesion, getAnio, getMarca, getModelo, getColor, getTipoPago, getEstado, getRol, getmes, getTipoMoto } 
