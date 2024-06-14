@@ -2096,6 +2096,16 @@ const getProfesion = [
 
 const getAnio = [
     {
+        value: "DOS MIL VEINTE",
+
+        label: "2020"
+    },
+    {
+        value: "DOS MIL VEINTIUNO",
+
+        label: "2021"
+    },
+    {
         value: "DOS MIL VEINTIDOS",
 
         label: "2022"
