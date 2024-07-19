@@ -186,7 +186,11 @@ function PostCompraVenta(record) {
 
             NUMEROVIN: record?.NUMEROVIN,
 
+            NUMEROCHASISVIN: "",
+
             TIPO: record?.TIPO,
+
+            FECHA: "1990-01-01",
 
             MESES: record?.MESES ?? 0,
 
