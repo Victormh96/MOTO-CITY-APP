@@ -1,5 +1,7 @@
 import store from "../store"
+
 import router from "@/router"
+
 import { message } from "ant-design-vue"
 
 const getClose = (err) => {
@@ -115,4 +117,20 @@ function getResponse(err) {
     }
 }
 
-export { getClose, getOpen, getSuccess, getWarning, getError, getLoading, getDownload, getResponse } 
+export { 
+    getClose, 
+    
+    getOpen, 
+    
+    getSuccess, 
+    
+    getWarning, 
+    
+    getError, 
+    
+    getLoading, 
+    
+    getDownload, 
+    
+    getResponse 
+} 

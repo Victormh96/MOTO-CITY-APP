@@ -423,4 +423,30 @@ function PostDescarga(record) {
     return data
 }
 
-export { getToken, getPlantilla, PostPlantilla, PutDTE, getPreciario, PostPreciario, PostCompraVenta, PostPagare, PostPrimeraMatricula, PostRecibo, PutRecibo, PostUsuario, PostDescarga } 
+export {
+    getToken,
+
+    getPlantilla,
+
+    PostPlantilla,
+
+    PutDTE,
+
+    getPreciario,
+
+    PostPreciario,
+
+    PostCompraVenta,
+
+    PostPagare,
+
+    PostPrimeraMatricula,
+
+    PostRecibo,
+
+    PutRecibo,
+
+    PostUsuario,
+
+    PostDescarga
+} 

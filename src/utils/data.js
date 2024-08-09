@@ -1912,6 +1912,11 @@ const getMunicipio = [
 
 const getProfesion = [
     {
+        value: "JORNALERO",
+
+        label: "JORNALERO"
+    },
+    {
         value: "CHEF",
 
         label: "CHEF"
@@ -2480,4 +2485,28 @@ const getTipoMoto = [
     }
 ]
 
-export { getDepartamento, getMunicipio, getProfesion, getAnio, getMarca, getModelo, getColor, getTipoPago, getEstado, getRol, getmes, getTipoMoto } 
+export {
+    getDepartamento,
+
+    getMunicipio,
+
+    getProfesion,
+
+    getAnio,
+
+    getMarca,
+
+    getModelo,
+
+    getColor,
+
+    getTipoPago,
+
+    getEstado,
+
+    getRol,
+
+    getmes,
+
+    getTipoMoto
+} 
