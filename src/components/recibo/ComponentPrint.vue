@@ -1,6 +1,6 @@
 <template>
     <!--Button-->
-    <a-button class="button-default" :disabled="download || (this.record?.imprimir === 2)" @click="doChangeDownload">
+    <a-button class="button-default" :disabled="download || (this.record?.imprimir === 0)" @click="doChangeDownload">
         IMPRESION
     </a-button>
 </template>
