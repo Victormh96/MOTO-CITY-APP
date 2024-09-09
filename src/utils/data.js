@@ -2190,13 +2190,6 @@ const getModelo = [
         marca: "DAYUN"
     },
     {
-        value: "DY150",
-
-        label: "DY150",
-
-        marca: "DAYUN"
-    },
-    {
         value: "DY150-6E",
 
         label: "DY150-6E",
@@ -2286,73 +2279,263 @@ const getColor = [
     {
         value: "AZUL C/F MULTICOLOR",
 
-        label: "AZUL C/F MULTICOLOR"
-    },
-    {
-        value: "BLANCO C/F MULTICOLOR",
+        label: "AZUL C/F MULTICOLOR",
 
-        label: "BLANCO C/F MULTICOLOR"
+        modelo: "DY250ZH-2"
     },
     {
         value: "ROJO C/F MULTICOLOR",
 
-        label: "ROJO C/F MULTICOLOR"
+        label: "ROJO C/F MULTICOLOR",
+
+        modelo: "DY250ZH-2"
+    },
+    {
+        value: "AZUL C/F MULTICOLOR",
+
+        label: "AZUL C/F MULTICOLOR",
+
+        modelo: "SMX150"
+    },
+    {
+        value: "ROJO C/F MULTICOLOR",
+
+        label: "ROJO C/F MULTICOLOR",
+
+        modelo: "SMX150"
     },
     {
         value: "NEGRO C/F MULTICOLOR",
 
-        label: "NEGRO C/F MULTICOLOR"
+        label: "NEGRO C/F MULTICOLOR",
+
+        modelo: "SMX150"
+    },
+    {
+        value: "AZUL C/F MULTICOLOR",
+
+        label: "AZUL C/F MULTICOLOR",
+
+        modelo: "SMX200"
+    },
+    {
+        value: "ROJO C/F MULTICOLOR",
+
+        label: "ROJO C/F MULTICOLOR",
+
+        modelo: "SMX200"
+    },
+    {
+        value: "NEGRO C/F MULTICOLOR",
+
+        label: "NEGRO C/F MULTICOLOR",
+
+        modelo: "SMX200"
+    },
+    {
+        value: "AZUL C/F MULTICOLOR",
+
+        label: "AZUL C/F MULTICOLOR",
+
+        modelo: "DY125-6"
+    },
+    
+    {
+        value: "ROJO C/F MULTICOLOR",
+
+        label: "ROJO C/F MULTICOLOR",
+
+        modelo: "DY125-6"
+    },
+    {
+        value: "NEGRO C/F MULTICOLOR",
+
+        label: "NEGRO C/F MULTICOLOR",
+
+        modelo: "DY125-6"
+    },
+    {
+        value: "AZUL C/F MULTICOLOR",
+
+        label: "AZUL C/F MULTICOLOR",
+
+        modelo: "DY150-6E"
+    },
+    {
+        value: "ROJO C/F MULTICOLOR",
+
+        label: "ROJO C/F MULTICOLOR",
+
+        modelo: "DY150-6E"
+    },
+    {
+        value: "ROJO C/F MULTICOLOR",
+
+        label: "ROJO C/F MULTICOLOR",
+
+        modelo: "R1-200"
+    },
+    {
+        value: "NEGRO C/F MULTICOLOR",
+
+        label: "NEGRO C/F MULTICOLOR",
+
+        modelo: "R1-200"
+    },
+    {
+        value: "ROJO C/F MULTICOLOR",
+
+        label: "ROJO C/F MULTICOLOR",
+
+        modelo: "CR150"
+    },
+    {
+        value: "NEGRO C/F MULTICOLOR",
+
+        label: "NEGRO C/F MULTICOLOR",
+
+        modelo: "CR150"
+    },
+    {
+        value: "ROJO C/F MULTICOLOR",
+
+        label: "ROJO C/F MULTICOLOR",
+
+        modelo: "MK1"
+    },
+    {
+        value: "NEGRO C/F MULTICOLOR",
+
+        label: "NEGRO C/F MULTICOLOR",
+
+        modelo: "MK1"
     },
     {
         value: "ROJO",
 
-        label: "ROJO"
+        label: "ROJO",
+
+        modelo: "DY150-16D"
     },
     {
         value: "NEGRO",
 
-        label: "NEGRO"
-    },
-    {
-        value: "PLATEADO",
+        label: "NEGRO",
 
-        label: "PLATEADO"
+        modelo: "DY150-16D"
     },
     {
         value: "AZUL",
 
-        label: "AZUL"
-    },
-    {
-        value: "ROJO/GRIS",
+        label: "AZUL",
 
-        label: "ROJO/GRIS"
-    },
-    {
-        value: "NEGRO/GRIS/ROJO",
-
-        label: "NEGRO/GRIS/ROJO"
-    },
-    {
-        value: "PLATEADO/GRIS/ROJO",
-
-        label: "PLATEADO/GRIS/ROJO"
+        modelo: "DY150-16D"
     },
     {
         value: "NEGRO MULTICOLOR",
 
-        label: "NEGRO MULTICOLOR"
+        label: "NEGRO MULTICOLOR",
+
+        modelo: "DY200-9"
+    },
+    {
+        value: "GRIS MULTICOLOR",
+
+        label: "GRIS MULTICOLOR",
+
+        modelo: "DY200-9"
+    },
+    {
+        value: "ROJO MULTICOLOR",
+
+        label: "ROJO MULTICOLOR",
+
+        modelo: "DY200-9"
+    },
+    {
+        value: "NEGRO MULTICOLOR",
+
+        label: "NEGRO MULTICOLOR",
+
+        modelo: "SCRAMBLER"
+    },
+    {
+        value: "NEGRO MULTICOLOR",
+
+        label: "NEGRO MULTICOLOR",
+
+        modelo: "TERRA"
+    },
+    {
+        value: "NEGRO MULTICOLOR",
+
+        label: "NEGRO MULTICOLOR",
+
+        modelo: "NAVE150"
     },
     {
         value: "BLANCO MULTICOLOR",
 
-        label: "BLANCO MULTICOLOR"
+        label: "BLANCO MULTICOLOR",
+
+        modelo: "NAVE150"
+    },
+    {
+        value: "ROJO MULTICOLOR",
+
+        label: "ROJO MULTICOLOR",
+
+        modelo: "NAVE150"
+    },
+    {
+        value: "NEGRO MULTICOLOR",
+
+        label: "NEGRO MULTICOLOR",
+
+        modelo: "DY150-29"
+    },
+    {
+        value: "PLATEADO MULTICOLOR",
+
+        label: "PLATEADO MULTICOLOR",
+
+        modelo: "DY150-29"
+    },
+    {
+        value: "ROJO MULTICOLOR",
+
+        label: "ROJO MULTICOLOR",
+
+        modelo: "DY150-29"
     },
     {
         value: "AZUL MULTICOLOR",
 
-        label: "AZUL MULTICOLOR"
-    }
+        label: "AZUL MULTICOLOR",
+
+        modelo: "NITRO"
+    },
+    {
+        value: "ROJO MULTICOLOR",
+
+        label: "ROJO MULTICOLOR",
+
+        modelo: "NITRO"
+    },
+    {
+        value: "ROJO MULTICOLOR",
+
+        label: "ROJO MULTICOLOR",
+
+        modelo: "DY250-8"
+    },
+    {
+        value: "NEGRO MULTICOLOR",
+
+        label: "NEGRO MULTICOLOR",
+
+        modelo: "DY250-8"
+    },
 ]
 
 const getTipoPago = [

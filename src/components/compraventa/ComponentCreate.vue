@@ -163,7 +163,7 @@
 
                         <!--Select-->
                         <a-select v-model:value="formstate.MODELO" show-search :options="dataSourceMd"
-                            :filter-option="filterOption" />
+                            :filter-option="filterOption" @change="doChangeColor" />
                     </a-form-item>
                 </a-col>
 
@@ -174,8 +174,7 @@
                     <a-form-item label="Color:" v-bind="validateInfos.COLOR">
 
                         <!--Select-->
-                        <a-select v-model:value="formstate.COLOR" show-search :options="getColor"
-                            :filter-option="filterOption" />
+                        <a-select v-model:value="formstate.COLOR" :options="dataSourceCl" />
                     </a-form-item>
                 </a-col>
 
@@ -479,6 +478,7 @@ export default {
             dataSourceMn: [],
             dataSourceMd: [],
             dataSourcePl: [],
+            dataSourceCl: [],
             dataSourceFMn: [],
 
             steps: [
@@ -1044,6 +1044,19 @@ export default {
             const data = getModelo.filter(item => item.marca === this.formstate.MARCA)
 
             this.dataSourceMd = data
+        },
+
+        doChangeColor() {
+
+            this.formstate.COLOR = null
+
+            const data = getColor
+            
+            
+            .filter(item => item.modelo === this.formstate.MODELO)
+
+            console.log(data)
+            this.dataSourceCl = data
         },
 
         doChangeLetter(key, event) {
