@@ -1,4 +1,6 @@
-import store from "../store"
+import {
+    authentication
+} from "@/store/modules/authentication"
 
 function getToken() {
 
@@ -6,16 +8,16 @@ function getToken() {
 
         body: {
 
-            SLPCODE: store.state.authentication?.cuenta?.slpcode,
+            SLPCODE: authentication()?.cuenta?.slpcode,
 
-            ROL: store.state.authentication?.cuenta?.rol
+            ROL: authentication()?.cuenta?.rol
         },
 
         config: {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: authentication()?.cuenta?.token
             }
         }
     }
@@ -29,9 +31,9 @@ function getPlantilla(record) {
 
         body: {
 
-            SLPCODE: store.state.authentication?.cuenta?.slpcode,
+            SLPCODE: authentication()?.cuenta?.slpcode,
 
-            ROL: store.state.authentication?.cuenta?.rol,
+            ROL: authentication()?.cuenta?.rol,
 
             TIPO: record
         },
@@ -40,7 +42,7 @@ function getPlantilla(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: authentication()?.cuenta?.token
             }
         }
     }
@@ -69,7 +71,7 @@ function PostPlantilla(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: authentication()?.cuenta?.token
             }
         }
     }
@@ -92,7 +94,7 @@ function PutDTE(docentry, tipodoc) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: authentication()?.cuenta?.token
             }
         }
     }
@@ -106,7 +108,7 @@ function getPreciario(record) {
 
         body: {
 
-            SUCURSAL: store.state.authentication?.cuenta?.sucursal,
+            SUCURSAL: authentication()?.cuenta?.sucursal,
 
             TASA: "0.0483333",
 
@@ -117,7 +119,7 @@ function getPreciario(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: authentication()?.cuenta?.token
             }
         }
     }
@@ -135,7 +137,7 @@ function PostPreciario(record) {
 
             PRECIARIO: record?.PRECIARIO,
 
-            SUCURSAL: store.state.authentication?.cuenta?.sucursal
+            SUCURSAL: authentication()?.cuenta?.sucursal
         },
 
         config: {
@@ -144,7 +146,7 @@ function PostPreciario(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: authentication()?.cuenta?.token
             }
         }
     }
@@ -218,7 +220,7 @@ function PostCompraVenta(record) {
 
             PLANTILLA: record?.PLANTILLA,
 
-            USUARIO: store.state.authentication?.cuenta?.slpcode
+            USUARIO: authentication()?.cuenta?.slpcode
         },
 
         config: {
@@ -227,7 +229,7 @@ function PostCompraVenta(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: authentication()?.cuenta?.token
             }
         }
     }
@@ -257,7 +259,7 @@ function PostPagare(record) {
 
             PLANTILLA: record?.PLANTILLA,
 
-            USUARIO: store.state.authentication?.cuenta?.slpcode
+            USUARIO: authentication()?.cuenta?.slpcode
         },
 
         config: {
@@ -266,7 +268,7 @@ function PostPagare(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: authentication()?.cuenta?.token
             }
         }
     }
@@ -292,7 +294,7 @@ function PostPrimeraMatricula(record) {
 
             PLANTILLA: record?.PLANTILLA,
 
-            USUARIO: store.state.authentication?.cuenta?.slpcode
+            USUARIO: authentication()?.cuenta?.slpcode
         },
 
         config: {
@@ -301,7 +303,7 @@ function PostPrimeraMatricula(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: authentication()?.cuenta?.token
             }
         }
     }
@@ -327,7 +329,7 @@ function PostRecibo(record) {
 
             PLANTILLA: record?.PLANTILLA,
 
-            USUARIO: store.state.authentication?.cuenta?.slpcode
+            USUARIO: authentication()?.cuenta?.slpcode
         },
 
         config: {
@@ -336,7 +338,7 @@ function PostRecibo(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: authentication()?.cuenta?.token
             }
         }
     }
@@ -359,7 +361,7 @@ function PutRecibo(id, status) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: authentication()?.cuenta?.token
             }
         }
     }
@@ -392,7 +394,7 @@ function PostUsuario(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: authentication()?.cuenta?.token
             }
         }
     }
@@ -415,7 +417,7 @@ function PostDescarga(record) {
 
             headers: {
 
-                Authorization: store.state.authentication?.cuenta?.token
+                Authorization: authentication()?.cuenta?.token
             }
         }
     }
@@ -424,6 +426,7 @@ function PostDescarga(record) {
 }
 
 export {
+
     getToken,
 
     getPlantilla,

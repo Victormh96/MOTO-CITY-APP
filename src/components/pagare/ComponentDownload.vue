@@ -1,6 +1,6 @@
 <template>
     <!--Button-->
-    <a-button class="button-default" :disabled="download" @click="doChangeDownload">
+    <a-button :disabled="download" @click="doChangeDownload">
         DESCARGAR
     </a-button>
 </template>
@@ -12,6 +12,10 @@ import {
 } from "file-saver"
 
 import {
+    DownloadPagareApi
+} from "@/services"
+
+import {
     getSuccess,
     getResponse
 } from "@/utils/index"
@@ -20,11 +24,8 @@ import {
     PostDescarga
 } from "@/utils/request"
 
-import {
-    DownloadPagareApi
-} from "@/services/paths"
-
 import axios from "axios"
+
 import dayjs from "dayjs"
 
 export default {

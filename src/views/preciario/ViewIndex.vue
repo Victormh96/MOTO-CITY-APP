@@ -53,8 +53,8 @@
                                     @confirm="doChangeValidacion">
 
                                     <!--Button-->
-                                    <a-button class="button-completar" :loading="download">
-                                        Completar
+                                    <a-button class="accion-button blue">
+                                        COMPLETAR
                                     </a-button>
                                 </a-popconfirm>
                             </a-col>
@@ -63,24 +63,24 @@
                 </a-col>
 
                 <!--Col-->
-                <a-col :xs="24" :sm="24" :md="24" :lg="14" :xl="14" :xxl="15" :xxxl="14" class="preciario">
+                <a-col :xs="24" :sm="24" :md="24" :lg="14" :xl="14" :xxl="15" :xxxl="14">
 
                     <!--Img-->
-                    <img src="@/../public/img/preciario.gif" class="img-preciario">
+                    <img src="@/assets/img/preciario.gif" class="img-default">
                 </a-col>
             </a-row>
         </div>
     </a-layout-content>
 
     <!--Layout-->
-    <a-layout-content class="loading d-flex" v-else>
+    <a-layout-content v-else>
 
-        <!--Container-->
-        <div class="container d-flex justify-content-center align-items-center">
+        <!--Row-->
+        <a-row justify="center" align="middle" class="loading">
 
             <!--Spin-->
             <a-spin size="large" />
-        </div>
+        </a-row>
     </a-layout-content>
 
     <!--Footer-->
@@ -96,6 +96,12 @@ import {
 import {
     saveAs
 } from "file-saver"
+
+import {
+    GetPreciarioApi,
+    PostPreciarioApi1,
+    PostPreciarioApi2
+} from "@/services"
 
 import {
     getmes
@@ -115,28 +121,26 @@ import {
     PostPreciario
 } from "@/utils/request"
 
-import {
-    GetPreciarioApi,
-    PostPreciarioApi1,
-    PostPreciarioApi2
-} from "@/services/paths"
-
 const useForm = Form.useForm
 
 import axios from "axios"
+
 import dayjs from "dayjs"
+
 import JSZip from "jszip"
+
 import Footer from "@/components/partials/ComponentFooter.vue"
+
 import Navbar from "@/components/partials/ComponentNavbar.vue"
 
 export default {
     data() {
         return {
             loading: false,
-            download: false,
 
             getmes,
-            dataSourcePc: [],
+
+            dataSourcePc: []
         }
     },
 
@@ -210,21 +214,21 @@ export default {
 
     methods: {
 
-        doChangeValidacion() {
+        async doChangeValidacion() {
 
-            this.validate().then(async () => {
+            try {
+
+                await this.validate()
 
                 await this.doChangeAdd()
 
-            }).catch(err => {
+            } catch (err) {
 
-                console.log("error", err)
-            })
+                console.error(err)
+            }
         },
 
         async doChangeAdd() {
-
-            this.download = true
 
             try {
 
@@ -254,8 +258,6 @@ export default {
 
                 getResponse(err)
             }
-
-            this.download = false
         },
 
         doChangePreciario(targetKeys, direction, moveKeys) {

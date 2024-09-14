@@ -1,18 +1,18 @@
 <template>
     <!--Button-->
-    <a-button class="button-default mb-3" @click="showModal">
+    <a-button class="go-button mb-3" @click="showModal">
         NUEVO DOCUMENTO
     </a-button>
 
     <!--Modal-->
-    <a-modal v-model:visible="visible" width="600px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:open="visible" width="580px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" centered>
 
         <!--Icon-->
-        <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
+        <i type="button" class="fa-solid fa-xmark fa-spin" @click="onClose"></i>
 
         <!--Form-->
-        <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
+        <a-form layout="vertical" :model="formstate" class="mb-3 pb-2">
 
             <!--Row-->
             <a-row :gutter="[24, 24]">
@@ -115,15 +115,15 @@
             </a-row>
         </a-form>
 
-        <!--Div-->
-        <div class="steps-action formulario">
+        <!--Flex-->
+        <a-flex gap="small">
 
             <!--Popconfirm-->
             <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
                 <!--Button-->
-                <a-button class="button-completar me-3" :loading="download">
-                    Completar
+                <a-button class="accion-button blue">
+                    COMPLETAR
                 </a-button>
             </a-popconfirm>
 
@@ -131,11 +131,11 @@
             <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear">
 
                 <!--Button-->
-                <a-button class="button-siguiente">
-                    Limpiar
+                <a-button class="accion-button aqua">
+                    LIMPIAR
                 </a-button>
             </a-popconfirm>
-        </div>
+        </a-flex>
     </a-modal>
 </template>
 
@@ -147,12 +147,13 @@ import {
 } from "vue"
 
 import {
-    saveAs
-} from "file-saver"
+    PostPagareApi,
+    ShowPlantillaApi
+} from "@/services"
 
 import {
-    isValidDUI
-} from "@avalontechsv/idsv"
+    saveAs
+} from "file-saver"
 
 import {
     getMunicipio,
@@ -174,24 +175,24 @@ import {
 } from "ant-design-vue"
 
 import {
-    PostPagareApi,
-    ShowPlantillaApi
-} from "@/services/paths"
+    isValidDUI
+} from "@avalontechsv/idsv"
 
 const useForm = Form.useForm
 
 import axios from "axios"
+
 import dayjs from "dayjs"
 
 export default {
     data() {
         return {
-            download: false,
-
             getMunicipio,
+
             getDepartamento,
 
             dataSourceMn: [],
+
             dataSourcePl: []
         }
     },
@@ -360,21 +361,21 @@ export default {
 
     methods: {
 
-        doChangeValidacion() {
+        async doChangeValidacion() {
 
-            this.validate().then(() => {
+            try {
 
-                this.doChangeAdd()
+                await this.validate()
 
-            }).catch(err => {
+                await this.doChangeAdd()
 
-                console.log("error", err)
-            })
+            } catch (err) {
+
+                console.error(err)
+            }
         },
 
         async doChangeAdd() {
-
-            this.download = true
 
             try {
                 const { body, config } = PostPagare(this.formstate)
@@ -399,8 +400,6 @@ export default {
 
                 getResponse(err)
             }
-
-            this.download = false
         },
 
         doChangeCalcular() {

@@ -1,8 +1,12 @@
-import store from "../store"
+import {
+    message
+} from "ant-design-vue"
+
+import {
+    authentication
+} from "@/store/modules/authentication"
 
 import router from "@/router"
-
-import { message } from "ant-design-vue"
 
 const getClose = (err) => {
 
@@ -107,7 +111,7 @@ function getResponse(err) {
 
     if ([403, 404].includes(err.response?.status)) {
 
-        store.dispatch("CuentaCerrar")
+        authentication().CuentaCerrar()
 
         getClose("Sesión cerrada")
 
@@ -117,20 +121,21 @@ function getResponse(err) {
     }
 }
 
-export { 
-    getClose, 
-    
-    getOpen, 
-    
-    getSuccess, 
-    
-    getWarning, 
-    
-    getError, 
-    
-    getLoading, 
-    
-    getDownload, 
-    
-    getResponse 
+export {
+
+    getClose,
+
+    getOpen,
+
+    getSuccess,
+
+    getWarning,
+
+    getError,
+
+    getLoading,
+
+    getDownload,
+
+    getResponse
 } 

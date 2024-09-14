@@ -12,7 +12,8 @@
             <Crear :dataSourceSc="dataSourceSc" />
 
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourceUs" :columns="column" bordered :scroll="{ x: 1400 }">
+            <a-table :pagination="pagination" :data-source="dataSourceUs" :columns="column" bordered
+                :scroll="{ x: 1400 }">
 
                 <!--Template-->
                 <template #bodyCell="{ column, record }">
@@ -67,7 +68,7 @@
                         <a-tag color="blue" v-if="record.estado">ACTIVADO</a-tag>
 
                         <!--Tag-->
-                        <a-tag color="cyan" v-else>DESACTIVADO</a-tag>
+                        <a-tag color="error" v-else>DESACTIVADO</a-tag>
                     </template>
 
                     <!--Template-->
@@ -86,28 +87,24 @@
                 <!--Template-->
                 <template #customFilterDropdown="{ setSelectedKeys, selectedKeys, confirm, column }">
 
-                    <!--Div-->
-                    <div style="padding: 7px">
-
-                        <!--Input-->
-                        <a-input type="search" placeholder="..." :value="selectedKeys[0]" class="buscador-modal"
-                            ref="focusearch" @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
-                            @pressEnter="handleSearch(selectedKeys, confirm, column.dataIndex)" />
-                    </div>
+                    <!--Input-->
+                    <a-input type="search" placeholder="..." :value="selectedKeys[0]" ref="focusearch"
+                        @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
+                        @pressEnter="handleSearch(selectedKeys, confirm, column.dataIndex)" />
                 </template>
             </a-table>
         </div>
     </a-layout-content>
 
     <!--Layout-->
-    <a-layout-content class="loading d-flex" v-else>
+    <a-layout-content v-else>
 
-        <!--Container-->
-        <div class="container d-flex justify-content-center align-items-center">
+        <!--Row-->
+        <a-row justify="center" align="middle" class="loading">
 
             <!--Spin-->
             <a-spin size="large" />
-        </div>
+        </a-row>
     </a-layout-content>
 
     <!--Footer-->
@@ -133,12 +130,16 @@ import {
 import {
     GetUsuarioApi,
     GetSucursalApi
-} from "@/services/paths"
+} from "@/services"
 
 import axios from "axios"
+
 import Editar from "@/components/usuario/ComponentEdit.vue"
+
 import Crear from "@/components/usuario/ComponentCreate.vue"
+
 import Footer from "@/components/partials/ComponentFooter.vue"
+
 import Navbar from "@/components/partials/ComponentNavbar.vue"
 
 export default {
@@ -147,6 +148,7 @@ export default {
             loading: false,
 
             dataSourceUs: [],
+
             dataSourceSc: [],
 
             pagination: {
@@ -235,7 +237,7 @@ export default {
 
                 record.nombre.toString().toLowerCase().includes(value.toLowerCase()),
 
-            onFilterDropdownVisibleChange: visible => {
+            onFilterDropdownOpenChange: visible => {
 
                 if (visible) {
 
@@ -259,7 +261,7 @@ export default {
 
                 record.usuario.toString().toLowerCase().includes(value.toLowerCase()),
 
-            onFilterDropdownVisibleChange: visible => {
+            onFilterDropdownOpenChange: visible => {
 
                 if (visible) {
 
@@ -300,7 +302,7 @@ export default {
 
                 record.creado.toString().toLowerCase().includes(value.toLowerCase()),
 
-            onFilterDropdownVisibleChange: visible => {
+            onFilterDropdownOpenChange: visible => {
 
                 if (visible) {
 

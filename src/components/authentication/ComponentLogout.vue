@@ -5,15 +5,17 @@
 
 <!--=======Script=======-->
 <script>
-import store from "@/store"
+import {
+    getClose
+} from "@/utils/index"
 
 import {
     Modal
 } from "ant-design-vue"
 
 import {
-    getClose
-} from "@/utils/index"
+    authentication
+} from "@/store/modules/authentication"
 
 export default {
     setup() {
@@ -32,9 +34,9 @@ export default {
 
                 cancelText: "No",
 
-                async onOk() {
+                onOk() {
 
-                    await store.dispatch("CuentaCerrar")
+                    authentication().CuentaCerrar()
 
                     getClose("Sesión cerrada")
 

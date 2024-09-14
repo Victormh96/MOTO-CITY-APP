@@ -3,7 +3,7 @@
     <a-layout-footer class="text-center">
 
         <!--Img-->
-        <img src="@/../public/img/footer.png">
+        <img src="@/assets/img/footer.png">
 
         <!--Icon-->
         <i class="fas fa-taxi"></i>

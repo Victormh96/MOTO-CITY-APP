@@ -1,47 +1,42 @@
 <template>
-    <!--Button-->
-    <a-button class="button-default mb-3" @click="showModal">
-        GENERAR REPORTE
-    </a-button>
+    <!--Group-->
+    <a-float-button-group shape="circle">
+
+        <!--Float-->
+        <a-float-button tooltip="DESCARGAR" @click="showModal()">
+
+            <!--Template-->
+            <template #icon>
+
+                <!--Icono-->
+                <DownloadOutlined />
+            </template>
+        </a-float-button>
+    </a-float-button-group>
 
     <!--Modal-->
-    <a-modal v-model:visible="visible" width="500px" :destroyOnClose="true" :maskClosable="false" :footer="null"
-        :keyboard="false" centered>
-
-        <!--Icon-->
-        <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
+    <a-modal v-model:open="visible" width="350px" class="cargando" :footer="false" centered>
 
         <!--Form-->
-        <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
+        <a-form layout="vertical" :model="formstate">
 
-            <!--Row-->
-            <a-row :gutter="[24, 24]">
+            <!--Item-->
+            <a-form-item v-bind="validateInfos.FECHA">
 
-                <!--Col-->
-                <a-col :span="24">
-
-                    <a-form-item v-bind="validateInfos.FECHA">
-
-                        <!--Picker-->
-                        <a-range-picker v-model:value="formstate.FECHA" :placeholder="['DESDE', 'HASTA']"
-                            :allowClear="false" />
-                    </a-form-item>
-                </a-col>
-            </a-row>
+                <!--Picker-->
+                <a-range-picker v-model:value="formstate.FECHA" :placeholder="['DESDE', 'HASTA']" :allowClear="false"
+                    class="mb-4" />
+            </a-form-item>
         </a-form>
 
-        <!--Div-->
-        <div class="steps-action formulario">
+        <!--Popconfirm-->
+        <a-popconfirm title="¿Completar proceso?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
-            <!--Popconfirm-->
-            <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
-
-                <!--Button-->
-                <a-button class="button-completar me-3" :loading="download">
-                    Generar
-                </a-button>
-            </a-popconfirm>
-        </div>
+            <!--Button-->
+            <a-button class="accion-button blue">
+                COMPLETAR
+            </a-button>
+        </a-popconfirm>
     </a-modal>
 </template>
 
@@ -57,6 +52,10 @@ import {
 } from "file-saver"
 
 import {
+    ReportReciboApi
+} from "@/services"
+
+import {
     getSuccess,
     getResponse
 } from "@/utils/index"
@@ -70,21 +69,16 @@ import {
 } from "ant-design-vue"
 
 import {
-    ReportReciboApi
-} from "@/services/paths"
+    DownloadOutlined
+} from "@ant-design/icons-vue"
 
 const useForm = Form.useForm
 
 import axios from "axios"
+
 import dayjs from "dayjs"
 
 export default {
-    data() {
-        return {
-            download: false
-        }
-    },
-
     setup() {
 
         const visible = ref(false)
@@ -143,21 +137,21 @@ export default {
 
     methods: {
 
-        doChangeValidacion() {
+        async doChangeValidacion() {
 
-            this.validate().then(() => {
+            try {
 
-                this.doChangeDownload()
+                await this.validate()
 
-            }).catch(err => {
+                await this.doChangeDownload()
 
-                console.log("error", err)
-            })
+            } catch (err) {
+
+                console.error(err)
+            }
         },
 
         async doChangeDownload() {
-
-            this.download = true
 
             try {
 
@@ -183,9 +177,11 @@ export default {
 
                 getResponse(err)
             }
-
-            this.download = false
         }
+    },
+
+    components: {
+        DownloadOutlined
     }
 };
 </script>

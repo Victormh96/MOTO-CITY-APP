@@ -1,6 +1,6 @@
 <template>
     <!--Button-->
-    <a-button class="button-default" :disabled="download" @click="doChangeDownload">
+    <a-button :disabled="download" @click="doChangeDownload">
         DESCARGAR
     </a-button>
 </template>
@@ -22,9 +22,10 @@ import {
 
 import {
     DownloadPrimeraMatriculaApi
-} from "@/services/paths"
+} from "@/services"
 
 import axios from "axios"
+
 import dayjs from "dayjs"
 
 export default {

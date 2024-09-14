@@ -1,4 +1,10 @@
-import axios from "axios"
+import {
+    defineStore
+} from "pinia"
+
+import {
+    CuentaApi
+} from "@/services"
 
 import {
     getOpen,
@@ -6,63 +12,45 @@ import {
     getWarning
 } from "@/utils/index"
 
-import {
-    CuentaApi
-} from "../../services/paths"
+import axios from "axios"
 
-export default {
+export const authentication = defineStore("authentication", {
 
-    state() {
+    state: () => ({
 
-        return {
+        cuenta: null
+    }),
 
-            cuenta: null
-        }
-    },
-
-    mutations: {
-
-        MutationCuenta(state, data) {
-
-            state.cuenta = data
-        },
-
-        MutationCerrar(state) {
-
-            state.cuenta = null
-        }
-    },
+    persist: true,
 
     actions: {
 
-        async Cuenta({ commit }, body) {
+        async Cuenta(body) {
 
-            await axios
-                .post(CuentaApi, body)
+            try {
 
-                .then((response) => {
+                const response = await axios.post(CuentaApi, body)
 
-                    commit("MutationCuenta", response.data)
+                this.cuenta = response.data
 
-                    getOpen("Bienvenido a Motocity App")
-                })
+                getOpen("Bienvenido a Motocity App")
 
-                .catch((err) => {
+            } catch (err) {
 
-                    if (err?.response?.status == 401) {
+                if (err?.response?.status === 401) {
 
-                        getWarning(err?.response?.data?.message)
+                    getWarning(err?.response?.data?.message)
 
-                    } else {
+                } else {
 
-                        getError("Error de servidor")
-                    }
-                })
+                    getError("Error de servidor")
+                }
+            }
         },
 
-        async CuentaCerrar({ commit }) {
+        CuentaCerrar() {
 
-            await commit("MutationCerrar")
+            this.cuenta = null
         }
     }
-};
+})

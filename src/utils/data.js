@@ -2339,7 +2339,7 @@ const getColor = [
 
         modelo: "DY125-6"
     },
-    
+
     {
         value: "ROJO C/F MULTICOLOR",
 
@@ -2669,6 +2669,7 @@ const getTipoMoto = [
 ]
 
 export {
+
     getDepartamento,
 
     getMunicipio,

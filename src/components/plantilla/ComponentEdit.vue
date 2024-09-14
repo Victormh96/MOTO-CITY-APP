@@ -1,18 +1,18 @@
 <template>
     <!--Button-->
-    <a-button class="button-default" @click="showModal(); doChangePlantilla()">
+    <a-button @click="showModal(); doChangePlantilla()">
         EDITAR
     </a-button>
 
     <!--Modal-->
-    <a-modal v-model:visible="visible" width="600px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:open="visible" width="580px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" centered>
 
         <!--Icon-->
-        <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
+        <i type="button" class="fa-solid fa-xmark fa-spin" @click="onClose"></i>
 
         <!--Form-->
-        <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
+        <a-form layout="vertical" :model="formstate" class="mb-3 pb-2">
 
             <!--Row-->
             <a-row :gutter="[24, 24]">
@@ -35,7 +35,7 @@
                     <a-form-item label="Estado:" v-bind="validateInfos.ESTADO">
 
                         <!--Select-->
-                        <a-select v-model:value="formstate.ESTADO" :options="getEstado" :filter-option="filterOption" />
+                        <a-select v-model:value="formstate.ESTADO" :options="getEstado" />
                     </a-form-item>
                 </a-col>
 
@@ -52,18 +52,14 @@
             </a-row>
         </a-form>
 
-        <!--Div-->
-        <div class="steps-action formulario">
+        <!--Popconfirm-->
+        <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
-            <!--Popconfirm-->
-            <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
-
-                <!--Button-->
-                <a-button class="button-completar me-3" :loading="download">
-                    Actualizar
-                </a-button>
-            </a-popconfirm>
-        </div>
+            <!--Button-->
+            <a-button class="accion-button blue">
+                ACTUALIZAR
+            </a-button>
+        </a-popconfirm>
     </a-modal>
 </template>
 
@@ -75,6 +71,10 @@ import {
 } from "vue"
 
 import {
+    PutPlantillaApi
+} from "@/services"
+
+import {
     getEstado
 } from "@/utils/data"
 
@@ -84,16 +84,12 @@ import {
 } from "@/utils/index"
 
 import {
-    PostPlantilla
-} from "@/utils/request"
-
-import {
     Form
 } from "ant-design-vue"
 
 import {
-    PutPlantillaApi
-} from "@/services/paths"
+    PostPlantilla
+} from "@/utils/request"
 
 const useForm = Form.useForm
 
@@ -103,7 +99,7 @@ export default {
     data() {
         return {
             getEstado,
-            download: false,
+
             config: {
 
                 toolbarButtons: {
@@ -232,21 +228,21 @@ export default {
 
     methods: {
 
-        doChangeValidacion() {
+        async doChangeValidacion() {
 
-            this.validate().then(() => {
+            try {
 
-                this.doChangeUpdate()
+                await this.validate()
 
-            }).catch(err => {
+                await this.doChangeUpdate()
 
-                console.log("error", err)
-            })
+            } catch (err) {
+
+                console.error(err)
+            }
         },
 
         async doChangeUpdate() {
-
-            this.download = true
 
             try {
 
@@ -254,7 +250,7 @@ export default {
 
                 await axios.post(PutPlantillaApi, body, config)
 
-                getSuccess("Editado")
+                getSuccess("Actualizado")
 
                 setTimeout(function () { location.reload() }, 300)
 
@@ -264,8 +260,6 @@ export default {
 
                 getResponse(err)
             }
-
-            this.download = false
         },
 
         doChangePlantilla() {

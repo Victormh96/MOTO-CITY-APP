@@ -3,7 +3,7 @@
     <Navbar />
 
     <!--Layout-->
-    <a-layout-content class="fade-out" v-if="(loading)">
+    <a-layout-content class="fade-out">
 
         <!--Container-->
         <div class="container mb-3">
@@ -21,23 +21,12 @@
                     <a-popconfirm title="¿Generar documento?" ok-text="Si" cancel-text="No" @confirm="doChangeDownload">
 
                         <!--Button-->
-                        <a-button class="button-completar">
-                            Descargar
+                        <a-button class="accion-button blue">
+                            DESCARGAR
                         </a-button>
                     </a-popconfirm>
                 </a-col>
             </a-row>
-        </div>
-    </a-layout-content>
-
-    <!--Layout-->
-    <a-layout-content class="loading d-flex" v-else>
-
-        <!--Container-->
-        <div class="container d-flex justify-content-center align-items-center">
-
-            <!--Spin-->
-            <a-spin size="large" />
         </div>
     </a-layout-content>
 
@@ -56,6 +45,10 @@ import {
 } from "file-saver"
 
 import {
+    DownloadPedidoApi
+} from "@/services"
+
+import {
     getSuccess,
     getResponse
 } from "@/utils/index"
@@ -64,27 +57,15 @@ import {
     PostDescarga
 } from "@/utils/request"
 
-import {
-    DownloadPedidoApi
-} from "@/services/paths"
-
 import axios from "axios"
+
 import dayjs from "dayjs"
+
 import Footer from "@/components/partials/ComponentFooter.vue"
+
 import Navbar from "@/components/partials/ComponentNavbar.vue"
 
 export default {
-    data() {
-        return {
-            loading: false
-        }
-    },
-
-    created() {
-
-        setTimeout(() => { this.loading = true }, 800)
-    },
-
     setup() {
 
         const date = ref(dayjs())

@@ -1,18 +1,18 @@
 <template>
     <!--Button-->
-    <a-button class="button-default" @click="showModal(); doChangeUsuario()">
+    <a-button @click="showModal(); doChangeUsuario()">
         EDITAR
     </a-button>
 
     <!--Modal-->
-    <a-modal v-model:visible="visible" width="600px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:open="visible" width="580px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" centered>
 
         <!--Icon-->
-        <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
+        <i type="button" class="fa-solid fa-xmark fa-spin" @click="onClose"></i>
 
         <!--Form-->
-        <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
+        <a-form layout="vertical" :model="formstate" class="mb-3 pb-2">
 
             <!--Row-->
             <a-row :gutter="[24, 24]">
@@ -35,7 +35,7 @@
                     <a-form-item label="Usuario:">
 
                         <!--Input-->
-                        <a-input v-model:value="formstate.USUARIO" readonly />
+                        <a-input v-model:value="formstate.USUARIO" disabled />
                     </a-form-item>
                 </a-col>
 
@@ -86,18 +86,14 @@
             </a-row>
         </a-form>
 
-        <!--Div-->
-        <div class="steps-action formulario">
+        <!--Popconfirm-->
+        <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
-            <!--Popconfirm-->
-            <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
-
-                <!--Button-->
-                <a-button class="button-completar me-3">
-                    Actualizar
-                </a-button>
-            </a-popconfirm>
-        </div>
+            <!--Button-->
+            <a-button class="accion-button blue">
+                ACTUALIZAR
+            </a-button>
+        </a-popconfirm>
     </a-modal>
 </template>
 
@@ -107,6 +103,10 @@ import {
     ref,
     reactive
 } from "vue"
+
+import {
+    PutUsuarioApi
+} from "@/services"
 
 import {
     getRol,
@@ -126,10 +126,6 @@ import {
     Form
 } from "ant-design-vue"
 
-import {
-    PutUsuarioApi
-} from "@/services/paths"
-
 const useForm = Form.useForm
 
 import axios from "axios"
@@ -138,6 +134,7 @@ export default {
     data() {
         return {
             getRol,
+
             getEstado
         }
     },
@@ -247,16 +244,18 @@ export default {
 
     methods: {
 
-        doChangeValidacion() {
+        async doChangeValidacion() {
 
-            this.validate().then(() => {
+            try {
 
-                this.doChangeUpdate()
+                await this.validate()
 
-            }).catch(err => {
+                await this.doChangeUpdate()
 
-                console.log("error", err)
-            })
+            } catch (err) {
+
+                console.error(err)
+            }
         },
 
         async doChangeUpdate() {
@@ -267,7 +266,7 @@ export default {
 
                 await axios.post(PutUsuarioApi, body, config)
 
-                getSuccess("Guardado")
+                getSuccess("Actualizado")
 
                 setTimeout(function () { location.reload() }, 300)
 
@@ -303,7 +302,7 @@ export default {
             this.formstate[key] = event.target.value.toUpperCase()
 
             this.$nextTick(() => event.target.setSelectionRange(cursorPosition, cursorPosition))
-        },
+        }
     },
 
     props: ["record", "dataSourceSc"]

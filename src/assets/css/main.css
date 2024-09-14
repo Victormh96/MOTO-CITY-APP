@@ -1,0 +1,248 @@
+:root {
+  --senary: #F5F5F5;
+  --quinary: #FFFFFF;
+  --primary: #891924;
+  --tertiary: #000000;
+  --quaternary: #FFFFFF;
+
+  --background: #FFFFFF;
+  --background-white: #F6F8FA;
+
+  --icono: #000000;
+  --borde: #D0D7DE;
+  --alert: #fffbe6;
+  --solid: transparent;
+  --disabled: #F6F8FA;
+
+  --texto: rgba(0, 0, 0, 0.85);
+  --texto-opacity: rgba(0, 0, 0, 0.65);
+
+  --image: url(../img/motocity.png);
+
+  --error: #ff4d4f;
+  --green: #52c41a;
+  --success: #0958d9;
+  --warning: #faad14;
+
+  --background-error: #fff2f0;
+  --background-green: #f6ffed;
+  --background-success: #e6f4ff;
+  --background-warning: #fffbe6;
+
+  --borde-error: #ffccc7;
+  --borde-green: #b7eb8f;
+  --borde-success: #91caff;
+  --borde-warning: #ffe58f;
+}
+
+html[data-theme="Black-Mode"] {
+  --senary: #010409;
+  --quinary: #0D1117;
+  --primary: #891924;
+  --Tertiary: #000000;
+  --quaternary: #FFFFFF;
+
+  --background: #010409;
+  --background-white: #0d1117;
+
+  --icono: #FFFFFF;
+  --borde: #30363D;
+  --solid: #30363D;
+  --alert: #2b2111;
+  --disabled: #010409;
+
+  --texto: rgba(255, 255, 255, 0.85);
+  --texto-opacity: rgba(255, 255, 255, 0.65);
+
+  --image: url(../img/motocity-white.png);
+
+  --error: #dc4446;
+  --green: #49aa19;
+  --success: #3c89e8;
+  --warning: #d89614;
+
+  --background-error: #2c1618;
+  --background-green: #162312;
+  --background-success: #111a2c;
+  --background-warning: #2b2111;
+
+  --borde-error: #5b2526;
+  --borde-green: #274916;
+  --borde-success: #15325b;
+  --borde-warning: #594214;
+}
+
+/* ============================================================*/
+/* Icono
+/* ============================================================*/
+.fa-spin {
+  color: var(--texto);
+}
+
+.fa-xmark {
+  top: 6px;
+  right: 15px;
+  z-index: 999;
+  font-size: 28px;
+  cursor: pointer;
+  position: absolute;
+  color: var(--texto);
+}
+
+.fa-sign-out-alt {
+  height: 15px;
+  color: #000;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px 16px;
+  border-radius: 2px;
+  background: #fff;
+  transition: all 0.5s;
+}
+
+/* ============================================================*/
+/* Imagen
+/* ============================================================*/
+.img-vertical {
+  width: 100%;
+  height: 780px;
+  object-fit: cover;
+  object-position: top;
+}
+
+.img-horizontal {
+  width: 100%;
+  height: 249px;
+  display: block;
+  object-fit: cover;
+}
+
+.img-default {
+  width: 100%;
+  height: 100%;
+}
+
+.img-fondo {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+}
+
+@media (max-width: 575.98px) {
+  .img-vertical {
+    width: 100%;
+    height: 100%;
+  }
+
+  .img-horizontal {
+    height: 190px;
+  }
+
+  .img-fondo {
+    object-position: center;
+  }
+}
+
+@media (min-width: 559px) and (max-width: 991.98px) {
+  .img-vertical {
+    width: 100%;
+    height: 100%;
+  }
+
+  .img-fondo {
+    object-position: right;
+  }
+}
+
+/* ============================================================*/
+/* Header
+/* ============================================================*/
+.ant-layout-header.menu {
+  padding: 12px 0;
+  margin: 35px 0 0 0;
+}
+
+.ant-layout-header.submenu {
+  top: 0;
+  width: 100%;
+  height: 25px;
+  z-index: 999;
+  padding: 5px 0;
+  position: fixed;
+  background: var(--tertiary);
+}
+
+.router-link-active .fa-sign-out-alt {
+  color: var(--quaternary);
+  background: var(--primary);
+}
+
+.fa-sign-out-alt:hover {
+  opacity: .8;
+}
+
+.ant-layout-header .motocity {
+  width: 170px;
+  height: 60px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: var(--image);
+}
+
+/* ============================================================*/
+/* Footer
+/* ============================================================*/
+.ant-layout-footer {
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  z-index: 998;
+  position: fixed;
+  background: var(--tertiary);
+}
+
+.ant-layout-footer img {
+  width: 165px;
+  height: auto;
+}
+
+.ant-layout-footer .fa-taxi {
+  left: 0;
+  right: 0;
+  top: 5px;
+  opacity: .1;
+  font-size: 12px;
+  color: #ffffff;
+  position: absolute;
+}
+
+/* ============================================================*/
+/* Scrollbar
+/* ============================================================*/
+::-webkit-scrollbar {
+  height: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 1px;
+  background-color: #babac0;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #a0a0a5;
+}
+
+@media (max-width: 1199.98px) {
+  ::-webkit-scrollbar {
+    width: 0px;
+    height: 0px;
+  }
+}

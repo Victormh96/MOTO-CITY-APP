@@ -12,7 +12,8 @@
             <Crear />
 
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourceCv" :columns="column" bordered :scroll="{ x: 1400 }">
+            <a-table :pagination="pagination" :data-source="dataSourceCv" :columns="column" bordered
+                :scroll="{ x: 1400 }">
 
                 <!--Template-->
                 <template #bodyCell="{ column, record }">
@@ -28,7 +29,7 @@
 
                     <!--Template-->
                     <template v-if="column.key === 'precio'">
-                        $ {{ record.precio }}
+                        {{ doChangeDollar(record?.precio) }}
                     </template>
 
                     <!--Template-->
@@ -65,28 +66,24 @@
                 <!--Template-->
                 <template #customFilterDropdown="{ setSelectedKeys, selectedKeys, confirm, column }">
 
-                    <!--Div-->
-                    <div style="padding: 7px">
-
-                        <!--Input-->
-                        <a-input type="search" placeholder="..." :value="selectedKeys[0]" class="buscador-modal"
-                            ref="focusearch" @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
-                            @pressEnter="handleSearch(selectedKeys, confirm, column.dataIndex)" />
-                    </div>
+                    <!--Input-->
+                    <a-input type="search" placeholder="..." :value="selectedKeys[0]" ref="focusearch"
+                        @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
+                        @pressEnter="handleSearch(selectedKeys, confirm, column.dataIndex)" />
                 </template>
             </a-table>
         </div>
     </a-layout-content>
 
     <!--Layout-->
-    <a-layout-content class="loading d-flex" v-else>
+    <a-layout-content v-else>
 
-        <!--Container-->
-        <div class="container d-flex justify-content-center align-items-center">
+        <!--Row-->
+        <a-row justify="center" align="middle" class="loading">
 
             <!--Spin-->
             <a-spin size="large" />
-        </div>
+        </a-row>
     </a-layout-content>
 
     <!--Footer-->
@@ -102,6 +99,10 @@ import {
 } from "vue"
 
 import {
+    GetCompraVentaApi
+} from "@/services"
+
+import {
     getResponse
 } from "@/utils/index"
 
@@ -109,14 +110,16 @@ import {
     getToken
 } from "@/utils/request"
 
-import {
-    GetCompraVentaApi
-} from "@/services/paths"
-
 import axios from "axios"
+
+import numeral from "numeral"
+
 import Footer from "@/components/partials/ComponentFooter.vue"
+
 import Navbar from "@/components/partials/ComponentNavbar.vue"
+
 import Crear from "@/components/compraventa/ComponentCreate.vue"
+
 import Download from "@/components/compraventa/ComponentDownload.vue"
 
 export default {
@@ -184,7 +187,7 @@ export default {
 
                 record.nombre.toString().toLowerCase().includes(value.toLowerCase()),
 
-            onFilterDropdownVisibleChange: visible => {
+            onFilterDropdownOpenChange: visible => {
 
                 if (visible) {
 
@@ -225,7 +228,7 @@ export default {
 
                 record.n_motor.toString().toLowerCase().includes(value.toLowerCase()),
 
-            onFilterDropdownVisibleChange: visible => {
+            onFilterDropdownOpenChange: visible => {
 
                 if (visible) {
 
@@ -248,7 +251,7 @@ export default {
 
                 record.n_chasis.toString().toLowerCase().includes(value.toLowerCase()),
 
-            onFilterDropdownVisibleChange: visible => {
+            onFilterDropdownOpenChange: visible => {
 
                 if (visible) {
 
@@ -280,7 +283,7 @@ export default {
 
                 record.creado.toString().toLowerCase().includes(value.toLowerCase()),
 
-            onFilterDropdownVisibleChange: visible => {
+            onFilterDropdownOpenChange: visible => {
 
                 if (visible) {
 
@@ -316,6 +319,11 @@ export default {
     },
 
     methods: {
+
+        doChangeDollar(number) {
+
+            return numeral(number).format("$0,0.00")
+        },
 
         doChangeScrollto() {
 

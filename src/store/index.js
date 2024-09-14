@@ -1,25 +1,13 @@
-import { createStore, createLogger } from "vuex"
-import authentication from "./modules/authentication"
-import createPersistedState from "vuex-persistedstate"
+import {
+    createPinia
+} from "pinia"
 
-export default createStore({
+import { 
+    createPersistedState
+} from "pinia-plugin-persistedstate"
 
-    state: {
-    },
+const pinia = createPinia()
 
-    getters: {
-    },
+pinia.use(createPersistedState())
 
-    mutations: {
-    },
-
-    actions: {
-    },
-
-    modules: {
-
-        authentication
-    },
-
-    plugins: [createLogger(), createPersistedState()]
-})
+export default pinia

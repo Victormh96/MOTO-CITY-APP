@@ -1,25 +1,25 @@
 <template>
     <!--Button-->
-    <a-button class="button-default mb-3" @click="showModal">
+    <a-button class="go-button mb-3" @click="showModal">
         NUEVO DOCUMENTO
     </a-button>
 
     <!--Modal-->
-    <a-modal v-model:visible="visible" width="600px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:open="visible" width="580px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" centered>
 
         <!--Icon-->
-        <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
+        <i type="button" class="fa-solid fa-xmark fa-spin" @click="onClose"></i>
 
         <!--Step-->
-        <a-steps :current="current" :percent="doChangePorcentaje" class="mb-3">
+        <a-steps :current="current" :percent="doChangePorcentaje()" class="mb-3">
 
             <!--Enlace-->
             <a-step v-for="item in steps" :key="item?.title" :title="item?.title" />
         </a-steps>
 
         <!--Form-->
-        <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
+        <a-form layout="vertical" :model="formstate" class="mb-3 pb-2">
 
             <!--Row-->
             <a-row :gutter="[24, 24]" v-if="current === 0">
@@ -366,17 +366,17 @@
             </a-row>
         </a-form>
 
-        <!--Div-->
-        <div class="steps-action formulario">
+        <!--Flex-->
+        <a-flex gap="small">
 
             <!--Button-->
-            <a-button v-if="current === 0" @click="nextDato" class="button-completar me-3">
-                Siguiente
+            <a-button v-if="current === 0" @click="nextDato" class="accion-button blue">
+                SIGUIENTE
             </a-button>
 
             <!--Button-->
-            <a-button v-if="current === 1 && steps.length === 3" @click="nextMoto" class="button-completar me-3">
-                Siguiente
+            <a-button v-if="current === 1 && steps.length === 3" @click="nextMoto" class="accion-button blue">
+                SIGUIENTE
             </a-button>
 
             <!--Popconfirm-->
@@ -384,14 +384,14 @@
                 v-if="current === steps.length - 1">
 
                 <!--Button-->
-                <a-button class="button-completar me-3" :loading="download">
-                    Completar
+                <a-button class="accion-button blue">
+                    COMPLETAR
                 </a-button>
             </a-popconfirm>
 
             <!--Button-->
-            <a-button v-if="current > 0" @click="prev" class="button-siguiente">
-                Volver
+            <a-button v-if="current > 0" @click="prev" class="accion-button aqua">
+                VOLVER
             </a-button>
 
             <!--Popconfirm-->
@@ -399,11 +399,11 @@
                 v-if="current === 0">
 
                 <!--Button-->
-                <a-button class="button-siguiente">
-                    Limpiar
+                <a-button class="accion-button aqua">
+                    LIMPIAR
                 </a-button>
             </a-popconfirm>
-        </div>
+        </a-flex>
     </a-modal>
 </template>
 
@@ -417,6 +417,11 @@ import {
 import {
     saveAs
 } from "file-saver"
+
+import {
+    ShowPlantillaApi,
+    PostCompraVentaApi
+} from "@/services"
 
 import {
     getAnio,
@@ -444,41 +449,50 @@ import {
 } from "ant-design-vue"
 
 import {
-    ShowPlantillaApi,
-    PostCompraVentaApi
-} from "@/services/paths"
-
-import {
     isValidDUI
 } from "@avalontechsv/idsv"
 
 const useForm = Form.useForm
 
 import axios from "axios"
+
 import dayjs from "dayjs"
 
 export default {
     data() {
         return {
             prima: false,
+
             disabled: false,
-            download: false,
+
             profesion: false,
+
             vencimiento: false,
 
             getAnio,
+
             getColor,
+
             getMarca,
+
             getModelo,
+
             getTipoMoto,
+
             getMunicipio,
+
             getProfesion,
+
             getDepartamento,
 
             dataSourceMn: [],
+
             dataSourceMd: [],
+
             dataSourcePl: [],
+
             dataSourceCl: [],
+
             dataSourceFMn: [],
 
             steps: [
@@ -846,7 +860,7 @@ export default {
 
             }).catch(err => {
 
-                console.log("error", err)
+                console.error(err)
             })
         }
 
@@ -860,7 +874,7 @@ export default {
 
             }).catch(err => {
 
-                console.log("error", err)
+                console.error(err)
             })
         }
 
@@ -888,7 +902,7 @@ export default {
 
     methods: {
 
-        doChangeValidacion() {
+        async doChangeValidacion() {
 
             let field = []
 
@@ -905,19 +919,19 @@ export default {
                 field = ["POLIZA", "MARCA", "MODELO", "ANIO", "COLOR", "NUMEROMOTOR", "NUMEROCHASIS", "TIPO"]
             }
 
-            this.validate(field).then(() => {
+            try {
 
-                this.doChangeAdd()
+                await this.validate(field)
 
-            }).catch(err => {
+                await this.doChangeAdd()
 
-                console.log("error", err)
-            })
+            } catch (err) {
+
+                console.error(err)
+            }
         },
 
         async doChangeAdd() {
-
-            this.download = true
 
             try {
 
@@ -943,8 +957,6 @@ export default {
 
                 getResponse(err)
             }
-
-            this.download = false
         },
 
         doChangeReplace(value, option) {
@@ -1050,12 +1062,8 @@ export default {
 
             this.formstate.COLOR = null
 
-            const data = getColor
-            
-            
-            .filter(item => item.modelo === this.formstate.MODELO)
+            const data = getColor.filter(item => item.modelo === this.formstate.MODELO)
 
-            console.log(data)
             this.dataSourceCl = data
         },
 

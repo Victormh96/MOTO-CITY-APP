@@ -1,28 +1,83 @@
-import store from "../store"
-import { createRouter, createWebHistory } from "vue-router"
-import { motocityRoutes } from "@/router/motocity/motocityRoutes"
-import { authenticationRoutes } from "@/router/authentication/authenticationRoutes"
+import {
+    createRouter,
+    createWebHistory
+} from "vue-router"
+
+import {
+    toolsRoutes
+} from "@/router/tools"
+
+import {
+    pagareRoutes
+} from "@/router/pagare"
+
+import {
+    reciboRoutes
+} from "@/router/recibo"
+
+import {
+    usuarioRoutes
+} from "@/router/usuario"
+
+import {
+    plantillaRoutes
+} from "@/router/plantilla"
+
+import {
+    preciarioRoutes
+} from "@/router/preciario"
+
+import {
+    compraventaRoutes
+} from "@/router/compraventa"
+
+import {
+    authenticationRoutes
+} from "@/router/authentication"
+
+import {
+    primeramatriculaRoutes
+} from "@/router/primeramatricula"
+
+import {
+    authentication
+} from "@/store/modules/authentication"
 
 const routes = [
 
-    ...motocityRoutes,
+    ...toolsRoutes,
+
+    ...reciboRoutes,
+
+    ...pagareRoutes,
+
+    ...usuarioRoutes,
+
+    ...plantillaRoutes,
+
+    ...preciarioRoutes,
+
+    ...compraventaRoutes,
 
     ...authenticationRoutes,
+
+    ...primeramatriculaRoutes,
 
     {
         path: "/:pathMatch(.*)*",
 
-        name: "Notfound",
+        redirect: "/",
 
-        meta: { requiresAuth: true },
+        meta: {
 
-        component: () => import("@/views/error/ViewNotFound.vue")
+            requiresAuth: true
+        }
     }
 ]
 
 const router = createRouter({
 
-    history: createWebHistory(process.env.BASE_URL),
+    history: createWebHistory(import.meta.env.BASE_URL),
 
     routes,
 
@@ -34,11 +89,11 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
 
-    if (to.meta.requiresAuth && !store.state.authentication?.cuenta?.token) {
+    if (to.meta.requiresAuth && !authentication()?.cuenta?.token) {
 
         next("/")
 
-    } else if (to.path === "/" && store.state.authentication?.cuenta?.token) {
+    } else if (to.path === "/" && authentication()?.cuenta?.token) {
 
         next("/go")
 
@@ -46,7 +101,7 @@ router.beforeEach((to, from, next) => {
 
         if (to.meta.requiresRole) {
 
-            roleAccess(to, store, to.meta.requiresRole, next)
+            roleAccess(to, authentication(), to.meta.requiresRole, next)
 
         } else {
 
@@ -57,7 +112,7 @@ router.beforeEach((to, from, next) => {
 
 function roleAccess(to, store, requiredRole, next) {
 
-    if (requiredRole.includes(store.state.authentication?.cuenta?.rol)) {
+    if (requiredRole.includes(store?.cuenta?.rol)) {
 
         next()
 

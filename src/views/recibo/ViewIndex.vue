@@ -12,7 +12,8 @@
             <Crear />
 
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourceRb" :columns="column" bordered :scroll="{ x: 1400 }">
+            <a-table :pagination="pagination" :data-source="dataSourceRb" :columns="column" bordered
+                :scroll="{ x: 1400 }">
 
                 <!--Template-->
                 <template #bodyCell="{ column, record }">
@@ -37,14 +38,14 @@
 
                     <!--Template-->
                     <template v-if="column.key === 'valor'">
-                        $ {{ record.valor }}
+                        {{ doChangeDollar(record?.valor) }}
                     </template>
 
                     <!--Template-->
                     <template v-if="column.key === 'estado'">
 
                         <!--Tag-->
-                        <a-tag color="cyan" v-if="record.estado == 'ANULADO'">ANULADO</a-tag>
+                        <a-tag color="error" v-if="record.estado == 'ANULADO'">ANULADO</a-tag>
 
                         <!--Tag-->
                         <a-tag color="blue" v-if="record.estado == 'FACTURADO'">FACTURADO</a-tag>
@@ -66,28 +67,24 @@
                 <!--Template-->
                 <template #customFilterDropdown="{ setSelectedKeys, selectedKeys, confirm, column }">
 
-                    <!--Div-->
-                    <div style="padding: 7px">
-
-                        <!--Input-->
-                        <a-input type="search" placeholder="..." :value="selectedKeys[0]" class="buscador-modal"
-                            ref="focusearch" @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
-                            @pressEnter="handleSearch(selectedKeys, confirm, column.dataIndex)" />
-                    </div>
+                    <!--Input-->
+                    <a-input type="search" placeholder="..." :value="selectedKeys[0]" ref="focusearch"
+                        @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
+                        @pressEnter="handleSearch(selectedKeys, confirm, column.dataIndex)" />
                 </template>
             </a-table>
         </div>
     </a-layout-content>
 
     <!--Layout-->
-    <a-layout-content class="loading d-flex" v-else>
+    <a-layout-content v-else>
 
-        <!--Container-->
-        <div class="container d-flex justify-content-center align-items-center">
+        <!--Row-->
+        <a-row justify="center" align="middle" class="loading">
 
             <!--Spin-->
             <a-spin size="large" />
-        </div>
+        </a-row>
     </a-layout-content>
 
     <!--Footer-->
@@ -103,6 +100,10 @@ import {
 } from "vue"
 
 import {
+    GetReciboApi
+} from "@/services"
+
+import {
     getResponse
 } from "@/utils/index"
 
@@ -110,14 +111,16 @@ import {
     getToken
 } from "@/utils/request"
 
-import {
-    GetReciboApi
-} from "@/services/paths"
-
 import axios from "axios"
+
+import numeral from "numeral"
+
 import Print from "@/components/recibo/ComponentPrint.vue"
+
 import Crear from "@/components/recibo/ComponentCreate.vue"
+
 import Footer from "@/components/partials/ComponentFooter.vue"
+
 import Navbar from "@/components/partials/ComponentNavbar.vue"
 
 export default {
@@ -185,7 +188,7 @@ export default {
 
                 record.serie.toString().toLowerCase().includes(value.toLowerCase()),
 
-            onFilterDropdownVisibleChange: visible => {
+            onFilterDropdownOpenChange: visible => {
 
                 if (visible) {
 
@@ -233,7 +236,7 @@ export default {
 
                 record.nombre.toString().toLowerCase().includes(value.toLowerCase()),
 
-            onFilterDropdownVisibleChange: visible => {
+            onFilterDropdownOpenChange: visible => {
 
                 if (visible) {
 
@@ -298,7 +301,7 @@ export default {
 
                 record.sucursal.toString().toLowerCase().includes(value.toLowerCase()),
 
-            onFilterDropdownVisibleChange: visible => {
+            onFilterDropdownOpenChange: visible => {
 
                 if (visible) {
 
@@ -344,7 +347,7 @@ export default {
 
                 record.creado.toString().toLowerCase().includes(value.toLowerCase()),
 
-            onFilterDropdownVisibleChange: visible => {
+            onFilterDropdownOpenChange: visible => {
 
                 if (visible) {
 
@@ -380,6 +383,11 @@ export default {
     },
 
     methods: {
+
+        doChangeDollar(number) {
+
+            return numeral(number).format("$0,0.00")
+        },
 
         doChangeScrollto() {
 

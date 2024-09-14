@@ -1,6 +1,6 @@
 <template>
     <!--Img-->
-    <img src="@/../public/img/original.png" class="img-fondo">
+    <img src="@/assets/img/original.png" class="img-fondo">
 
     <!--Component-->
     <Login />

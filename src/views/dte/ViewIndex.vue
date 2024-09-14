@@ -42,13 +42,13 @@
                     <template v-if="column.key === 'Estado'">
 
                         <!--Tag-->
-                        <a-tag color="cyan" v-if="record.Estado === 'NO PROCESADO'">NO PROCESADO</a-tag>
+                        <a-tag color="error" v-if="record.Estado === 'NO PROCESADO'">NO PROCESADO</a-tag>
 
                         <!--Tag-->
                         <a-tag color="blue" v-if="record.Estado === 'PROCESADO'">PROCESADO</a-tag>
 
                         <!--Tag-->
-                        <a-tag color="red" v-if="record.Estado === 'RECHAZADO'">RECHAZADO</a-tag>
+                        <a-tag color="warning" v-if="record.Estado === 'RECHAZADO'">RECHAZADO</a-tag>
                     </template>
 
                     <!--Template-->
@@ -65,7 +65,7 @@
                             :disabled="record.Estado == 'PROCESADO'">
 
                             <!--Button-->
-                            <a-button class="button-default" :disabled="record.Estado == 'PROCESADO'">
+                            <a-button :disabled="record.Estado == 'PROCESADO'">
                                 ACTUALIZAR
                             </a-button>
                         </a-popconfirm>
@@ -75,14 +75,10 @@
                 <!--Template-->
                 <template #customFilterDropdown="{ setSelectedKeys, selectedKeys, confirm, column }">
 
-                    <!--Div-->
-                    <div style="padding: 7px">
-
-                        <!--Input-->
-                        <a-input type="search" placeholder="..." :value="selectedKeys[0]" class="buscador-modal"
-                            ref="focusearch" @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
-                            @pressEnter="handleSearch(selectedKeys, confirm, column.dataIndex)" />
-                    </div>
+                    <!--Input-->
+                    <a-input type="search" placeholder="..." :value="selectedKeys[0]" ref="focusearch"
+                        @change="e => setSelectedKeys(e.target.value ? [e.target.value] : [])"
+                        @pressEnter="handleSearch(selectedKeys, confirm, column.dataIndex)" />
                 </template>
 
                 <!--Template-->
@@ -175,14 +171,14 @@
     </a-layout-content>
 
     <!--Layout-->
-    <a-layout-content class="loading d-flex" v-else>
+    <a-layout-content v-else>
 
-        <!--Container-->
-        <div class="container d-flex justify-content-center align-items-center">
+        <!--Row-->
+        <a-row justify="center" align="middle" class="loading">
 
             <!--Spin-->
             <a-spin size="large" />
-        </div>
+        </a-row>
     </a-layout-content>
 
     <!--Footer-->
@@ -198,6 +194,11 @@ import {
 } from "vue"
 
 import {
+    GetDTEApi,
+    PutDTEApi
+} from "@/services"
+
+import {
     getWarning,
     getResponse
 } from "@/utils/index"
@@ -207,13 +208,10 @@ import {
     getToken
 } from "@/utils/request"
 
-import {
-    GetDTEApi,
-    PutDTEApi
-} from "@/services/paths"
-
 import axios from "axios"
+
 import Footer from "@/components/partials/ComponentFooter.vue"
+
 import Navbar from "@/components/partials/ComponentNavbar.vue"
 
 export default {
@@ -281,7 +279,7 @@ export default {
 
                 record.DocEntry.toString().toLowerCase().includes(value.toLowerCase()),
 
-            onFilterDropdownVisibleChange: visible => {
+            onFilterDropdownOpenChange: visible => {
 
                 if (visible) {
 
@@ -304,7 +302,7 @@ export default {
 
                 record.DocNum.toString().toLowerCase().includes(value.toLowerCase()),
 
-            onFilterDropdownVisibleChange: visible => {
+            onFilterDropdownOpenChange: visible => {
 
                 if (visible) {
 
@@ -327,7 +325,7 @@ export default {
 
                 record.Sucursal.toString().toLowerCase().includes(value.toLowerCase()),
 
-            onFilterDropdownVisibleChange: visible => {
+            onFilterDropdownOpenChange: visible => {
 
                 if (visible) {
 
@@ -410,8 +408,6 @@ export default {
                 value: "RECHAZADO"
             }],
 
-            defaultFilteredValue: ["NO PROCESADO"],
-
             onFilter: (value, record) => record.Estado.toString() === value
         },
         {
@@ -429,7 +425,7 @@ export default {
 
                 record.FechadeEmision.toString().toLowerCase().includes(value.toLowerCase()),
 
-            onFilterDropdownVisibleChange: visible => {
+            onFilterDropdownOpenChange: visible => {
 
                 if (visible) {
 

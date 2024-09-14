@@ -1,18 +1,18 @@
 <template>
     <!--Button-->
-    <a-button class="button-default mb-3" @click="showModal">
+    <a-button class="go-button mb-3" @click="showModal">
         NUEVA PLANTILLA
     </a-button>
 
     <!--Modal-->
-    <a-modal v-model:visible="visible" width="600px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:open="visible" width="580px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" centered>
 
         <!--Icon-->
-        <i type="button" class="fa-solid fa-xmark fa-beat" @click="onClose"></i>
+        <i type="button" class="fa-solid fa-xmark fa-spin" @click="onClose"></i>
 
         <!--Form-->
-        <a-form layout="vertical" :model="formstate" class="formulario mb-3 pb-2">
+        <a-form layout="vertical" :model="formstate" class="mb-3 pb-2">
 
             <!--Row-->
             <a-row :gutter="[24, 24]">
@@ -35,7 +35,7 @@
                     <a-form-item label="Estado:" v-bind="validateInfos.ESTADO">
 
                         <!--Select-->
-                        <a-select v-model:value="formstate.ESTADO" :options="getEstado" :filter-option="filterOption" />
+                        <a-select v-model:value="formstate.ESTADO" :options="getEstado" />
                     </a-form-item>
                 </a-col>
 
@@ -52,18 +52,14 @@
             </a-row>
         </a-form>
 
-        <!--Div-->
-        <div class="steps-action formulario">
+        <!--Popconfirm-->
+        <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
-            <!--Popconfirm-->
-            <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
-
-                <!--Button-->
-                <a-button class="button-completar me-3" :loading="download">
-                    Completar
-                </a-button>
-            </a-popconfirm>
-        </div>
+            <!--Button-->
+            <a-button class="accion-button blue">
+                COMPLETAR
+            </a-button>
+        </a-popconfirm>
     </a-modal>
 </template>
 
@@ -73,6 +69,10 @@ import {
     ref,
     reactive
 } from "vue"
+
+import {
+    PostPlantillaApi
+} from "@/services"
 
 import {
     getEstado
@@ -91,10 +91,6 @@ import {
     Form
 } from "ant-design-vue"
 
-import {
-    PostPlantillaApi
-} from "@/services/paths"
-
 const useForm = Form.useForm
 
 import axios from "axios"
@@ -103,7 +99,7 @@ export default {
     data() {
         return {
             getEstado,
-            download: false,
+
             config: {
 
                 toolbarButtons: {
@@ -230,21 +226,21 @@ export default {
 
     methods: {
 
-        doChangeValidacion() {
+        async doChangeValidacion() {
 
-            this.validate().then(() => {
+            try {
 
-                this.doChangeAdd()
+                await this.validate()
 
-            }).catch(err => {
+                await this.doChangeAdd()
 
-                console.log("error", err)
-            })
+            } catch (err) {
+
+                console.error(err)
+            }
         },
 
         async doChangeAdd() {
-
-            this.download = true
 
             try {
 
@@ -262,8 +258,6 @@ export default {
 
                 getResponse(err)
             }
-
-            this.download = false
         },
 
         doChangeLetter(key, event) {

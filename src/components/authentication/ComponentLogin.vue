@@ -1,12 +1,12 @@
 <template>
     <!--Modal-->
-    <a-modal :footer="null" :maskClosable="false" width="450px" :visible="true" class="login" centered>
+    <a-modal class="inicio-sesion" :footer="null" :maskClosable="false" :open="true" width="450px" centered>
 
         <!--Component-->
         <Theme />
 
         <!--Img-->
-        <img src="@/../public/img/motocity-white.png" class="img-login mb-4 mt-3">
+        <img src="@/assets/img/motocity-white.png" class="mb-4 mt-3">
 
         <!--Form-->
         <a-form layout="vertical" :model="formstate" :rules="rules" @finish="doChangeLogin">
@@ -15,7 +15,8 @@
             <a-form-item name="usuario" class="mb-4 pt-2">
 
                 <!--Input-->
-                <a-input type="text" v-model:value="formstate.usuario" placeholder="Ej: juan.perez" autocomplete="off" />
+                <a-input type="text" v-model:value="formstate.usuario" placeholder="Ej: juan.perez"
+                    autocomplete="off" />
             </a-form-item>
 
             <!--Item-->
@@ -30,7 +31,9 @@
             <a-form-item class="text-end pt-2">
 
                 <!--Button-->
-                <a-button key="submit" htmlType="submit" :loading="loading" class="button-login">Entrar</a-button>
+                <a-button key="submit" htmlType="submit" :loading="loading" class="accion-button white">
+                    ENTRAR
+                </a-button>
             </a-form-item>
         </a-form>
     </a-modal>
@@ -41,6 +44,10 @@
 import {
     reactive
 } from "vue"
+
+import {
+    authentication
+} from "@/store/modules/authentication"
 
 import Theme from "@/components/partials/ComponentTheme.vue"
 
@@ -116,7 +123,9 @@ export default {
                 SOCIEDAD: "Motocity"
             }
 
-            await this.$store.dispatch("Cuenta", body)
+            const store = authentication()
+
+            await store.Cuenta(body)
 
             this.loading = false
         }

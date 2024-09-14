@@ -1,12 +1,16 @@
 <template>
     <!--Button-->
-    <a-button class="button-default" :disabled="download || (this.record?.imprimir === 0)" @click="doChangeDownload">
+    <a-button :disabled="download || (this.record?.imprimir === 0)" @click="doChangeDownload">
         IMPRESION
     </a-button>
 </template>
 
 <!--=======Script=======-->
 <script>
+import {
+    PrintReciboApi
+} from "@/services"
+
 import {
     getLoading,
     getResponse,
@@ -17,16 +21,11 @@ import {
     PostDescarga
 } from "@/utils/request"
 
-import {
-    PrintReciboApi
-} from "@/services/paths"
-
 import axios from "axios"
 
 export default {
     data() {
         return {
-            loading: false,
             download: false
         }
     },

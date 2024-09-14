@@ -5,21 +5,17 @@
         <!--Container-->
         <div class="container">
 
-            <!--Row-->
-            <a-row>
+            <!--Flex-->
+            <a-flex :gap="50" justify="center">
 
-                <!--Col-->
-                <a-col :span="24" class="text-center">
+                <!--Avatar-->
+                <a-avatar>
+                    {{ vname + vlastname }}
+                </a-avatar>
 
-                    <!--Avatar-->
-                    <a-avatar class="me-5">
-                        {{ vname + vlastname }}
-                    </a-avatar>
-
-                    <!--Component-->
-                    <Logout />
-                </a-col>
-            </a-row>
+                <!--Component-->
+                <Logout />
+            </a-flex>
         </div>
     </a-layout-header>
 
@@ -33,7 +29,7 @@
             <a-row>
 
                 <!--Col-->
-                <a-col :xs="10" :sm="10" :md="7" :lg="7" :xl="7" :xxl="7" :xxxl="7" class="text-start">
+                <a-col :xs="10" :sm="10" :md="3" :lg="3" :xl="3" :xxl="3" :xxxl="3">
 
                     <!--Enlace-->
                     <router-link :to="{ name: 'Go' }">
@@ -44,11 +40,14 @@
                 </a-col>
 
                 <!--Col-->
-                <a-col :xs="14" :sm="14" :md="17" :lg="17" :xl="17" :xxl="17" :xxxl="17"
-                    class="d-flex align-items-center justify-content-end">
+                <a-col :xs="14" :sm="14" :md="21" :lg="21" :xl="21" :xxl="21" :xxxl="21">
 
-                    <!--Component-->
-                    <Theme />
+                    <!--Flex-->
+                    <a-flex justify="flex-end" align="center" gap="middle">
+
+                        <!--Component-->
+                        <Theme />
+                    </a-flex>
                 </a-col>
             </a-row>
         </div>
@@ -57,14 +56,20 @@
 
 <!--=======Script=======-->
 <script>
+import {
+    authentication
+} from "@/store/modules/authentication"
+
 import Theme from "@/components/partials/ComponentTheme.vue"
+
 import Logout from "@/components/authentication/ComponentLogout.vue"
 
 export default {
     data() {
         return {
-            vname: this.$store.state.authentication?.cuenta?.usuario.charAt(0).toUpperCase(),
-            vlastname: this.$store.state.authentication?.cuenta?.usuario?.split(".")[1]?.charAt(0).toUpperCase()
+            vname: authentication()?.cuenta?.usuario?.charAt(0).toUpperCase(),
+
+            vlastname: authentication()?.cuenta?.usuario?.split(".")[1]?.charAt(0).toUpperCase()
         }
     },
 
