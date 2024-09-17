@@ -118,7 +118,7 @@ function roleAccess(to, store, requiredRole, next) {
 
     } else {
 
-        next("/404")
+        next("/")
     }
 }
 
