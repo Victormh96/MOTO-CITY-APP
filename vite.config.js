@@ -19,13 +19,18 @@ export default defineConfig({
 
       registerType: "autoUpdate",
 
-      manifest: false
+      manifest: false,
+
+      workbox: {
+
+        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024
+      }
     })
   ],
 
   build: {
 
-    chunkSizeWarningLimit: 2000
+    chunkSizeWarningLimit: 3000
   },
 
   server: {
