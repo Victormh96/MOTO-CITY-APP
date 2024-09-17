@@ -2471,21 +2471,21 @@ const getColor = [
 
         label: "NEGRO MULTICOLOR",
 
-        modelo: "NAVE150"
+        modelo: "NAVE 150"
     },
     {
         value: "BLANCO MULTICOLOR",
 
         label: "BLANCO MULTICOLOR",
 
-        modelo: "NAVE150"
+        modelo: "NAVE 150"
     },
     {
         value: "ROJO MULTICOLOR",
 
         label: "ROJO MULTICOLOR",
 
-        modelo: "NAVE150"
+        modelo: "NAVE 150"
     },
     {
         value: "NEGRO MULTICOLOR",
