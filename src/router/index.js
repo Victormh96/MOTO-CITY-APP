@@ -24,6 +24,10 @@ import {
 } from "@/router/plantilla"
 
 import {
+    metaventaRoutes
+} from "@/router/metaventa"
+
+import {
     preciarioRoutes
 } from "@/router/preciario"
 
@@ -56,6 +60,8 @@ const routes = [
     ...plantillaRoutes,
 
     ...preciarioRoutes,
+
+    ...metaventaRoutes,
 
     ...compraventaRoutes,
 

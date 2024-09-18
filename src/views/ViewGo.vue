@@ -139,6 +139,17 @@
                                 <img src="@/assets/img/categoria/pedidos.png" class="img-horizontal">
                             </router-link>
                         </a-col>
+
+                        <!--Col-->
+                        <a-col :span="24" v-if="this.getRole(['RRHH'])">
+
+                            <!--Enlace-->
+                            <router-link :to="{ name: 'Metaventa' }">
+
+                                <!--Img-->
+                                <img src="@/assets/img/categoria/meta-venta.png" class="img-horizontal">
+                            </router-link>
+                        </a-col>
                     </a-row>
                 </a-col>
             </a-row>
