@@ -11,7 +11,7 @@ const compraventaRoutes = [
             requiresRole: ["Tramite", "Concesionario", "Jefe", "Caja"]
         },
 
-        component: () => import("@/views/compraventa/ViewIndex.vue")
+        component: () => import("@/views/compraventa/View.vue")
     }
 ]
 

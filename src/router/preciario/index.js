@@ -11,7 +11,7 @@ const preciarioRoutes = [
             requiresRole: ["Jefe"]
         },
 
-        component: () => import("@/views/preciario/ViewIndex.vue")
+        component: () => import("@/views/preciario/View.vue")
     }
 ]
 

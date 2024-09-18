@@ -19,6 +19,8 @@ const getClose = (err) => {
         key
     })
 
+    authentication().CuentaCerrar()
+
     setTimeout(() => {
 
         router.push("/")
@@ -110,8 +112,6 @@ const getDownload = (err, key) => {
 function getResponse(err) {
 
     if ([403, 404].includes(err.response?.status)) {
-
-        authentication().CuentaCerrar()
 
         getClose("Sesión cerrada")
 

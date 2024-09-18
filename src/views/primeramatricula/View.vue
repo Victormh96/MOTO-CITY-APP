@@ -12,7 +12,7 @@
             <Crear />
 
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourcePg" :columns="column" bordered
+            <a-table :pagination="pagination" :data-source="dataSourcePm" :columns="column" bordered
                 :scroll="{ x: 1400 }">
 
                 <!--Template-->
@@ -37,13 +37,8 @@
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'fecha_pago'">
-                        {{ new Date(record.fecha_pago).toISOString().split("T")[0] }}
-                    </template>
-
-                    <!--Template-->
                     <template v-if="column.key === 'creado'">
-                        {{ new Date(record.creado).toISOString().split("T")[0] }}
+                        {{ new Date(record.creado)?.toISOString()?.split("T")[0] }}
                     </template>
 
                     <!--Template-->
@@ -90,7 +85,7 @@ import {
 } from "vue"
 
 import {
-    GetPagareApi
+    GetPrimeraMatriculaApi
 } from "@/services"
 
 import {
@@ -103,20 +98,20 @@ import {
 
 import axios from "axios"
 
-import Crear from "@/components/pagare/ComponentCreate.vue"
-
 import Footer from "@/components/partials/ComponentFooter.vue"
 
 import Navbar from "@/components/partials/ComponentNavbar.vue"
 
-import Download from "@/components/pagare/ComponentDownload.vue"
+import Crear from "@/components/primeramatricula/ComponentCreate.vue"
+
+import Download from "@/components/primeramatricula/ComponentDownload.vue"
 
 export default {
     data() {
         return {
             loading: false,
 
-            dataSourcePg: [],
+            dataSourcePm: [],
 
             pagination: {
 
@@ -135,9 +130,9 @@ export default {
 
             const { body, config } = getToken()
 
-            const pagare = await axios.post(GetPagareApi, body, config)
+            const primeramatricula = await axios.post(GetPrimeraMatriculaApi, body, config)
 
-            this.dataSourcePg = pagare?.data
+            this.dataSourcePm = primeramatricula?.data
 
             this.loading = true
 
@@ -174,7 +169,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.nombre.toString().toLowerCase().includes(value.toLowerCase()),
+                record.nombre?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -197,7 +192,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.dui.toString().toLowerCase().includes(value.toLowerCase()),
+                record.dui?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -208,23 +203,22 @@ export default {
             }
         },
         {
-            title: "FECHA PAGO",
+            title: "DEPARTAMENTO",
 
-            dataIndex: "fecha_pago",
+            dataIndex: "departamento",
 
-            key: "fecha_pago",
+            key: "departamento",
 
             align: "center"
         },
         {
-            title: "CREDITO",
+            title: "MUNICIPIO",
 
-            dataIndex: "credito",
+            dataIndex: "municipio",
 
-            key: "credito",
+            key: "municipio",
 
-            align: "center",
-
+            align: "center"
         },
         {
             title: "CREADO",
@@ -239,7 +233,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.creado.toString().toLowerCase().includes(value.toLowerCase()),
+                record.creado?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -248,7 +242,6 @@ export default {
                     setTimeout(() => { focusearch.value.focus() }, 100)
                 }
             }
-
         },
         {
             title: "ACCIONES",

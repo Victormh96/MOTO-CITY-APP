@@ -202,7 +202,7 @@ export default {
 
         } = useForm(formstate, rules)
 
-        const filterOption = (input, option) => option.label.toLowerCase().includes(input.toLowerCase())
+        const filterOption = (input, option) => option.label?.toLowerCase()?.includes(input.toLowerCase())
 
         return {
             validate,

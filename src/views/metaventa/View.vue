@@ -6,56 +6,45 @@
     <a-layout-content class="fade-out" v-if="(loading)">
 
         <!--Container-->
-        <div class="container-fluid mb-3">
+        <div class="container-fluid table-diff mb-3">
 
-            <a-upload v-model:file-list="fileList" name="file" action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-                :headers="headers" @change="handleChange">
-                <a-button>
-                    <upload-outlined></upload-outlined>
-                    Click to Upload
-                </a-button>
-            </a-upload>
+            <!--Component-->
+            <Upload />
 
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourcePg" :columns="column" bordered
+            <a-table :pagination="pagination" :data-source="dataSourceMv" :columns="column" bordered
                 :scroll="{ x: 1400 }">
 
                 <!--Template-->
                 <template #bodyCell="{ column, record }">
 
                     <!--Template-->
-                    <template v-if="column.key === 'nombre'">
+                    <template v-if="column.key === 'VENDEDOR_NOMBRE'">
 
                         <!--Typography-->
                         <a-typography-paragraph :copyable="{ tooltip: false }">
-                            {{ record.nombre }}
+                            {{ record.VENDEDOR_NOMBRE }}
                         </a-typography-paragraph>
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'dui'">
-
-                        <!--Typography-->
-                        <a-typography-paragraph :copyable="{ tooltip: false }">
-                            {{ record.dui }}
-                        </a-typography-paragraph>
+                    <template v-if="column.key === 'MetaComercial'">
+                        {{ doChangeDollar(record?.MetaComercial) }}
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'fecha_pago'">
-                        {{ new Date(record.fecha_pago).toISOString().split("T")[0] }}
+                    <template v-if="column.key === 'MetaGerencia'">
+                        {{ doChangeDollar(record?.MetaGerencia) }}
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'creado'">
-                        {{ new Date(record.creado).toISOString().split("T")[0] }}
+                    <template v-if="column.key === 'MetaCOVID19'">
+                        {{ doChangeDollar(record?.MetaCOVID19) }}
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'acciones'">
-
-                        <!--Component-->
-                        <Download :record="record" />
+                    <template v-if="column.key === 'Fecha'">
+                        {{ new Date(record.Fecha)?.toISOString()?.split("T")[0] }}
                     </template>
                 </template>
 
@@ -95,7 +84,7 @@ import {
 } from "vue"
 
 import {
-    GetPagareApi
+    GetMetaVentaApi
 } from "@/services"
 
 import {
@@ -108,20 +97,20 @@ import {
 
 import axios from "axios"
 
-import Crear from "@/components/pagare/ComponentCreate.vue"
+import numeral from "numeral"
 
 import Footer from "@/components/partials/ComponentFooter.vue"
 
 import Navbar from "@/components/partials/ComponentNavbar.vue"
 
-import Download from "@/components/pagare/ComponentDownload.vue"
+import Upload from "@/components/metaventa/ComponentUpload.vue"
 
 export default {
     data() {
         return {
             loading: false,
 
-            dataSourcePg: [],
+            dataSourceMv: [],
 
             pagination: {
 
@@ -138,11 +127,11 @@ export default {
 
         try {
 
-            const { body, config } = getToken()
+            const { config } = getToken()
 
-            const pagare = await axios.post(GetPagareApi, body, config)
+            const metaventa = await axios.get(GetMetaVentaApi, config)
 
-            this.dataSourcePg = pagare?.data
+            this.dataSourceMv = metaventa?.data
 
             this.loading = true
 
@@ -167,11 +156,34 @@ export default {
 
         const column = [{
 
+            title: "FECHA",
+
+            dataIndex: "Fecha",
+
+            key: "Fecha",
+
+            align: "center",
+
+            customFilterDropdown: true,
+
+            onFilter: (value, record) =>
+
+                record.Fecha?.toString()?.toLowerCase().includes(value.toLowerCase()),
+
+            onFilterDropdownOpenChange: visible => {
+
+                if (visible) {
+
+                    setTimeout(() => { focusearch.value.focus() }, 100)
+                }
+            }
+        },
+        {
             title: "NOMBRE",
 
-            dataIndex: "nombre",
+            dataIndex: "VENDEDOR_NOMBRE",
 
-            key: "nombre",
+            key: "VENDEDOR_NOMBRE",
 
             align: "center",
 
@@ -179,7 +191,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.nombre.toString().toLowerCase().includes(value.toLowerCase()),
+                record.VENDEDOR_NOMBRE?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -190,11 +202,11 @@ export default {
             }
         },
         {
-            title: "DUI",
+            title: "PDV",
 
-            dataIndex: "dui",
+            dataIndex: "PDV",
 
-            key: "dui",
+            key: "PDV",
 
             align: "center",
 
@@ -202,7 +214,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.dui.toString().toLowerCase().includes(value.toLowerCase()),
+                record.PDV?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -213,56 +225,85 @@ export default {
             }
         },
         {
-            title: "FECHA PAGO",
+            title: "Almacen",
 
-            dataIndex: "fecha_pago",
+            dataIndex: "CodeAlmacen",
 
-            key: "fecha_pago",
+            key: "CodeAlmacen",
+
+            align: "center",
+
+            customFilterDropdown: true,
+
+            onFilter: (value, record) =>
+
+                record.CodeAlmacen?.toString()?.toLowerCase().includes(value.toLowerCase()),
+
+            onFilterDropdownOpenChange: visible => {
+
+                if (visible) {
+
+                    setTimeout(() => { focusearch.value.focus() }, 100)
+                }
+            }
+        },
+        {
+            title: "CATEGORIA",
+
+            dataIndex: "CATEGORIA",
+
+            key: "CATEGORIA",
+
+            align: "center",
+
+            filters: [{
+
+                text: "MOTO",
+
+                value: "MOTO"
+            },
+            {
+                text: "REPUESTOS",
+
+                value: "REPUESTOS"
+            },
+            {
+                text: "SERVICIO MTTO. P",
+
+                value: "SERVICIO MTTO. P"
+            }],
+
+            onFilter: (value, record) => record.CATEGORIA?.toString()?.includes(value)
+        },
+        {
+            title: "COMERCIAL",
+
+            dataIndex: "MetaComercial",
+
+            key: "MetaComercial",
 
             align: "center"
-        },
-        {
-            title: "CREDITO",
-
-            dataIndex: "credito",
-
-            key: "credito",
-
-            align: "center",
 
         },
         {
-            title: "CREADO",
+            title: "GERENCIA",
 
-            dataIndex: "creado",
+            dataIndex: "MetaGerencia",
 
-            key: "creado",
-
-            align: "center",
-
-            customFilterDropdown: true,
-
-            onFilter: (value, record) =>
-
-                record.creado.toString().toLowerCase().includes(value.toLowerCase()),
-
-            onFilterDropdownOpenChange: visible => {
-
-                if (visible) {
-
-                    setTimeout(() => { focusearch.value.focus() }, 100)
-                }
-            }
-
-        },
-        {
-            title: "ACCIONES",
-
-            dataIndex: "acciones",
-
-            key: "acciones",
+            key: "MetaGerencia",
 
             align: "center"
+
+        },
+        {
+            title: "CREDICITY",
+
+            dataIndex: "MetaCOVID19",
+
+            key: "MetaCOVID19",
+
+            align: "center"
+
         }]
 
         const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -284,6 +325,11 @@ export default {
 
     methods: {
 
+        doChangeDollar(number) {
+
+            return numeral(number).format("$0,0.00")
+        },
+
         doChangeScrollto() {
 
             window.scrollTo({
@@ -296,10 +342,9 @@ export default {
     },
 
     components: {
-        Crear,
+        Upload,
         Footer,
-        Navbar,
-        Download
+        Navbar
     }
 };
 </script>

@@ -11,7 +11,7 @@ const plantillaRoutes = [
             requiresRole: ["Tramite", "Administrador"]
         },
 
-        component: () => import("@/views/plantilla/ViewIndex.vue")
+        component: () => import("@/views/plantilla/View.vue")
     }
 ]
 

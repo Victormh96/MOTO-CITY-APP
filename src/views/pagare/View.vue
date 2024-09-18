@@ -9,24 +9,14 @@
         <div class="container-fluid mb-3">
 
             <!--Component-->
-            <Crear :dataSourceSc="dataSourceSc" />
+            <Crear />
 
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourceUs" :columns="column" bordered
+            <a-table :pagination="pagination" :data-source="dataSourcePg" :columns="column" bordered
                 :scroll="{ x: 1400 }">
 
                 <!--Template-->
                 <template #bodyCell="{ column, record }">
-
-                    <!--Template-->
-                    <template v-if="column.key === 'enlinea'">
-
-                        <!--Badge-->
-                        <a-badge status="processing" color="#2f8919" v-if="record.enlinea" />
-
-                        <!--Badge-->
-                        <a-badge status="processing" color="#891924" v-else />
-                    </template>
 
                     <!--Template-->
                     <template v-if="column.key === 'nombre'">
@@ -38,49 +28,29 @@
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'tipo'">
+                    <template v-if="column.key === 'dui'">
 
                         <!--Typography-->
-                        <a-typography-paragraph v-if="record.tipo === 'CV'">
-                            COMPRA VENTA
-                        </a-typography-paragraph>
-
-                        <!--Typography-->
-                        <a-typography-paragraph v-if="record.tipo === 'PG'">
-                            PAGARE
-                        </a-typography-paragraph>
-
-                        <!--Typography-->
-                        <a-typography-paragraph v-if="record.tipo === 'PM'">
-                            PRIMERA MATRICULA
-                        </a-typography-paragraph>
-
-                        <!--Typography-->
-                        <a-typography-paragraph v-if="record.tipo === 'RB'">
-                            RECIBO
+                        <a-typography-paragraph :copyable="{ tooltip: false }">
+                            {{ record.dui }}
                         </a-typography-paragraph>
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'estado'">
-
-                        <!--Tag-->
-                        <a-tag color="blue" v-if="record.estado">ACTIVADO</a-tag>
-
-                        <!--Tag-->
-                        <a-tag color="error" v-else>DESACTIVADO</a-tag>
+                    <template v-if="column.key === 'fecha_pago'">
+                        {{ new Date(record.fecha_pago)?.toISOString()?.split("T")[0] }}
                     </template>
 
                     <!--Template-->
                     <template v-if="column.key === 'creado'">
-                        {{ new Date(record.creado).toISOString().split("T")[0] }}
+                        {{ new Date(record.creado)?.toISOString()?.split("T")[0] }}
                     </template>
 
                     <!--Template-->
                     <template v-if="column.key === 'acciones'">
 
                         <!--Component-->
-                        <Editar :record="record" :dataSourceSc="dataSourceSc" />
+                        <Download :record="record" />
                     </template>
                 </template>
 
@@ -120,6 +90,10 @@ import {
 } from "vue"
 
 import {
+    GetPagareApi
+} from "@/services"
+
+import {
     getResponse
 } from "@/utils/index"
 
@@ -127,29 +101,22 @@ import {
     getToken
 } from "@/utils/request"
 
-import {
-    GetUsuarioApi,
-    GetSucursalApi
-} from "@/services"
-
 import axios from "axios"
 
-import Editar from "@/components/usuario/ComponentEdit.vue"
-
-import Crear from "@/components/usuario/ComponentCreate.vue"
+import Crear from "@/components/pagare/ComponentCreate.vue"
 
 import Footer from "@/components/partials/ComponentFooter.vue"
 
 import Navbar from "@/components/partials/ComponentNavbar.vue"
+
+import Download from "@/components/pagare/ComponentDownload.vue"
 
 export default {
     data() {
         return {
             loading: false,
 
-            dataSourceUs: [],
-
-            dataSourceSc: [],
+            dataSourcePg: [],
 
             pagination: {
 
@@ -166,15 +133,11 @@ export default {
 
         try {
 
-            const { config } = getToken()
+            const { body, config } = getToken()
 
-            const usuario = await axios.get(GetUsuarioApi, config)
+            const pagare = await axios.post(GetPagareApi, body, config)
 
-            this.dataSourceUs = usuario?.data
-
-            const sucursal = await axios.get(GetSucursalApi, config)
-
-            this.dataSourceSc = sucursal?.data
+            this.dataSourcePg = pagare?.data
 
             this.loading = true
 
@@ -199,30 +162,6 @@ export default {
 
         const column = [{
 
-            title: "EN LINEA",
-
-            dataIndex: "enlinea",
-
-            key: "enlinea",
-
-            align: "center",
-
-            filters: [{
-
-                text: "CONECTADO",
-
-                value: "true"
-            },
-            {
-                text: "DESCONECTADO",
-
-                value: "false"
-            }],
-
-            onFilter: (value, record) => record.enlinea.toString().includes(value)
-        },
-        {
-
             title: "NOMBRE",
 
             dataIndex: "nombre",
@@ -235,7 +174,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.nombre.toString().toLowerCase().includes(value.toLowerCase()),
+                record.nombre?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -246,12 +185,11 @@ export default {
             }
         },
         {
+            title: "DUI",
 
-            title: "USUARIO",
+            dataIndex: "dui",
 
-            dataIndex: "usuario",
-
-            key: "usuario",
+            key: "dui",
 
             align: "center",
 
@@ -259,7 +197,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.usuario.toString().toLowerCase().includes(value.toLowerCase()),
+                record.dui?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -270,22 +208,23 @@ export default {
             }
         },
         {
-            title: "ROL",
+            title: "FECHA PAGO",
 
-            dataIndex: "rol",
+            dataIndex: "fecha_pago",
 
-            key: "rol",
+            key: "fecha_pago",
 
             align: "center"
         },
         {
-            title: "ESTADO",
+            title: "CREDITO",
 
-            dataIndex: "estado",
+            dataIndex: "credito",
 
-            key: "estado",
+            key: "credito",
 
-            align: "center"
+            align: "center",
+
         },
         {
             title: "CREADO",
@@ -300,7 +239,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.creado.toString().toLowerCase().includes(value.toLowerCase()),
+                record.creado?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -309,6 +248,7 @@ export default {
                     setTimeout(() => { focusearch.value.focus() }, 100)
                 }
             }
+
         },
         {
             title: "ACCIONES",
@@ -354,7 +294,7 @@ export default {
         Crear,
         Footer,
         Navbar,
-        Editar
+        Download
     }
 };
 </script>

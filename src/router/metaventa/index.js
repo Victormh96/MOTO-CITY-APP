@@ -11,7 +11,7 @@ const metaventaRoutes = [
             requiresRole: ["RRHH"]
         },
 
-        component: () => import("@/views/metaventa/ViewIndex.vue")
+        component: () => import("@/views/metaventa/View.vue")
     }
 ]
 

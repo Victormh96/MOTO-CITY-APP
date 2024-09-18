@@ -11,7 +11,7 @@ const pagareRoutes = [
             requiresRole: ["Jefe"]
         },
 
-        component: () => import("@/views/pagare/ViewIndex.vue")
+        component: () => import("@/views/pagare/View.vue")
     }
 ]
 

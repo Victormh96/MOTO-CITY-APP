@@ -23,7 +23,7 @@ const toolsRoutes = [
             requiresRole: ["Contabilidad", "Administrador"]
         },
 
-        component: () => import("@/views/dte/ViewIndex.vue")
+        component: () => import("@/views/dte/View.vue")
     },
     {
         path: "/pedidos",

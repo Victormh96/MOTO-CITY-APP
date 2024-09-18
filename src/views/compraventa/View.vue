@@ -12,7 +12,7 @@
             <Crear />
 
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourcePm" :columns="column" bordered
+            <a-table :pagination="pagination" :data-source="dataSourceCv" :columns="column" bordered
                 :scroll="{ x: 1400 }">
 
                 <!--Template-->
@@ -28,17 +28,31 @@
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'dui'">
+                    <template v-if="column.key === 'precio'">
+                        {{ doChangeDollar(record?.precio) }}
+                    </template>
+
+                    <!--Template-->
+                    <template v-if="column.key === 'n_motor'">
 
                         <!--Typography-->
                         <a-typography-paragraph :copyable="{ tooltip: false }">
-                            {{ record.dui }}
+                            {{ record.n_motor }}
+                        </a-typography-paragraph>
+                    </template>
+
+                    <!--Template-->
+                    <template v-if="column.key === 'n_chasis'">
+
+                        <!--Typography-->
+                        <a-typography-paragraph :copyable="{ tooltip: false }">
+                            {{ record.n_chasis }}
                         </a-typography-paragraph>
                     </template>
 
                     <!--Template-->
                     <template v-if="column.key === 'creado'">
-                        {{ new Date(record.creado).toISOString().split("T")[0] }}
+                        {{ new Date(record.creado)?.toISOString()?.split("T")[0] }}
                     </template>
 
                     <!--Template-->
@@ -85,7 +99,7 @@ import {
 } from "vue"
 
 import {
-    GetPrimeraMatriculaApi
+    GetCompraVentaApi
 } from "@/services"
 
 import {
@@ -98,20 +112,22 @@ import {
 
 import axios from "axios"
 
+import numeral from "numeral"
+
 import Footer from "@/components/partials/ComponentFooter.vue"
 
 import Navbar from "@/components/partials/ComponentNavbar.vue"
 
-import Crear from "@/components/primeramatricula/ComponentCreate.vue"
+import Crear from "@/components/compraventa/ComponentCreate.vue"
 
-import Download from "@/components/primeramatricula/ComponentDownload.vue"
+import Download from "@/components/compraventa/ComponentDownload.vue"
 
 export default {
     data() {
         return {
             loading: false,
 
-            dataSourcePm: [],
+            dataSourceCv: [],
 
             pagination: {
 
@@ -130,9 +146,9 @@ export default {
 
             const { body, config } = getToken()
 
-            const primeramatricula = await axios.post(GetPrimeraMatriculaApi, body, config)
+            const compraventa = await axios.post(GetCompraVentaApi, body, config)
 
-            this.dataSourcePm = primeramatricula?.data
+            this.dataSourceCv = compraventa?.data
 
             this.loading = true
 
@@ -169,7 +185,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.nombre.toString().toLowerCase().includes(value.toLowerCase()),
+                record.nombre?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -180,11 +196,29 @@ export default {
             }
         },
         {
-            title: "DUI",
+            title: "MODELO",
 
-            dataIndex: "dui",
+            dataIndex: "modelo",
 
-            key: "dui",
+            key: "modelo",
+
+            align: "center"
+        },
+        {
+            title: "COLOR",
+
+            dataIndex: "color",
+
+            key: "color",
+
+            align: "center"
+        },
+        {
+            title: "MOTOR",
+
+            dataIndex: "n_motor",
+
+            key: "n_motor",
 
             align: "center",
 
@@ -192,7 +226,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.dui.toString().toLowerCase().includes(value.toLowerCase()),
+                record.n_motor?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -203,20 +237,34 @@ export default {
             }
         },
         {
-            title: "DEPARTAMENTO",
+            title: "CHASIS",
 
-            dataIndex: "departamento",
+            dataIndex: "n_chasis",
 
-            key: "departamento",
+            key: "n_chasis",
 
-            align: "center"
+            align: "center",
+
+            customFilterDropdown: true,
+
+            onFilter: (value, record) =>
+
+                record.n_chasis?.toString()?.toLowerCase().includes(value.toLowerCase()),
+
+            onFilterDropdownOpenChange: visible => {
+
+                if (visible) {
+
+                    setTimeout(() => { focusearch.value.focus() }, 100)
+                }
+            }
         },
         {
-            title: "MUNICIPIO",
+            title: "PRECIO",
 
-            dataIndex: "municipio",
+            dataIndex: "precio",
 
-            key: "municipio",
+            key: "precio",
 
             align: "center"
         },
@@ -233,7 +281,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.creado.toString().toLowerCase().includes(value.toLowerCase()),
+                record.creado?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -271,6 +319,11 @@ export default {
     },
 
     methods: {
+
+        doChangeDollar(number) {
+
+            return numeral(number).format("$0,0.00")
+        },
 
         doChangeScrollto() {
 

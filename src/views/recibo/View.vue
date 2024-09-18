@@ -12,11 +12,20 @@
             <Crear />
 
             <!--Table-->
-            <a-table :pagination="pagination" :data-source="dataSourceCv" :columns="column" bordered
+            <a-table :pagination="pagination" :data-source="dataSourceRb" :columns="column" bordered
                 :scroll="{ x: 1400 }">
 
                 <!--Template-->
                 <template #bodyCell="{ column, record }">
+
+                    <!--Template-->
+                    <template v-if="column.key === 'serie'">
+
+                        <!--Typography-->
+                        <a-typography-paragraph :copyable="{ tooltip: false }">
+                            {{ record.serie }}
+                        </a-typography-paragraph>
+                    </template>
 
                     <!--Template-->
                     <template v-if="column.key === 'nombre'">
@@ -28,38 +37,30 @@
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'precio'">
-                        {{ doChangeDollar(record?.precio) }}
+                    <template v-if="column.key === 'valor'">
+                        {{ doChangeDollar(record?.valor) }}
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'n_motor'">
+                    <template v-if="column.key === 'estado'">
 
-                        <!--Typography-->
-                        <a-typography-paragraph :copyable="{ tooltip: false }">
-                            {{ record.n_motor }}
-                        </a-typography-paragraph>
-                    </template>
+                        <!--Tag-->
+                        <a-tag color="error" v-if="record.estado == 'ANULADO'">ANULADO</a-tag>
 
-                    <!--Template-->
-                    <template v-if="column.key === 'n_chasis'">
-
-                        <!--Typography-->
-                        <a-typography-paragraph :copyable="{ tooltip: false }">
-                            {{ record.n_chasis }}
-                        </a-typography-paragraph>
+                        <!--Tag-->
+                        <a-tag color="blue" v-if="record.estado == 'FACTURADO'">FACTURADO</a-tag>
                     </template>
 
                     <!--Template-->
                     <template v-if="column.key === 'creado'">
-                        {{ new Date(record.creado).toISOString().split("T")[0] }}
+                        {{ new Date(record.creado)?.toISOString()?.split("T")[0] }}
                     </template>
 
                     <!--Template-->
                     <template v-if="column.key === 'acciones'">
 
                         <!--Component-->
-                        <Download :record="record" />
+                        <Print :record="record" />
                     </template>
                 </template>
 
@@ -99,7 +100,7 @@ import {
 } from "vue"
 
 import {
-    GetCompraVentaApi
+    GetReciboApi
 } from "@/services"
 
 import {
@@ -114,20 +115,20 @@ import axios from "axios"
 
 import numeral from "numeral"
 
+import Print from "@/components/recibo/ComponentPrint.vue"
+
+import Crear from "@/components/recibo/ComponentCreate.vue"
+
 import Footer from "@/components/partials/ComponentFooter.vue"
 
 import Navbar from "@/components/partials/ComponentNavbar.vue"
-
-import Crear from "@/components/compraventa/ComponentCreate.vue"
-
-import Download from "@/components/compraventa/ComponentDownload.vue"
 
 export default {
     data() {
         return {
             loading: false,
 
-            dataSourceCv: [],
+            dataSourceRb: [],
 
             pagination: {
 
@@ -146,9 +147,9 @@ export default {
 
             const { body, config } = getToken()
 
-            const compraventa = await axios.post(GetCompraVentaApi, body, config)
+            const recibo = await axios.post(GetReciboApi, body, config)
 
-            this.dataSourceCv = compraventa?.data
+            this.dataSourceRb = recibo?.data
 
             this.loading = true
 
@@ -173,6 +174,54 @@ export default {
 
         const column = [{
 
+            title: "SERIE",
+
+            dataIndex: "serie",
+
+            key: "serie",
+
+            align: "center",
+
+            customFilterDropdown: true,
+
+            onFilter: (value, record) =>
+
+                record.serie?.toString()?.toLowerCase().includes(value.toLowerCase()),
+
+            onFilterDropdownOpenChange: visible => {
+
+                if (visible) {
+
+                    setTimeout(() => { focusearch.value.focus() }, 100)
+                }
+            }
+        },
+        {
+
+            title: "SOCIEDAD",
+
+            dataIndex: "sociedad",
+
+            key: "sociedad",
+
+            align: "center",
+
+            filters: [{
+
+                text: "OUTLANDER",
+
+                value: "OUTLANDER"
+            },
+            {
+                text: "CREDICITY",
+
+                value: "CREDICITY"
+            }],
+
+            onFilter: (value, record) => record.sociedad?.toString()?.includes(value)
+        },
+        {
+
             title: "NOMBRE",
 
             dataIndex: "nombre",
@@ -185,7 +234,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.nombre.toString().toLowerCase().includes(value.toLowerCase()),
+                record.nombre?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -196,29 +245,53 @@ export default {
             }
         },
         {
-            title: "MODELO",
+            title: "CANTIDAD",
 
-            dataIndex: "modelo",
+            dataIndex: "valor",
 
-            key: "modelo",
-
-            align: "center"
-        },
-        {
-            title: "COLOR",
-
-            dataIndex: "color",
-
-            key: "color",
+            key: "valor",
 
             align: "center"
         },
         {
-            title: "MOTOR",
+            title: "TIPO",
 
-            dataIndex: "n_motor",
+            dataIndex: "tipo_pago",
 
-            key: "n_motor",
+            key: "tipo_pago",
+
+            align: "center",
+
+            filters: [{
+
+                text: "EFECTIVO",
+
+                value: "EFECTIVO"
+            },
+            {
+                text: "TARJETA",
+
+                value: "TARJETA"
+            },
+            {
+                text: "TRANSFERENCIA",
+
+                value: "TRANSFERENCIA"
+            },
+            {
+                text: "CHEQUE",
+
+                value: "CHEQUE"
+            }],
+
+            onFilter: (value, record) => record.tipo_pago?.toString()?.includes(value)
+        },
+        {
+            title: "SUCURSAL",
+
+            dataIndex: "sucursal",
+
+            key: "sucursal",
 
             align: "center",
 
@@ -226,7 +299,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.n_motor.toString().toLowerCase().includes(value.toLowerCase()),
+                record.sucursal?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -237,36 +310,27 @@ export default {
             }
         },
         {
-            title: "CHASIS",
+            title: "ESTADO",
 
-            dataIndex: "n_chasis",
+            dataIndex: "estado",
 
-            key: "n_chasis",
+            key: "estado",
 
             align: "center",
 
-            customFilterDropdown: true,
+            filters: [{
 
-            onFilter: (value, record) =>
+                text: "FACTURADO",
 
-                record.n_chasis.toString().toLowerCase().includes(value.toLowerCase()),
+                value: "FACTURADO"
+            },
+            {
+                text: "ANULADO",
 
-            onFilterDropdownOpenChange: visible => {
+                value: "ANULADO"
+            }],
 
-                if (visible) {
-
-                    setTimeout(() => { focusearch.value.focus() }, 100)
-                }
-            }
-        },
-        {
-            title: "PRECIO",
-
-            dataIndex: "precio",
-
-            key: "precio",
-
-            align: "center"
+            onFilter: (value, record) => record.estado?.toString()?.includes(value)
         },
         {
             title: "CREADO",
@@ -281,7 +345,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.creado.toString().toLowerCase().includes(value.toLowerCase()),
+                record.creado?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -337,10 +401,10 @@ export default {
     },
 
     components: {
+        Print,
         Crear,
         Footer,
-        Navbar,
-        Download
+        Navbar
     }
 };
 </script>

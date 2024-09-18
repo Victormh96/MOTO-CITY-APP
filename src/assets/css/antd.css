@@ -1354,6 +1354,17 @@ h5.ant-typography {
 }
 
 /* ============================================================*/
+/* Upload
+/* ============================================================*/
+.ant-upload-wrapper .ant-upload-list .ant-upload-list-item {
+    font-size: .75rem;
+}
+
+.ant-upload-wrapper .ant-upload-list .ant-upload-list-item .ant-upload-list-item-name {
+    transition: none;
+}
+
+/* ============================================================*/
 /* Inicio Sesion
 /* ============================================================*/
 .inicio-sesion img {

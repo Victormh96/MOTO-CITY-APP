@@ -11,7 +11,7 @@ const primeramatriculaRoutes = [
             requiresRole: ["Tramite", "Concesionario", "Jefe", "Caja"]
         },
 
-        component: () => import("@/views/primeramatricula/ViewIndex.vue")
+        component: () => import("@/views/primeramatricula/View.vue")
     }
 ]
 

@@ -11,7 +11,7 @@ const reciboRoutes = [
             requiresRole: ["Caja"]
         },
 
-        component: () => import("@/views/recibo/ViewIndex.vue")
+        component: () => import("@/views/recibo/View.vue")
     },
     {
         path: "/recibo/download",

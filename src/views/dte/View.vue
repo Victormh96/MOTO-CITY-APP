@@ -53,7 +53,7 @@
 
                     <!--Template-->
                     <template v-if="column.key === 'FechadeEmision'">
-                        {{ new Date(record.FechadeEmision).toISOString().split("T")[0] }}
+                        {{ new Date(record.FechadeEmision)?.toISOString()?.split("T")[0] }}
                     </template>
 
                     <!--Template-->
@@ -277,7 +277,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.DocEntry.toString().toLowerCase().includes(value.toLowerCase()),
+                record.DocEntry?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -300,7 +300,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.DocNum.toString().toLowerCase().includes(value.toLowerCase()),
+                record.DocNum?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -323,7 +323,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.Sucursal.toString().toLowerCase().includes(value.toLowerCase()),
+                record.Sucursal?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -369,7 +369,7 @@ export default {
                 value: "NCI"
             }],
 
-            onFilter: (value, record) => record.TipoDoc.toString().includes(value)
+            onFilter: (value, record) => record.TipoDoc?.toString()?.includes(value)
         },
         {
             title: "OBSERVACIONES",
@@ -408,7 +408,7 @@ export default {
                 value: "RECHAZADO"
             }],
 
-            onFilter: (value, record) => record.Estado.toString() === value
+            onFilter: (value, record) => record.Estado?.toString() === value
         },
         {
             title: "CREADO",
@@ -423,7 +423,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.FechadeEmision.toString().toLowerCase().includes(value.toLowerCase()),
+                record.FechadeEmision?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 

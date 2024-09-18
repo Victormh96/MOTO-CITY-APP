@@ -53,7 +53,7 @@
 
                     <!--Template-->
                     <template v-if="column.key === 'creado'">
-                        {{ new Date(record.creado).toISOString().split("T")[0] }}
+                        {{ new Date(record.creado)?.toISOString()?.split("T")[0] }}
                     </template>
 
                     <!--Template-->
@@ -201,7 +201,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.serie.toString().toLowerCase().includes(value.toLowerCase()),
+                record.serie?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -233,7 +233,7 @@ export default {
                 value: "CREDICITY"
             }],
 
-            onFilter: (value, record) => record.sociedad.toString().includes(value)
+            onFilter: (value, record) => record.sociedad?.toString()?.includes(value)
         },
         {
 
@@ -249,7 +249,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.nombre.toString().toLowerCase().includes(value.toLowerCase()),
+                record.nombre?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -299,7 +299,7 @@ export default {
                 value: "CHEQUE"
             }],
 
-            onFilter: (value, record) => record.tipo_pago.toString().includes(value)
+            onFilter: (value, record) => record.tipo_pago?.toString()?.includes(value)
         },
         {
             title: "SUCURSAL",
@@ -314,7 +314,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.sucursal.toString().toLowerCase().includes(value.toLowerCase()),
+                record.sucursal?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -345,7 +345,7 @@ export default {
                 value: "ANULADO"
             }],
 
-            onFilter: (value, record) => record.estado.toString().includes(value)
+            onFilter: (value, record) => record.estado?.toString()?.includes(value)
         },
         {
             title: "CREADO",
@@ -360,7 +360,7 @@ export default {
 
             onFilter: (value, record) =>
 
-                record.creado.toString().toLowerCase().includes(value.toLowerCase()),
+                record.creado?.toString()?.toLowerCase().includes(value.toLowerCase()),
 
             onFilterDropdownOpenChange: visible => {
 
@@ -419,6 +419,11 @@ export default {
 
                 getResponse(err)
             }
+        },
+
+        doChangeDollar(number) {
+
+            return numeral(number).format("$0,0.00")
         },
 
         doChangeScrollto() {

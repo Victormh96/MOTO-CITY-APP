@@ -11,7 +11,7 @@ const usuarioRoutes = [
             requiresRole: ["Administrador"]
         },
 
-        component: () => import("@/views/usuario/ViewIndex.vue")
+        component: () => import("@/views/usuario/View.vue")
     }
 ]
 

@@ -13,10 +13,6 @@ import {
     Modal
 } from "ant-design-vue"
 
-import {
-    authentication
-} from "@/store/modules/authentication"
-
 export default {
     setup() {
 
@@ -35,8 +31,6 @@ export default {
                 cancelText: "No",
 
                 onOk() {
-
-                    authentication().CuentaCerrar()
 
                     getClose("Sesión cerrada")
 
