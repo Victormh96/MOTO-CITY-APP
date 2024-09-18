@@ -2211,9 +2211,9 @@ const getModelo = [
         marca: "DAYUN"
     },
     {
-        value: "NITRO",
+        value: "NITRO150",
 
-        label: "NITRO",
+        label: "NITRO150",
 
         marca: "KATANA"
     },
@@ -2509,18 +2509,18 @@ const getColor = [
         modelo: "DY150-29"
     },
     {
-        value: "AZUL MULTICOLOR",
+        value: "NEGRO MULTICOLOR",
 
-        label: "AZUL MULTICOLOR",
+        label: "NEGRO MULTICOLOR",
 
-        modelo: "NITRO"
+        modelo: "NITRO150"
     },
     {
         value: "ROJO MULTICOLOR",
 
         label: "ROJO MULTICOLOR",
 
-        modelo: "NITRO"
+        modelo: "NITRO150"
     },
     {
         value: "ROJO MULTICOLOR",
@@ -2604,6 +2604,11 @@ const getRol = [
         value: "Logistica",
 
         label: "LOGISTICA"
+    },
+    {
+        value: "RRHH",
+
+        label: "RRHH"
     }
 ]
 
