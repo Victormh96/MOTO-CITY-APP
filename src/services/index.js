@@ -17,5 +17,4 @@ export * from "./plantilla"
 export * from "./metaventa"
 
 export * from "./compraventa"
-
 export * from "./primeramatricula"

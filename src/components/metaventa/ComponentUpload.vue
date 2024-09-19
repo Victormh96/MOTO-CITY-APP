@@ -1,6 +1,6 @@
 <template>
     <!--Upload-->
-    <a-upload name="file" :customRequest="doChangeUpload" :beforeUpload="doChangeValidacion" :multiple="false"
+    <a-upload name="file" :customRequest="doChangeUpload" :beforeUpload="doChangeValidacion" :max-count="1"
         accept=".xlsx">
 
         <!--Button-->
@@ -40,7 +40,7 @@ export default {
             return xlsx
         },
 
-        async doChangeUpload(file) {
+        async doChangeUpload({ file, onSuccess, onError }) {
 
             try {
 
@@ -54,16 +54,24 @@ export default {
 
                 getSuccess("Cargado")
 
+                onSuccess(response.data)
 
                 setTimeout(function () { location.reload() }, 300)
 
             } catch (err) {
 
-                console.error(err)
+                if (err.response?.data?.status === true) {
 
-                getResponse(err)
+                    getWarning(err.response?.data?.message)
 
+                } else {
 
+                    getResponse(err)
+                }
+
+                console.error(err.response.data.status)
+
+                onError(err)
             }
         }
     }
