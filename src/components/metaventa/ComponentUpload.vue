@@ -69,7 +69,7 @@ export default {
                     getResponse(err)
                 }
 
-                console.error(err.response.data.status)
+                console.error(err)
 
                 onError(err)
             }
