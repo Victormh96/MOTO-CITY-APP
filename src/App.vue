@@ -12,11 +12,16 @@
 
 <!--========Script========-->
 <script>
-import { ref, onMounted } from "vue"
+import {
+  ref,
+  onMounted
+} from "vue"
 
-import { initializeApp } from "firebase/app"
-
-import { getMessaging, getToken, onMessage } from "firebase/messaging"
+import {
+  getToken,
+  messaging,
+  onMessage
+} from "@/utils/firebase"
 
 export default {
   name: "App",
@@ -67,51 +72,37 @@ export default {
 
   setup() {
 
-    const firebaseConfig = {
+    const token = ref(null)
 
-      apiKey: "AIzaSyDLUa77UGt7KCNcI93SR-Qt4u7UpjX1Um0",
+    onMounted(async () => {
 
-      authDomain: "motocity-20ba8.firebaseapp.com",
+      try {
 
-      projectId: "motocity-20ba8",
+        onMessage(messaging, (payload) => {
 
-      storageBucket: "motocity-20ba8.appspot.com",
+          const notificationTitle = payload.notification?.title
 
-      messagingSenderId: "833916410269",
+          const notificationOptions = {
 
-      appId: "1:833916410269:web:7d799626cec2cbb022f774"
-    }
+            body: payload.notification?.body,
 
-    let token = ref(null)
+            icon: payload.notification?.image,
+            
+            requireInteraction: true
+          }
 
-    onMounted(() => {
-
-      const app = initializeApp(firebaseConfig)
-
-      const messaging = getMessaging()
-
-      onMessage(messaging, (payload) => {
-
-        const notificationTitle = payload.notification?.title
-
-        const notificationOptions = {
-
-          body: payload.notification?.body,
-
-          icon: payload.notification?.image,
-
-          requireInteraction: true
-        }
-
-        new Notification(notificationTitle, notificationOptions)
-      })
-
-      getToken(messaging, { vapidKey: "BBZ5q6x5AAmYawImMQH5CTnrOTMMgT12EUlJW9Jf_M8lGW3lx9Eesead-2IJkAGnavDOvOte3S24HGu2c9nQ5MM" })
-
-        .catch((err) => {
-
-          console.error(err)
+          new Notification(notificationTitle, notificationOptions)
         })
+
+        token.value = await getToken(messaging, {
+
+          vapidKey: "BAVl0HlGzcOTV7TaOrFRq3qLW7yySaKy3O0ah2sTfSMaeGJyLf-iQN467lQPbSmLJy-L561Yht7REGVPaUrBjIQ",
+        })
+
+      } catch (err) {
+
+        console.error(err)
+      }
     })
   }
 };
