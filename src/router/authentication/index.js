@@ -4,7 +4,7 @@ const authenticationRoutes = [
 
         name: "Inicio-Sesion",
 
-        component: () => import("@/views/authentication/ViewLogin.vue")
+        component: () => import("@/views/authentication/View.vue")
     }
 ]
 

@@ -250,7 +250,7 @@ export default {
 
                 getSuccess("Descargando")
 
-                setTimeout(async () => { location.reload() }, 300)
+                setTimeout(async () => { location.reload() }, 400)
 
             } catch (err) {
 
