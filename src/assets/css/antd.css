@@ -854,6 +854,11 @@ textarea.ant-input {
     background: var(--quinary);
 }
 
+.month.ant-picker {
+    height: 34px;
+    width: 150px;
+}
+
 .ant-picker .ant-picker-input>input-disabled,
 .ant-picker .ant-picker-input>input[disabled] {
     color: var(--texto-opacity);
@@ -1362,6 +1367,19 @@ h5.ant-typography {
 
 .ant-upload-wrapper .ant-upload-list .ant-upload-list-item .ant-upload-list-item-name {
     transition: none;
+}
+
+.ant-upload-list.ant-upload-list-text {
+    top: 170px;
+    left: 20px;
+    z-index: 999;
+    padding: 2px 10px;
+    position: absolute;
+    background: var(--background-error);
+}
+
+.ant-upload-list-item-progress {
+    display: none;
 }
 
 /* ============================================================*/

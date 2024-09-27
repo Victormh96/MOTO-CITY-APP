@@ -12,17 +12,6 @@
 
 <!--========Script========-->
 <script>
-import {
-  ref,
-  onMounted
-} from "vue"
-
-import {
-  getToken,
-  messaging,
-  onMessage
-} from "@/utils/firebase"
-
 export default {
   name: "App",
 
@@ -68,42 +57,6 @@ export default {
         }
       }
     }
-  },
-
-  setup() {
-
-    const token = ref(null)
-
-    onMounted(async () => {
-
-      try {
-
-        onMessage(messaging, (payload) => {
-
-          const notificationTitle = payload.notification?.title
-
-          const notificationOptions = {
-
-            body: payload.notification?.body,
-
-            icon: payload.notification?.image,
-            
-            requireInteraction: true
-          }
-
-          new Notification(notificationTitle, notificationOptions)
-        })
-
-        token.value = await getToken(messaging, {
-
-          vapidKey: "BAVl0HlGzcOTV7TaOrFRq3qLW7yySaKy3O0ah2sTfSMaeGJyLf-iQN467lQPbSmLJy-L561Yht7REGVPaUrBjIQ",
-        })
-
-      } catch (err) {
-
-        console.error(err)
-      }
-    })
   }
 };
 </script>

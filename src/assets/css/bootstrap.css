@@ -51,6 +51,10 @@ body {
     color: var(--texto) !important;
 }
 
+div[tabindex="0"][aria-hidden="true"] {
+    display: none;
+}
+
 .blue {
 
     background: rgb(25, 103, 137);

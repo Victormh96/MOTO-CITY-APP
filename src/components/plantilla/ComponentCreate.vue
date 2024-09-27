@@ -1,7 +1,7 @@
 <template>
     <!--Button-->
     <a-button class="go-button mb-3" @click="showModal">
-        NUEVA PLANTILLA
+        REGISTRAR
     </a-button>
 
     <!--Modal-->

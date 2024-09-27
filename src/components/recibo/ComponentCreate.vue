@@ -1,7 +1,7 @@
 <template>
     <!--Button-->
     <a-button class="go-button mb-3" @click="showModal">
-        NUEVO DOCUMENTO
+        REGISTRAR
     </a-button>
 
     <!--Modal-->

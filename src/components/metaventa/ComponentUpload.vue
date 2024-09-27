@@ -1,13 +1,20 @@
 <template>
-    <!--Upload-->
-    <a-upload name="file" :customRequest="doChangeUpload" :beforeUpload="doChangeValidacion" :max-count="1"
-        accept=".xlsx">
+    <!--Flex-->
+    <a-flex gap="small" justify="flex-start">
 
-        <!--Button-->
-        <a-button class="go-button mb-3">
-            SUBIR EXCEL
-        </a-button>
-    </a-upload>
+        <!--Upload-->
+        <a-upload name="file" :customRequest="doChangeUpload" :beforeUpload="doChangeValidacion" :max-count="1"
+            accept=".xlsx">
+
+            <!--Button-->
+            <a-button class="go-button mb-3">
+                REGISTRAR
+            </a-button>
+        </a-upload>
+
+        <!--Picker-->
+        <a-date-picker v-model:value="DocDate" picker="month" :allowClear="false" class="month"/>
+    </a-flex>
 </template>
 
 <!--=======Script=======-->
@@ -28,7 +35,15 @@ import {
 
 import axios from "axios"
 
+import dayjs from "dayjs"
+
 export default {
+    data() {
+        return {
+            DocDate: dayjs()
+        }
+    },
+
     methods: {
 
         async doChangeValidacion(file) {
@@ -47,6 +62,8 @@ export default {
                 const formData = new FormData()
 
                 formData.append("file", file)
+
+                formData.append("DocDate", this.DocDate)
 
                 const { config } = getToken()
 
