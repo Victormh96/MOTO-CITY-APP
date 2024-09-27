@@ -1912,6 +1912,11 @@ const getMunicipio = [
 
 const getProfesion = [
     {
+        value: "PANIFICADOR",
+
+        label: "PANIFICADOR"
+    },
+    {
         value: "MODISTA",
 
         label: "MODISTA"
