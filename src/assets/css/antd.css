@@ -666,6 +666,10 @@ div.ant-typography,
     border-color: var(--borde);
 }
 
+.ant-input-number-group .ant-input-number-group-addon {
+    font-size: .75rem;
+}
+
 /* ============================================================*/
 /* Number
 /* ============================================================*/

@@ -13,7 +13,7 @@
         </a-upload>
 
         <!--Picker-->
-        <a-date-picker v-model:value="DocDate" picker="month" :allowClear="false" class="month"/>
+        <a-date-picker v-model:value="DocDate" picker="month" :allowClear="false" class="month" :inputReadOnly="true"/>
     </a-flex>
 </template>
 
