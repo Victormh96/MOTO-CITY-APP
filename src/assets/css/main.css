@@ -129,6 +129,7 @@ html[data-theme="Black-Mode"] {
   height: 100%;
   object-fit: cover;
   position: absolute;
+  background: #000000;
 }
 
 @media (max-width: 575.98px) {
