@@ -168,6 +168,8 @@ function PostCompraVenta(record) {
 
             MUNICIPIO: record?.MUNICIPIO,
 
+            DISTRITO: record?.DISTRITO,
+
             DUI: record?.DUI,
 
             PRECIO: record?.PRECIO,
@@ -212,11 +214,19 @@ function PostCompraVenta(record) {
 
             NOMBREF: record?.NOMBREF ?? "",
 
+            PROFESIONF: record?.PROFESIONF ?? "",
+
             DEPARTAMENTOF: record?.DEPARTAMENTOF ?? "",
 
             MUNICIPIOF: record?.MUNICIPIOF ?? "",
 
+            DISTRITOF: record?.DISTRITOF ?? "",
+
             DUIF: record?.DUIF ?? "00000000-0",
+
+            CLASE: record?.CLASE ?? "",
+
+            PLACA: record?.PLACA ?? "",
 
             PLANTILLA: record?.PLANTILLA,
 
