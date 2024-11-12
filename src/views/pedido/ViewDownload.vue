@@ -97,7 +97,7 @@ export default {
 
                     { type: "text/csv" })
 
-                saveAs(blob, `PEDIDOS-${dayjs().format("YYYY-MM-DD HH_mm_ss")}.csv`)
+                saveAs(blob, `PEDIDOS-${dayjs().format("YYYY-MM-DD HH_mm_ss")}.xlsx`)
 
                 getSuccess("Descargando")
 
