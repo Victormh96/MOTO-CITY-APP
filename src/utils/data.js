@@ -2287,6 +2287,13 @@ const getModelo = [
         label: "NAVE 150",
 
         marca: "KATANA"
+    },
+    {
+        value: "CR150II",
+
+        label: "CR150II",
+
+        marca: "KATANA"
     }
 ]
 
@@ -2551,6 +2558,20 @@ const getColor = [
 
         modelo: "DY250-8"
     },
+    {
+        value: "NEGRO/ROJO C/F MULTICOLOR",
+
+        label: "NEGRO/ROJO C/F MULTICOLOR",
+
+        modelo: "CR150II"
+    },
+    {
+        value: "NEGRO/AZUL C/F MULTICOLOR",
+
+        label: "NEGRO/AZUL C/F MULTICOLOR",
+
+        modelo: "CR150II"
+    }
 ]
 
 const getTipoPago = [
