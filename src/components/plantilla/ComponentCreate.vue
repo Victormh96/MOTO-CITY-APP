@@ -1,11 +1,17 @@
 <template>
-    <!--Button-->
-    <a-button class="go-button mb-3" @click="showModal">
-        REGISTRAR
-    </a-button>
+    <!--Float-->
+    <a-float-button tooltip="REGISTRAR" @click="showModal">
+
+        <!--Template-->
+        <template #icon>
+
+            <!--Icono-->
+            <PlusCircleTwoTone two-tone-color="#db2d3f"/>
+        </template>
+    </a-float-button>
 
     <!--Modal-->
-    <a-modal v-model:open="visible" width="580px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:open="visible" width="450px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" centered>
 
         <!--Icon-->
@@ -71,17 +77,13 @@ import {
 } from "vue"
 
 import {
-    PostPlantillaApi
-} from "@/services"
+    getSuccess,
+    getResponse
+} from "@/utils"
 
 import {
     getEstado
 } from "@/utils/data"
-
-import {
-    getSuccess,
-    getResponse
-} from "@/utils/index"
 
 import {
     PostPlantilla
@@ -90,6 +92,14 @@ import {
 import {
     Form
 } from "ant-design-vue"
+
+import {
+    PostPlantillaApi
+} from "@/services/plantilla"
+
+import {
+    PlusCircleTwoTone
+} from "@ant-design/icons-vue"
 
 const useForm = Form.useForm
 
@@ -268,6 +278,10 @@ export default {
 
             this.$nextTick(() => event.target.setSelectionRange(cursorPosition, cursorPosition))
         }
+    },
+
+    components: {
+        PlusCircleTwoTone
     }
 };
 </script>

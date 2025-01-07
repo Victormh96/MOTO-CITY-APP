@@ -8,6 +8,17 @@
         <!--Container-->
         <div class="container-fluid mb-3">
 
+            <!--Page-->
+            <a-page-header title="USUARIO" @back="() => $router.push('/')">
+
+                <!--Template-->
+                <template #backIcon>
+
+                    <!--Icon-->
+                    <LeftCircleTwoTone two-tone-color="#db2d3f" />
+                </template>
+            </a-page-header>
+
             <!--Component-->
             <Crear :dataSourceSc="dataSourceSc" />
 
@@ -72,11 +83,6 @@
                     </template>
 
                     <!--Template-->
-                    <template v-if="column.key === 'creado'">
-                        {{ new Date(record.creado)?.toISOString()?.split("T")[0] }}
-                    </template>
-
-                    <!--Template-->
                     <template v-if="column.key === 'acciones'">
 
                         <!--Component-->
@@ -120,17 +126,24 @@ import {
 } from "vue"
 
 import {
-    GetUsuarioApi,
-    GetSucursalApi
-} from "@/services"
-
-import {
     getResponse
-} from "@/utils/index"
+} from "@/utils"
 
 import {
     getToken
 } from "@/utils/request"
+
+import {
+    GetSucursalApi
+} from "@/services/tools"
+
+import {
+    GetUsuarioApi
+} from "@/services/usuario"
+
+import {
+    LeftCircleTwoTone
+} from "@ant-design/icons-vue"
 
 import axios from "axios"
 
@@ -276,7 +289,46 @@ export default {
 
             key: "rol",
 
-            align: "center"
+            align: "center",
+
+            filters: [{
+
+                text: "Caja",
+
+                value: "Caja"
+            },
+            {
+                text: "Concesionario",
+
+                value: "Concesionario"
+            },
+            {
+                text: "Contabilidad",
+
+                value: "Contabilidad"
+            },
+            {
+                text: "Jefe",
+
+                value: "Jefe"
+            },
+            {
+                text: "Logistica",
+
+                value: "Logistica"
+            },
+            {
+                text: "RRHH",
+
+                value: "RRHH"
+            },
+            {
+                text: "Tramite",
+
+                value: "Tramite"
+            }],
+
+            onFilter: (value, record) => record.rol?.toString()?.includes(value)
         },
         {
             title: "ESTADO",
@@ -311,13 +363,15 @@ export default {
             }
         },
         {
-            title: "ACCIONES",
+            title: "",
 
             dataIndex: "acciones",
 
             key: "acciones",
 
-            align: "center"
+            align: "center",
+
+            width: 50
         }]
 
         const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -354,7 +408,8 @@ export default {
         Crear,
         Footer,
         Navbar,
-        Editar
+        Editar,
+        LeftCircleTwoTone
     }
 };
 </script>

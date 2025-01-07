@@ -1,11 +1,13 @@
 <template>
     <!--Button-->
     <a-button @click="showModal(); doChangePlantilla()">
-        EDITAR
+
+        <!--Button-->
+        <EditTwoTone two-tone-color="#db2d3f" />
     </a-button>
 
     <!--Modal-->
-    <a-modal v-model:open="visible" width="580px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:open="visible" width="450px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" centered>
 
         <!--Icon-->
@@ -71,17 +73,13 @@ import {
 } from "vue"
 
 import {
-    PutPlantillaApi
-} from "@/services"
+    getSuccess,
+    getResponse
+} from "@/utils"
 
 import {
     getEstado
 } from "@/utils/data"
-
-import {
-    getSuccess,
-    getResponse
-} from "@/utils/index"
 
 import {
     Form
@@ -90,6 +88,14 @@ import {
 import {
     PostPlantilla
 } from "@/utils/request"
+
+import {
+    PutPlantillaApi
+} from "@/services/plantilla"
+
+import {
+    EditTwoTone
+} from "@ant-design/icons-vue"
 
 const useForm = Form.useForm
 
@@ -281,6 +287,10 @@ export default {
 
             this.$nextTick(() => event.target.setSelectionRange(cursorPosition, cursorPosition))
         }
+    },
+
+    components: {
+        EditTwoTone
     },
 
     props: ["record"]

@@ -1,25 +1,31 @@
 <template>
     <!--Button-->
     <a-button :disabled="download || (this.record?.imprimir === 0)" @click="doChangeDownload">
-        IMPRESION
+
+        <!--Icon-->
+        <PrinterTwoTone two-tone-color="#db2d3f" />
     </a-button>
 </template>
 
 <!--=======Script=======-->
 <script>
 import {
-    PrintReciboApi
-} from "@/services"
-
-import {
     getLoading,
     getResponse,
     getDownload
-} from "@/utils/index"
+} from "@/utils"
 
 import {
     PostDescarga
 } from "@/utils/request"
+
+import {
+    PrintReciboApi
+} from "@/services/recibo"
+
+import {
+    PrinterTwoTone
+} from "@ant-design/icons-vue"
 
 import axios from "axios"
 
@@ -88,6 +94,10 @@ export default {
 
             this.download = false
         }
+    },
+
+    components: {
+        PrinterTwoTone
     },
 
     props: ["record"]

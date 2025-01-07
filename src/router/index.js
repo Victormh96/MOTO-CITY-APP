@@ -28,10 +28,6 @@ import {
 } from "@/router/metaventa"
 
 import {
-    preciarioRoutes
-} from "@/router/preciario"
-
-import {
     compraventaRoutes
 } from "@/router/compraventa"
 
@@ -58,8 +54,6 @@ const routes = [
     ...usuarioRoutes,
 
     ...plantillaRoutes,
-
-    ...preciarioRoutes,
 
     ...metaventaRoutes,
 

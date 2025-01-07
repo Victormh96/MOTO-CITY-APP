@@ -42,36 +42,5 @@
 
       "purpose": "maskable"
     }
-  ],
-
-  "screenshots": [
-    {
-      "src": "/home.png",
-
-      "sizes": "750x1334",
-
-      "type": "image/png"
-    },
-    {
-      "src": "/go.png",
-
-      "sizes": "750x1334",
-
-      "type": "image/png"
-    },
-    {
-      "src": "/preciario.png",
-
-      "sizes": "750x1334",
-
-      "type": "image/png"
-    },
-    {
-      "src": "/formulario.png",
-
-      "sizes": "750x1334",
-
-      "type": "image/png"
-    }
   ]
 }

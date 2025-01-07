@@ -4,6 +4,7 @@
   --primary: #891924;
   --tertiary: #000000;
   --quaternary: #FFFFFF;
+  --sextenary: #FFFFFF;
 
   --background: #FFFFFF;
   --background-white: #F6F8FA;
@@ -16,8 +17,6 @@
 
   --texto: rgba(0, 0, 0, 0.85);
   --texto-opacity: rgba(0, 0, 0, 0.65);
-
-  --image: url(../img/motocity.png);
 
   --error: #ff4d4f;
   --green: #52c41a;
@@ -41,6 +40,7 @@ html[data-theme="Black-Mode"] {
   --primary: #891924;
   --Tertiary: #000000;
   --quaternary: #FFFFFF;
+  --sextenary: #891924;
 
   --background: #010409;
   --background-white: #0d1117;
@@ -53,8 +53,6 @@ html[data-theme="Black-Mode"] {
 
   --texto: rgba(255, 255, 255, 0.85);
   --texto-opacity: rgba(255, 255, 255, 0.65);
-
-  --image: url(../img/motocity-white.png);
 
   --error: #dc4446;
   --green: #49aa19;
@@ -103,25 +101,6 @@ html[data-theme="Black-Mode"] {
 /* ============================================================*/
 /* Imagen
 /* ============================================================*/
-.img-vertical {
-  width: 100%;
-  height: 780px;
-  object-fit: cover;
-  object-position: top;
-}
-
-.img-horizontal {
-  width: 100%;
-  height: 249px;
-  display: block;
-  object-fit: cover;
-}
-
-.img-default {
-  width: 100%;
-  height: 100%;
-}
-
 .img-fondo {
   top: 0;
   left: 0;
@@ -129,32 +108,45 @@ html[data-theme="Black-Mode"] {
   height: 100%;
   object-fit: cover;
   position: absolute;
-  background: #000000;
+}
+
+.img-horizontal {
+  width: 100%;
+  height: 272px;
+  display: block;
+  object-fit: cover;
+}
+
+.img-vertical {
+  width: 100%;
+  height: 849px;
+  object-fit: cover;
+  object-position: top;
 }
 
 @media (max-width: 575.98px) {
-  .img-vertical {
-    width: 100%;
-    height: 100%;
+  .img-fondo {
+    object-position: center;
   }
 
   .img-horizontal {
     height: 190px;
   }
 
-  .img-fondo {
-    object-position: center;
-  }
-}
-
-@media (min-width: 559px) and (max-width: 991.98px) {
   .img-vertical {
     width: 100%;
     height: 100%;
   }
+}
 
+@media (min-width: 559px) and (max-width: 991.98px) {
   .img-fondo {
     object-position: right;
+  }
+
+  .img-vertical {
+    width: 100%;
+    height: 100%;
   }
 }
 
@@ -162,11 +154,6 @@ html[data-theme="Black-Mode"] {
 /* Header
 /* ============================================================*/
 .ant-layout-header.menu {
-  padding: 12px 0;
-  margin: 35px 0 0 0;
-}
-
-.ant-layout-header.submenu {
   top: 0;
   width: 100%;
   height: 25px;
@@ -183,14 +170,6 @@ html[data-theme="Black-Mode"] {
 
 .fa-sign-out-alt:hover {
   opacity: .8;
-}
-
-.ant-layout-header .motocity {
-  width: 170px;
-  height: 60px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-image: var(--image);
 }
 
 /* ============================================================*/

@@ -12,20 +12,6 @@ const toolsRoutes = [
         component: () => import("@/views/ViewGo.vue")
     },
     {
-        path: "/dte",
-
-        name: "DTE",
-
-        meta: {
-
-            requiresAuth: true,
-
-            requiresRole: ["Contabilidad", "Administrador"]
-        },
-
-        component: () => import("@/views/dte/View.vue")
-    },
-    {
         path: "/pedidos",
 
         name: "Pedidos",

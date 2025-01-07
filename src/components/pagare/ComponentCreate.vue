@@ -1,11 +1,17 @@
 <template>
-    <!--Button-->
-    <a-button class="go-button mb-3" @click="showModal">
-        REGISTRAR
-    </a-button>
+    <!--Float-->
+    <a-float-button tooltip="REGISTRAR" @click="showModal">
+
+        <!--Template-->
+        <template #icon>
+
+            <!--Icono-->
+            <PlusCircleTwoTone two-tone-color="#db2d3f" />
+        </template>
+    </a-float-button>
 
     <!--Modal-->
-    <a-modal v-model:open="visible" width="580px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:open="visible" width="450px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" centered>
 
         <!--Icon-->
@@ -58,8 +64,8 @@
                     <a-form-item label="Departamento:" v-bind="validateInfos.DEPARTAMENTO">
 
                         <!--Select-->
-                        <a-select v-model:value="formstate.DEPARTAMENTO" show-search @change="doChangeMunicipio"
-                            :options="getDepartamento" :filter-option="filterOption" />
+                        <a-select v-model:value="formstate.DEPARTAMENTO" show-search @change="doChangeDistrito"
+                            :options="dataSourceDp" :filter-option="filterOption" />
                     </a-form-item>
                 </a-col>
 
@@ -67,11 +73,11 @@
                 <a-col :span="24">
 
                     <!--Group-->
-                    <a-form-item label="Municipio:" v-bind="validateInfos.MUNICIPIO">
+                    <a-form-item label="Municipio:" v-bind="validateInfos.DISTRITO">
 
                         <!--Select-->
-                        <a-select v-model:value="formstate.MUNICIPIO" show-search :options="dataSourceMn"
-                            :filter-option="filterOption" />
+                        <a-select v-model:value="formstate.DISTRITO" show-search @change="doChangeMunicipio"
+                            :options="dataSourceMn" :filter-option="filterOption" />
                     </a-form-item>
                 </a-col>
 
@@ -105,37 +111,20 @@
                     <a-form-item label="Credito:" v-bind="validateInfos.CREDITO">
 
                         <!--Input-->
-                        <a-input-number type="tel" v-model:value="formstate.CREDITO">
-
-                            <!--Template-->
-                            <template #addonBefore>$</template>
-                        </a-input-number>
+                        <a-input-number type="tel" v-model:value="formstate.CREDITO" />
                     </a-form-item>
                 </a-col>
             </a-row>
         </a-form>
 
-        <!--Flex-->
-        <a-flex gap="small">
+        <!--Popconfirm-->
+        <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
-            <!--Popconfirm-->
-            <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
-
-                <!--Button-->
-                <a-button class="accion-button blue">
-                    COMPLETAR
-                </a-button>
-            </a-popconfirm>
-
-            <!--Popconfirm-->
-            <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear">
-
-                <!--Button-->
-                <a-button class="accion-button aqua">
-                    LIMPIAR
-                </a-button>
-            </a-popconfirm>
-        </a-flex>
+            <!--Button-->
+            <a-button class="accion-button blue">
+                COMPLETAR
+            </a-button>
+        </a-popconfirm>
     </a-modal>
 </template>
 
@@ -147,23 +136,17 @@ import {
 } from "vue"
 
 import {
-    PostPagareApi,
-    ShowPlantillaApi
-} from "@/services"
+    getSuccess,
+    getResponse
+} from "@/utils"
 
 import {
     saveAs
 } from "file-saver"
 
 import {
-    getMunicipio,
-    getDepartamento
-} from "@/utils/data"
-
-import {
-    getSuccess,
-    getResponse
-} from "@/utils/index"
+    Form
+} from "ant-design-vue"
 
 import {
     getPlantilla,
@@ -171,12 +154,24 @@ import {
 } from "@/utils/request"
 
 import {
-    Form
-} from "ant-design-vue"
+    PostPagareApi
+} from "@/services/pagare"
 
 import {
     isValidDUI
 } from "@avalontechsv/idsv"
+
+import {
+    ShowPlantillaApi
+} from "@/services/plantilla"
+
+import {
+    tools
+} from "@/store/modules/tools"
+
+import {
+    PlusCircleTwoTone
+} from "@ant-design/icons-vue"
 
 const useForm = Form.useForm
 
@@ -187,13 +182,11 @@ import dayjs from "dayjs"
 export default {
     data() {
         return {
-            getMunicipio,
-
-            getDepartamento,
-
             dataSourceMn: [],
 
-            dataSourcePl: []
+            dataSourcePl: [],
+
+            dataSourceDp: tools()?.departamento
         }
     },
 
@@ -249,6 +242,8 @@ export default {
 
             MUNICIPIO: null,
 
+            DISTRITO: null,
+
             FECHAPAGO: null,
 
             DIA: null,
@@ -280,7 +275,7 @@ export default {
 
                         const { DUI } = formstate
 
-                        if ((isValidDUI(DUI) == false || DUI?.length < 10) && DUI?.length > 0) {
+                        if ((isValidDUI(DUI ? DUI : 0) == false || DUI?.length < 10) && DUI?.length > 0) {
 
                             return Promise.reject(
 
@@ -305,7 +300,7 @@ export default {
                 }
             ],
 
-            MUNICIPIO: [
+            DISTRITO: [
                 {
                     required: true,
 
@@ -415,7 +410,16 @@ export default {
 
             this.formstate.MUNICIPIO = null
 
-            const data = getMunicipio.filter(item => item.departamento === this.formstate.DEPARTAMENTO)
+            const data = tools()?.municipio.filter(item => item.value === this.formstate.DISTRITO)
+
+            this.formstate.MUNICIPIO = data[0]?.municipio
+        },
+
+        doChangeDistrito() {
+
+            this.formstate.DISTRITO = null
+
+            const data = tools()?.municipio.filter(item => item.departamento === this.formstate.DEPARTAMENTO)
 
             this.dataSourceMn = data
         },
@@ -427,21 +431,11 @@ export default {
             this.formstate[key] = event.target.value.toUpperCase()
 
             this.$nextTick(() => event.target.setSelectionRange(cursorPosition, cursorPosition))
-        },
-
-        doChangeFieldClear() {
-
-            const exclude = ["PLANTILLA"]
-
-            Object.keys(this.formstate)
-
-                .filter(key => !exclude.includes(key))
-
-                .forEach(key => {
-
-                    this.formstate[key] = null
-                })
         }
+    },
+
+    components: {
+        PlusCircleTwoTone
     }
 };
 </script>

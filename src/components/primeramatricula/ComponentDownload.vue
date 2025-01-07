@@ -1,20 +1,22 @@
 <template>
     <!--Button-->
     <a-button :disabled="download" @click="doChangeDownload">
-        DESCARGAR
+
+        <!--Icon-->
+        <SaveTwoTone two-tone-color="#db2d3f" />
     </a-button>
 </template>
 
 <!--=======Script=======-->
 <script>
 import {
-    saveAs
-} from "file-saver"
-
-import {
     getSuccess,
     getResponse
-} from "@/utils/index"
+} from "@/utils"
+
+import {
+    saveAs
+} from "file-saver"
 
 import {
     PostDescarga
@@ -22,7 +24,11 @@ import {
 
 import {
     DownloadPrimeraMatriculaApi
-} from "@/services"
+} from "@/services/download"
+
+import {
+    SaveTwoTone
+} from "@ant-design/icons-vue"
 
 import axios from "axios"
 
@@ -66,6 +72,10 @@ export default {
 
             this.download = false
         }
+    },
+
+    components: {
+        SaveTwoTone
     },
 
     props: ["record"]

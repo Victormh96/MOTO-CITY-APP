@@ -1,7 +1,9 @@
 <template>
     <!--Button-->
     <a-button :disabled="download" @click="doChangeDownload">
-        DESCARGAR
+
+        <!--Icon-->
+        <SaveTwoTone two-tone-color="#db2d3f" />
     </a-button>
 </template>
 
@@ -12,17 +14,21 @@ import {
 } from "file-saver"
 
 import {
-    DownloadReciboApi
-} from "@/services"
-
-import {
     getSuccess,
     getResponse
-} from "@/utils/index"
+} from "@/utils"
 
 import {
     PostDescarga
 } from "@/utils/request"
+
+import {
+    DownloadReciboApi
+} from "@/services/download"
+
+import {
+    SaveTwoTone
+} from "@ant-design/icons-vue"
 
 import axios from "axios"
 
@@ -30,7 +36,7 @@ import dayjs from "dayjs"
 
 export default {
     data() {
-        return {           
+        return {
             download: false
         }
     },
@@ -66,6 +72,10 @@ export default {
 
             this.download = false
         }
+    },
+
+    components: {
+        SaveTwoTone
     },
 
     props: ["record"]

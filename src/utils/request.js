@@ -79,81 +79,6 @@ function PostPlantilla(record) {
     return data
 }
 
-function PutDTE(docentry, tipodoc) {
-
-    const data = {
-
-        body: {
-
-            DOCENTRY: docentry,
-
-            TIPODOC: tipodoc
-        },
-
-        config: {
-
-            headers: {
-
-                Authorization: authentication()?.cuenta?.token
-            }
-        }
-    }
-
-    return data
-}
-
-function getPreciario(record) {
-
-    const data = {
-
-        body: {
-
-            SUCURSAL: authentication()?.cuenta?.sucursal,
-
-            TASA: "0.0483333",
-
-            MESES: record?.MESES
-        },
-
-        config: {
-
-            headers: {
-
-                Authorization: authentication()?.cuenta?.token
-            }
-        }
-    }
-
-    return data
-}
-
-function PostPreciario(record) {
-
-    const data = {
-
-        body: {
-
-            PLANTILLA: 20,
-
-            PRECIARIO: record?.PRECIARIO,
-
-            SUCURSAL: authentication()?.cuenta?.sucursal
-        },
-
-        config: {
-
-            responseType: "blob",
-
-            headers: {
-
-                Authorization: authentication()?.cuenta?.token
-            }
-        }
-    }
-
-    return data
-}
-
 function PostCompraVenta(record) {
 
     const data = {
@@ -267,6 +192,8 @@ function PostPagare(record) {
 
             MUNICIPIO: record?.MUNICIPIO,
 
+            DISTRITO: record?.DISTRITO,
+
             PLANTILLA: record?.PLANTILLA,
 
             USUARIO: authentication()?.cuenta?.slpcode
@@ -299,6 +226,8 @@ function PostPrimeraMatricula(record) {
             DEPARTAMENTO: record?.DEPARTAMENTO,
 
             MUNICIPIO: record?.MUNICIPIO,
+
+            DISTRITO: record?.DISTRITO,
 
             DUI: record?.DUI,
 
@@ -442,12 +371,6 @@ export {
     getPlantilla,
 
     PostPlantilla,
-
-    PutDTE,
-
-    getPreciario,
-
-    PostPreciario,
 
     PostCompraVenta,
 

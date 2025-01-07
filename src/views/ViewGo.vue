@@ -3,7 +3,7 @@
     <Navbar />
 
     <!--Layout-->
-    <a-layout-content class="fade-out">
+    <a-layout-content class="fade-out" v-if="(loading)">
 
         <!--Container-->
         <div class="container mb-3">
@@ -15,13 +15,13 @@
                 <a-col :xs="24" :sm="24" :md="24" :lg="12" :xl="12" :xxl="12" :xxxl="12" class="mb-3 mb-lg-0">
 
                     <!--Desktop-->
-                    <img src="@/assets/img/carrousel/banner.png" class="d-none d-md-block img-vertical" />
+                    <img src="https://mg.mccgo.xyz/BannerPC.png" class="d-none d-md-block img-vertical" />
 
                     <!--Tablet-->
-                    <img src="@/assets/img/carrousel/bannerx2.png" class="d-none d-sm-block d-md-none img-vertical" />
+                    <img src="https://mg.mccgo.xyz/BannerTablet.png" class="d-none d-sm-block d-md-none img-vertical" />
 
                     <!--Mobile-->
-                    <img src="@/assets/img/carrousel/bannerx3.png" class="d-sm-none img-vertical" />
+                    <img src="https://mg.mccgo.xyz/BannerMobile.png" class="d-sm-none img-vertical" />
                 </a-col>
 
                 <!--Col-->
@@ -86,17 +86,6 @@
                         </a-col>
 
                         <!--Col-->
-                        <a-col :span="24" v-if="this.getRole(['Contabilidad', 'Administrador'])">
-
-                            <!--Enlace-->
-                            <router-link :to="{ name: 'DTE' }">
-
-                                <!--Img-->
-                                <img src="@/assets/img/categoria/dte.png" class="img-horizontal">
-                            </router-link>
-                        </a-col>
-
-                        <!--Col-->
                         <a-col :span="24" v-if="this.getRole(['Jefe'])">
 
                             <!--Enlace-->
@@ -115,17 +104,6 @@
 
                                 <!--Img-->
                                 <img src="@/assets/img/categoria/usuario.png" class="img-horizontal">
-                            </router-link>
-                        </a-col>
-
-                        <!--Col-->
-                        <a-col :span="24" v-if="this.getRole(['Jefe'])">
-
-                            <!--Enlace-->
-                            <router-link :to="{ name: 'Preciario' }">
-
-                                <!--Img-->
-                                <img src="@/assets/img/categoria/preciario.png" class="img-horizontal">
                             </router-link>
                         </a-col>
 
@@ -156,17 +134,49 @@
         </div>
     </a-layout-content>
 
+    <!--Layout-->
+    <a-layout-content v-else>
+
+        <!--Row-->
+        <a-row justify="center" align="middle" class="loading">
+
+            <!--Spin-->
+            <a-spin size="large" />
+        </a-row>
+    </a-layout-content>
+
     <!--Footer-->
     <Footer />
 </template>
 
 <!--=======Script=======-->
 <script>
+import {
+    tools
+} from "@/store/modules/tools"
+
 import Footer from "@/components/partials/ComponentFooter.vue"
 
 import Navbar from "@/components/partials/ComponentNavbar.vue"
 
 export default {
+    data() {
+        return {
+            loading: false
+        }
+    },
+
+    async created() {
+
+        await tools().Profesion()
+
+        await tools().Municipio()
+
+        await tools().Departamento()
+
+        this.loading = true
+    },
+
     components: {
         Footer,
         Navbar

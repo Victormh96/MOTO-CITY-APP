@@ -8,6 +8,17 @@
         <!--Container-->
         <div class="container-fluid mb-3">
 
+            <!--Page-->
+            <a-page-header title="COMPRAVENTA" @back="() => $router.push('/')">
+
+                <!--Template-->
+                <template #backIcon>
+
+                    <!--Icon-->
+                    <LeftCircleTwoTone two-tone-color="#db2d3f" />
+                </template>
+            </a-page-header>
+
             <!--Component-->
             <Crear />
 
@@ -48,11 +59,6 @@
                         <a-typography-paragraph :copyable="{ tooltip: false }">
                             {{ record.n_chasis }}
                         </a-typography-paragraph>
-                    </template>
-
-                    <!--Template-->
-                    <template v-if="column.key === 'creado'">
-                        {{ new Date(record.creado)?.toISOString()?.split("T")[0] }}
                     </template>
 
                     <!--Template-->
@@ -99,16 +105,20 @@ import {
 } from "vue"
 
 import {
-    GetCompraVentaApi
-} from "@/services"
-
-import {
     getResponse
-} from "@/utils/index"
+} from "@/utils"
 
 import {
     getToken
 } from "@/utils/request"
+
+import {
+    LeftCircleTwoTone
+} from "@ant-design/icons-vue"
+
+import {
+    GetCompraVentaApi
+} from "@/services/compraventa"
 
 import axios from "axios"
 
@@ -173,6 +183,30 @@ export default {
 
         const column = [{
 
+            title: "PLANTILLA",
+
+            dataIndex: "plantilla",
+
+            key: "plantilla",
+
+            align: "center",
+
+            customFilterDropdown: true,
+
+            onFilter: (value, record) =>
+
+                record.plantilla?.toString()?.toLowerCase().includes(value.toLowerCase()),
+
+            onFilterDropdownOpenChange: visible => {
+
+                if (visible) {
+
+                    setTimeout(() => { focusearch.value.focus() }, 100)
+                }
+            }
+        },
+        {
+
             title: "NOMBRE",
 
             dataIndex: "nombre",
@@ -201,15 +235,6 @@ export default {
             dataIndex: "modelo",
 
             key: "modelo",
-
-            align: "center"
-        },
-        {
-            title: "COLOR",
-
-            dataIndex: "color",
-
-            key: "color",
 
             align: "center"
         },
@@ -292,13 +317,15 @@ export default {
             }
         },
         {
-            title: "ACCIONES",
+            title: "",
 
             dataIndex: "acciones",
 
             key: "acciones",
 
-            align: "center"
+            align: "center",
+
+            width: 50
         }]
 
         const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -340,7 +367,8 @@ export default {
         Crear,
         Footer,
         Navbar,
-        Download
+        Download,
+        LeftCircleTwoTone
     }
 };
 </script>

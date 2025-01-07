@@ -8,25 +8,28 @@
         <!--Container-->
         <div class="container mb-3">
 
-            <!--Row-->
-            <a-row>
+            <!--Page-->
+            <a-page-header title="PEDIDO" @back="() => $router.push('/')">
 
-                <!--Col-->
-                <a-col :span="24">
+                <!--Template-->
+                <template #backIcon>
 
-                    <!--Calendar-->
-                    <a-calendar :value="date" @select="onSelect" />
+                    <!--Icon-->
+                    <LeftCircleTwoTone two-tone-color="#db2d3f" />
+                </template>
+            </a-page-header>
 
-                    <!--Popconfirm-->
-                    <a-popconfirm title="¿Generar documento?" ok-text="Si" cancel-text="No" @confirm="doChangeDownload">
+            <!--Calendar-->
+            <a-calendar :value="date" @select="onSelect" />
 
-                        <!--Button-->
-                        <a-button class="accion-button blue">
-                            DESCARGAR
-                        </a-button>
-                    </a-popconfirm>
-                </a-col>
-            </a-row>
+            <!--Popconfirm-->
+            <a-popconfirm title="¿Generar documento?" ok-text="Si" cancel-text="No" @confirm="doChangeDownload">
+
+                <!--Button-->
+                <a-button class="accion-button blue">
+                    DESCARGAR
+                </a-button>
+            </a-popconfirm>
         </div>
     </a-layout-content>
 
@@ -41,21 +44,25 @@ import {
 } from "vue"
 
 import {
+    getSuccess,
+    getResponse
+} from "@/utils"
+
+import {
     saveAs
 } from "file-saver"
 
 import {
-    DownloadPedidoApi
-} from "@/services"
-
-import {
-    getSuccess,
-    getResponse
-} from "@/utils/index"
-
-import {
     PostDescarga
 } from "@/utils/request"
+
+import {
+    DownloadPedidoApi
+} from "@/services/download"
+
+import {
+    LeftCircleTwoTone
+} from "@ant-design/icons-vue"
 
 import axios from "axios"
 
@@ -112,7 +119,8 @@ export default {
 
     components: {
         Footer,
-        Navbar
+        Navbar,
+        LeftCircleTwoTone
     }
 };
 </script>

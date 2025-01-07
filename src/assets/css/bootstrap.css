@@ -74,7 +74,7 @@ div[tabindex="0"][aria-hidden="true"] {
 
 .contenedor {
     overflow-y: auto;
-    height: calc(100vh - 165px);
+    height: calc(100vh - 96px);
 }
 
 @media (max-width: 991.98px) {
@@ -99,8 +99,8 @@ div[tabindex="0"][aria-hidden="true"] {
 .fr-box.fr-basic .fr-element {
     padding: 15px !important;
     z-index: 9999 !important;
-    min-height: 350px !important;
-    max-height: 350px !important;
+    min-height: 250px !important;
+    max-height: 250px !important;
     margin: -42px 0 0 0 !important;
     color: var(--texto) !important;
 }
@@ -147,7 +147,7 @@ div[tabindex="0"][aria-hidden="true"] {
 }
 
 .fade-out {
-    padding: 0 0 30px 0;
+    padding: 50px 0 30px 0;
     animation: fade-in-animation 0.3s;
 }
 

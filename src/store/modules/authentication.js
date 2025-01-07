@@ -3,14 +3,14 @@ import {
 } from "pinia"
 
 import {
-    CuentaApi
-} from "@/services"
-
-import {
     getOpen,
     getError,
     getWarning
-} from "@/utils/index"
+} from "@/utils"
+
+import {
+    CuentaApi
+} from "@/services/auth"
 
 import axios from "axios"
 

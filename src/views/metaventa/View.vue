@@ -8,6 +8,17 @@
         <!--Container-->
         <div class="container-fluid table-diff mb-3">
 
+            <!--Page-->
+            <a-page-header title="META VENTA" @back="() => $router.push('/')">
+
+                <!--Template-->
+                <template #backIcon>
+
+                    <!--Icon-->
+                    <LeftCircleTwoTone two-tone-color="#db2d3f" />
+                </template>
+            </a-page-header>
+
             <!--Component-->
             <Upload />
 
@@ -40,11 +51,6 @@
                     <!--Template-->
                     <template v-if="column.key === 'MetaCOVID19'">
                         {{ doChangeDollar(record?.MetaCOVID19) }}
-                    </template>
-
-                    <!--Template-->
-                    <template v-if="column.key === 'Fecha'">
-                        {{ new Date(record.Fecha)?.toISOString()?.split("T")[0] }}
                     </template>
                 </template>
 
@@ -84,16 +90,20 @@ import {
 } from "vue"
 
 import {
-    GetMetaVentaApi
-} from "@/services"
-
-import {
     getResponse
-} from "@/utils/index"
+} from "@/utils"
 
 import {
     getToken
 } from "@/utils/request"
+
+import {
+    GetMetaVentaApi
+} from "@/services/metaventa"
+
+import {
+    LeftCircleTwoTone
+} from "@ant-design/icons-vue"
 
 import axios from "axios"
 
@@ -344,7 +354,8 @@ export default {
     components: {
         Upload,
         Footer,
-        Navbar
+        Navbar,
+        LeftCircleTwoTone
     }
 };
 </script>

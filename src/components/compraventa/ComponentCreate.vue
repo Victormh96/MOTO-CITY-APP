@@ -1,11 +1,17 @@
 <template>
-    <!--Button-->
-    <a-button class="go-button mb-3" @click="showModal">
-        REGISTRAR
-    </a-button>
+    <!--Float-->
+    <a-float-button tooltip="REGISTRAR" @click="showModal">
+
+        <!--Template-->
+        <template #icon>
+
+            <!--Icono-->
+            <PlusCircleTwoTone two-tone-color="#db2d3f" />
+        </template>
+    </a-float-button>
 
     <!--Modal-->
-    <a-modal v-model:open="visible" width="580px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:open="visible" width="450px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" centered>
 
         <!--Icon-->
@@ -55,7 +61,7 @@
                     <a-form-item label="Profesion:" v-bind="validateInfos.PROFESION">
 
                         <!--Select-->
-                        <a-select v-model:value="formstate.PROFESION" show-search :options="getProfesion"
+                        <a-select v-model:value="formstate.PROFESION" show-search :options="dataSourcePf"
                             :filter-option="filterOption" :disabled="disabled || profesion" />
                     </a-form-item>
                 </a-col>
@@ -78,8 +84,8 @@
                     <a-form-item label="Departamento:" v-bind="validateInfos.DEPARTAMENTO">
 
                         <!--Select-->
-                        <a-select v-model:value="formstate.DEPARTAMENTO" show-search @change="doChangeMunicipio"
-                            :options="getDepartamento" :filter-option="filterOption" :disabled="disabled" />
+                        <a-select v-model:value="formstate.DEPARTAMENTO" show-search @change="doChangeDistrito"
+                            :options="dataSourceDp" :filter-option="filterOption" :disabled="disabled" />
                     </a-form-item>
                 </a-col>
 
@@ -87,11 +93,11 @@
                 <a-col :span="24">
 
                     <!--Group-->
-                    <a-form-item label="Municipio:" v-bind="validateInfos.MUNICIPIO">
+                    <a-form-item label="Municipio:" v-bind="validateInfos.DISTRITO">
 
                         <!--Select-->
-                        <a-select v-model:value="formstate.MUNICIPIO" show-search :options="dataSourceMn"
-                            :filter-option="filterOption" :disabled="disabled" />
+                        <a-select v-model:value="formstate.DISTRITO" show-search @change="doChangeMunicipio"
+                            :options="dataSourceMn" :filter-option="filterOption" :disabled="disabled" />
                     </a-form-item>
                 </a-col>
 
@@ -121,14 +127,14 @@
                         <a-input-number type="tel" v-model:value="formstate.POLIZA">
 
                             <!--Template-->
-                            <template #addonBefore>{{ [10, 24, 25].includes(formstate.PLANTILLA) ? 'M-' : '4-'
-                                }}</template>
+                            <template #addonBefore>
+                                {{ [10, 24, 25].includes(formstate.PLANTILLA) ? 'M-' : '4-' }}
+                            </template>
 
                             <!--Template-->
                             <template #addonAfter
                                 v-if="[10, 24, 25].includes(formstate.PLANTILLA) ? true : false">-2011</template>
                         </a-input-number>
-
                     </a-form-item>
                 </a-col>
 
@@ -347,8 +353,8 @@
                     <a-form-item label="Departamento:" v-bind="validateInfos.DEPARTAMENTOF">
 
                         <!--Select-->
-                        <a-select v-model:value="formstate.DEPARTAMENTOF" show-search @change="doChangeMunicipioF"
-                            :options="getDepartamento" :filter-option="filterOption" />
+                        <a-select v-model:value="formstate.DEPARTAMENTOF" show-search @change="doChangeDistritoF"
+                            :options="dataSourceDp" :filter-option="filterOption" />
                     </a-form-item>
                 </a-col>
 
@@ -356,11 +362,11 @@
                 <a-col :span="24">
 
                     <!--Group-->
-                    <a-form-item label="Municipio:" v-bind="validateInfos.MUNICIPIOF">
+                    <a-form-item label="Municipio:" v-bind="validateInfos.DISTRITOF">
 
                         <!--Select-->
-                        <a-select v-model:value="formstate.MUNICIPIOF" show-search :options="dataSourceFMn"
-                            :filter-option="filterOption" />
+                        <a-select v-model:value="formstate.DISTRITOF" show-search @change="doChangeMunicipioF"
+                            :options="dataSourceFMn" :filter-option="filterOption" />
                     </a-form-item>
                 </a-col>
             </a-row>
@@ -393,16 +399,6 @@
             <a-button v-if="current > 0" @click="prev" class="accion-button aqua">
                 VOLVER
             </a-button>
-
-            <!--Popconfirm-->
-            <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear"
-                v-if="current === 0">
-
-                <!--Button-->
-                <a-button class="accion-button aqua">
-                    LIMPIAR
-                </a-button>
-            </a-popconfirm>
         </a-flex>
     </a-modal>
 </template>
@@ -415,29 +411,21 @@ import {
 } from "vue"
 
 import {
-    saveAs
-} from "file-saver"
+    getSuccess,
+    getResponse
+} from "@/utils"
 
 import {
-    ShowPlantillaApi,
-    PostCompraVentaApi
-} from "@/services"
+    saveAs
+} from "file-saver"
 
 import {
     getAnio,
     getColor,
     getMarca,
     getModelo,
-    getTipoMoto,
-    getMunicipio,
-    getProfesion,
-    getDepartamento
+    getTipoMoto
 } from "@/utils/data"
-
-import {
-    getSuccess,
-    getResponse
-} from "@/utils/index"
 
 import {
     getPlantilla,
@@ -451,6 +439,22 @@ import {
 import {
     isValidDUI
 } from "@avalontechsv/idsv"
+
+import {
+    ShowPlantillaApi
+} from "@/services/plantilla"
+
+import {
+    tools
+} from "@/store/modules/tools"
+
+import {
+    PlusCircleTwoTone
+} from "@ant-design/icons-vue"
+
+import {
+    PostCompraVentaApi
+} from "@/services/compraventa"
 
 const useForm = Form.useForm
 
@@ -479,12 +483,6 @@ export default {
 
             getTipoMoto,
 
-            getMunicipio,
-
-            getProfesion,
-
-            getDepartamento,
-
             dataSourceMn: [],
 
             dataSourceMd: [],
@@ -494,6 +492,10 @@ export default {
             dataSourceCl: [],
 
             dataSourceFMn: [],
+
+            dataSourcePf: tools()?.profesion,
+
+            dataSourceDp: tools()?.departamento,
 
             steps: [
 
@@ -558,6 +560,8 @@ export default {
 
             MUNICIPIO: null,
 
+            DISTRITO: null,
+
             DUI: null,
 
             PRECIO: null,
@@ -598,6 +602,8 @@ export default {
 
             MUNICIPIOF: null,
 
+            DISTRITOF: null,
+
             DUIF: null
         })
 
@@ -635,7 +641,7 @@ export default {
                 }
             ],
 
-            MUNICIPIO: [
+            DISTRITO: [
                 {
                     required: true,
 
@@ -649,7 +655,7 @@ export default {
 
                         const { DUI } = formstate
 
-                        if ((isValidDUI(DUI) == false || DUI?.length < 10) && DUI?.length > 0) {
+                        if ((isValidDUI(DUI ? DUI : 0) == false || DUI?.length < 10) && DUI?.length > 0) {
 
                             return Promise.reject(
 
@@ -810,7 +816,7 @@ export default {
                 }
             ],
 
-            MUNICIPIOF: [
+            DISTRITOF: [
                 {
                     required: true,
 
@@ -824,7 +830,7 @@ export default {
 
                         const { DUIF } = formstate
 
-                        if ((isValidDUI(DUIF) == false || DUIF?.length < 10) && DUIF?.length > 0) {
+                        if ((isValidDUI(DUIF ? DUIF : 0) == false || DUIF?.length < 10) && DUIF?.length > 0) {
 
                             return Promise.reject(
 
@@ -852,7 +858,7 @@ export default {
 
         const nextDato = () => {
 
-            const field = ["PLANTILLA", "NOMBRE", "PROFESION", "DEPARTAMENTO", "MUNICIPIO", "DUI", "PRECIO"]
+            const field = ["PLANTILLA", "NOMBRE", "PROFESION", "DEPARTAMENTO", "DISTRITO", "DUI", "PRECIO"]
 
             validate(field).then(() => {
 
@@ -912,7 +918,7 @@ export default {
 
             } else if (this.steps[2]?.title === "FIRMA") {
 
-                field = ["NOMBREF", "DUIF", "DEPARTAMENTOF", "MUNICIPIOF"]
+                field = ["NOMBREF", "DUIF", "DEPARTAMENTOF", "DISTRITOF"]
 
             } else {
 
@@ -971,7 +977,7 @@ export default {
 
                 this.doChangeFieldClear()
 
-                const fields = ["NOMBRE", "PROFESION", "DUI", "DEPARTAMENTO", "MUNICIPIO"]
+                const fields = ["NOMBRE", "PROFESION", "DUI", "DEPARTAMENTO", "DISTRITO"]
 
                 for (const field of fields) {
 
@@ -1035,7 +1041,16 @@ export default {
 
             this.formstate.MUNICIPIO = null
 
-            const data = getMunicipio.filter(item => item.departamento === this.formstate.DEPARTAMENTO)
+            const data = tools()?.municipio.filter(item => item.value === this.formstate.DISTRITO)
+
+            this.formstate.MUNICIPIO = data[0]?.municipio
+        },
+
+        doChangeDistrito() {
+
+            this.formstate.DISTRITO = null
+
+            const data = tools()?.municipio.filter(item => item.departamento === this.formstate.DEPARTAMENTO)
 
             this.dataSourceMn = data
         },
@@ -1044,7 +1059,16 @@ export default {
 
             this.formstate.MUNICIPIOF = null
 
-            const data = getMunicipio.filter(item => item.departamento === this.formstate.DEPARTAMENTOF)
+            const data = tools()?.municipio.filter(item => item.value === this.formstate.DISTRITOF)
+
+            this.formstate.MUNICIPIOF = data[0]?.municipio
+        },
+
+        doChangeDistritoF() {
+
+            this.formstate.DISTRITOF = null
+
+            const data = tools()?.municipio.filter(item => item.departamento === this.formstate.DEPARTAMENTOF)
 
             this.dataSourceFMn = data
         },
@@ -1089,6 +1113,10 @@ export default {
                     this.formstate[key] = null
                 })
         }
+    },
+
+    components: {
+        PlusCircleTwoTone
     }
 };
 </script>

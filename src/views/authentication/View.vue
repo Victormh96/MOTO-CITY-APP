@@ -1,6 +1,6 @@
 <template>
     <!--Img-->
-    <img src="@/assets/img/original.png" class="img-fondo">
+    <img src="https://mg.mccgo.xyz/portada.png" class="img-fondo">
 
     <!--Component-->
     <Login />

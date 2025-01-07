@@ -1,11 +1,13 @@
 <template>
     <!--Button-->
     <a-button @click="showModal(); doChangeUsuario()">
-        EDITAR
+
+        <!--Icon-->
+        <EditTwoTone two-tone-color="#db2d3f" />
     </a-button>
 
     <!--Modal-->
-    <a-modal v-model:open="visible" width="580px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:open="visible" width="450px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" centered>
 
         <!--Icon-->
@@ -105,18 +107,14 @@ import {
 } from "vue"
 
 import {
-    PutUsuarioApi
-} from "@/services"
+    getSuccess,
+    getResponse
+} from "@/utils"
 
 import {
     getRol,
     getEstado
 } from "@/utils/data"
-
-import {
-    getSuccess,
-    getResponse
-} from "@/utils/index"
 
 import {
     PostUsuario
@@ -125,6 +123,14 @@ import {
 import {
     Form
 } from "ant-design-vue"
+
+import {
+    PutUsuarioApi
+} from "@/services/usuario"
+
+import {
+    EditTwoTone
+} from "@ant-design/icons-vue"
 
 const useForm = Form.useForm
 
@@ -303,6 +309,10 @@ export default {
 
             this.$nextTick(() => event.target.setSelectionRange(cursorPosition, cursorPosition))
         }
+    },
+
+    components: {
+        EditTwoTone
     },
 
     props: ["record", "dataSourceSc"]

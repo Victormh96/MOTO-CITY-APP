@@ -7,7 +7,7 @@
 <script>
 import {
     getClose
-} from "@/utils/index"
+} from "@/utils"
 
 import {
     Modal

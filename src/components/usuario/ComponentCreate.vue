@@ -1,11 +1,17 @@
 <template>
-    <!--Button-->
-    <a-button class="go-button mb-3" @click="showModal">
-        REGISTRAR
-    </a-button>
+    <!--Float-->
+    <a-float-button tooltip="REGISTRAR" @click="showModal">
+
+        <!--Template-->
+        <template #icon>
+
+            <!--Icono-->
+            <PlusCircleTwoTone two-tone-color="#db2d3f" />
+        </template>
+    </a-float-button>
 
     <!--Modal-->
-    <a-modal v-model:open="visible" width="580px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:open="visible" width="450px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" centered>
 
         <!--Icon-->
@@ -105,11 +111,6 @@ import {
 } from "vue"
 
 import {
-    ShowUsuarioApi,
-    PostUsuarioApi
-} from "@/services"
-
-import {
     getRol,
     getEstado
 } from "@/utils/data"
@@ -127,6 +128,15 @@ import {
 import {
     Form
 } from "ant-design-vue"
+
+import {
+    ShowUsuarioApi,
+    PostUsuarioApi
+} from "@/services/usuario"
+
+import {
+    PlusCircleTwoTone
+} from "@ant-design/icons-vue"
 
 const useForm = Form.useForm
 
@@ -330,6 +340,10 @@ export default {
 
             this.$nextTick(() => event.target.setSelectionRange(cursorPosition, cursorPosition))
         }
+    },
+
+    components: {
+        PlusCircleTwoTone
     },
 
     props: ["dataSourceSc"]

@@ -8,6 +8,17 @@
         <!--Container-->
         <div class="container-fluid mb-3">
 
+            <!--Page-->
+            <a-page-header title="RECIBO" @back="() => $router.push('/')">
+
+                <!--Template-->
+                <template #backIcon>
+
+                    <!--Icon-->
+                    <LeftCircleTwoTone two-tone-color="#db2d3f" />
+                </template>
+            </a-page-header>
+
             <!--Component-->
             <Report />
 
@@ -38,7 +49,7 @@
 
                     <!--Template-->
                     <template v-if="column.key === 'valor'">
-                        $ {{ record.valor }}
+                        {{ doChangeDollar(record?.valor) }}
                     </template>
 
                     <!--Template-->
@@ -49,11 +60,6 @@
 
                         <!--Tag-->
                         <a-tag color="blue" v-if="record.estado == 'FACTURADO'">FACTURADO</a-tag>
-                    </template>
-
-                    <!--Template-->
-                    <template v-if="column.key === 'creado'">
-                        {{ new Date(record.creado)?.toISOString()?.split("T")[0] }}
                     </template>
 
                     <!--Template-->
@@ -68,7 +74,9 @@
 
                                 <!--Button-->
                                 <a-button :disabled="record.estado == 'ANULADO'">
-                                    ANULAR
+
+                                    <!--Icon-->
+                                    <MinusCircleTwoTone two-tone-color="#db2d3f" />
                                 </a-button>
                             </a-popconfirm>
 
@@ -114,21 +122,28 @@ import {
 } from "vue"
 
 import {
-    GetReciboApi,
-    PutReciboApi
-} from "@/services"
-
-import {
     getWarning,
     getResponse
-} from "@/utils/index"
+} from "@/utils"
 
 import {
     getToken,
     PutRecibo
 } from "@/utils/request"
 
+import {
+    GetReciboApi,
+    PutReciboApi
+} from "@/services/recibo"
+
+import {
+    LeftCircleTwoTone,
+    MinusCircleTwoTone
+} from "@ant-design/icons-vue"
+
 import axios from "axios"
+
+import numeral from "numeral"
 
 import Report from "@/components/recibo/ComponentReport.vue"
 
@@ -371,7 +386,7 @@ export default {
             }
         },
         {
-            title: "ACCIONES",
+            title: "",
 
             dataIndex: "acciones",
 
@@ -379,7 +394,7 @@ export default {
 
             align: "center",
 
-            width: 300
+            width: 100
         }]
 
         const handleSearch = (selectedKeys, confirm, dataIndex) => {
@@ -441,7 +456,9 @@ export default {
         Footer,
         Navbar,
         Report,
-        Download
+        Download,
+        LeftCircleTwoTone,
+        MinusCircleTwoTone
     }
 };
 </script>

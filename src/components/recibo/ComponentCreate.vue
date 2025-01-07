@@ -1,11 +1,17 @@
 <template>
-    <!--Button-->
-    <a-button class="go-button mb-3" @click="showModal">
-        REGISTRAR
-    </a-button>
+    <!--Float-->
+    <a-float-button tooltip="REGISTRAR" @click="showModal">
+
+        <!--Template-->
+        <template #icon>
+
+            <!--Icono-->
+            <PlusCircleTwoTone two-tone-color="#db2d3f" />
+        </template>
+    </a-float-button>
 
     <!--Modal-->
-    <a-modal v-model:open="visible" width="580px" :destroyOnClose="true" :maskClosable="false" :footer="null"
+    <a-modal v-model:open="visible" width="450px" :destroyOnClose="true" :maskClosable="false" :footer="null"
         :keyboard="false" centered>
 
         <!--Icon-->
@@ -91,27 +97,14 @@
             </a-row>
         </a-form>
 
-        <!--Flex-->
-        <a-flex gap="small">
+        <!--Popconfirm-->
+        <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
 
-            <!--Popconfirm-->
-            <a-popconfirm title="¿Estas seguro?" ok-text="Si" cancel-text="No" @confirm="doChangeValidacion">
-
-                <!--Button-->
-                <a-button class="accion-button blue">
-                    COMPLETAR
-                </a-button>
-            </a-popconfirm>
-
-            <!--Popconfirm-->
-            <a-popconfirm title="¿Limpiar campos?" ok-text="Si" cancel-text="No" @confirm="doChangeFieldClear">
-
-                <!--Button-->
-                <a-button class="accion-button aqua">
-                    LIMPIAR
-                </a-button>
-            </a-popconfirm>
-        </a-flex>
+            <!--Button-->
+            <a-button class="accion-button blue">
+                COMPLETAR
+            </a-button>
+        </a-popconfirm>
     </a-modal>
 </template>
 
@@ -123,19 +116,9 @@ import {
 } from "vue"
 
 import {
-    PostReciboApi,
-    ShowPlantillaApi
-} from "@/services"
-
-import {
     getSuccess,
     getResponse
-} from "@/utils/index"
-
-import {
-    PostRecibo,
-    getPlantilla
-} from "@/utils/request"
+} from "@/utils"
 
 import {
     getTipoPago
@@ -144,6 +127,23 @@ import {
 import {
     Form
 } from "ant-design-vue"
+
+import {
+    PostRecibo,
+    getPlantilla
+} from "@/utils/request"
+
+import {
+    PostReciboApi
+} from "@/services/recibo"
+
+import {
+    ShowPlantillaApi
+} from "@/services/plantilla"
+
+import {
+    PlusCircleTwoTone
+} from "@ant-design/icons-vue"
 
 const useForm = Form.useForm
 
@@ -328,21 +328,11 @@ export default {
             this.formstate[key] = event.target.value.toUpperCase()
 
             this.$nextTick(() => event.target.setSelectionRange(cursorPosition, cursorPosition))
-        },
-
-        doChangeFieldClear() {
-
-            const exclude = ["PLANTILLA"]
-
-            Object.keys(this.formstate)
-
-                .filter(key => !exclude.includes(key))
-
-                .forEach(key => {
-
-                    this.formstate[key] = null
-                })
         }
+    },
+
+    components: {
+        PlusCircleTwoTone
     }
 };
 </script>

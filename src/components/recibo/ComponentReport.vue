@@ -1,18 +1,14 @@
 <template>
-    <!--Group-->
-    <a-float-button-group shape="circle">
+    <!--Float-->
+    <a-float-button tooltip="DESCARGAR" @click="showModal()">
 
-        <!--Float-->
-        <a-float-button tooltip="DESCARGAR" @click="showModal()">
+        <!--Template-->
+        <template #icon>
 
-            <!--Template-->
-            <template #icon>
-
-                <!--Icono-->
-                <DownloadOutlined />
-            </template>
-        </a-float-button>
-    </a-float-button-group>
+            <!--Icono-->
+            <CloudTwoTone two-tone-color="#db2d3f" />
+        </template>
+    </a-float-button>
 
     <!--Modal-->
     <a-modal v-model:open="visible" width="350px" class="cargando" :footer="false" centered>
@@ -48,28 +44,28 @@ import {
 } from "vue"
 
 import {
-    saveAs
-} from "file-saver"
-
-import {
-    ReportReciboApi
-} from "@/services"
-
-import {
     getSuccess,
     getResponse
-} from "@/utils/index"
+} from "@/utils"
 
 import {
-    PostDescarga
-} from "@/utils/request"
+    saveAs
+} from "file-saver"
 
 import {
     Form
 } from "ant-design-vue"
 
 import {
-    DownloadOutlined
+    PostDescarga
+} from "@/utils/request"
+
+import {
+    ReportReciboApi
+} from "@/services/recibo"
+
+import {
+    CloudTwoTone
 } from "@ant-design/icons-vue"
 
 const useForm = Form.useForm
@@ -181,7 +177,7 @@ export default {
     },
 
     components: {
-        DownloadOutlined
+        CloudTwoTone
     }
 };
 </script>

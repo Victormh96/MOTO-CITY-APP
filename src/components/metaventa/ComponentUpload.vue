@@ -1,37 +1,43 @@
 <template>
-    <!--Flex-->
-    <a-flex gap="small" justify="flex-start">
+    <!--Upload-->
+    <a-upload name="file" :customRequest="doChangeUpload" :beforeUpload="doChangeValidacion" :max-count="1"
+        accept=".xlsx">
 
-        <!--Upload-->
-        <a-upload name="file" :customRequest="doChangeUpload" :beforeUpload="doChangeValidacion" :max-count="1"
-            accept=".xlsx">
+        <!--Float-->
+        <a-float-button tooltip="REGISTRAR">
 
-            <!--Button-->
-            <a-button class="go-button mb-3">
-                REGISTRAR
-            </a-button>
-        </a-upload>
+            <!--Template-->
+            <template #icon>
 
-        <!--Picker-->
-        <a-date-picker v-model:value="DocDate" picker="month" :allowClear="false" class="month" :inputReadOnly="true"/>
-    </a-flex>
+                <!--Icono-->
+                <PlusCircleTwoTone two-tone-color="#db2d3f" />
+            </template>
+        </a-float-button>
+    </a-upload>
+
+    <!--Picker-->
+    <a-date-picker v-model:value="DocDate" picker="month" :allowClear="false" class="month" :inputReadOnly="true" />
 </template>
 
 <!--=======Script=======-->
 <script>
 import {
-    PostMetaVentapi
-} from "@/services"
-
-import {
     getSuccess,
     getWarning,
     getResponse
-} from "@/utils/index"
+} from "@/utils"
 
 import {
     getToken
 } from "@/utils/request"
+
+import {
+    PostMetaVentapi
+} from "@/services/metaventa"
+
+import {
+    PlusCircleTwoTone
+} from "@ant-design/icons-vue"
 
 import axios from "axios"
 
@@ -91,6 +97,10 @@ export default {
                 onError(err)
             }
         }
+    },
+
+    components: {
+        PlusCircleTwoTone
     }
 };
 </script>
