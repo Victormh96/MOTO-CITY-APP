@@ -373,6 +373,13 @@ const getColor = [
         modelo: "TERRA"
     },
     {
+        value: "ROJO MULTICOLOR",
+
+        label: "ROJO MULTICOLOR",
+
+        modelo: "TERRA"
+    },
+    {
         value: "NEGRO MULTICOLOR",
 
         label: "NEGRO MULTICOLOR",
@@ -590,6 +597,11 @@ const getTipoMoto = [
         value: "UTILITARIO",
 
         label: "UTILITARIO"
+    },
+    {
+        value: "CAJON",
+
+        label: "CAJON"
     }
 ]
 

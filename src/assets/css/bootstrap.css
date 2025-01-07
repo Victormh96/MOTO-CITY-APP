@@ -74,7 +74,7 @@ div[tabindex="0"][aria-hidden="true"] {
 
 .contenedor {
     overflow-y: auto;
-    height: calc(100vh - 96px);
+    height: 848px;
 }
 
 @media (max-width: 991.98px) {
