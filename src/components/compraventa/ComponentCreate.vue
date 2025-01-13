@@ -108,7 +108,7 @@
                     <a-form-item label="Precio Venta:" v-bind="validateInfos.PRECIO">
 
                         <!--Input-->
-                        <a-input-number type="tel" v-model:value="formstate.PRECIO" :min="1" />
+                        <a-input-number type="tel" v-model:value="formstate.PRECIO" :min="1" :disabled="declaracion" />
                     </a-form-item>
                 </a-col>
             </a-row>
@@ -376,7 +376,7 @@
         <a-flex gap="small">
 
             <!--Button-->
-            <a-button v-if="current === 0" @click="nextDato" class="accion-button blue">
+            <a-button v-if="current === 0 && formstate.PLANTILLA != 29" @click="nextDato" class="accion-button blue">
                 SIGUIENTE
             </a-button>
 
@@ -472,6 +472,8 @@ export default {
             profesion: false,
 
             vencimiento: false,
+
+            declaracion: false,
 
             getAnio,
 
@@ -912,16 +914,20 @@ export default {
 
             let field = []
 
-            if (this.steps[2]?.title === "PAGO") {
+            if (this.steps[0]?.title === "DATO" && this.formstate.PLANTILLA === 29) {
+                console.log('1')
+                field = ["PLANTILLA", "NOMBRE", "PROFESION", "DEPARTAMENTO", "DISTRITO", "DUI", "PRECIO"]
 
+            } else if (this.steps[2]?.title === "PAGO") {
+                console.log('2')
                 field = ["MESES", "VENCIMIENTO", "PRIMERACUOTA", "DIAPAGO", "CUOTA", "PRECIOCUOTA"]
 
             } else if (this.steps[2]?.title === "FIRMA") {
-
+                console.log('3')
                 field = ["NOMBREF", "DUIF", "DEPARTAMENTOF", "DISTRITOF"]
 
             } else {
-
+                console.log('YES')
                 field = ["POLIZA", "MARCA", "MODELO", "ANIO", "COLOR", "NUMEROMOTOR", "NUMEROCHASIS", "TIPO"]
             }
 
@@ -967,7 +973,7 @@ export default {
 
         doChangeReplace(value, option) {
 
-            if ([1, 10, 12, 13, 9, 18, 22, 25].includes(value)) {
+            if ([1, 10, 12, 13, 9, 18, 22, 25, 29].includes(value)) {
 
                 this.doChangeFieldClear()
 
@@ -1018,11 +1024,22 @@ export default {
                 this.vencimiento = false
             }
 
+            if ([29].includes(value)) {
+
+                this.declaracion = true
+
+                this.formstate.PRECIO = 0
+
+            } else {
+
+                this.declaracion = false
+            }
+
             this.steps = [
 
                 { title: "DATO" },
 
-                { title: "MOTO" },
+                ...([29].includes(value) ? [] : [{ title: "MOTO" }]),
 
                 ...([12, 13, 18, 22].includes(value) ? [{ title: "PAGO" }] : []),
 
