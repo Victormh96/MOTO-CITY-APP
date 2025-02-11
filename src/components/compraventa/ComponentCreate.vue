@@ -1058,7 +1058,7 @@ export default {
 
             this.formstate.MUNICIPIO = null
 
-            const data = tools()?.municipio.filter(item => item.value === this.formstate.DISTRITO)
+            const data = tools()?.municipio.filter(item => item.value === this.formstate.DISTRITO && item.departamento === this.formstate.DEPARTAMENTO)
 
             this.formstate.MUNICIPIO = data[0]?.municipio
         },
@@ -1076,7 +1076,7 @@ export default {
 
             this.formstate.MUNICIPIOF = null
 
-            const data = tools()?.municipio.filter(item => item.value === this.formstate.DISTRITOF)
+            const data = tools()?.municipio.filter(item => item.value === this.formstate.DISTRITOF && item.departamento === this.formstate.DEPARTAMENTOF)
 
             this.formstate.MUNICIPIOF = data[0]?.municipio
         },
