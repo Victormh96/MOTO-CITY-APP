@@ -178,6 +178,20 @@ const getModelo = [
         label: "CR150II",
 
         marca: "KATANA"
+    },
+    {
+        value: "KN150",
+
+        label: "KN150",
+
+        marca: "KATANA"
+    },
+    {
+        value: "CK250-2R",
+
+        label: "CK250-2R",
+
+        marca: "KATANA"
     }
 ]
 
@@ -462,6 +476,34 @@ const getColor = [
         label: "NEGRO/AZUL C/F MULTICOLOR",
 
         modelo: "CR150II"
+    },
+    {
+        value: "ROJO MULTICOLOR",
+
+        label: "ROJO MULTICOLOR",
+
+        modelo: "KN150"
+    },
+    {
+        value: "NEGRO MULTICOLOR",
+
+        label: "NEGRO MULTICOLOR",
+
+        modelo: "KN150"
+    },
+    {
+        value: "NEGRO C/F MULTICOLOR",
+
+        label: "NEGRO C/F MULTICOLOR",
+
+        modelo: "CK250-2R"
+    },
+    {
+        value: "AZUL C/F MULTICOLOR",
+
+        label: "AZUL C/F MULTICOLOR",
+
+        modelo: "CK250-2R"
     }
 ]
 
