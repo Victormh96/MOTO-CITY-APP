@@ -187,9 +187,9 @@ const getModelo = [
         marca: "KATANA"
     },
     {
-        value: "CK250-2R",
+        value: "CK 250-2R",
 
-        label: "CK250-2R",
+        label: "CK 250-2R",
 
         marca: "KATANA"
     }
@@ -496,14 +496,14 @@ const getColor = [
 
         label: "NEGRO C/F MULTICOLOR",
 
-        modelo: "CK250-2R"
+        modelo: "CK 250-2R"
     },
     {
         value: "AZUL C/F MULTICOLOR",
 
         label: "AZUL C/F MULTICOLOR",
 
-        modelo: "CK250-2R"
+        modelo: "CK 250-2R"
     }
 ]
 
