@@ -169,7 +169,7 @@
 
                         <!--Select-->
                         <a-select v-model:value="formstate.MODELO" show-search :options="dataSourceMd"
-                            :filter-option="filterOption" @change="doChangeColor" />
+                            :filter-option="filterOption" @change="doChangeColor(); doChangeTipo()" />
                     </a-form-item>
                 </a-col>
 
@@ -190,8 +190,8 @@
                     <!--Group-->
                     <a-form-item label="Tipo:" v-bind="validateInfos.TIPO">
 
-                        <!--Select-->
-                        <a-select v-model:value="formstate.TIPO" :options="getTipoMoto" />
+                        <!--Input-->
+                        <a-input v-model:value="formstate.TIPO" :disabled="true" />
                     </a-form-item>
                 </a-col>
 
@@ -423,8 +423,7 @@ import {
     getAnio,
     getColor,
     getMarca,
-    getModelo,
-    getTipoMoto
+    getModelo
 } from "@/utils/data"
 
 import {
@@ -482,8 +481,6 @@ export default {
             getMarca,
 
             getModelo,
-
-            getTipoMoto,
 
             dataSourceMn: [],
 
@@ -915,19 +912,19 @@ export default {
             let field = []
 
             if (this.steps[0]?.title === "DATO" && this.formstate.PLANTILLA === 29) {
-                console.log('1')
+
                 field = ["PLANTILLA", "NOMBRE", "PROFESION", "DEPARTAMENTO", "DISTRITO", "DUI", "PRECIO"]
 
             } else if (this.steps[2]?.title === "PAGO") {
-                console.log('2')
+
                 field = ["MESES", "VENCIMIENTO", "PRIMERACUOTA", "DIAPAGO", "CUOTA", "PRECIOCUOTA"]
 
             } else if (this.steps[2]?.title === "FIRMA") {
-                console.log('3')
+
                 field = ["NOMBREF", "DUIF", "DEPARTAMENTOF", "DISTRITOF"]
 
             } else {
-                console.log('YES')
+
                 field = ["POLIZA", "MARCA", "MODELO", "ANIO", "COLOR", "NUMEROMOTOR", "NUMEROCHASIS", "TIPO"]
             }
 
@@ -1106,6 +1103,15 @@ export default {
             const data = getColor.filter(item => item.modelo === this.formstate.MODELO)
 
             this.dataSourceCl = data
+        },
+
+        doChangeTipo() {
+
+            this.formstate.TIPO = null
+
+            const data = this.dataSourceMd.filter(item => item.value === this.formstate.MODELO)
+
+            this.formstate.TIPO = data[0]?.tipo
         },
 
         doChangeLetter(key, event) {

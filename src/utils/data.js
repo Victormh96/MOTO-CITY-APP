@@ -65,133 +65,180 @@ const getModelo = [
 
         label: "DY250ZH-2",
 
-        marca: "DAYUN"
+        marca: "DAYUN",
+
+        tipo: "CAJON"
     },
     {
         value: "DY250-8",
 
         label: "DY250-8",
 
-        marca: "DAYUN"
+        marca: "DAYUN",
+
+        tipo: "DEPORTIVO"
     },
     {
         value: "DY125-6",
 
         label: "DY125-6",
 
-        marca: "DAYUN"
+        marca: "DAYUN",
+
+        tipo: "URBANO"
     },
     {
         value: "DY150-29",
 
         label: "DY150-29",
 
-        marca: "DAYUN"
+        marca: "DAYUN",
+
+        tipo: "URBANO"
     },
     {
         value: "DY150-6E",
 
         label: "DY150-6E",
 
-        marca: "DAYUN"
+        marca: "DAYUN",
+
+        tipo: "URBANO"
     },
     {
         value: "DY200-9",
 
         label: "DY200-9",
 
-        marca: "DAYUN"
+        marca: "DAYUN",
+
+        tipo: "URBANO"
     },
     {
         value: "DY150-16D",
 
         label: "DY150-16D",
 
-        marca: "DAYUN"
+        marca: "DAYUN",
+
+        tipo: "URBANO"
     },
     {
         value: "NITRO150",
 
         label: "NITRO150",
 
-        marca: "KATANA"
+        marca: "KATANA",
+
+        tipo: "URBANO"
     },
     {
         value: "SCRAMBLER",
 
         label: "SCRAMBLER",
 
-        marca: "KATANA"
+        marca: "KATANA",
+
+        tipo: "DUAL"
     },
     {
         value: "TERRA",
 
         label: "TERRA",
 
-        marca: "KATANA"
+        marca: "KATANA",
+
+        tipo: "UTILITARIO"
     },
     {
         value: "SMX200",
 
         label: "SMX200",
 
-        marca: "KATANA"
+        marca: "KATANA",
+
+        tipo: "URBANO"
     },
     {
         value: "SMX150",
 
         label: "SMX150",
 
-        marca: "KATANA"
+        marca: "KATANA",
+
+        tipo: "URBANO"
     },
     {
         value: "R1-200",
 
         label: "R1-200",
 
-        marca: "KATANA"
+        marca: "KATANA",
+
+        tipo: "URBANO"
     },
     {
         value: "MK1",
 
         label: "MK1",
 
-        marca: "KATANA"
+        marca: "KATANA",
+
+        tipo: "URBANO"
     },
     {
         value: "CR150",
 
         label: "CR150",
 
-        marca: "KATANA"
+        marca: "KATANA",
+
+        tipo: "URBANO"
     },
     {
         value: "NAVE 150",
 
         label: "NAVE 150",
 
-        marca: "KATANA"
+        marca: "KATANA",
+
+        tipo: "URBANO"
     },
     {
         value: "CR150II",
 
         label: "CR150II",
 
-        marca: "KATANA"
+        marca: "KATANA",
+
+        tipo: "URBANO"
     },
     {
         value: "KN150",
 
         label: "KN150",
 
-        marca: "KATANA"
+        marca: "KATANA",
+
+        tipo: "URBANO"
     },
     {
-        value: "CK 250-2R",
+        value: "250-2R",
 
-        label: "CK 250-2R",
+        label: "250-2R",
 
-        marca: "KATANA"
+        marca: "KATANA",
+
+        tipo: "CAJON"
+    },
+    {
+        value: "TERRA 330",
+
+        label: "TERRA 330",
+
+        marca: "KATANA",
+
+        tipo: "UTILITARIO"
     }
 ]
 
@@ -496,14 +543,28 @@ const getColor = [
 
         label: "NEGRO C/F MULTICOLOR",
 
-        modelo: "CK 250-2R"
+        modelo: "250-2R"
     },
     {
         value: "AZUL C/F MULTICOLOR",
 
         label: "AZUL C/F MULTICOLOR",
 
-        modelo: "CK 250-2R"
+        modelo: "250-2R"
+    },
+    {
+        value: "BLANCO MULTICOLOR",
+
+        label: "BLANCO MULTICOLOR",
+
+        modelo: "TERRA 330"
+    },
+    {
+        value: "NARANJA MULTICOLOR",
+
+        label: "NARANJA MULTICOLOR",
+
+        modelo: "TERRA 330"
     }
 ]
 
@@ -624,29 +685,6 @@ const getmes = [
     }
 ]
 
-const getTipoMoto = [
-    {
-        value: "URBANO",
-
-        label: "URBANO"
-    },
-    {
-        value: "DEPORTIVO",
-
-        label: "DEPORTIVO"
-    },
-    {
-        value: "UTILITARIO",
-
-        label: "UTILITARIO"
-    },
-    {
-        value: "CAJON",
-
-        label: "CAJON"
-    }
-]
-
 export {
 
     getAnio,
@@ -663,7 +701,5 @@ export {
 
     getRol,
 
-    getmes,
-
-    getTipoMoto
+    getmes
 } 
